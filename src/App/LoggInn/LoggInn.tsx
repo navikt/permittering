@@ -9,15 +9,17 @@ import Hovedknapp from "nav-frontend-knapper/lib/hovedknapp";
 import Lenke from "nav-frontend-lenker";
 import LoggInnBanner from "./LoggInnBanner/LoggInnBanner";
 
+
 const LoggInn = () => {
     const redirectTilLogin = () => {
-        /*if (environment.MILJO === 'prod-sbs' || environment.MILJO === 'dev-sbs') {
+        /*if (environment.MILJO && (environment.MILJO === 'prod-sbs' || environment.MILJO === 'dev-sbs')) {
             window.location.href = '/arbeidsforhold/redirect-til-login';
         } else {
             document.cookie = 'selvbetjening-idtoken =0123456789..*; path=/;';
             window.location.href = '/arbeidsforhold/';
-        }
-        */
+        }*/
+        document.cookie = 'selvbetjening-idtoken =0123456789..*; path=/;';
+        window.location.href = '/arbeidsforhold/';
     };
 
 
@@ -41,9 +43,9 @@ const LoggInn = () => {
                 <div className="innloggingsside__besok-ditt-nav">
                     <Normaltekst>
                         Ønsker du å se dine tjenester som privatperson?
-                        <p className="logg-inn-lenke">
+                        <div className="logg-inn-lenke">
                             <Lenke href="https://www.nav.no/person/dittnav/">Logg inn på Ditt NAV</Lenke>
-                        </p>
+                        </div>
                     </Normaltekst>
                 </div>
             </div>

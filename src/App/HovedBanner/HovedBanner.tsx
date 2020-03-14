@@ -6,9 +6,13 @@ import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 
 import './HovedBanner.less';
 import {Organisasjon} from "@navikt/bedriftsmeny/lib/Organisasjon";
-import {mockedeOrganisasjoner} from "../mocking/Organisasjoner";
 
-const Banner: FunctionComponent<RouteComponentProps> = props => {
+interface Props extends RouteComponentProps {
+    byttOrganisasjon?: (org: Organisasjon) => void;
+    organisasjoner: Organisasjon[];
+}
+
+const Banner: FunctionComponent<Props> = props => {
 
     const { history } = props;
     const onOrganisasjonChange = (organisasjon?: Organisasjon) => {
@@ -16,12 +20,11 @@ const Banner: FunctionComponent<RouteComponentProps> = props => {
             //endreOrganisasjon(organisasjon);
         }
     };
-    const Organisasjoner = mockedeOrganisasjoner;
 
     return (
         <Bedriftsmeny
             sidetittel="Min side – arbeidsgiver"
-            organisasjoner={Organisasjoner}
+            organisasjoner={props.organisasjoner}
             onOrganisasjonChange={onOrganisasjonChange}
             history={history}
         />

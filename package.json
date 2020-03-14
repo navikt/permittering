@@ -5,6 +5,7 @@
   "homepage": "/permittering",
   "dependencies": {
     "@navikt/bedriftsmeny": "^2.0.2",
+    "@sentry/browser": "^5.14.2",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -16,6 +17,8 @@
     "classnames": "^2.2.6",
     "craco": "^0.0.3",
     "craco-less": "^1.16.0",
+    "express": "^4.17.1",
+    "fetch-mock": "^9.2.1",
     "lodash.throttle": "^4.1.1",
     "nav-frontend-core": "^4.0.12",
     "nav-frontend-js-utils": "^1.0.8",
@@ -30,13 +33,16 @@
     "react-dom": "^16.13.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "unorm": "^1.6.0"
   },
   "scripts": {
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "craco eject"
+    "eject": "craco eject",
+    "winmock": "set REACT_APP_MOCK=true && yarn start",
+    "mock": "REACT_APP_MOCK=true yarn start"
   },
   "eslintConfig": {
     "extends": "react-app"
