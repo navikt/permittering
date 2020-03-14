@@ -12,6 +12,19 @@
     "@types/react": "^16.9.23",
     "@types/react-dom": "^16.9.5",
     "@types/react-router-dom": "^5.1.3",
+    "classnames": "^2.2.6",
+    "craco": "^0.0.3",
+    "craco-less": "^1.16.0",
+    "lodash.throttle": "^4.1.1",
+    "nav-frontend-core": "^4.0.12",
+    "nav-frontend-js-utils": "^1.0.8",
+    "nav-frontend-knapper": "^1.0.40",
+    "nav-frontend-knapper-style": "^0.3.35",
+    "nav-frontend-lenker": "^1.0.34",
+    "nav-frontend-lenker-style": "^0.2.25",
+    "nav-frontend-typografi": "^2.0.18",
+    "nav-frontend-typografi-style": "^1.0.19",
+    "prop-types": "^15.7.2",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-router-dom": "^5.1.2",
@@ -19,10 +32,10 @@
     "typescript": "^3.8.3"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "craco eject"
   },
   "eslintConfig": {
     "extends": "react-app"
