@@ -15,7 +15,7 @@ const LoggInnBanner = () => {
                 </div>
                 <div className="logg-inn-banner__bilder">
                     <img src={medhjelm} alt="" />
-                    <img src={telefon} alt="" />
+                    <img src={telefon} alt=""/>
                     <img src={kokk} alt="" />
                 </div>
             </div>
