@@ -35,8 +35,9 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
-    "test": "craco test",
-    "eject": "craco eject"
+    "test": "CI=true craco test -w 1",
+    "eject": "craco eject",
+    "up": "docker-compose up -d --remove-orphans --build"
   },
   "eslintConfig": {
     "extends": "react-app"

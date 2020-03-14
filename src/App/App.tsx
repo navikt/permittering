@@ -16,7 +16,7 @@ function App() {
             <LoggInn/>
           </Route>
           <Route exact path="/permitteringsskjema">
-            Permetteringsskjema
+            Permitteringsskjema
           </Route>
           </Router>
 
