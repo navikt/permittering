@@ -41,9 +41,9 @@ const LoggInn = () => {
                 <div className="innloggingsside__besok-ditt-nav">
                     <Normaltekst>
                         Ønsker du å se dine tjenester som privatperson?
-                        <p className="logg-inn-lenke">
+                        <span className="logg-inn-lenke">
                             <Lenke href="https://www.nav.no/person/dittnav/">Logg inn på Ditt NAV</Lenke>
-                        </p>
+                        </span>
                     </Normaltekst>
                 </div>
             </div>
