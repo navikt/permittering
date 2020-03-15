@@ -12,7 +12,7 @@ const veilarbStatusProxyConfig = {
     changeOrigin: true,
     target: veilarbStatus(),
     pathRewrite: {
-        '^/arbeidsforhold': ''
+        '^/permittering': ''
     },
     secure: true,
     xfwd: true

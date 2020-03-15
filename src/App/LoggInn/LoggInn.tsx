@@ -10,15 +10,15 @@ import Lenke from "nav-frontend-lenker";
 import LoggInnBanner from "./LoggInnBanner/LoggInnBanner";
 
 const LoggInn = () => {
+
     const redirectTilLogin = () => {
-        /*if (environment.MILJO && (environment.MILJO === 'prod-sbs' || environment.MILJO === 'dev-sbs')) {
-            window.location.href = '/arbeidsforhold/redirect-til-login';
-        } else {
+        if (process.env.NODE_ENV === 'development' || process.env.REACT_APP_ON_HEROKU === 'true') {
             document.cookie = 'selvbetjening-idtoken =0123456789..*; path=/;';
-            window.location.href = '/arbeidsforhold/';
-        }*/
-        document.cookie = 'selvbetjening-idtoken =0123456789..*; path=/;';
-        window.location.href = '/arbeidsforhold/';
+            window.location.href = '/permittering/';
+        } else {
+            if (process.env.SELVBETJENING_LOGIN_URL)
+            window.location.href = process.env.SELVBETJENING_LOGIN_URL;
+        }
     };
 
 

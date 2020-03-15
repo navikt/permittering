@@ -6,8 +6,7 @@ import LoggInn from "./LoggInn/LoggInn";
 import Banner from "./HovedBanner/HovedBanner";
 import {hentOrganisasjonerFraAltinn} from "../api/AltinnApi";
 import {Organisasjon} from "@navikt/bedriftsmeny/lib/Organisasjon";
-import LoginBoundary from "./LoggInn/LoginBoundary";
-
+import LoginBoundary from "../LoginBoundary";
 
 function App() {
   const [organisasjoner, setorganisasjoner] = useState(Array<Organisasjon>());
