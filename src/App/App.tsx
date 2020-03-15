@@ -6,6 +6,7 @@ import LoggInn from "./LoggInn/LoggInn";
 import Banner from "./HovedBanner/HovedBanner";
 import {hentOrganisasjonerFraAltinn} from "../api/AltinnApi";
 import {Organisasjon} from "@navikt/bedriftsmeny/lib/Organisasjon";
+import LoginBoundary from "./LoggInn/LoginBoundary";
 
 
 function App() {
@@ -28,10 +29,9 @@ function App() {
 
   console.log(organisasjoner);
 
-
-
   return (
       <div className="app">
+        <LoginBoundary>
         <Router basename={basename}>
           <Banner organisasjoner={organisasjoner}/>
           <Route exact path="/">
@@ -41,6 +41,7 @@ function App() {
             Permitteringsskjema
           </Route>
           </Router>
+          </LoginBoundary>
       </div>
   );
 }

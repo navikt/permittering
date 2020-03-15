@@ -9,7 +9,6 @@ import Hovedknapp from "nav-frontend-knapper/lib/hovedknapp";
 import Lenke from "nav-frontend-lenker";
 import LoggInnBanner from "./LoggInnBanner/LoggInnBanner";
 
-
 const LoggInn = () => {
     const redirectTilLogin = () => {
         /*if (environment.MILJO && (environment.MILJO === 'prod-sbs' || environment.MILJO === 'dev-sbs')) {
