@@ -3,6 +3,6 @@ services:
   frontend:
     build: .
     ports:
-      - 9090:9090
+      - 9090:3000
     environment:
-      - PORT=9090
+      - PORT=3000
