@@ -25,12 +25,12 @@
     "react-dom": "^16.13.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "craco": "^0.0.3",
+    "craco-less": "^1.16.0"
   },
   "devDependencies": {
     "aws-sdk": "^2.639.0",
-    "craco": "^0.0.3",
-    "craco-less": "^1.16.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2"
