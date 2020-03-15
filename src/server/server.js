@@ -1,5 +1,8 @@
 const server = express();
 
+const buildPath = path.join(__dirname, '../../build');
+const port = process.env.PORT || 3000;
+
 const startMockServer = html => {
     console.log('start server');
     server.use(BASE_PATH, express.static(buildPath));

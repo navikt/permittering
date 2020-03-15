@@ -1,6 +1,6 @@
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
 import { FetchError } from './api-utils';
-import {hentOrganisasjonerLink} from "../../../lenker";
+import {hentOrganisasjonerLink} from "../lenker";
 
 export async function hentOrganisasjonerFraAltinn(signal: any): Promise<Organisasjon[]> {
   let respons = await fetch(hentOrganisasjonerLink(), { signal: signal });

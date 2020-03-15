@@ -4,7 +4,7 @@ import {basename} from "./paths";
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import LoggInn from "./LoggInn/LoggInn";
 import Banner from "./HovedBanner/HovedBanner";
-import {hentOrganisasjonerFraAltinn} from "./LoggInn/api/AltinnApi";
+import {hentOrganisasjonerFraAltinn} from "../api/AltinnApi";
 import {Organisasjon} from "@navikt/bedriftsmeny/lib/Organisasjon";
 
 
