@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import './App.less';
 import {basename} from "./paths";
 import {BrowserRouter as Router, Route} from 'react-router-dom';
-import LoggInn from "./LoggInn/LoggInn";
 import Banner from "./HovedBanner/HovedBanner";
 import {hentOrganisasjonerFraAltinn} from "../api/AltinnApi";
 import {Organisasjon} from "@navikt/bedriftsmeny/lib/Organisasjon";
@@ -30,17 +29,17 @@ function App() {
 
   return (
       <div className="app">
-        <LoginBoundary>
         <Router basename={basename}>
+        <LoginBoundary>
           <Banner organisasjoner={organisasjoner}/>
           <Route exact path="/">
-            <LoggInn/>
+            Her kan du registrere permitteringsskjema
           </Route>
           <Route exact path="/permitteringsskjema">
             Permitteringsskjema
           </Route>
-          </Router>
-          </LoginBoundary>
+        </LoginBoundary>
+        </Router>
       </div>
   );
 }

@@ -13,7 +13,6 @@ interface Props extends RouteComponentProps {
 }
 
 const Banner: FunctionComponent<Props> = props => {
-
     const { history } = props;
     const onOrganisasjonChange = (organisasjon?: Organisasjon) => {
         if (organisasjon) {
@@ -23,7 +22,7 @@ const Banner: FunctionComponent<Props> = props => {
 
     return (
         <Bedriftsmeny
-            sidetittel="Min side – arbeidsgiver"
+            sidetittel="Permittering"
             organisasjoner={props.organisasjoner}
             onOrganisasjonChange={onOrganisasjonChange}
             history={history}

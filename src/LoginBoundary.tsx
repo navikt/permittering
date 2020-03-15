@@ -3,7 +3,6 @@ import { FunctionComponent, useEffect, useState } from 'react';
 import hentVeilarbStatus from "./api/veilarbApi";
 import LoggInn from "./App/LoggInn/LoggInn";
 
-
 export enum Tilgang {
   LASTER,
   IKKE_TILGANG,
@@ -45,7 +44,12 @@ const LoginBoundary: FunctionComponent = props => {
     return <> {props.children} </>;
   }
   if (innlogget === Tilgang.IKKE_TILGANG) {
-    return <LoggInn />;
+    if (window.location.href ) {
+      return <LoggInn />;
+    }
+    else {
+      return null;
+    }
   } else {
     return null;
   }

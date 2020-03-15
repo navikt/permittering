@@ -1,9 +1,6 @@
 import React from 'react';
-
 import { Ingress, Normaltekst, Sidetittel } from 'nav-frontend-typografi';
-
 import handshake from './handshake.svg';
-
 import './Logginn.less';
 import Hovedknapp from "nav-frontend-knapper/lib/hovedknapp";
 import Lenke from "nav-frontend-lenker";
