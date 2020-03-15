@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const path = require('path');
 const express = require('express');
 const BASE_PATH = '/permittering';
@@ -57,28 +56,19 @@ const renderApp = decoratorFragments =>
       });
     });
 
-const startServer = html => {
-=======
-const app = require('express')();
-const internalRoutes = require('./routes/internals');
-const indexRoute = require('./routes/indexPath');
-const loginRoutes = require('./routes/login');
-const mellomLagringRoutes = require('./routes/mellomlagring');
-const storageClient = require('./StorageMock'); // Foreløpig lagring av søknader
-
 const startServer = (app, port) => {
->>>>>>> master
-  console.log('start server');
-  loginRoutes(app);
-  mellomLagringRoutes(app, storageClient);
-  internalRoutes(app);
-  indexRoute(app);
-  app.listen(port, () => {
-    console.log('Server listening on port', port);
-  });
-};
+    console.log('start server');
+    loginRoutes(app);
+    mellomLagringRoutes(app, storageClient);
+    internalRoutes(app);
+    indexRoute(app);
+    app.listen(port, () => {
+      console.log('Server listening on port', port);
+    });
+  };
 
-<<<<<<< HEAD
+  startServer(app, process.env.PORT || 3000);
+
 if (process.env.REACT_APP_MOCK) {
   startMockServer();
 } else {
@@ -87,6 +77,6 @@ if (process.env.REACT_APP_MOCK) {
     process.exit(1);
   });
 }
-=======
+
 startServer(app, process.env.PORT || 3000);
->>>>>>> master
+

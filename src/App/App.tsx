@@ -29,8 +29,9 @@ function App() {
 
   return (
       <div className="app">
-        <Router basename={basename}>
+
         <LoginBoundary>
+          <Router basename={basename}>
           <Banner organisasjoner={organisasjoner}/>
           <Route exact path="/">
             Her kan du registrere permitteringsskjema
@@ -38,8 +39,8 @@ function App() {
           <Route exact path="/permitteringsskjema">
             Permitteringsskjema
           </Route>
+          </Router>
         </LoginBoundary>
-        </Router>
       </div>
   );
 }
