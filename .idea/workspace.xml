@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="928356f5-fc43-4de0-9006-be5dac147a29" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App/HovedBanner/HovedBanner.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App/HovedBanner/HovedBanner.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App/LoggInn/LoggInn.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App/LoggInn/LoggInn.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LoginBoundary.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/LoginBoundary.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/setupProxy.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/setupProxy.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,11 +13,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/App/App.tsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="570">
-              <caret line="38" column="31" lean-forward="true" selection-start-line="38" selection-start-column="31" selection-end-line="38" selection-end-column="31" />
+            <state relative-caret-position="420">
+              <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
               <folding>
                 <element signature="e#0#49#0" expanded="true" />
               </folding>
@@ -38,11 +34,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/api/setupProxy.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="19" lean-forward="true" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
+            <state relative-caret-position="422">
+              <caret line="37" column="31" lean-forward="true" selection-start-line="37" selection-start-column="31" selection-end-line="37" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -130,6 +126,7 @@
       <find>permette</find>
       <find>basepath</find>
       <find>basename</find>
+      <find>tiltak</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -151,7 +148,6 @@
         <option value="$PROJECT_DIR$/src/types/ApiError.java" />
         <option value="$PROJECT_DIR$/src/App/Loginboundary/useInnlogget.ts" />
         <option value="$PROJECT_DIR$/src/App/RedirectEtterLogin.tsx" />
-        <option value="$PROJECT_DIR$/src/api/setupProxy.js" />
         <option value="$PROJECT_DIR$/src/App/LoggInn/Tilgang.java" />
         <option value="$PROJECT_DIR$/craco.config.js" />
         <option value="$PROJECT_DIR$/src/server/veilarbStatusProxyConfig.js" />
@@ -161,6 +157,7 @@
         <option value="$PROJECT_DIR$/src/LoginBoundary.tsx" />
         <option value="$PROJECT_DIR$/src/App/LoggInn/LoggInn.tsx" />
         <option value="$PROJECT_DIR$/src/App/App.tsx" />
+        <option value="$PROJECT_DIR$/src/api/setupProxy.js" />
       </list>
     </option>
   </component>
@@ -205,6 +202,12 @@
               <item name="permittering" type="b2602c69:ProjectViewProjectNode" />
               <item name="permittering" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="permittering" type="b2602c69:ProjectViewProjectNode" />
+              <item name="permittering" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="App" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -223,7 +226,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1584280403130" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1584280552721" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -290,7 +293,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22385000" />
+    <option name="totallyTimeSpent" value="22526000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
@@ -560,13 +563,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/api/setupProxy.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="19" lean-forward="true" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.github/workflows/bygg-og-deploy-master.yml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -589,11 +585,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/App/App.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="38" column="31" lean-forward="true" selection-start-line="38" selection-start-column="31" selection-end-line="38" selection-end-column="31" />
+        <state relative-caret-position="420">
+          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
           <folding>
             <element signature="e#0#49#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/setupProxy.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="422">
+          <caret line="37" column="31" lean-forward="true" selection-start-line="37" selection-start-column="31" selection-end-line="37" selection-end-column="31" />
         </state>
       </provider>
     </entry>

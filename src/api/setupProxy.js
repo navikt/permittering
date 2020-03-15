@@ -9,15 +9,15 @@ const envProperties = {
     ISSO_LOGIN_URL:
         process.env.ISSO_LOGIN_URL ||
         (brukLokalLogin &&
-            '/permittering/api/local/isso-login?redirect=http://localhost:3000/tiltaksgjennomforing'),
+            '/permittering/api/local/isso-login?redirect=http://localhost:3000/permittering'),
     SELVBETJENING_LOGIN_URL:
         process.env.SELVBETJENING_LOGIN_URL ||
         (brukLokalLogin &&
-            '/permittering/api/local/selvbetjening-login?redirect=http://localhost:3000/tiltaksgjennomforing'),
+            '/permittering/api/local/selvbetjening-login?redirect=http://localhost:3000/permittering'),
     LOGOUT_URL:
         process.env.LOGOUT_URL ||
         (brukLokalLogin &&
-            '/permittering/api/local/logout?redirect=http://localhost:3000/tiltaksgjennomforing'),
+            '/permittering/api/local/logout?redirect=http://localhost:3000/permittering'),
 };
 
 if (!envProperties.LOGOUT_URL || !(envProperties.ISSO_LOGIN_URL || envProperties.SELVBETJENING_LOGIN_URL)) {
