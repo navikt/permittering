@@ -27,4 +27,4 @@ spec:
       value: '{{{api-gw-url}}}'
     - name: LOGIN_URL
       value: '{{{selvbetjening-login-url}}}'
-    -
+
