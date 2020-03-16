@@ -12,8 +12,11 @@ const HvaSkalDuRapportere: FunctionComponent<Props> = props => {
   return (
       <div className="hva-skal-du-rapportere">
         <Innholdstittel>Hva skal du rapportere til oss</Innholdstittel>
-        <Undertittel className={'hva-skal-du-rapportere__undertittel'}>Du kan velge flere</Undertittel>
+        <div className={'hva-skal-du-rapportere__boks-container'}>
         <AlternativBoks/>
+          <AlternativBoks/>
+          <AlternativBoks/>
+        </div>
       </div>
   );
 };
