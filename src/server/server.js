@@ -4,6 +4,8 @@ const indexRoute = require('./routes/indexPath');
 const loginRoutes = require('./routes/login');
 const apiProxy = require('./routes/apiProxy');
 const createEnvSettingsFile = require('./envSettings.js');
+const path = require('path');
+const buildPath = path.join(__dirname,'../../build');
 
 const BASE_PATH = '/permittering';
 const veilarbStatusProxyConfig = require('./veilarbStatusProxyConfig');
