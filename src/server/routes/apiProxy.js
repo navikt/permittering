@@ -9,10 +9,15 @@ module.exports = function(app) {
     target: process.env.APIGW_URL ||'http://localhost:8080',
     pathRewrite,
     xfwd: true,
-    headers: {
-      'x-nav-apiKey': process.env.APIGW_HEADER,
-    },
+
   };
+
+  if (process.env.APIGW_HEADER) {
+    proxyConfig.headers = {
+      'x-nav-apiKey': process.env.APIGW_HEADER,
+    };
+  }
+
 
   app.use(paths.apiPath, proxy(proxyConfig));
 };

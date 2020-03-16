@@ -5,7 +5,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Banner from "./HovedBanner/HovedBanner";
 import {hentOrganisasjonerFraAltinn} from "../api/AltinnApi";
 import {Organisasjon} from "@navikt/bedriftsmeny/lib/Organisasjon";
-import LoginBoundary from "../LoginBoundary";
+import LoginBoundary from "./LoginBoundary";
 import HvaSkalDuRapportere from "./HvaSkalDuRapportere/HvaSkalDuRapportere";
 import Skjema from "./Skjema/Skjema";
 
@@ -31,6 +31,8 @@ function App() {
 
   return (
       <div className="app">
+
+
         <LoginBoundary>
           <Router basename={basePath}>
           <Banner organisasjoner={organisasjoner}/>
