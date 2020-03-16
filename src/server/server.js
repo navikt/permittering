@@ -2,13 +2,12 @@ const app = require('express')();
 const internalRoutes = require('./routes/internals');
 const indexRoute = require('./routes/indexPath');
 const loginRoutes = require('./routes/login');
-const mellomLagringRoutes = require('./routes/mellomlagring');
-const storageClient = require('./StorageMock'); // Foreløpig lagring av søknader
+const apiProxy = require('./routes/apiProxy');
 
 const startServer = (app, port) => {
   console.log('start server');
   loginRoutes(app);
-  mellomLagringRoutes(app, storageClient);
+  apiProxy(app);
   internalRoutes(app);
   indexRoute(app);
   app.listen(port, () => {
