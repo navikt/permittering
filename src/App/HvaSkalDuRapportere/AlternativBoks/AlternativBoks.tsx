@@ -1,9 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import './AlternativBoks.less';
 import Radio from "nav-frontend-skjema/lib/radio";
+import Element from "nav-frontend-typografi/lib/element"
 
 
 interface Props  {
+  overskrift: string;
+  radioknappSkrift: string;
+  innholdstekst: string;
 
 }
 
@@ -11,12 +15,10 @@ const AlternativBoks: FunctionComponent<Props> = props => {
   return (
       <div className="alternativ-boks">
         <div className={'alternativ-boks__radiobutton'}>
-          <Radio label={'Radio-label'} name="minRadioKnapp" />
+          <Radio label={<Element>{props.radioknappSkrift}</Element>} name="minRadioKnapp" />
         </div>
-        Over til personer osv osv, there is something about parenthood. gives a sense.
-        bla bla bla bla. send in to a great rooted desire. sende dette skjeamet
-        bla bla bla bla. send in to a great rooted desire. sende dette skjeamet
-        bla bla bla bla. send in to a great rooted desire. sende dette skjeamet
+        <Element>{props.overskrift}</Element>
+        {props.innholdstekst}
       </div>
   );
 };
