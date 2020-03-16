@@ -27,7 +27,7 @@ const HvaSkalDuRapportere: FunctionComponent= () => {
         <div className={'hva-skal-du-rapportere__har-varslet'}>
           <Checkbox label={<Ingress>Jeg har varslet det ansatte det gjelder</Ingress>} />
             </div>
-        <Hovedknapp className={'hva-skal-du-rapportere__hoved-knapp'}> Gå til skjema</Hovedknapp>
+        <Hovedknapp className={'hva-skal-du-rapportere__hoved-knapp'} onClick={() => window.location.href = '/permittering/skjema'}> Gå til skjema</Hovedknapp>
       </div>
   );
 };
