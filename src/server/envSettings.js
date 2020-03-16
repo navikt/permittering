@@ -5,7 +5,7 @@ function createEnvSettingsFile(settingsPath) {
         fsExtra.writeFileSync(
             settingsPath,
             `window.appSettings = {
-                MILJO: '${process.env.CLUSTER}',
+                MILJO: '${process.env.NAIS_CLUSTER_NAME}',
             };`
         );
     });

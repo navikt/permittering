@@ -1,7 +1,7 @@
 const proxy = require('http-proxy-middleware');
 
 const veilarbStatus = () => {
-    if (process.env.CLUSTER === 'prod-sbs') {
+    if (process.env.NAIS_CLUSTER_NAME === 'prod-sbs') {
         return 'https://tjenester.nav.no/';
     } else {
         return 'https://tjenester-q1.nav.no/';
