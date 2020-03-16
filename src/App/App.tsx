@@ -6,6 +6,7 @@ import Banner from "./HovedBanner/HovedBanner";
 import {hentOrganisasjonerFraAltinn} from "../api/AltinnApi";
 import {Organisasjon} from "@navikt/bedriftsmeny/lib/Organisasjon";
 import LoginBoundary from "./LoginBoundary";
+import HvaSkalDuRapportere from "./HvaSkalDuRapportere/HvaSkalDuRapportere";
 
 function App() {
   const [organisasjoner, setorganisasjoner] = useState(Array<Organisasjon>());
@@ -35,11 +36,14 @@ function App() {
           <Router basename={basePath}>
           <Banner organisasjoner={organisasjoner}/>
           <Route exact path="/">
-            Her kan du registrere permitteringsskjema
+            <HvaSkalDuRapportere/>
           </Route>
           <Route exact path="/permitteringsskjema">
             Permitteringsskjema
           </Route>
+            <Route exact path="/input">
+              Sett komponent for person-input her
+            </Route>
           </Router>
         </LoginBoundary>
       </div>

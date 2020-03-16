@@ -6,6 +6,7 @@
   "dependencies": {
     "@jest/environment": "^25.1.0",
     "@navikt/bedriftsmeny": "^2.0.2",
+    "@navikt/fnrvalidator": "^1.1.0",
     "@sentry/browser": "^5.14.2",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -29,6 +30,9 @@
     "nav-frontend-knapper-style": "^0.3.35",
     "nav-frontend-lenker": "^1.0.34",
     "nav-frontend-lenker-style": "^0.2.25",
+    "nav-frontend-paneler-style": "^0.3.18",
+    "nav-frontend-skjema": "^2.0.12",
+    "nav-frontend-skjema-style": "^2.0.4",
     "nav-frontend-typografi": "^2.0.18",
     "nav-frontend-typografi-style": "^1.0.19",
     "parse-json": "^5.0.0",
@@ -40,7 +44,6 @@
     "services": "^0.0.3",
     "typescript": "^3.8.3",
     "unorm": "^1.6.0"
-
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",
