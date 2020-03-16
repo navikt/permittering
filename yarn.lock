@@ -7498,6 +7498,16 @@ nav-frontend-skjema@^2.0.12:
   resolved "https://registry.yarnpkg.com/nav-frontend-skjema/-/nav-frontend-skjema-2.0.12.tgz#a86a51979bb58015ff069657bc4e5fd54809a96e"
   integrity sha512-Vid5U3xs/HFfZVeixfHhqABOzFdja+GPq+k5h+Ma9UP3bXgGixnXKXMh8b6RW4wk5Hg8kXvgKlugKclKIbI0LA==
 
+nav-frontend-stegindikator-style@^1.0.27:
+  version "1.0.27"
+  resolved "https://registry.yarnpkg.com/nav-frontend-stegindikator-style/-/nav-frontend-stegindikator-style-1.0.27.tgz#00d115b4c0ffd6f57d6b3e0f1656b0d848876910"
+  integrity sha512-0VhbubDSGHHEm2MaYGF06bKiJNOglL1wF4NT7iiy0U7YeIS9dJZPKRnCN10fvo6zRoOZ2g5CS0RyFdygRP6xgg==
+
+nav-frontend-stegindikator@^0.0.43:
+  version "0.0.43"
+  resolved "https://registry.yarnpkg.com/nav-frontend-stegindikator/-/nav-frontend-stegindikator-0.0.43.tgz#a7bb0494c0005fae10c48fa3352bb6cf3e364b27"
+  integrity sha512-7zApJf8gyvyT/08I7UR+2UYvU8lxXcBifVSm1AiCTp3v5bJD8P10ObnLM583s4LFBlY59yecxKD62cX8OWCsZQ==
+
 nav-frontend-typografi-style@^1.0.19:
   version "1.0.19"
   resolved "https://registry.yarnpkg.com/nav-frontend-typografi-style/-/nav-frontend-typografi-style-1.0.19.tgz#d143ca06f086b1a5838954f1a18ee7611b359889"
