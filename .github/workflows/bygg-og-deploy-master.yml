@@ -6,7 +6,7 @@ on:
       - '*'
   pull_request:
     branches:
-      - master
+      - log-in-new-branch
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
