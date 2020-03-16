@@ -1,25 +1,31 @@
-const path = require('path');
-const express = require('express');
+const app = require('express')();
+const internalRoutes = require('./routes/internals');
+const indexRoute = require('./routes/indexPath');
+const loginRoutes = require('./routes/login');
+const apiProxy = require('./routes/apiProxy');
+
 const BASE_PATH = '/permittering';
+const veilarbStatusProxyConfig = require('./veilarbStatusProxyConfig');
+
 const server = express();
-const mustacheExpress = require('mustache-express');
-const Promise = require('promise');
 
-const buildPath = path.join(__dirname, '../../build');
-const port = process.env.PORT || 3000;
+app.use(`${BASE_PATH}/veilarbstepup/status`, veilarbStatusProxyConfig);
 
-server.use(`${BASE_PATH}/veilarbstepup/status`, veilarbStatusProxyConfig);
-
-server.engine('html', mustacheExpress());
-server.set('view engine', 'mustache');
-server.set('views', buildPath);
+const startServer = (app, port) => {
+    console.log('start server');
+    loginRoutes(app);
+    apiProxy(app);
+    internalRoutes(app);
+    indexRoute(app);
+    app.listen(port, () => {
+        console.log('Server listening on port', port);
+    });
+};
 
 const startMockServer = html => {
     console.log('start server');
-    server.use(BASE_PATH, express.static(buildPath));
-
+    app.use(BASE_PATH, express.static(buildPath));
     setInternalEndpoints();
-
     server.get(`${BASE_PATH}/*`, (req, res) => {
         res.sendFile(path.resolve(buildPath, 'index.html'));
     });
@@ -28,16 +34,6 @@ const startMockServer = html => {
     });
 };
 
-const setInternalEndpoints = () => {
-    server.get(`${BASE_PATH}/internal/isAlive`, (req, res) => res.sendStatus(200));
-    server.get(`${BASE_PATH}/internal/isReady`, (req, res) => res.sendStatus(200));
-};
-
-
-server.engine('html', mustacheExpress());
-server.set('view engine', 'mustache');
-server.set('views', buildPath);
-
 server.get(`${BASE_PATH}/redirect-til-login`, (req, res) => {
   const loginUrl =
       process.env.LOGIN_URL ||
@@ -45,38 +41,9 @@ server.get(`${BASE_PATH}/redirect-til-login`, (req, res) => {
   res.redirect(loginUrl);
 });
 
-const renderApp = decoratorFragments =>
-    new Promise((resolve, reject) => {
-      server.render('index.html', decoratorFragments, (err, html) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(html);
-        }
-      });
-    });
-
-const startServer = (app, port) => {
-    console.log('start server');
-    loginRoutes(app);
-    mellomLagringRoutes(app, storageClient);
-    internalRoutes(app);
-    indexRoute(app);
-    app.listen(port, () => {
-      console.log('Server listening on port', port);
-    });
-  };
-
-  startServer(app, process.env.PORT || 3000);
 
 if (process.env.REACT_APP_MOCK) {
   startMockServer();
 } else {
-  renderApp("").then(startServer, error => {
-    console.error('Kunne ikke rendre app ', error);
-    process.exit(1);
-  });
+    startServer(app, process.env.PORT || 3000);
 }
-
-startServer(app, process.env.PORT || 3000);
-
