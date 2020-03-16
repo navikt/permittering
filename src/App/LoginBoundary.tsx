@@ -25,16 +25,15 @@ const LoginBoundary: FunctionComponent = props => {
   useEffect(() => {
     setInnlogget(Tilgang.LASTER);
     const getLoginStatus = async () => {
-      if (environment.MILJO !== 'prod-sbs' || environment.MILJO !== 'dev-sbs') {
-        localLogin();
-      }
-      else {
+      if (environment.MILJO === 'prod-sbs' || environment.MILJO === 'dev-sbs') {
         let veilarbStatusRespons = await hentVeilarbStatus();
         if (veilarbStatusRespons.harGyldigOidcToken && veilarbStatusRespons.nivaOidc === 4) {
           setInnlogget(Tilgang.TILGANG);
         } else if (!veilarbStatusRespons.harGyldigOidcToken) {
           setInnlogget(Tilgang.IKKE_TILGANG);
         }
+      } else {
+        localLogin();
       }
 
     };
