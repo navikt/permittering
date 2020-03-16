@@ -21,6 +21,7 @@ const Banner: FunctionComponent<Props> = props => {
     };
 
     return (
+
         <Bedriftsmeny
             sidetittel="Permittering"
             organisasjoner={props.organisasjoner}
