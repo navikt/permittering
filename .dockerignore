@@ -1,4 +1,5 @@
 *
 !/build/**
 !/src/server/**
+!/src/paths.json
 !/start.sh

@@ -3,6 +3,8 @@ services:
   frontend:
     build: .
     ports:
-      - 9090:3000
+      - 3030:3000
     environment:
       - PORT=3000
+      - APIGW_URL=http://host.docker.internal:8080
+      - APIGW_HEADER=wobaduppdupp
