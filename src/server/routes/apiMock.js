@@ -13,7 +13,13 @@ module.exports = function(app) {
     const list = storageClient.listObjects(req.params.orgnummer);
     res.json(list);
   });
-
+  app.post(paths.skjemaListPath, (req, res) => {
+    const skjema = storageClient.putObject(req.params.orgnummer, "123", {
+      id: "123",
+      orgNr: req.params.orgnummer
+    });
+    res.json(skjema);
+  });
   /**
    * Gir deg ett skjema
    */
@@ -32,7 +38,7 @@ module.exports = function(app) {
   /**
    * Gir oppdaterer ett skjema eller lager ett nytt ett hvis det ikke eksisterer
    */
-  app.post(paths.skjemaPath, (req, res) => {
+  app.put(paths.skjemaPath, (req, res) => {
     const skjema = storageClient.putObject(req.params.orgnummer, req.params.skjemaId, req.body);
     res.json(skjema);
   });

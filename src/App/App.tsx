@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import "./App.less";
-import { basePath } from "../paths.json";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import {basePath} from "../paths.json";
+import {BrowserRouter as Router, Route} from "react-router-dom";
+import InputAvPersoner from "./views/input-av-personer/InputAvPersoner"
 import Banner from "./HovedBanner/HovedBanner";
-import { hentOrganisasjonerFraAltinn } from "../api/AltinnApi";
-import { Organisasjon } from "@navikt/bedriftsmeny/lib/Organisasjon";
+import {hentOrganisasjonerFraAltinn} from "../api/AltinnApi";
+import {Organisasjon} from "@navikt/bedriftsmeny/lib/Organisasjon";
 import LoginBoundary from "./LoginBoundary";
 import HvaSkalDuRapportere from "./HvaSkalDuRapportere/HvaSkalDuRapportere";
 import Skjema from "./Skjema/Skjema";
-import { SkjemaProvider } from "./SkjemaContext/SkjemaContext";
+import {SkjemaProvider} from "./SkjemaContext/SkjemaContext";
 
 function App() {
   const [organisasjoner, setorganisasjoner] = useState(Array<Organisasjon>());
@@ -45,7 +46,12 @@ function App() {
           </Route>
           <Route exact path="/skjema">
             <SkjemaProvider>
-              <Skjema />
+              <Skjema/>
+            </SkjemaProvider>
+          </Route>
+          <Route exact path="/steg3">
+            <SkjemaProvider>
+              <InputAvPersoner/>
             </SkjemaProvider>
           </Route>
         </Router>
