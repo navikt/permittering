@@ -11,4 +11,11 @@ export type Permitteringsskjema = {
     sluttDato?: string;
     ukjentSluttDato?: string;
     fritekst?: string;
+    personer: Personer[]
 };
+
+export type Personer = {
+    fnr: string;
+    grad?: number;
+    kommentar: string;
+}
