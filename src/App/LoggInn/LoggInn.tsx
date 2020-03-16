@@ -5,16 +5,20 @@ import './Logginn.less';
 import Hovedknapp from "nav-frontend-knapper/lib/hovedknapp";
 import Lenke from "nav-frontend-lenker";
 import LoggInnBanner from "./LoggInnBanner/LoggInnBanner";
+import environment from '../../utils/environment';
 
 const LoggInn = () => {
 
     const redirectTilLogin = () => {
-        if (process.env.NODE_ENV === 'development' || process.env.REACT_APP_ON_HEROKU === 'true') {
+        console.log("redirect logginn");
+        if (environment.MILJO === 'prod-sbs' || environment.MILJO === 'dev-sbs') {
+            if (process.env.SELVBETJENING_LOGIN_URL)
+                console.log("klarte å lese env param url");
+                window.location.href = window.location.href = 'permittering/redirect-til-login';
+        }else{
+            console.log("er ikke i miljø");
             document.cookie = 'selvbetjening-idtoken =0123456789..*; path=/;';
             window.location.href = '/permittering/';
-        } else {
-            if (process.env.SELVBETJENING_LOGIN_URL)
-            window.location.href = process.env.SELVBETJENING_LOGIN_URL;
         }
     };
 

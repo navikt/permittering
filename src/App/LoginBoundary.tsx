@@ -1,7 +1,8 @@
 import React from 'react';
 import { FunctionComponent, useEffect, useState } from 'react';
-import hentVeilarbStatus from "./api/veilarbApi";
-import LoggInn from "./App/LoggInn/LoggInn";
+import hentVeilarbStatus from "../api/veilarbApi";
+import LoggInn from "./LoggInn/LoggInn";
+import environment from '../utils/environment';
 
 export enum Tilgang {
   LASTER,
@@ -24,7 +25,7 @@ const LoginBoundary: FunctionComponent = props => {
   useEffect(() => {
     setInnlogget(Tilgang.LASTER);
     const getLoginStatus = async () => {
-      if (process.env.NODE_ENV === 'development' || process.env.REACT_APP_ON_HEROKU === 'true') {
+      if (environment.MILJO !== 'prod-sbs' || environment.MILJO !== 'dev-sbs') {
         localLogin();
       }
       else {
