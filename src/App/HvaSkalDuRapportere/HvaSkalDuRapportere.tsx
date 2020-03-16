@@ -1,17 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import './HvaSkalDuRapportere.less';
-import Undertittel from "nav-frontend-typografi/lib/undertittel";
 import Innholdstittel from "nav-frontend-typografi/lib/innholdstittel";
 import AlternativBoks from "./AlternativBoks/AlternativBoks";
 import Checkbox from "nav-frontend-skjema/lib/checkbox";
 import Hovedknapp from "nav-frontend-knapper/lib/hovedknapp";
 import Ingress from "nav-frontend-typografi/lib/ingress";
 
-interface Props  {
-
-}
-
-const HvaSkalDuRapportere: FunctionComponent<Props> = props => {
+const HvaSkalDuRapportere: FunctionComponent= () => {
   return (
       <div className="hva-skal-du-rapportere">
         <Innholdstittel>Hva skal du rapportere til oss</Innholdstittel>
