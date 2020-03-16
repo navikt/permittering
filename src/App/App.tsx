@@ -40,6 +40,9 @@ function App() {
           <Route exact path="/permitteringsskjema">
             Permitteringsskjema
           </Route>
+            <Route exact path="/input">
+              Sett komponent for person-input her
+            </Route>
           </Router>
         </LoginBoundary>
       </div>
