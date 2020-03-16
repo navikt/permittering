@@ -12,9 +12,9 @@ const LoggInn = () => {
     const redirectTilLogin = () => {
         console.log("redirect logginn");
         if (environment.MILJO === 'prod-sbs' || environment.MILJO === 'dev-sbs') {
-            if (process.env.SELVBETJENING_LOGIN_URL)
+            if (process.env.LOGIN_URL)
                 console.log("klarte å lese env param url");
-                window.location.href = window.location.href = 'permittering/redirect-til-login';
+                window.location.href = window.location.href = '/redirect-til-login';
         }else{
             console.log("er ikke i miljø");
             document.cookie = 'selvbetjening-idtoken =0123456789..*; path=/;';
