@@ -3,11 +3,14 @@ const internalRoutes = require('./routes/internals');
 const indexRoute = require('./routes/indexPath');
 const loginRoutes = require('./routes/login');
 const apiProxy = require('./routes/apiProxy');
+const createEnvSettingsFile = require('./envSettings.js');
 
 const BASE_PATH = '/permittering';
 const veilarbStatusProxyConfig = require('./veilarbStatusProxyConfig');
 
 app.use(`${BASE_PATH}/veilarbstepup/status`, veilarbStatusProxyConfig);
+
+createEnvSettingsFile(path.resolve(`${buildPath}/static/js/settings.js`));
 
 app.get(`${BASE_PATH}/redirect-til-login`, (req, res) => {
     const loginUrl = process.env.SELVBETJENING_LOGIN_URL ||
