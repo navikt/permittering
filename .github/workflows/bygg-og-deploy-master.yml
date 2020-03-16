@@ -3,7 +3,7 @@ name: Bygg og deploy master
 on:
   push:
     branches:
-      - '*'
+      - log-in-new-branc
   pull_request:
     branches:
       - log-in-new-branch
