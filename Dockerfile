@@ -4,6 +4,7 @@ RUN yarn add http-proxy-middleware@0.21.0 fs-extra mustache-express jsdom promis
 
 COPY build/ build/
 COPY src/server/ src/server/
+COPY src/paths.json src/paths.json
 COPY start.sh ./
 
 EXPOSE 3000

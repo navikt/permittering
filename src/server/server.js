@@ -46,4 +46,4 @@ if (process.env.REACT_APP_MOCK) {
   startMockServer();
 } else {
     startServer(app, process.env.PORT || 3000);
-}
+};

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './App.less';
-import {basename} from "./paths";
+import {basePath} from "../paths.json";
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Banner from "./HovedBanner/HovedBanner";
 import {hentOrganisasjonerFraAltinn} from "../api/AltinnApi";
@@ -30,8 +30,9 @@ function App() {
   return (
       <div className="app">
 
+
         <LoginBoundary>
-          <Router basename={basename}>
+          <Router basename={basePath}>
           <Banner organisasjoner={organisasjoner}/>
           <Route exact path="/">
             Her kan du registrere permitteringsskjema

@@ -1,7 +1,6 @@
 const internalRoutes = require('./server/routes/internals');
-const mellomLagringRoutes = require('./server/routes/mellomlagring');
-const storageClientMock = require('./server/StorageMock');
+const apiMockRoutes = require('./server/routes/apiMock');
 module.exports = function(app) {
   internalRoutes(app);
-  mellomLagringRoutes(app, storageClientMock);
+  apiMockRoutes(app);
 };
