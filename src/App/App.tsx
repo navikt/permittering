@@ -7,6 +7,7 @@ import {hentOrganisasjonerFraAltinn} from "../api/AltinnApi";
 import {Organisasjon} from "@navikt/bedriftsmeny/lib/Organisasjon";
 import LoginBoundary from "../LoginBoundary";
 import HvaSkalDuRapportere from "./HvaSkalDuRapportere/HvaSkalDuRapportere";
+import Skjema from "./Skjema/Skjema";
 
 function App() {
   const [organisasjoner, setorganisasjoner] = useState(Array<Organisasjon>());
@@ -40,7 +41,10 @@ function App() {
             Permitteringsskjema
           </Route>
             <Route exact path="/input">
-              Sett komponent for person-input her
+            Sett komponent for person-input her
+          </Route>
+            <Route exact path="/skjema">
+              <Skjema/>
             </Route>
           </Router>
         </LoginBoundary>
