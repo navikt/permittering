@@ -20,18 +20,20 @@ api.interceptors.response.use(
   }
 );
 
-export const hent = async (orgNr: string, id: string) => {
-  const response = await api.get(`/${orgNr}/${id}`);
+export const hent = async (id: string) => {
+  const response = await api.get(`/${id}`);
   return response.data;
 };
 
-export const opprett = async (orgNr: string) => {
-  const response = await api.post(`/${orgNr}`);
-  const { id } = response.data;
-  return hent(orgNr, id);
+export const opprett = async (
+  orgNr: string,
+  type: Permitteringsskjema["type"]
+) => {
+  const response = await api.post(`/`, { orgNr, type });
+  return response.data;
 };
 
 export const lagre = async (skjema: Permitteringsskjema) => {
-  await api.put(`/${skjema.orgNr}/${skjema.id}`, skjema);
-  return hent(skjema.orgNr, skjema.id);
+  const response = await api.put(`/${skjema.id}`, skjema);
+  return response.data;
 };

@@ -16,7 +16,7 @@ export const SkjemaProvider: FunctionComponent = props => {
     {} as Permitteringsskjema
   );
   useEffect(() => {
-    opprett("999999999").then(setSkjema);
+    opprett("999999999", "PERMITTERING_UTEN_LØNN").then(setSkjema);
   }, []);
 
   const context: Context = {
