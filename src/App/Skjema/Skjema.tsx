@@ -24,8 +24,8 @@ const Skjema: FunctionComponent= () => {
             autoResponsiv
         />
         <div className="skjema-innhold">
-          {steg === 1 && <Side1/>}
-          {steg === 3 && <InputAvPersoner/>}
+          {steg === 0 && <Side1/>}
+          {steg === 2 && <InputAvPersoner/>}
         </div>
       </div>
   );
