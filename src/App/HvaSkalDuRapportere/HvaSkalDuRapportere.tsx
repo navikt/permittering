@@ -6,7 +6,18 @@ import Checkbox from "nav-frontend-skjema/lib/checkbox";
 import Hovedknapp from "nav-frontend-knapper/lib/hovedknapp";
 import Ingress from "nav-frontend-typografi/lib/ingress";
 
-const HvaSkalDuRapportere: FunctionComponent= () => {
+interface Props {
+  byttSide: (indeks: number) => void;
+}
+
+const HvaSkalDuRapportere: FunctionComponent<Props> = props => {
+
+  const GaTilSkjema = () => {
+    window.location.href = '/permittering/skjema/side1';
+    props.byttSide(1);
+
+  };
+
   return (
       <div className="hva-skal-du-rapportere">
         <Innholdstittel>Hva skal du rapportere til oss</Innholdstittel>
@@ -27,7 +38,7 @@ const HvaSkalDuRapportere: FunctionComponent= () => {
         <div className={'hva-skal-du-rapportere__har-varslet'}>
           <Checkbox label={<Ingress>Jeg har varslet det ansatte det gjelder</Ingress>} />
             </div>
-        <Hovedknapp className={'hva-skal-du-rapportere__hoved-knapp'} onClick={() => window.location.href = '/permittering/skjema'}> Gå til skjema</Hovedknapp>
+        <Hovedknapp className={'hva-skal-du-rapportere__hoved-knapp'} onClick={GaTilSkjema}> Gå til skjema</Hovedknapp>
       </div>
   );
 };
