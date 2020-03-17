@@ -65,7 +65,7 @@ const PersonTabell: React.FunctionComponent<PersonTabellProps> = ({personer, set
     }
 
     return (
-        <table className="tabell">
+        <table className="input-av-personer__tabell tabell">
             <thead>
             <tr>
                 <th><Checkbox label="Velg alle"
