@@ -1,17 +1,19 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import "./App.less";
-import {basePath} from "../paths.json";
-import {BrowserRouter as Router, Route} from "react-router-dom";
+import { basePath } from "../paths.json";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import InputAvPersoner from "./views/input-av-personer/InputAvPersoner";
 import Banner from "./HovedBanner/HovedBanner";
-import {hentOrganisasjonerFraAltinn} from "../api/AltinnApi";
-import {Organisasjon} from "@navikt/bedriftsmeny/lib/Organisasjon";
+import { hentOrganisasjonerFraAltinn } from "../api/AltinnApi";
+import { Organisasjon } from "@navikt/bedriftsmeny/lib/Organisasjon";
 import LoginBoundary from "./LoginBoundary";
 import HvaSkalDuRapportere from "./HvaSkalDuRapportere/HvaSkalDuRapportere";
-import {SkjemaProvider} from "./SkjemaContext/SkjemaContext";
+import { SkjemaProvider } from "./SkjemaContext/SkjemaContext";
 import Side1 from "./Skjema/Side1";
 import Forside from "./views/forside/Forside";
 import SkjemaRamme from "./komponenter/SkjemaRamme";
+import Side2 from "./Skjema/Side2";
+import Oppsummering from "./Skjema/Oppsummering";
 
 function App() {
   const [organisasjoner, setorganisasjoner] = useState(Array<Organisasjon>());
@@ -34,29 +36,40 @@ function App() {
     <div className="app">
       <LoginBoundary>
         <Router basename={basePath}>
-          <Banner organisasjoner={organisasjoner}/>
-          <Route exact path="/forside">
-            <Forside/>
-          </Route>
+          <Banner organisasjoner={organisasjoner} />
           <Route exact path="/">
-            <HvaSkalDuRapportere/>
+            <Forside />
           </Route>
-          <Route exact path="/skjema">
+          <Route exact path="/skjema/start">
             <SkjemaProvider>
-              <HvaSkalDuRapportere/>
+              <HvaSkalDuRapportere />
             </SkjemaProvider>
           </Route>
           <Route exact path="/skjema/kontaktinformasjon/:id">
             <SkjemaProvider>
               <SkjemaRamme>
-                <Side1 nesteSide={"hvem-rammes"}/>
+                <Side1 nesteSide={"generelle-opplysninger"} />
+              </SkjemaRamme>
+            </SkjemaProvider>
+          </Route>
+          <Route exact path="/skjema/generelle-opplysninger/:id">
+            <SkjemaProvider>
+              <SkjemaRamme>
+                <Side2 nesteSide={"hvem-rammes"} />
               </SkjemaRamme>
             </SkjemaProvider>
           </Route>
           <Route exact path="/skjema/hvem-rammes/:id">
             <SkjemaProvider>
               <SkjemaRamme>
-                <InputAvPersoner nesteSide={"oppsummering"}/>
+                <InputAvPersoner nesteSide={"oppsummering"} />
+              </SkjemaRamme>
+            </SkjemaProvider>
+          </Route>
+          <Route exact path="/skjema/oppsummering/:id">
+            <SkjemaProvider>
+              <SkjemaRamme>
+                <Oppsummering nesteSide={"kvittering"} />
               </SkjemaRamme>
             </SkjemaProvider>
           </Route>
