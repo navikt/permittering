@@ -2,7 +2,10 @@ export type Permitteringsskjema = {
   id: string;
   opprettetTidspunkt: string;
   orgNr: string;
-  type: string;
+  type:
+    | "MASSEOPPSIGELSE"
+    | "PERMITTERING_UTEN_LØNN"
+    | "INNSKRENKNING_I_ARBEIDSTID";
   kontaktNavn?: string;
   kontaktTlf?: string;
   varsletAnsattDato?: string;
