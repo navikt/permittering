@@ -54,6 +54,11 @@ function App() {
               <InputAvPersoner/>
             </SkjemaProvider>
           </Route>
+          <Route exact path="/steg2">
+            <SkjemaProvider>
+              <InputAvPersoner/>
+            </SkjemaProvider>
+          </Route>
         </Router>
       </LoginBoundary>
     </div>

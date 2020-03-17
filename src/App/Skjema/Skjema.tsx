@@ -1,9 +1,16 @@
-import React, { FunctionComponent } from 'react';
+import React, {FunctionComponent, useEffect, useState} from 'react';
 import './Skjema.less';
 import Stegindikator from "nav-frontend-stegindikator/lib/stegindikator";
 import Side1 from "./Side1";
+import InputAvPersoner from "../views/input-av-personer/InputAvPersoner";;
 
 const Skjema: FunctionComponent= () => {
+  const [steg, setSteg] = useState(1);
+
+  useEffect(() => {
+   setSteg(3);
+  }, []);
+
   return (
       <div className="skjema-container">
         <Stegindikator
@@ -12,12 +19,13 @@ const Skjema: FunctionComponent= () => {
               {"label": "Hvem rammes",  index: 2},
               {"label": "Se igjennom", index: 3}
             ]}
-            onChange={() => {}}
+            onChange={(index) => {setSteg(index)}}
             visLabel
             autoResponsiv
         />
         <div className="skjema-innhold">
-         <Side1/>
+          {steg === 0 && <Side1/>}
+          {steg === 2 && <InputAvPersoner/>}
         </div>
       </div>
   );
