@@ -39,12 +39,9 @@ function App() {
           <Route exact path="/">
             <HvaSkalDuRapportere byttSide={setNavarendneSide}/>
           </Route>
-          <Route exact path="/permitteringsskjema">
-            Permitteringsskjema
-          </Route>
           <Route exact path="/skjema">
           <HvaSkalDuRapportere byttSide={setNavarendneSide}/>
-          </Route>z
+          </Route>
           <Route exact path="/skjema/side1">
             <SkjemaProvider>
               <Skjema skjema={<Side1 byttSide={setNavarendneSide}/>} naVarendeSteg={1} stegNummer={1} byttSide={setNavarendneSide}/>
