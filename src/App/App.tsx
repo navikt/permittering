@@ -52,11 +52,6 @@ function App() {
               <Skjema skjema={<InputAvPersoner/>} stegNummer={3} naVarendeSteg={naVarendeSide} byttSide={setNavarendneSide}/>
             </SkjemaProvider>
           </Route>
-          <Route exact path="/steg2">
-            <SkjemaProvider>
-              <InputAvPersoner/>
-            </SkjemaProvider>
-          </Route>
         </Router>
       </LoginBoundary>
     </div>
