@@ -6,11 +6,8 @@ import Hovedknapp from "nav-frontend-knapper/lib/hovedknapp";
 import Sidetittel from "nav-frontend-typografi/lib/sidetittel";
 import SkjemaContext from "../SkjemaContext/SkjemaContext";
 
-interface Props {
-  byttSide: (indeks: number) => void;
-}
 
-const Side1: FunctionComponent<Props> = props => {
+const Side1: FunctionComponent= () => {
 
   const context = useContext(SkjemaContext);
   return (

@@ -12,8 +12,10 @@ import Skjema from "./Skjema/Skjema";
 import {SkjemaProvider} from "./SkjemaContext/SkjemaContext";
 import Side1 from "./Skjema/Side1";
 
+
 function App() {
   const [organisasjoner, setorganisasjoner] = useState(Array<Organisasjon>());
+
   const [naVarendeSide, setNavarendneSide] = useState(0);
 
   useEffect(() => {
@@ -44,7 +46,7 @@ function App() {
           </Route>
           <Route exact path="/skjema/side1">
             <SkjemaProvider>
-              <Skjema skjema={<Side1 byttSide={setNavarendneSide}/>} naVarendeSteg={1} stegNummer={1} byttSide={setNavarendneSide}/>
+              <Skjema skjema={<Side1/>} naVarendeSteg={1} stegNummer={1} byttSide={setNavarendneSide}/>
             </SkjemaProvider>
           </Route>
           <Route exact path="/skjema/side3">
