@@ -62,7 +62,9 @@
     "@testing-library/user-event": "^7.1.2",
     "aws-sdk": "^2.639.0",
     "fs-extra": "^8.1.0",
+    "husky": "^4.2.3",
     "jsdom": "^16.2.1",
+    "pretty-quick": "^2.0.1",
     "promise": "^8.1.0"
   },
   "scripts": {
@@ -89,5 +91,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged --pattern \"**/*.*(js|json|jsx|ts|tsx|css|scss|less)\""
+    }
   }
 }

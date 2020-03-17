@@ -47,7 +47,7 @@ const Side1: FunctionComponent = () => {
           label="Telefonnummer"
           defaultValue={context.skjema.kontaktTlf}
           onChange={event =>
-              context.endreSkjemaVerdi("kontaktTlf", event.currentTarget.value)
+            context.endreSkjemaVerdi("kontaktTlf", event.currentTarget.value)
           }
         />
       </div>

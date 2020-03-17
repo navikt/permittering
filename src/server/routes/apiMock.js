@@ -1,6 +1,6 @@
-const paths = require('../../paths');
-const express = require('express');
-const storageClient = require('../StorageMock');
+const paths = require("../../paths");
+const express = require("express");
+const storageClient = require("../StorageMock");
 /**
  * Mock for å
  */
@@ -24,14 +24,20 @@ module.exports = function(app) {
    * Gir deg ett skjema
    */
   app.get(paths.skjemaPath, (req, res) => {
-    const skjema = storageClient.getObject(req.params.orgnummer, req.params.skjemaId);
+    const skjema = storageClient.getObject(
+      req.params.orgnummer,
+      req.params.skjemaId
+    );
     if (skjema) {
       res.json(skjema);
     } else {
-      res.send({
-        error: true,
-        message: 'Skjemaet finnes ikke.',
-      }, 404);
+      res.send(
+        {
+          error: true,
+          message: "Skjemaet finnes ikke."
+        },
+        404
+      );
     }
   });
 
@@ -39,7 +45,11 @@ module.exports = function(app) {
    * Gir oppdaterer ett skjema eller lager ett nytt ett hvis det ikke eksisterer
    */
   app.put(paths.skjemaPath, (req, res) => {
-    const skjema = storageClient.putObject(req.params.orgnummer, req.params.skjemaId, req.body);
+    const skjema = storageClient.putObject(
+      req.params.orgnummer,
+      req.params.skjemaId,
+      req.body
+    );
     res.json(skjema);
   });
 
@@ -47,7 +57,10 @@ module.exports = function(app) {
    * Sletter ett skjema
    */
   app.delete(paths.skjemaPath, (req, res) => {
-    const skjema = storageClient.deleteObject(req.params.orgnummer, req.params.skjemaId);
+    const skjema = storageClient.deleteObject(
+      req.params.orgnummer,
+      req.params.skjemaId
+    );
     res.json(skjema);
   });
 };
