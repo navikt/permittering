@@ -59,10 +59,10 @@ const PersonTabell: React.FunctionComponent<PersonTabellProps> = ({personer, set
         const newItems: PersonObject[] = personer.map(item => ({
             ...item,
             selected: changedItem.fnr === item.fnr ? !item.selected : item.selected
-        }))
+        }));
         setPersoner(newItems)
         setCheckAll(false)
-    }
+    };
 
     return (
         <table className="input-av-personer__tabell tabell">

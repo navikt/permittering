@@ -10,9 +10,11 @@ import LoginBoundary from "./LoginBoundary";
 import HvaSkalDuRapportere from "./HvaSkalDuRapportere/HvaSkalDuRapportere";
 import Skjema from "./Skjema/Skjema";
 import {SkjemaProvider} from "./SkjemaContext/SkjemaContext";
+import Side1 from "./Skjema/Side1";
 
 function App() {
   const [organisasjoner, setorganisasjoner] = useState(Array<Organisasjon>());
+  const [naVarendeSide, setNavarendneSide] = useState(0);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -28,7 +30,6 @@ function App() {
     });
   }, []);
 
-  console.log(organisasjoner);
 
   return (
     <div className="app">
@@ -36,27 +37,19 @@ function App() {
         <Router basename={basePath}>
           <Banner organisasjoner={organisasjoner} />
           <Route exact path="/">
-            <HvaSkalDuRapportere />
-          </Route>
-          <Route exact path="/permitteringsskjema">
-            Permitteringsskjema
-          </Route>
-          <Route exact path="/input">
-            Sett komponent for person-input her
+            <HvaSkalDuRapportere byttSide={setNavarendneSide}/>
           </Route>
           <Route exact path="/skjema">
+          <HvaSkalDuRapportere byttSide={setNavarendneSide}/>
+          </Route>
+          <Route exact path="/skjema/side1">
             <SkjemaProvider>
-              <Skjema/>
+              <Skjema skjema={<Side1 byttSide={setNavarendneSide}/>} naVarendeSteg={1} stegNummer={1} byttSide={setNavarendneSide}/>
             </SkjemaProvider>
           </Route>
-          <Route exact path="/steg3">
+          <Route exact path="/skjema/side3">
             <SkjemaProvider>
-              <InputAvPersoner/>
-            </SkjemaProvider>
-          </Route>
-          <Route exact path="/steg2">
-            <SkjemaProvider>
-              <InputAvPersoner/>
+              <Skjema skjema={<InputAvPersoner/>} stegNummer={3} naVarendeSteg={naVarendeSide} byttSide={setNavarendneSide}/>
             </SkjemaProvider>
           </Route>
         </Router>
