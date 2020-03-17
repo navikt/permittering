@@ -1,14 +1,14 @@
 export enum APISTATUS {
-    LASTER,
-    OK,
-    FEILET
+  LASTER,
+  OK,
+  FEILET
 }
 
 export class FetchError extends Error {
-    public response: Response;
+  public response: Response;
 
-    constructor(reason: string, response: Response) {
-        super(reason);
-        this.response = response;
-    }
+  constructor(reason: string, response: Response) {
+    super(reason);
+    this.response = response;
+  }
 }

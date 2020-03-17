@@ -1,5 +1,5 @@
-const landingsURL = '/permittering/'
+const landingsURL = "/permittering/";
 
 export const hentOrganisasjonerLink = () => {
-  return landingsURL + 'api/organisasjoner';
+  return landingsURL + "api/organisasjoner";
 };

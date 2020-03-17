@@ -1,8 +1,8 @@
-import React from 'react';
-import { FunctionComponent, useEffect, useState } from 'react';
+import React from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import hentVeilarbStatus from "../api/veilarbApi";
 import LoggInn from "./LoggInn/LoggInn";
-import environment from '../utils/environment';
+import environment from "../utils/environment";
 
 export enum Tilgang {
   LASTER,
@@ -15,7 +15,7 @@ const LoginBoundary: FunctionComponent = props => {
 
   const localLogin = () => {
     console.log("lokal logging kallt");
-    if (document.cookie.includes('selvbetjening-idtoken')) {
+    if (document.cookie.includes("selvbetjening-idtoken")) {
       setInnlogget(Tilgang.TILGANG);
     } else {
       setInnlogget(Tilgang.IKKE_TILGANG);
@@ -25,9 +25,12 @@ const LoginBoundary: FunctionComponent = props => {
   useEffect(() => {
     setInnlogget(Tilgang.LASTER);
     const getLoginStatus = async () => {
-      if (environment.MILJO === 'prod-sbs' || environment.MILJO === 'dev-sbs') {
+      if (environment.MILJO === "prod-sbs" || environment.MILJO === "dev-sbs") {
         let veilarbStatusRespons = await hentVeilarbStatus();
-        if (veilarbStatusRespons.harGyldigOidcToken && veilarbStatusRespons.nivaOidc === 4) {
+        if (
+          veilarbStatusRespons.harGyldigOidcToken &&
+          veilarbStatusRespons.nivaOidc === 4
+        ) {
           setInnlogget(Tilgang.TILGANG);
         } else if (!veilarbStatusRespons.harGyldigOidcToken) {
           setInnlogget(Tilgang.IKKE_TILGANG);
@@ -35,7 +38,6 @@ const LoginBoundary: FunctionComponent = props => {
       } else {
         localLogin();
       }
-
     };
     getLoginStatus();
   }, []);
@@ -44,10 +46,9 @@ const LoginBoundary: FunctionComponent = props => {
     return <> {props.children} </>;
   }
   if (innlogget === Tilgang.IKKE_TILGANG) {
-    if (window.location.href ) {
+    if (window.location.href) {
       return <LoggInn />;
-    }
-    else {
+    } else {
       return null;
     }
   } else {
