@@ -1312,6 +1312,11 @@
   resolved "https://registry.yarnpkg.com/@navikt/fnrvalidator/-/fnrvalidator-1.1.0.tgz#8efc8310f02ad2498058e15c298278f0913474bd"
   integrity sha512-IJQymBSGmUYL79MENMlE/MCyE16X7QbPe5MVHz7x2eJDyiqhiCkAmDsVUTHE8Nqu1hmUHADk2qV98Frd/pHtbQ==
 
+"@navikt/textparser@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@navikt/textparser/-/textparser-2.0.0.tgz#34300fb6170cb25b57347c77d3420f08d0fa1d27"
+  integrity sha512-3JLHE2HsUr/qIofgz3fDbO64yKN39pTAViAf6NAM2ct7svwMglqyFDILefwqDYUXvGuMZxApKT8Rd6p5B/DmZA==
+
 "@nodelib/fs.stat@^1.1.2":
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
@@ -1657,6 +1662,13 @@
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.2.tgz#690a1475b84f2a884fd07cd797c00f5f31356ea8"
   integrity sha512-ce5d3q03Ex0sy4R14722Rmt6MT07Ua+k4FwDfdcToYJcMKNtRVQvJ6JCAPdAmAnbRb6CsX6aYb9m96NGod9uTw==
+
+"@types/react-collapse@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@types/react-collapse/-/react-collapse-5.0.0.tgz#ffe6173db457b4b147319e1bd522b5b9d3d68fac"
+  integrity sha512-iM5QPtS0JVbL5TWm8vilaG4iYiQIFSSqXDHcRUA50qBLSgC0GURk7VZYmgo6u4YF0LnpvKBQYRhPv1ut9DukIg==
+  dependencies:
+    "@types/react" "*"
 
 "@types/react-dom@*", "@types/react-dom@^16.9.5":
   version "16.9.5"
@@ -2372,9 +2384,9 @@ autoprefixer@^9.6.1:
     postcss-value-parser "^4.0.2"
 
 aws-sdk@^2.639.0:
-  version "2.639.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.639.0.tgz#ae887a179939750de240ddeb680668300256900f"
-  integrity sha512-cbH69oV0ObZ4tapbjDqu0j3I779uscQNhRaewjIJY5O5At4RULtd7us24n72FtT4HIwM9cwORzVxA9rK6DHKOA==
+  version "2.641.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.641.0.tgz#edc1895f950b795fb0411d6e9333ee5b6659444f"
+  integrity sha512-9GYrBWR7ygIwwFBr0L+P+6tecNGsDuSe1mB18rv7CXSDLDdg6VPYwma1PSw5bUBs4wix9ganK6QLfW8D8ztBEQ==
   dependencies:
     buffer "4.9.1"
     events "1.1.1"
@@ -4149,9 +4161,9 @@ ee-first@1.1.1:
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
 electron-to-chromium@^1.3.341, electron-to-chromium@^1.3.363:
-  version "1.3.376"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.376.tgz#7cb7b5205564a06c8f8ecfbe832cbd47a1224bb1"
-  integrity sha512-cv/PYVz5szeMz192ngilmezyPNFkUjuynuL2vNdiqIrio440nfTDdc0JJU0TS2KHLSVCs9gBbt4CFqM+HcBnjw==
+  version "1.3.377"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.377.tgz#b49d420b36ee6c48b0cd3137bfc7fec75f369b2e"
+  integrity sha512-cm2WzMKf/3dW5+hNANKm8GAW6SwIWOqLTJ6GPCD0Bbw1qJ9Wzm9nmx9M+byzSsgw8CdCv5fb/wzLFqVS5h6QrA==
 
 elliptic@^6.0.0:
   version "6.5.2"
@@ -6863,11 +6875,11 @@ json5@^1.0.1:
     minimist "^1.2.0"
 
 json5@^2.1.0:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/json5/-/json5-2.1.1.tgz#81b6cb04e9ba496f1c7005d07b4368a2638f90b6"
-  integrity sha512-l+3HXD0GEI3huGq1njuqtzYK8OYJyXMkOLtQ53pjWh89tvWS2h6l+1zMkYWqlb57+SiQodKZyvMEFb2X+KrFhQ==
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/json5/-/json5-2.1.2.tgz#43ef1f0af9835dd624751a6b7fa48874fb2d608e"
+  integrity sha512-MoUOQ4WdiN3yxhm7NEVJSJrieAo5hNSLQ5sj05OTRHPL9HOBy8u4Bu88jsC1jvqAdN+E1bJmsUcZH+1HQxliqQ==
   dependencies:
-    minimist "^1.2.0"
+    minimist "^1.2.5"
 
 jsonfile@^4.0.0:
   version "4.0.0"
@@ -7414,7 +7426,7 @@ minimist@0.0.8:
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.8.tgz#857fcabfc3397d2625b8228262e86aa7a011b05d"
   integrity sha1-hX/Kv8M5fSYluCKCYuhqp6ARsF0=
 
-minimist@^1.1.1, minimist@^1.2.0:
+minimist@^1.1.1, minimist@^1.2.0, minimist@^1.2.5:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
   integrity sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==
@@ -7479,12 +7491,19 @@ mixin-object@^2.0.1:
     for-in "^0.1.3"
     is-extendable "^0.1.1"
 
-mkdirp@0.5.1, mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.1:
+mkdirp@0.5.1:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   integrity sha1-MAV0OOrGz3+MR2fzhkjWaX11yQM=
   dependencies:
     minimist "0.0.8"
+
+mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.1:
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.3.tgz#5a514b7179259287952881e94410ec5465659f8c"
+  integrity sha512-P+2gwrFqx8lhew375MQHHeTlY8AuOJSrGf0R5ddkEndUkmwpgUob/vQuBD1V22/Cw1/lJr4x+EjllSezBThzBg==
+  dependencies:
+    minimist "^1.2.5"
 
 move-concurrently@^1.0.1:
   version "1.0.1"
@@ -7588,10 +7607,20 @@ natural-compare@^1.4.0:
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
 
+nav-frontend-chevron-style@^0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/nav-frontend-chevron-style/-/nav-frontend-chevron-style-0.3.5.tgz#778d814ccf98825da744b7fb95a6e7dfb3ff7f4e"
+  integrity sha512-RahSZnJ+R/GtSHy4I15omGUyLawqswb3xgIG7Zcc88pbLH1x4Z1UHyqRShbsf1yKklXCgHzhx+JneZKYb2av/w==
+
 nav-frontend-core@^4.0.12:
   version "4.0.12"
   resolved "https://registry.yarnpkg.com/nav-frontend-core/-/nav-frontend-core-4.0.12.tgz#e0577ddec4f81f1f411a0a0c3fad8e5fa215bbba"
   integrity sha512-xgkTQ2PzN8qYMkLZ+5qj5Dy6kpMHbfAW/y8suvsiLNAGq/KD/gTCzrGb6ypQ6i0CKMQO7cy9w8Kc8/MmhVpSNw==
+
+nav-frontend-ekspanderbartpanel@^3.0.8:
+  version "3.0.8"
+  resolved "https://registry.yarnpkg.com/nav-frontend-ekspanderbartpanel/-/nav-frontend-ekspanderbartpanel-3.0.8.tgz#c241c657e178f92857a57fa84d269cd2bb5b8467"
+  integrity sha512-d/WFJyf50MChw8+lV3Kktep/HYR1bBnWak32GBchyW4Fq/a2BCm+6yCszdi5dT9Obnup/CIbBBcSGbML+hc9Dw==
 
 nav-frontend-js-utils@^1.0.8:
   version "1.0.8"
@@ -7667,6 +7696,13 @@ nav-frontend-tabell-style@^0.2.20:
   version "0.2.20"
   resolved "https://registry.yarnpkg.com/nav-frontend-tabell-style/-/nav-frontend-tabell-style-0.2.20.tgz#24e71200ffab2617fd553b3e51fe92c02fd56179"
   integrity sha512-tE1qRO0SNVeInwzR3UK5tNmKJtCXpnE4hLnNmwLRnZhfln/4XB5bbf46Io4eFxNkRon3ORhjjQd3vIrqVzD99A==
+
+nav-frontend-tekstomrade@^2.0.42:
+  version "2.0.42"
+  resolved "https://registry.yarnpkg.com/nav-frontend-tekstomrade/-/nav-frontend-tekstomrade-2.0.42.tgz#2a723c4e6dfa79a01e5fd029a8167845e7cd797e"
+  integrity sha512-wYklQUIQhifq3X+AWgfrPK20KyCGtS4Tpcqk3NyhgAkEUigCyPShw8sj2zOYoRGQtgblaG9K5I2B3go+pqXDSQ==
+  dependencies:
+    "@navikt/textparser" "^2.0.0"
 
 nav-frontend-typografi-style@^1.0.19:
   version "1.0.19"
@@ -9414,6 +9450,18 @@ react-aria-menubutton@^6.2.0:
     react-display-name "^0.2.4"
     teeny-tap "^0.2.0"
 
+react-collapse@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/react-collapse/-/react-collapse-5.0.1.tgz#f763b7207aee73baa1ff778b2d0b4ffb49d900a0"
+  integrity sha512-cN2tkxBWizhPQ2JHfe0aUSJtmMthKA17NZkTElpiQ2snQAAi1hssXZ2fv88rAPNNvG5ss4t0PbOZT0TIl9Lk3Q==
+
+react-day-picker@^7.4.0:
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/react-day-picker/-/react-day-picker-7.4.0.tgz#1b3dfe76a81864518d241214ba658da25903b7df"
+  integrity sha512-dqfr96EY7mHSpbW23hJI6of2JvxClDfHLNQ7VqctxBvNsJIzEiwh3zS8hEhqNza7xuR0vC4KN517zxndgb3/fw==
+  dependencies:
+    prop-types "^15.6.2"
+
 react-dev-utils@^10.2.0:
   version "10.2.0"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-10.2.0.tgz#b11cc48aa2be2502fb3c27a50d1dfa95cfa9dfe0"
@@ -10876,9 +10924,9 @@ terser-webpack-plugin@^1.4.3:
     worker-farm "^1.7.0"
 
 terser@^4.1.2, terser@^4.4.3, terser@^4.6.3:
-  version "4.6.6"
-  resolved "https://registry.yarnpkg.com/terser/-/terser-4.6.6.tgz#da2382e6cafbdf86205e82fb9a115bd664d54863"
-  integrity sha512-4lYPyeNmstjIIESr/ysHg2vUPRGf2tzF9z2yYwnowXVuVzLEamPN1Gfrz7f8I9uEPuHcbFlW4PLIAsJoxXyJ1g==
+  version "4.6.7"
+  resolved "https://registry.yarnpkg.com/terser/-/terser-4.6.7.tgz#478d7f9394ec1907f0e488c5f6a6a9a2bad55e72"
+  integrity sha512-fmr7M1f7DBly5cX2+rFDvmGBAaaZyPrHYK4mMdHEDAdNTqXSZgSOfqsfGq2HqPGT/1V0foZZuCZFx8CHKgAk3g==
   dependencies:
     commander "^2.20.0"
     source-map "~0.6.1"
