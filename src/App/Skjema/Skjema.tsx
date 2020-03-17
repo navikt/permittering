@@ -9,7 +9,6 @@ interface Props {
   byttSide: (indeks: number) => void;
 }
 
-
 const SkjemaRamme: FunctionComponent<Props> = props => {
 
   const skiftSide = (side: number) => {

@@ -12,10 +12,8 @@ import Skjema from "./Skjema/Skjema";
 import {SkjemaProvider} from "./SkjemaContext/SkjemaContext";
 import Side1 from "./Skjema/Side1";
 
-
 function App() {
   const [organisasjoner, setorganisasjoner] = useState(Array<Organisasjon>());
-
   const [naVarendeSide, setNavarendneSide] = useState(0);
 
   useEffect(() => {
@@ -31,7 +29,6 @@ function App() {
       );
     });
   }, []);
-
 
   return (
     <div className="app">

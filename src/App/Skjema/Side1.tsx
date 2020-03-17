@@ -6,12 +6,10 @@ import Hovedknapp from "nav-frontend-knapper/lib/hovedknapp";
 import Sidetittel from "nav-frontend-typografi/lib/sidetittel";
 import SkjemaContext from "../SkjemaContext/SkjemaContext";
 
-
-const Side1: FunctionComponent= () => {
-
+const Side1: FunctionComponent = () => {
   const context = useContext(SkjemaContext);
   return (
-    <div>
+    <>
       <Sidetittel>Kontaktinformasjon</Sidetittel>
       <Systemtittel className={"skjema-innhold__side-1-systemtittel"}>
         Informasjon om arbeidsgiver
@@ -53,8 +51,8 @@ const Side1: FunctionComponent= () => {
           }
         />
       </div>
-      <Hovedknapp onClick={() => context.lagre }>Gå videre</Hovedknapp>
-    </div>
+      <Hovedknapp onClick={context.lagre}>Gå videre</Hovedknapp>
+    </>
   );
 };
 
