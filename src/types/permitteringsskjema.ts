@@ -14,11 +14,12 @@ export type Permitteringsskjema = {
   sluttDato?: string;
   ukjentSluttDato?: string;
   fritekst?: string;
-  personer: Personer[];
+  personer: Person[];
 };
 
-export type Personer = {
+export type Person = {
   fnr: string;
   grad?: number;
+  selected?: boolean;
   kommentar: string;
 };

@@ -1,19 +1,13 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, {useState} from "react";
 import "nav-frontend-tabell-style";
-import { Checkbox } from "nav-frontend-skjema";
+import {Checkbox} from "nav-frontend-skjema";
 // @ts-ignore
 import validator from "@navikt/fnrvalidator";
+import {Person} from "../../../../types/permitteringsskjema";
 
 interface PersonTabellProps {
-  personer: Array<PersonObject>;
-  setPersoner: Dispatch<SetStateAction<any[]>>;
-}
-
-interface PersonObject {
-  fnr: string;
-  grad?: number;
-  kommentar?: string;
-  selected?: boolean;
+  personer: Array<Person>;
+  setPersoner: (personer: Person[]) => void;
 }
 
 // Taes ut i egen fnr sak
@@ -54,7 +48,7 @@ const PersonTabell: React.FunctionComponent<PersonTabellProps> = ({
 }) => {
   const [checkAll, setCheckAll] = useState<boolean>(false);
   const onCheckAllClicked = (): void => {
-    const newItems: PersonObject[] = personer.map(item => ({
+    const newItems: Person[] = personer.map(item => ({
       ...item,
       selected: !checkAll
     }));
@@ -62,8 +56,8 @@ const PersonTabell: React.FunctionComponent<PersonTabellProps> = ({
     setPersoner(newItems);
   };
 
-  const onCheckClicked = (changedItem: PersonObject) => {
-    const newItems: PersonObject[] = personer.map(item => ({
+  const onCheckClicked = (changedItem: Person) => {
+    const newItems: Person[] = personer.map(item => ({
       ...item,
       selected: changedItem.fnr === item.fnr ? !item.selected : item.selected
     }));
@@ -72,8 +66,8 @@ const PersonTabell: React.FunctionComponent<PersonTabellProps> = ({
   };
 
   return (
-    <table className="input-av-personer__tabell tabell">
-      <thead>
+      <table className="input-av-personer__tabell tabell">
+        <thead>
         <tr>
           <th>
             <Checkbox

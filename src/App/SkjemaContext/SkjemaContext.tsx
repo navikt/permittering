@@ -1,30 +1,41 @@
 import * as React from "react";
-import { FunctionComponent, useEffect, useState } from "react";
-import { Permitteringsskjema } from "../../types/permitteringsskjema";
-import { lagre, opprett } from "../../api/skjema-api";
+import {FunctionComponent, useEffect, useState} from "react";
+import {Permitteringsskjema} from "../../types/permitteringsskjema";
+import {hent, lagre, opprett} from "../../api/skjema-api";
+import {useParams} from "react-router-dom"
 
 type Context = {
   skjema: Permitteringsskjema;
   endreSkjemaVerdi: (felt: keyof Permitteringsskjema, verdi: any) => void;
   lagre: () => void;
+  opprett: (orgnr: string, type: Permitteringsskjema["type"]) => void;
 };
 
 const SkjemaContext = React.createContext<Context>({} as Context);
 
 export const SkjemaProvider: FunctionComponent = props => {
   const [skjema, setSkjema] = useState<Permitteringsskjema>(
-    {} as Permitteringsskjema
+      {} as Permitteringsskjema
   );
+  let {id} = useParams()
+
   useEffect(() => {
-    opprett("999999999", "PERMITTERING_UTEN_LØNN").then(setSkjema);
-  }, []);
+    if (id) {
+      hent(id).then(setSkjema)
+    }
+  }, [id]);
 
   const context: Context = {
     endreSkjemaVerdi: (felt, verdi) => {
-      setSkjema({ ...skjema, [felt]: verdi });
+      setSkjema({...skjema, [felt]: verdi});
     },
-    lagre: () => {
-      lagre(skjema).then(setSkjema);
+    lagre: async () => {
+      await lagre(skjema).then(setSkjema);
+    },
+    opprett: async (orgnr: string, type: Permitteringsskjema["type"]) => {
+      const skjema = await opprett(orgnr, type);
+      setSkjema(skjema)
+      return skjema.id
     },
     skjema
   };
