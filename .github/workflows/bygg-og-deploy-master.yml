@@ -15,6 +15,26 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     steps:
+      - name: Lukk deployment-issues
+        uses: actions/github-script@0.5.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: ['deploy']
+            }).then(response => {
+              response.data.forEach(issue => {
+                github.issues.update({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  state: 'closed'
+                });
+              });
+            });
       - name: Sjekk ut kode
         uses: actions/checkout@v2
 
@@ -57,10 +77,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Installer avhengigheter (npm ci)
-        run:  yarn install --production --ignore-scripts --no-optional
+      - name: Installer avhengigheter (yarn install)
+        run:  yarn install --frozen-lockfile
 
-      - name: Bygg (npm run build)
+      - name: Bygg (yarn build)
         run: yarn build
 
       - name: Bygg, tag og push Docker-image
