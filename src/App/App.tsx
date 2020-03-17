@@ -30,7 +30,6 @@ function App() {
     });
   }, []);
 
-
   return (
     <div className="app">
       <LoginBoundary>
@@ -44,7 +43,7 @@ function App() {
           </Route>
           <Route exact path="/skjema/side1">
             <SkjemaProvider>
-              <Skjema skjema={<Side1 byttSide={setNavarendneSide}/>} naVarendeSteg={1} stegNummer={1} byttSide={setNavarendneSide}/>
+              <Skjema skjema={<Side1/>} naVarendeSteg={1} stegNummer={1} byttSide={setNavarendneSide}/>
             </SkjemaProvider>
           </Route>
           <Route exact path="/skjema/side3">
