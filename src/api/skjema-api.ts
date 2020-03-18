@@ -42,3 +42,8 @@ export const lagre = async (skjema: Permitteringsskjema) => {
   const response = await api.put(`/${skjema.id}`, skjema);
   return response.data;
 };
+
+export const sendInn = async (id: Permitteringsskjema["id"]) => {
+  const response = await api.post(`/${id}/send-inn`);
+  return response.data;
+};

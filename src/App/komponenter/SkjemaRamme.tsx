@@ -2,6 +2,7 @@ import React, { FunctionComponent } from "react";
 import "./SkjemaRamme.less";
 import Stegindikator from "nav-frontend-stegindikator/lib/stegindikator";
 import { useHistory, useParams } from "react-router-dom";
+import Knapp from "nav-frontend-knapper/lib/knapp";
 
 export interface SkjemaSideProps {
   nesteSide: string;
@@ -20,7 +21,7 @@ const SkjemaRamme: FunctionComponent = props => {
       slug: "kontaktinformasjon"
     },
     {
-      label: "Generelle Opplysninger",
+      label: "Generelle opplysninger",
       aktiv: false,
       slug: "generelle-opplysninger"
     },
@@ -43,15 +44,18 @@ const SkjemaRamme: FunctionComponent = props => {
     history.push(createSkjemaPath(steg[index].slug, id));
   };
   return (
-    <div className="skjema-container">
-      <Stegindikator
-        steg={steg}
-        onChange={index => skiftSide(index)}
-        visLabel
-        autoResponsiv
-      />
-      <div className="skjema-innhold">{props.children}</div>
-    </div>
+    <>
+      <div className="skjema-container">
+        <Stegindikator
+          steg={steg}
+          onChange={index => skiftSide(index)}
+          visLabel
+          autoResponsiv
+        />
+
+        <div className="skjema-innhold">{props.children}</div>
+      </div>
+    </>
   );
 };
 

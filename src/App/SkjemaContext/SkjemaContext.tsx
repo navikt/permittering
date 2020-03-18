@@ -4,7 +4,7 @@ import {
   OpprettSkjema,
   Permitteringsskjema
 } from "../../types/permitteringsskjema";
-import { hent, lagre, opprett } from "../../api/skjema-api";
+import { hent, lagre, opprett, sendInn } from "../../api/skjema-api";
 import { useParams } from "react-router-dom";
 
 type Context = {
@@ -12,6 +12,7 @@ type Context = {
   endreSkjemaVerdi: (felt: keyof Permitteringsskjema, verdi: any) => void;
   lagre: () => void;
   opprett: (data: OpprettSkjema) => Promise<Permitteringsskjema["id"]>;
+  sendInn: () => void;
 };
 
 const SkjemaContext = React.createContext<Context>({} as Context);
@@ -39,6 +40,9 @@ export const SkjemaProvider: FunctionComponent = props => {
       const skjema = await opprett(data);
       setSkjema(skjema);
       return skjema.id;
+    },
+    sendInn: async () => {
+      await sendInn(skjema.id).then(setSkjema);
     },
     skjema
   };
