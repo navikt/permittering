@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext } from "react";
+import React, { FunctionComponent, useContext, useState } from "react";
 import "./Skjema.less";
 import Hovedknapp from "nav-frontend-knapper/lib/hovedknapp";
 import Sidetittel from "nav-frontend-typografi/lib/sidetittel";
@@ -7,13 +7,18 @@ import { TextareaControlled } from "nav-frontend-skjema";
 import Checkbox from "nav-frontend-skjema/lib/checkbox";
 import Knapp from "nav-frontend-knapper/lib/knapp";
 import "react-day-picker/lib/style.css";
-import Datovelger from "./Datovelger/Datovelger";
+
 import { createSkjemaPath, SkjemaSideProps } from "../komponenter/SkjemaRamme";
 import { useHistory } from "react-router-dom";
+import Datovelger from "./Datovelger/Datovelger";
 
 const Side2: FunctionComponent<SkjemaSideProps> = props => {
   const context = useContext(SkjemaContext);
   const history = useHistory();
+  const [startDato, setStartDato] = useState("");
+  const [sluttDato, setSluttDato] = useState("");
+
+  console.log(sluttDato, startDato);
 
   return (
     <>
@@ -33,9 +38,9 @@ const Side2: FunctionComponent<SkjemaSideProps> = props => {
         />
       </div>
       <div className={"skjema-innhold__side-2-dato-container"}>
-        <Datovelger />
+        <Datovelger setDato={setStartDato} overtekst={"Fra"} />
         <div className={"skjema-innhold__dato-velger-til"}>
-          <Datovelger />
+          <Datovelger setDato={setSluttDato} overtekst={"Til"} />
           <Checkbox label={"Checkbox"} />
         </div>
       </div>
