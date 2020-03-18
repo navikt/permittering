@@ -10,6 +10,7 @@ import {
 import { useHistory } from "react-router-dom";
 import { Person } from "../../../types/permitteringsskjema";
 import "./InputAvPersoner.less";
+import { Systemtittel } from "nav-frontend-typografi";
 
 const InputAvPersoner: FunctionComponent<SkjemaSideProps> = props => {
   const context = useContext(SkjemaContext);
@@ -48,11 +49,26 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = props => {
   };
   return (
     <div className="input-av-personer">
-      <h1>Hvem skal permitteres?</h1>
+      <div className={"input-av-personer__overskrift-og-knapper"}>
+        <Systemtittel>Hvem skal permitteres?</Systemtittel>
+        <div className={"input-av-personer__fram-og-tilbake"}>
+          <Knapp mini>Tilbake</Knapp>
+          <Hovedknapp
+            mini
+            onClick={async () => {
+              await context.lagre();
+              history.push(
+                createSkjemaPath(props.nesteSide, context.skjema.id)
+              );
+            }}
+            className={"input-av-personer__mini-knapp-neste"}
+          >
+            Neste
+          </Hovedknapp>
+        </div>
+      </div>
       <div className={"input-av-personer__knapper-overst"}>
-        <Hovedknapp onClick={() => openModal()}>
-          Legg til permitterte ansatte
-        </Hovedknapp>
+        <Hovedknapp onClick={() => openModal()}>Legg til ansatte</Hovedknapp>
         <Knapp
           disabled={selectedPersons().length === 0}
           onClick={() => fjernPersoner(selectedPersons())}
@@ -73,7 +89,6 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = props => {
       />
       <div className={"skjema-innhold__fram-og-tilbake"}>
         <Knapp>Tilbake</Knapp>
-
         <Knapp
           onClick={async () => {
             await context.lagre();

@@ -8,7 +8,7 @@ import { Organisasjon } from "@navikt/bedriftsmeny/lib/Organisasjon";
 import LoginBoundary from "./LoginBoundary";
 import HvaSkalDuRapportere from "./HvaSkalDuRapportere/HvaSkalDuRapportere";
 import { SkjemaProvider } from "./SkjemaContext/SkjemaContext";
-import Side1 from "./Skjema/Side1";
+import Side1 from "./Skjema/Side1/Side1";
 import Forside from "./views/forside/Forside";
 import SkjemaRamme from "./komponenter/SkjemaRamme";
 import Side2 from "./Skjema/Side2";
