@@ -1,0 +1,91 @@
+@import '~nav-frontend-core/less/_variabler';
+
+.oppsummering {
+    &__sidetittel {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding-bottom: 2rem;
+    }
+
+    &__boks {
+        padding: 1rem 0;
+        border-bottom: @navLysGra 3px solid;
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    .tabell {
+        tbody tr:first-child {
+            border-top: none;
+        }
+
+        th,
+        td {
+            border-bottom: 0;
+        }
+    }
+
+    &__boks.bedriftinfo,
+    &__boks.kontaktinfo {
+        .tabell {
+            th {
+                width: 116px;
+            }
+            td {
+                max-width: 200px;
+            }
+        }
+    }
+
+    &__boks.kontaktinfo,
+    &__boks.antall-arbeidstakere,
+    &__boks.yrkeskategorier,
+    &__boks.varighet,
+    &__boks.andre-opplysninger {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__boks.antall-arbeidstakere {
+        th {
+            width: 310px;
+        }
+    }
+
+    &__boks.yrkeskategorier,
+    &__boks.andre-opplysninger {
+        .tekst {
+            max-width: 800px;
+            padding: 1rem;
+        }
+        .overskrift {
+            font-weight: 600;
+        }
+    }
+
+    &__boks.varighet {
+        th {
+            width: 233px;
+        }
+    }
+
+    .nav-veilederpanel {
+        margin-bottom: 5rem;
+
+        &__content {
+            padding-bottom: 4rem;
+        }
+    }
+
+    .nav-veileder__frame svg,
+    .nav-veileder__frame img {
+        height: 100%;
+    }
+
+    .nav-veilederpanel--info {
+        border: 2px solid @navDypBlaLighten60;
+    }
+}
