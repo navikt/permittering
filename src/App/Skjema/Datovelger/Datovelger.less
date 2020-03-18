@@ -1,16 +1,33 @@
+@import "~nav-frontend-core/less/_variabler";
+
 .datofelt {
   margin: 2rem 0 0.5rem 0;
 
   &__input-container {
     display: flex;
+    position: relative;
   }
 
   &__input {
-    width: 6rem;
+    width: 13rem;
   }
 
   &__knapp {
-    width: 2rem;
-    background-color: #96d4ff;
+    position: absolute;
+    background-color: transparent;
+    height: 2.5rem;
+    width: 2.5rem;
+    left: 10.5rem;
+    border: 1px solid @navBlaDarken40;
+
+    &:focus {
+      outline: none;
+      border: 2px solid @navBlaDarken40;
+    }
+
+    &:hover {
+      background-color: @navBlaLighten80;
+      border: 2px solid @navBlaDarken40;
+    }
   }
 }
