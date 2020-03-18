@@ -1,4 +1,7 @@
-import { Permitteringsskjema } from "../types/permitteringsskjema";
+import {
+  OpprettSkjema,
+  Permitteringsskjema
+} from "../types/permitteringsskjema";
 import axios from "axios";
 
 const api = axios.create({
@@ -30,11 +33,8 @@ export const hentAlle = async () => {
   return response.data;
 };
 
-export const opprett = async (
-  orgNr: string,
-  type: Permitteringsskjema["type"]
-) => {
-  const response = await api.post("", { orgNr, type });
+export const opprett = async (data: OpprettSkjema) => {
+  const response = await api.post("", data);
   return response.data;
 };
 

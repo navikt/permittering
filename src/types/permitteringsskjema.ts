@@ -1,13 +1,15 @@
 export type Permitteringsskjema = {
   id: string;
   opprettetTidspunkt: string;
-  orgNr: string;
+  bedriftNr: string;
+  bedriftNavn: string;
   type:
     | "MASSEOPPSIGELSE"
     | "PERMITTERING_UTEN_LØNN"
     | "INNSKRENKNING_I_ARBEIDSTID";
   kontaktNavn?: string;
   kontaktTlf?: string;
+  kontaktEpost?: string;
   varsletAnsattDato?: string;
   varsletNavDato?: string;
   startDato?: string;
@@ -15,6 +17,8 @@ export type Permitteringsskjema = {
   ukjentSluttDato?: string;
   fritekst?: string;
   personer: Person[];
+  antallBerørt: number;
+  sendtInn: boolean;
 };
 
 export type Person = {
@@ -23,3 +27,10 @@ export type Person = {
   selected?: boolean;
   kommentar: string;
 };
+
+export type OpprettSkjema = Pick<Permitteringsskjema, "bedriftNr" | "type">;
+
+export type PermitteringsskjemaITabell = Pick<
+  Permitteringsskjema,
+  "id" | "bedriftNr" | "bedriftNavn" | "antallBerørt" | "sendtInn"
+>;
