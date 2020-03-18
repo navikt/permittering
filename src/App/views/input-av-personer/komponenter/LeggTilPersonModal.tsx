@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import Modal from "nav-frontend-modal";
 import { Knapp } from "nav-frontend-knapper";
-import {
-  Normaltekst,
-  UndertekstBold,
-  Undertittel
-} from "nav-frontend-typografi";
+import { Normaltekst, Undertittel, Element } from "nav-frontend-typografi";
 import "./LeggTilPersonModal.less";
 import { Textarea } from "nav-frontend-skjema";
 // @ts-ignore
@@ -51,9 +47,7 @@ const LeggTilPersonerModal: React.FunctionComponent<LeggTilPersonerModalProps> =
         <Undertittel className={"legg-til-person-modal__undertittel"}>
           Legg til permitterte ansatte
         </Undertittel>
-        <UndertekstBold>
-          Lim inn fødselsnummeret til de som skal permitteres
-        </UndertekstBold>
+        <Element>Lim inn fødselsnummeret til de som skal permitteres</Element>
         <Normaltekst>
           <ul>
             <li>Du kan lime inn alle på en gang</li>
@@ -64,7 +58,7 @@ const LeggTilPersonerModal: React.FunctionComponent<LeggTilPersonerModalProps> =
           </ul>
         </Normaltekst>
         <Textarea
-          style={{ maxHeight: "300px", marginBottom: "1rem" }}
+          style={{ maxHeight: "300px", marginBottom: "0.5px" }}
           maxLength={0}
           label="Berørte personer"
           value={textAreaContent}

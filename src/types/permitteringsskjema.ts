@@ -18,7 +18,7 @@ export type Permitteringsskjema = {
   fritekst?: string;
   personer: Person[];
   antallBerørt: number;
-  sendtInn: string;
+  sendtInnTidspunkt?: string;
 };
 
 export type Person = {
@@ -32,5 +32,5 @@ export type OpprettSkjema = Pick<Permitteringsskjema, "bedriftNr" | "type">;
 
 export type PermitteringsskjemaITabell = Pick<
   Permitteringsskjema,
-  "id" | "bedriftNr" | "bedriftNavn" | "antallBerørt" | "sendtInn"
+  "id" | "bedriftNr" | "bedriftNavn" | "antallBerørt" | "sendtInnTidspunkt"
 >;
