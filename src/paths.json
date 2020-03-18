@@ -1,8 +1,8 @@
 {
   "basePath": "/permittering",
   "apiPath": "/permittering/api",
-  "skjemaListPath": "/permittering/api/skjema/:orgnummer",
-  "skjemaPath": "/permittering/api/skjema/:orgnummer/:skjemaId",
+  "skjemaListPath": "/permittering/api/skjema",
+  "skjemaPath": "/permittering/api/skjema/:id",
   "isAlivePath": "/permittering/internal/isAlive",
   "isReadyPath": "/permittering/internal/isReady",
   "redirectTilLoginPath": "/permittering/redirect-til-login"
