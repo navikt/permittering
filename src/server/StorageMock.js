@@ -1,38 +1,30 @@
 let mockStorage = [];
 
-const listObjects = userId => {
+const listObjects = () => {
   const output = [];
-  mockStorage
-    .filter(obj => obj.userId === userId)
-    .forEach(obj => {
-      output.push({
-        userId: obj.userId,
-        objectId: obj.objectId
-      });
+  mockStorage.forEach(obj => {
+    output.push({
+      id: obj.id
     });
+  });
   return output;
 };
 
-const getObject = (userId, objectId) => {
-  const found = mockStorage.filter(
-    obj => obj.userId === userId && obj.objectId === objectId
-  );
+const getObject = id => {
+  const found = mockStorage.filter(obj => obj.id === id);
   return found[0];
 };
 
-const putObject = (userId, objectId, data) => {
-  deleteObject(userId, objectId);
-  data.userId = userId;
-  data.objectId = objectId;
+const putObject = (id, data) => {
+  deleteObject(id);
+  data.id = id;
   data.updated = new Date().toJSON();
   mockStorage.push(data);
   return data;
 };
 
-const deleteObject = (userId, objectId) => {
-  mockStorage = mockStorage.filter(
-    obj => obj.userId !== userId && obj.objectId !== objectId
-  );
+const deleteObject = id => {
+  mockStorage = mockStorage.filter(obj => obj.id !== id);
 };
 
 module.exports = {

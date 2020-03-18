@@ -12,8 +12,8 @@ const LoggInn = () => {
     if (environment.MILJO === "prod-sbs" || environment.MILJO === "dev-sbs") {
       window.location.href = "/permittering/redirect-til-login";
     } else {
-      document.cookie = "selvbetjening-idtoken =0123456789..*; path=/;";
-      window.location.href = "/permittering/";
+      //document.cookie = "localhost-idtoken=0123456789..*; path=/;";
+      window.location.href = "/permittering/redirect-til-login";
     }
   };
 
