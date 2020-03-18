@@ -3,16 +3,19 @@ import { Hovedknapp, Knapp } from "nav-frontend-knapper";
 import PersonTabell from "./komponenter/PersonTabell";
 import LeggTilPersonerModal from "./komponenter/LeggTilPersonModal";
 import SkjemaContext from "../../SkjemaContext/SkjemaContext";
-import {
-  createSkjemaPath,
-  SkjemaSideProps
-} from "../../komponenter/SkjemaRamme";
+import SkjemaRamme from "../../komponenter/SkjemaRamme";
 import { useHistory } from "react-router-dom";
 import { Person } from "../../../types/permitteringsskjema";
 import "./InputAvPersoner.less";
 import { Systemtittel } from "nav-frontend-typografi";
+import {
+  forrigeSide,
+  nesteSide,
+  SkjemaSideProps,
+  skjemaSteg
+} from "../../Skjema/skjema-steg";
 
-const InputAvPersoner: FunctionComponent<SkjemaSideProps> = props => {
+const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
   const context = useContext(SkjemaContext);
   let { personer = [] } = context.skjema;
   const history = useHistory();
@@ -47,19 +50,28 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = props => {
   const selectedPersons = () => {
     return personer.filter(e => e.selected).map(e => e.fnr);
   };
+  const steg = skjemaSteg(history.location.pathname);
+  const nestePath = nesteSide(steg, context.skjema.id);
+  const forrigePath = forrigeSide(steg, context.skjema.id);
   return (
-    <div className="input-av-personer">
+    <SkjemaRamme>
       <div className={"input-av-personer__overskrift-og-knapper"}>
         <Systemtittel>Hvem skal permitteres?</Systemtittel>
         <div className={"input-av-personer__fram-og-tilbake"}>
-          <Knapp mini>Tilbake</Knapp>
+          <Knapp
+            mini
+            onClick={async () => {
+              await context.lagre();
+              history.push(forrigePath || "");
+            }}
+          >
+            Tilbake
+          </Knapp>
           <Hovedknapp
             mini
             onClick={async () => {
               await context.lagre();
-              history.push(
-                createSkjemaPath(props.nesteSide, context.skjema.id)
-              );
+              history.push(nestePath || "");
             }}
             className={"input-av-personer__mini-knapp-neste"}
           >
@@ -88,17 +100,24 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = props => {
         }
       />
       <div className={"skjema-innhold__fram-og-tilbake"}>
-        <Knapp>Tilbake</Knapp>
         <Knapp
           onClick={async () => {
             await context.lagre();
-            history.push(createSkjemaPath(props.nesteSide, context.skjema.id));
+            history.push(forrigePath || "");
+          }}
+        >
+          Tilbake
+        </Knapp>
+        <Knapp
+          onClick={async () => {
+            await context.lagre();
+            history.push(nestePath || "");
           }}
         >
           Neste
         </Knapp>
       </div>
-    </div>
+    </SkjemaRamme>
   );
 };
 export default InputAvPersoner;

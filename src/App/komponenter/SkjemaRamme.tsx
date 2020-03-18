@@ -2,44 +2,17 @@ import React, { FunctionComponent } from "react";
 import "./SkjemaRamme.less";
 import Stegindikator from "nav-frontend-stegindikator/lib/stegindikator";
 import { useHistory, useParams } from "react-router-dom";
-import Knapp from "nav-frontend-knapper/lib/knapp";
+import { StegindikatorStegProps } from "nav-frontend-stegindikator/lib/stegindikator-steg";
+import {
+  createSkjemaPath,
+  SkjemaSideProps,
+  skjemaSteg
+} from "../Skjema/skjema-steg";
 
-export interface SkjemaSideProps {
-  nesteSide: string;
-}
-
-export const createSkjemaPath = (slug: string, id?: string) => {
-  return ["", "skjema", slug, id].join("/");
-};
-const SkjemaRamme: FunctionComponent = props => {
+const SkjemaRamme: FunctionComponent<SkjemaSideProps> = ({ children }) => {
   const history = useHistory();
   let { id } = useParams();
-  const steg = [
-    {
-      label: "Kontakinformasjon",
-      aktiv: false,
-      slug: "kontaktinformasjon"
-    },
-    {
-      label: "Generelle opplysninger",
-      aktiv: false,
-      slug: "generelle-opplysninger"
-    },
-    {
-      label: "Hvem rammes",
-      aktiv: false,
-      slug: "hvem-rammes"
-    },
-    {
-      label: "Oppsummering",
-      aktiv: false,
-      slug: "oppsummering"
-    }
-  ].map((item, index) => ({
-    ...item,
-    index,
-    aktiv: history.location.pathname.includes(item.slug)
-  }));
+  const steg = skjemaSteg(history.location.pathname);
   const skiftSide = (index: number) => {
     history.push(createSkjemaPath(steg[index].slug, id));
   };
@@ -47,13 +20,12 @@ const SkjemaRamme: FunctionComponent = props => {
     <>
       <div className="skjema-container">
         <Stegindikator
-          steg={steg}
+          steg={steg as StegindikatorStegProps[]}
           onChange={index => skiftSide(index)}
           visLabel
           autoResponsiv
         />
-
-        <div className="skjema-innhold">{props.children}</div>
+        <div className="skjema-innhold">{children}</div>
       </div>
     </>
   );

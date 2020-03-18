@@ -1,21 +1,22 @@
-import React, { FunctionComponent, useContext, useState } from "react";
+import React, { FunctionComponent, useContext } from "react";
 import "./Skjema.less";
 import Hovedknapp from "nav-frontend-knapper/lib/hovedknapp";
 import Sidetittel from "nav-frontend-typografi/lib/sidetittel";
 import SkjemaContext from "../SkjemaContext/SkjemaContext";
 import { Textarea } from "nav-frontend-skjema";
 import Checkbox from "nav-frontend-skjema/lib/checkbox";
-import Knapp from "nav-frontend-knapper/lib/knapp";
 import "react-day-picker/lib/style.css";
 import Datovelger from "../komponenter/Datovelger/Datovelger";
-import { createSkjemaPath, SkjemaSideProps } from "../komponenter/SkjemaRamme";
+import SkjemaRamme from "../komponenter/SkjemaRamme";
 import { useHistory } from "react-router-dom";
 import {
   mergeFritekst,
   splittOppFritekst
 } from "../../utils/fritekstFunksjoner";
+import { nesteSide, SkjemaSideProps, skjemaSteg } from "./skjema-steg";
+import { Knapp } from "nav-frontend-knapper";
 
-const Side2: FunctionComponent<SkjemaSideProps> = props => {
+const Side2: FunctionComponent<SkjemaSideProps> = () => {
   const history = useHistory();
   const context = useContext(SkjemaContext);
   let aarsak = "";
@@ -38,8 +39,11 @@ const Side2: FunctionComponent<SkjemaSideProps> = props => {
     fritekstFelter[key] = value;
     context.endreSkjemaVerdi("fritekst", mergeFritekst(fritekstFelter));
   };
+  const steg = skjemaSteg(history.location.pathname);
+  const nestePath = nesteSide(steg, context.skjema.id);
+  const forrigePath = nesteSide(steg, context.skjema.id);
   return (
-    <>
+    <SkjemaRamme>
       <Sidetittel>Generelle opplysninger</Sidetittel>
       <div className={"skjema-innhold__side-2-text-area"}>
         <Textarea
@@ -75,9 +79,19 @@ const Side2: FunctionComponent<SkjemaSideProps> = props => {
             onChange={event =>
               context.endreSkjemaVerdi("sluttDato", event.currentTarget.value)
             }
+            disabled={context.skjema.ukjentSluttDato}
             overtekst={"Til"}
           />
-          <Checkbox label={"Checkbox"} />
+          <Checkbox
+            label={"Ukjent slutt dato"}
+            checked={context.skjema.ukjentSluttDato}
+            onChange={() =>
+              context.endreSkjemaVerdi(
+                "ukjentSluttDato",
+                !context.skjema.ukjentSluttDato
+              )
+            }
+          />
         </div>
       </div>
       <div className={"skjema-innhold__side-2-text-area"}>
@@ -90,16 +104,26 @@ const Side2: FunctionComponent<SkjemaSideProps> = props => {
           }
         />
       </div>
-      <Hovedknapp
-        className={"skjema-innhold__lagre"}
-        onClick={async () => {
-          await context.lagre();
-          history.push(createSkjemaPath(props.nesteSide, context.skjema.id));
-        }}
-      >
-        Lagre og neste
-      </Hovedknapp>
-    </>
+      <div className={"skjema-innhold__fram-og-tilbake"}>
+        <Knapp
+          onClick={async () => {
+            await context.lagre();
+            history.push(forrigePath || "");
+          }}
+        >
+          {" "}
+          Tilbake
+        </Knapp>
+        <Hovedknapp
+          onClick={async () => {
+            await context.lagre();
+            history.push(nestePath || "");
+          }}
+        >
+          Videre
+        </Hovedknapp>
+      </div>
+    </SkjemaRamme>
   );
 };
 
