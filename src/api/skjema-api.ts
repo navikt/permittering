@@ -25,11 +25,16 @@ export const hent = async (id: string) => {
   return response.data;
 };
 
+export const hentAlle = async () => {
+  const response = await api.get("");
+  return response.data;
+};
+
 export const opprett = async (
   orgNr: string,
   type: Permitteringsskjema["type"]
 ) => {
-  const response = await api.post(`/`, { orgNr, type });
+  const response = await api.post("", { orgNr, type });
   return response.data;
 };
 
