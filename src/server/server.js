@@ -12,8 +12,9 @@ const veilarbStatusProxyConfig = require("./veilarbStatusProxyConfig");
 
 app.use(`${BASE_PATH}/veilarbstepup/status`, veilarbStatusProxyConfig);
 
-createEnvSettingsFile(path.resolve(`${buildPath}/static/js/settings.js`));
-
+app.get(`${BASE_PATH}/static/js/settings.js`, (req, res) =>
+  res.send(createEnvSettingsFile())
+);
 /*app.get(`${BASE_PATH}/redirect-til-login`, (req, res) => {
 
   const loginUrl =
