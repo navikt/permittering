@@ -18,7 +18,7 @@ export type Permitteringsskjema = {
   fritekst?: string;
   personer: Person[];
   antallBerørt: number;
-  sendtInn: boolean;
+  sendtInn: string;
 };
 
 export type Person = {
