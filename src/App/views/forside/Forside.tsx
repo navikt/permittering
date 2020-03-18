@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SkjemaTabell from "./komponenter/SkjemaTabell";
 import HvitSideBoks from "../../komponenter/HvitSideBoks";
 import { Undertittel } from "nav-frontend-typografi";
 import Lenke from "nav-frontend-lenker";
 import { Knapp } from "nav-frontend-knapper";
+import { hentOrganisasjonerFraAltinn } from "../../../api/AltinnApi";
+import { Organisasjon } from "@navikt/bedriftsmeny/lib/Organisasjon";
 
 const dummySkjemaer = [
   {
@@ -19,7 +21,26 @@ const dummySkjemaer = [
     antallBerort: 123
   }
 ];
-const Forside = () => {
+
+interface Props {
+  setOrganisasjoner: (organisasjoner: Array<Organisasjon>) => void;
+}
+const Forside = (props: Props) => {
+  const setOrgs = props.setOrganisasjoner;
+  useEffect(() => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+    hentOrganisasjonerFraAltinn(signal).then(organisasjonsliste => {
+      setOrgs(
+        organisasjonsliste.filter(
+          organisasjon =>
+            organisasjon.OrganizationForm === "BEDR" ||
+            organisasjon.Type === "Enterprise"
+        )
+      );
+    });
+  }, [setOrgs]);
+
   return (
     <HvitSideBoks>
       <Undertittel>Eksisterende varsler</Undertittel>
