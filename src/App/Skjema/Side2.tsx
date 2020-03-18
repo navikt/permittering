@@ -7,16 +7,17 @@ import { Textarea } from "nav-frontend-skjema";
 import Checkbox from "nav-frontend-skjema/lib/checkbox";
 import Knapp from "nav-frontend-knapper/lib/knapp";
 import "react-day-picker/lib/style.css";
-import Datovelger from "./Datovelger/Datovelger";
+import Datovelger from "../komponenter/Datovelger/Datovelger";
 import { createSkjemaPath, SkjemaSideProps } from "../komponenter/SkjemaRamme";
 import { useHistory } from "react-router-dom";
-import { mergeFritekst, splittOppFritekst } from "./fritekstFunksjoner";
+import {
+  mergeFritekst,
+  splittOppFritekst
+} from "../../utils/fritekstFunksjoner";
 
 const Side2: FunctionComponent<SkjemaSideProps> = props => {
   const history = useHistory();
   const context = useContext(SkjemaContext);
-  const [startDato, setStartDato] = useState("");
-  const [sluttDato, setSluttDato] = useState("");
   let aarsak = "";
   let yrker = "";
   let annet = "";
@@ -61,9 +62,21 @@ const Side2: FunctionComponent<SkjemaSideProps> = props => {
         />
       </div>
       <div className={"skjema-innhold__side-2-dato-container"}>
-        <Datovelger setDato={setStartDato} overtekst={"Fra"} />
+        <Datovelger
+          value={context.skjema.startDato}
+          onChange={event =>
+            context.endreSkjemaVerdi("startDato", event.currentTarget.value)
+          }
+          overtekst={"Fra"}
+        />
         <div className={"skjema-innhold__dato-velger-til"}>
-          <Datovelger setDato={setSluttDato} overtekst={"Til"} />
+          <Datovelger
+            value={context.skjema.sluttDato}
+            onChange={event =>
+              context.endreSkjemaVerdi("sluttDato", event.currentTarget.value)
+            }
+            overtekst={"Til"}
+          />
           <Checkbox label={"Checkbox"} />
         </div>
       </div>
