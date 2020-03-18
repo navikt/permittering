@@ -13,6 +13,7 @@ interface Props {
   overtekst: string;
   value?: string;
   onChange: (event: any) => void;
+  disabled?: boolean;
 }
 
 const Datovelger: FunctionComponent<Props> = props => {
@@ -26,6 +27,7 @@ const Datovelger: FunctionComponent<Props> = props => {
       <Label htmlFor={datovelgerId}>{props.overtekst}</Label>
       <div className={"datofelt__input-container"}>
         <Input
+          disabled={props.disabled}
           id={datovelgerId}
           aria-label="Skriv startdato:"
           value={editing ? tempDate : skrivOmDato(selectedDate)}
@@ -47,6 +49,7 @@ const Datovelger: FunctionComponent<Props> = props => {
           }}
         />
         <button
+          disabled={props.disabled}
           className={"datofelt__knapp"}
           onClick={() => setErApen(!erApen)}
         >

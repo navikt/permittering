@@ -4,16 +4,24 @@ import Hovedknapp from "nav-frontend-knapper/lib/hovedknapp";
 import Sidetittel from "nav-frontend-typografi/lib/sidetittel";
 import SkjemaContext from "../SkjemaContext/SkjemaContext";
 import Knapp from "nav-frontend-knapper/lib/knapp";
-import { createSkjemaPath, SkjemaSideProps } from "../komponenter/SkjemaRamme";
+import SkjemaRamme from "../komponenter/SkjemaRamme";
 import { useHistory } from "react-router-dom";
 import Tekstomrade from "nav-frontend-tekstomrade";
+import {
+  forrigeSide,
+  nesteSide,
+  SkjemaSideProps,
+  skjemaSteg
+} from "./skjema-steg";
 
-const Oppsummering: FunctionComponent<SkjemaSideProps> = props => {
+const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
   const context = useContext(SkjemaContext);
   const history = useHistory();
-
+  const steg = skjemaSteg(history.location.pathname);
+  const nestePath = nesteSide(steg, context.skjema.id);
+  const forrigePath = forrigeSide(steg, context.skjema.id);
   return (
-    <>
+    <SkjemaRamme>
       <Sidetittel>Oppsummering</Sidetittel>
       <Tekstomrade>{`
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sed mollis nisl. Praesent scelerisque efficitur
@@ -37,19 +45,26 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = props => {
                 venenatis luctus, erat diam ornare risus, sed sodales enim sem ut mauris.
             `}</Tekstomrade>
       <div className={"skjema-innhold__fram-og-tilbake"}>
-        <Knapp>Tilbake</Knapp>
+        <Knapp
+          onClick={() => {
+            context.lagre();
+            history.push(forrigePath || "");
+          }}
+        >
+          Tilbake
+        </Knapp>
         <Hovedknapp
           className={"skjema-innhold__lagre"}
           onClick={() => {
             context.lagre();
-            history.push(createSkjemaPath(props.nesteSide, context.skjema.id));
+            history.push(nestePath || "");
           }}
         >
           Lagre og neste
         </Hovedknapp>
         <Knapp>Fram</Knapp>
       </div>
-    </>
+    </SkjemaRamme>
   );
 };
 

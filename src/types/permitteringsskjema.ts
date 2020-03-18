@@ -14,7 +14,7 @@ export type Permitteringsskjema = {
   varsletNavDato?: string;
   startDato?: string;
   sluttDato?: string;
-  ukjentSluttDato?: string;
+  ukjentSluttDato?: boolean;
   fritekst?: string;
   personer: Person[];
   antallBerørt: number;

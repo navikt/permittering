@@ -3,20 +3,25 @@ import Systemtittel from "nav-frontend-typografi/lib/systemtittel";
 import Input from "nav-frontend-skjema/lib/input";
 import Hovedknapp from "nav-frontend-knapper/lib/hovedknapp";
 import SkjemaContext from "../../SkjemaContext/SkjemaContext";
-import {
-  createSkjemaPath,
-  SkjemaSideProps
-} from "../../komponenter/SkjemaRamme";
+import SkjemaRamme from "../../komponenter/SkjemaRamme";
 import { useHistory } from "react-router-dom";
 import Undertittel from "nav-frontend-typografi/lib/undertittel";
 import "./Side1.less";
 import { Knapp } from "nav-frontend-knapper";
+import {
+  forrigeSide,
+  nesteSide,
+  SkjemaSideProps,
+  skjemaSteg
+} from "../skjema-steg";
 
-const Side1: FunctionComponent<SkjemaSideProps> = props => {
+const Side1: FunctionComponent<SkjemaSideProps> = ({}) => {
   const context = useContext(SkjemaContext);
   const history = useHistory();
+  const steg = skjemaSteg(history.location.pathname);
+  const nestePath = nesteSide(steg, context.skjema.id);
   return (
-    <>
+    <SkjemaRamme>
       <Systemtittel>Kontaktinformasjon</Systemtittel>
       <Undertittel className={"skjema-innhold__side-1-undertittel"}>
         Informasjon om arbeidsgiver
@@ -59,24 +64,24 @@ const Side1: FunctionComponent<SkjemaSideProps> = props => {
         <Input
           className={"skjema-innhold__side-1-input-felt"}
           label="Epost"
-          defaultValue={context.skjema.kontaktNavn}
+          defaultValue={context.skjema.kontaktEpost}
           onChange={event =>
-            context.endreSkjemaVerdi("kontaktNavn", event.currentTarget.value)
+            context.endreSkjemaVerdi("kontaktEpost", event.currentTarget.value)
           }
         />
       </div>
       <div className={"skjema-innhold__fram-og-tilbake"}>
-        <Knapp>Tilbake</Knapp>
+        <Knapp disabled> Tilbake</Knapp>
         <Hovedknapp
           onClick={async () => {
             await context.lagre();
-            history.push(createSkjemaPath(props.nesteSide, context.skjema.id));
+            history.push(nestePath || "");
           }}
         >
           Videre
         </Hovedknapp>
       </div>
-    </>
+    </SkjemaRamme>
   );
 };
 
