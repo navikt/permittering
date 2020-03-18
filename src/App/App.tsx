@@ -13,6 +13,7 @@ import Forside from "./views/forside/Forside";
 import SkjemaRamme from "./komponenter/SkjemaRamme";
 import Side2 from "./Skjema/Side2";
 import Oppsummering from "./Skjema/Oppsummering";
+import { OrganisasjonsListeProvider } from "./OrgnisasjonslisteProvider";
 
 function App() {
   const [organisasjoner, setorganisasjoner] = useState(Array<Organisasjon>());
@@ -21,7 +22,9 @@ function App() {
     <div className="app">
       <LoginBoundary>
         <Router basename={basePath}>
-          <Banner organisasjoner={organisasjoner} />
+          <OrganisasjonsListeProvider>
+            <Banner />
+          </OrganisasjonsListeProvider>
           <Route exact path="/">
             <Forside setOrganisasjoner={setorganisasjoner} />
           </Route>

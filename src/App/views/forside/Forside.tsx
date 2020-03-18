@@ -30,19 +30,6 @@ interface Props {
 }
 const Forside = (props: Props) => {
   const setOrgs = props.setOrganisasjoner;
-  useEffect(() => {
-    const abortController = new AbortController();
-    const signal = abortController.signal;
-    hentOrganisasjonerFraAltinn(signal).then(organisasjonsliste => {
-      setOrgs(
-        organisasjonsliste.filter(
-          organisasjon =>
-            organisasjon.OrganizationForm === "BEDR" ||
-            organisasjon.Type === "Enterprise"
-        )
-      );
-    });
-  }, [setOrgs]);
 
   return (
     <HvitSideBoks>
