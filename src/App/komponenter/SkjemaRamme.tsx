@@ -20,7 +20,7 @@ const SkjemaRamme: FunctionComponent = props => {
       slug: "kontaktinformasjon"
     },
     {
-      label: "Generelle Opplysninger",
+      label: "Generelle opplysninger",
       aktiv: false,
       slug: "generelle-opplysninger"
     },

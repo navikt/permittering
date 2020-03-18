@@ -1,22 +1,22 @@
 import React, { FunctionComponent, useContext } from "react";
-import "../komponenter/SkjemaRamme.less";
 import Systemtittel from "nav-frontend-typografi/lib/systemtittel";
 import Input from "nav-frontend-skjema/lib/input";
 import Hovedknapp from "nav-frontend-knapper/lib/hovedknapp";
-import Sidetittel from "nav-frontend-typografi/lib/sidetittel";
 import SkjemaContext from "../SkjemaContext/SkjemaContext";
 import { createSkjemaPath, SkjemaSideProps } from "../komponenter/SkjemaRamme";
 import { useHistory } from "react-router-dom";
+import Undertittel from "nav-frontend-typografi/lib/undertittel";
+import "./Side1.less";
 
 const Side1: FunctionComponent<SkjemaSideProps> = props => {
   const context = useContext(SkjemaContext);
   const history = useHistory();
   return (
     <>
-      <Sidetittel>Kontaktinformasjon</Sidetittel>
-      <Systemtittel className={"skjema-innhold__side-1-systemtittel"}>
+      <Systemtittel>Kontaktinformasjon</Systemtittel>
+      <Undertittel className={"skjema-innhold__side-1-systemtittel"}>
         Informasjon om arbeidsgiver
-      </Systemtittel>
+      </Undertittel>
       <div className={"skjema-innhold__side-1-linje-2"}>
         <Input
           className={"skjema-innhold__side-1-input-felt"}
