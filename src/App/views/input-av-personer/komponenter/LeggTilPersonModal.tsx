@@ -6,6 +6,7 @@ import {
   UndertekstBold,
   Undertittel
 } from "nav-frontend-typografi";
+import "./LeggTilPersonModal.less";
 import { Textarea } from "nav-frontend-skjema";
 // @ts-ignore
 import validator from "@navikt/fnrvalidator";
@@ -46,8 +47,10 @@ const LeggTilPersonerModal: React.FunctionComponent<LeggTilPersonerModalProps> =
       closeButton={true}
       contentLabel="Min modalrute"
     >
-      <div style={{ padding: "2rem 2.5rem", overflow: "hidden" }}>
-        <Undertittel>Legg til permitterte ansatte</Undertittel>
+      <div className={"legg-til-person-modal__container"}>
+        <Undertittel className={"legg-til-person-modal__undertittel"}>
+          Legg til permitterte ansatte
+        </Undertittel>
         <UndertekstBold>
           Lim inn fødselsnummeret til de som skal permitteres
         </UndertekstBold>
@@ -61,10 +64,11 @@ const LeggTilPersonerModal: React.FunctionComponent<LeggTilPersonerModalProps> =
           </ul>
         </Normaltekst>
         <Textarea
-          style={{ maxHeight: "300px" }}
+          style={{ maxHeight: "300px", marginBottom: "1rem" }}
           maxLength={0}
           label="Berørte personer"
           value={textAreaContent}
+          placeholder={"Lim inn her"}
           onChange={e => {
             const numbers = extractFnrFromString(e.target.value);
             setFnrCount(numbers.length);
@@ -72,19 +76,20 @@ const LeggTilPersonerModal: React.FunctionComponent<LeggTilPersonerModalProps> =
           }}
         />
         {fnrCount > 0 && (
-          <Normaltekst>Finner totalt {fnrCount} personer.</Normaltekst>
+          <Normaltekst>Finner {fnrCount} gyldige fødselsnummer.</Normaltekst>
         )}
+        <Knapp
+          className={"legg-til-person-modal__legg-til-knapp"}
+          disabled={fnrCount === 0}
+          onClick={() => {
+            leggTilPersoner(extractFnrFromString(textAreaContent));
+            setTextAreaContent("");
+            setFnrCount(0);
+          }}
+        >
+          Legg til personer i lista
+        </Knapp>
       </div>
-      <Knapp
-        disabled={fnrCount === 0}
-        onClick={() => {
-          leggTilPersoner(extractFnrFromString(textAreaContent));
-          setTextAreaContent("");
-          setFnrCount(0);
-        }}
-      >
-        Legg til personer i lista
-      </Knapp>
     </Modal>
   );
 };
