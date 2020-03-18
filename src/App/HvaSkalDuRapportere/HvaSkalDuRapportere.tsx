@@ -24,7 +24,7 @@ const HvaSkalDuRapportere: FunctionComponent = props => {
   const history = useHistory();
   const opprettOgNavigerTilSkjema = async () => {
     const newId = await context.opprett({
-      bedriftNr: "9999999",
+      bedriftNr: "910825569",
       type: skjemaType!
     });
     history.push("/skjema/kontaktinformasjon/" + newId);
