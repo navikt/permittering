@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom';
 import Undertittel from 'nav-frontend-typografi/lib/undertittel';
 import './Side1.less';
 import { Knapp } from 'nav-frontend-knapper';
-import { forrigeSide, nesteSide, SkjemaSideProps, skjemaSteg } from '../skjema-steg';
+import { nesteSide, SkjemaSideProps, skjemaSteg } from '../skjema-steg';
 
 const Side1: FunctionComponent<SkjemaSideProps> = ({}) => {
     const context = useContext(SkjemaContext);
@@ -58,7 +58,7 @@ const Side1: FunctionComponent<SkjemaSideProps> = ({}) => {
                 />
                 <Input
                     className={'skjema-innhold__side-1-input-felt'}
-                    label="Epost"
+                    label="E-post"
                     defaultValue={context.skjema.kontaktEpost}
                     onChange={event =>
                         context.endreSkjemaVerdi('kontaktEpost', event.currentTarget.value)
