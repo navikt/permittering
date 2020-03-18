@@ -12,6 +12,7 @@ import Side1 from './Skjema/Side1/Side1';
 import Forside from './views/forside/Forside';
 import Side2 from './Skjema/Side2';
 import Oppsummering from './Skjema/side4-oppsummering/Oppsummering';
+import Kvitteringsside from './views/kvittering/Kvitteringsside';
 
 function App() {
     const [organisasjoner, setorganisasjoner] = useState(Array<Organisasjon>());
@@ -47,6 +48,9 @@ function App() {
                         <SkjemaProvider>
                             <Oppsummering />
                         </SkjemaProvider>
+                    </Route>
+                    <Route exact path="/skjema/kvitteringsside">
+                        <Kvitteringsside />
                     </Route>
                 </Router>
             </LoginBoundary>
