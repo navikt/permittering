@@ -8,15 +8,13 @@ import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
 import LoginBoundary from './LoginBoundary';
 import HvaSkalDuRapportere from './HvaSkalDuRapportere/HvaSkalDuRapportere';
 import { SkjemaProvider } from './SkjemaContext/SkjemaContext';
-import Side1 from './Skjema/Side1';
+import Side1 from './Skjema/Side1/Side1';
 import Forside from './views/forside/Forside';
-import SkjemaRamme from './komponenter/SkjemaRamme';
 import Side2 from './Skjema/Side2';
 import Oppsummering from './Skjema/side4-oppsummering/Oppsummering';
 
 function App() {
     const [organisasjoner, setorganisasjoner] = useState(Array<Organisasjon>());
-
     return (
         <div className="app">
             <LoginBoundary>
@@ -32,30 +30,22 @@ function App() {
                     </Route>
                     <Route exact path="/skjema/kontaktinformasjon/:id">
                         <SkjemaProvider>
-                            <SkjemaRamme>
-                                <Side1 nesteSide={'generelle-opplysninger'} />
-                            </SkjemaRamme>
+                            <Side1 />
                         </SkjemaProvider>
                     </Route>
                     <Route exact path="/skjema/generelle-opplysninger/:id">
                         <SkjemaProvider>
-                            <SkjemaRamme>
-                                <Side2 nesteSide={'hvem-rammes'} />
-                            </SkjemaRamme>
+                            <Side2 />
                         </SkjemaProvider>
                     </Route>
                     <Route exact path="/skjema/hvem-rammes/:id">
                         <SkjemaProvider>
-                            <SkjemaRamme>
-                                <InputAvPersoner nesteSide={'oppsummering'} />
-                            </SkjemaRamme>
+                            <InputAvPersoner />
                         </SkjemaProvider>
                     </Route>
                     <Route exact path="/skjema/oppsummering/:id">
                         <SkjemaProvider>
-                            <SkjemaRamme>
-                                <Oppsummering nesteSide={'kvittering'} />
-                            </SkjemaRamme>
+                            <Oppsummering />
                         </SkjemaProvider>
                     </Route>
                 </Router>
