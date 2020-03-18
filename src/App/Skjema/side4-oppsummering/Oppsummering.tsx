@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
-import { Normaltekst, Undertittel, Sidetittel } from 'nav-frontend-typografi';
+import { Normaltekst, Sidetittel, Undertittel } from 'nav-frontend-typografi';
 import Lenke from 'nav-frontend-lenker';
 import Knapp from 'nav-frontend-knapper/lib/knapp';
 import Veilederpanel from 'nav-frontend-veilederpanel';
@@ -152,21 +152,22 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = props => {
 
                 <div className="skjema-innhold__fram-og-tilbake">
                     <Knapp
-                        onClick={() => {
-                            context.lagre();
+                        onClick={async () => {
+                            await context.lagre();
                             history.push(forrigePath || '');
                         }}
                     >
                         Tilbake
                     </Knapp>
                     <Hovedknapp
+                        disabled={context.valider().length > 0}
                         className={'skjema-innhold__lagre'}
-                        onClick={() => {
-                            context.lagre();
-                            history.push(nestePath || '');
+                        onClick={async () => {
+                            await context.sendInn();
+                            history.push('/skjema/kvitteringsside');
                         }}
                     >
-                        Lagre og neste
+                        Send inn Meldingen
                     </Hovedknapp>
                     <Knapp>Fram</Knapp>
                 </div>

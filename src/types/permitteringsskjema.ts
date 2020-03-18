@@ -4,7 +4,7 @@ export type Permitteringsskjema = {
     bedriftNr: string;
     bedriftNavn: string;
     type: 'MASSEOPPSIGELSE' | 'PERMITTERING_UTEN_LØNN' | 'INNSKRENKNING_I_ARBEIDSTID';
-    kontaktNavn?: string;
+    kontaktNavn: string;
     kontaktTlf?: string;
     kontaktEpost?: string;
     varsletAnsattDato?: string;
@@ -14,7 +14,7 @@ export type Permitteringsskjema = {
     ukjentSluttDato?: boolean;
     fritekst?: string;
     personer: Person[];
-    antallBerørt: number;
+    antallBerørt?: number;
     sendtInnTidspunkt?: string;
 };
 

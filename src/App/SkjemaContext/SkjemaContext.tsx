@@ -10,6 +10,7 @@ type Context = {
     lagre: () => void;
     opprett: (data: OpprettSkjema) => Promise<Permitteringsskjema['id']>;
     sendInn: () => void;
+    valider: () => string[];
 };
 
 const SkjemaContext = React.createContext<Context>({} as Context);
@@ -29,19 +30,35 @@ export const SkjemaProvider: FunctionComponent = props => {
             setSkjema({ ...skjema, [felt]: verdi });
         },
         lagre: async () => {
+            skjema.antallBerørt = 0;
+            skjema.varsletNavDato = new Date().toJSON();
+            skjema.varsletAnsattDato = new Date().toJSON();
             await lagre(skjema).then(setSkjema);
         },
         opprett: async (data: OpprettSkjema) => {
             const skjema = await opprett(data);
+
             setSkjema(skjema);
             return skjema.id;
         },
         sendInn: async () => {
             await sendInn(skjema.id).then(setSkjema);
         },
+        valider: () => {
+            const feil = [];
+            if (!skjema.personer || skjema.personer.length === 0) {
+                feil.push('Må legge til personer');
+            }
+            if (!skjema.kontaktNavn) {
+                feil.push('Må ha med en kontaktperson');
+            }
+            if (!skjema.kontaktTlf) {
+                feil.push('Kontaktperson må ha telefonnr');
+            }
+            return feil;
+        },
         skjema,
     };
-
     return (
         <>
             <SkjemaContext.Provider value={context}>{props.children}</SkjemaContext.Provider>
@@ -49,4 +66,5 @@ export const SkjemaProvider: FunctionComponent = props => {
     );
 };
 
+// @ts-ignore
 export default SkjemaContext;
