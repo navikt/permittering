@@ -14,15 +14,13 @@ app.use(`${BASE_PATH}/veilarbstepup/status`, veilarbStatusProxyConfig);
 
 createEnvSettingsFile(path.resolve(`${buildPath}/static/js/settings.js`));
 
-/*
 app.get(`${BASE_PATH}/redirect-til-login`, (req, res) => {
-
   const loginUrl =
     process.env.LOGIN_URL ||
     "http://localhost:8080/permitteringsskjema-api/local/cookie?redirect=http://localhost:3000/permittering";
   res.redirect(loginUrl);
 });
-*/
+
 const startServer = (app, port) => {
   console.log("start server");
   loginRoutes(app);
