@@ -14,14 +14,14 @@ const dummySkjemaer: PermitteringsskjemaITabell[] = [
     bedriftNr: "123",
     bedriftNavn: "Andersens IT-tjenester",
     antallBerørt: 123,
-    sendtInn: "2020-03-18T13:31:15.971Z"
+    sendtInnTidspunkt: "2020-03-18T13:31:15.971Z"
   },
   {
     id: "75dc295a-d72e-485b-a286-146e53667885",
     bedriftNr: "123",
     bedriftNavn: "Pettersens Sko",
     antallBerørt: 123,
-    sendtInn: "2020-03-18T13:31:15.971Z"
+    sendtInnTidspunkt: "2020-03-18T13:31:15.971Z"
   }
 ];
 
