@@ -52,7 +52,7 @@ const HvaSkalDuRapportere: FunctionComponent = props => {
                         '        bla bla bla bla. send in to a great rooted desire. sende dette skjeamet\n' +
                         '        bla bla bla bla. send in to a great rooted desire. sende dette skjeamet'
                     }
-                    overskrift={'Masseptermittering uten lønn'}
+                    overskrift={'Massepermittering uten lønn'}
                     radioknappSkrift={'Masseptermittering uten lønn'}
                     onChange={() => setSkjemaType('PERMITTERING_UTEN_LØNN')}
                 />
