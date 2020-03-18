@@ -9,6 +9,7 @@ import {
 } from "../../komponenter/SkjemaRamme";
 import { useHistory } from "react-router-dom";
 import { Person } from "../../../types/permitteringsskjema";
+import "./InputAvPersoner.less";
 
 const InputAvPersoner: FunctionComponent<SkjemaSideProps> = props => {
   const context = useContext(SkjemaContext);
@@ -48,21 +49,17 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = props => {
   return (
     <div className="input-av-personer">
       <h1>Hvem skal permitteres?</h1>
-      <Hovedknapp onClick={() => openModal()}>Legg til personer</Hovedknapp>
-      <Knapp
-        disabled={selectedPersons().length === 0}
-        onClick={() => fjernPersoner(selectedPersons())}
-      >
-        Slett ({selectedPersons().length})
-      </Knapp>
-      <Knapp
-        onClick={async () => {
-          await context.lagre();
-          history.push(createSkjemaPath(props.nesteSide, context.skjema.id));
-        }}
-      >
-        Lagre og gå videre
-      </Knapp>
+      <div className={"input-av-personer__knapper-overst"}>
+        <Hovedknapp onClick={() => openModal()}>
+          Legg til permitterte ansatte
+        </Hovedknapp>
+        <Knapp
+          disabled={selectedPersons().length === 0}
+          onClick={() => fjernPersoner(selectedPersons())}
+        >
+          Slett fra liste ({selectedPersons().length})
+        </Knapp>
+      </div>
       <LeggTilPersonerModal
         modalIsOpen={modalIsOpen}
         closeModal={closeModal}
@@ -74,6 +71,18 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = props => {
           context.endreSkjemaVerdi("personer", personer)
         }
       />
+      <div className={"skjema-innhold__fram-og-tilbake"}>
+        <Knapp>Tilbake</Knapp>
+
+        <Knapp
+          onClick={async () => {
+            await context.lagre();
+            history.push(createSkjemaPath(props.nesteSide, context.skjema.id));
+          }}
+        >
+          Neste
+        </Knapp>
+      </div>
     </div>
   );
 };
