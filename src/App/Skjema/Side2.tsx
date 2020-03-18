@@ -77,19 +77,15 @@ const Side2: FunctionComponent<SkjemaSideProps> = props => {
           }
         />
       </div>
-      <div className={"skjema-innhold__fram-og-tilbake"}>
-        <Knapp>Tilbake</Knapp>
-        <Hovedknapp
-          className={"skjema-innhold__lagre"}
-          onClick={async () => {
-            await context.lagre();
-            history.push(createSkjemaPath(props.nesteSide, context.skjema.id));
-          }}
-        >
-          Lagre og neste
-        </Hovedknapp>
-        <Knapp>Fram</Knapp>
-      </div>
+      <Hovedknapp
+        className={"skjema-innhold__lagre"}
+        onClick={async () => {
+          await context.lagre();
+          history.push(createSkjemaPath(props.nesteSide, context.skjema.id));
+        }}
+      >
+        Lagre og neste
+      </Hovedknapp>
     </>
   );
 };
