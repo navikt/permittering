@@ -1,12 +1,11 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import SkjemaTabell from './komponenter/SkjemaTabell';
 import HvitSideBoks from '../../komponenter/HvitSideBoks';
-import { Undertittel } from 'nav-frontend-typografi';
-import Lenke from 'nav-frontend-lenker';
-import { Knapp } from 'nav-frontend-knapper';
+import { Hovedknapp } from 'nav-frontend-knapper';
 import { Permitteringsskjema } from '../../../types/permitteringsskjema';
 import { hentAlle } from '../../../api/skjema-api';
-import VerticalSpacer from '../../komponenter/VerticalSpacer';
+import './Forside.less';
+import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
 
 const Forside: FunctionComponent = () => {
     const [skjemaer, setSkjemaer] = useState<Permitteringsskjema[]>([]);
@@ -16,11 +15,12 @@ const Forside: FunctionComponent = () => {
 
     return (
         <HvitSideBoks>
-            <Knapp>
-                <Lenke href={'/permittering/skjema/start'}>Nytt skjema</Lenke>
-            </Knapp>
-            <VerticalSpacer rem={2} />
-            <Undertittel>Tidligere varsler virksomheten har sendt til NAV</Undertittel>
+            <div className={'forside__topp'}>
+                <Systemtittel>Tidligere skjemaer virksomheten har sendt til NAV</Systemtittel>
+                <Hovedknapp onClick={() => (window.location.href = '/skjema/start')}>
+                    Nytt skjema
+                </Hovedknapp>
+            </div>
             {skjemaer.length ? (
                 <SkjemaTabell skjemaer={skjemaer} />
             ) : (
