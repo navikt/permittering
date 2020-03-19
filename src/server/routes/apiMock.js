@@ -81,8 +81,8 @@ module.exports = function(app) {
         res.json(organisasjoner);
     });
 
-    const features = alleFeatures.reduce((obj, item) => ({ ...obj, [item]: true }), {});
     app.get(paths.featurePath, (req, res) => {
+        const features = alleFeatures.reduce((obj, item) => ({ ...obj, [item]: true }), {});
         res.json(features);
     });
 
