@@ -8,10 +8,6 @@ interface SkjemaTabellProps {
 }
 
 const SkjemaTabell: React.FunctionComponent<SkjemaTabellProps> = ({ skjemaer }) => {
-    if (skjemaer.length === 0) {
-        return null;
-    }
-
     return (
         <table className="skjema__tabell tabell">
             <thead>

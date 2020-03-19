@@ -21,7 +21,13 @@ const Forside: FunctionComponent = () => {
             </Knapp>
             <VerticalSpacer rem={2} />
             <Undertittel>Tidligere varsler virksomheten har sendt til NAV</Undertittel>
-            <SkjemaTabell skjemaer={skjemaer} />
+            {skjemaer.length ? (
+                <SkjemaTabell skjemaer={skjemaer} />
+            ) : (
+                <p>
+                    <i>Ingen skjemaer</i>
+                </p>
+            )}
         </HvitSideBoks>
     );
 };
