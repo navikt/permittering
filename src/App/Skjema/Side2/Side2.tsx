@@ -2,7 +2,6 @@ import React, { FunctionComponent, useContext, useState } from 'react';
 import '../Skjema.less';
 import './Side2.less';
 import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
-import Sidetittel from 'nav-frontend-typografi/lib/sidetittel';
 
 import { Textarea } from 'nav-frontend-skjema';
 import Checkbox from 'nav-frontend-skjema/lib/checkbox';
@@ -16,6 +15,7 @@ import { nesteSide, SkjemaSideProps, skjemaSteg } from '../skjema-steg';
 import { mergeFritekst, splittOppFritekst } from '../../../utils/fritekstFunksjoner';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import Datovelger from '../../komponenter/Datovelger/Datovelger';
+import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
 
 const Side2: FunctionComponent<SkjemaSideProps> = () => {
     const [datoFra, setDatoFra] = useState(new Date());
@@ -47,7 +47,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
     const forrigePath = nesteSide(steg, context.skjema.id);
     return (
         <SkjemaRamme>
-            <Sidetittel>Generelle opplysninger</Sidetittel>
+            <Systemtittel>Generelle opplysninger</Systemtittel>
             <div className={'skjema-innhold__side-2-text-area'}>
                 <Textarea
                     label="Hva er årsaken til permitteringen"
