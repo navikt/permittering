@@ -9,9 +9,7 @@ interface SkjemaTabellProps {
 }
 
 const status = (skjema: Permitteringsskjema) => {
-    if (skjema.avbrutt) {
-        return 'Avbrutt';
-    } else if (skjema.sendtInnTidspunkt) {
+    if (skjema.sendtInnTidspunkt) {
         return 'Sendt inn';
     } else {
         return 'Ikke sendt inn';
@@ -49,31 +47,35 @@ const SkjemaTabell: React.FunctionComponent<SkjemaTabellProps> = ({ skjemaer }) 
                         <th role="columnheader" aria-sort="none">
                             Status
                         </th>
-                        <th role="columnheader" aria-sort="none">
-                            Kontakt
-                        </th>
+                        <th role="columnheader" aria-sort="none"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    {skjemaer.map(skjema => {
-                        return (
-                            <tr key={skjema.id}>
-                                <td>{lagTekstBasertPaSkjemaType(skjema.type)}</td>
-                                <td>{moment(skjema.opprettetTidspunkt).format('lll')}</td>
-                                <td>{skjema.bedriftNr}</td>
-                                <td>{status(skjema)}</td>
-                                <td>
-                                    <Lenke
-                                        href={
-                                            '/permittering/skjema/kontaktinformasjon/' + skjema.id
-                                        }
-                                    >
-                                        Kontaktinformasjon
-                                    </Lenke>
-                                </td>
-                            </tr>
-                        );
-                    })}
+                    {skjemaer
+                        .filter(skjema => !skjema.avbrutt)
+                        .map(skjema => {
+                            return (
+                                <tr key={skjema.id}>
+                                    <td>{lagTekstBasertPaSkjemaType(skjema.type)}</td>
+                                    <td>
+                                        {skjema.sendtInnTidspunkt &&
+                                            moment(skjema.sendtInnTidspunkt).format('L')}
+                                    </td>
+                                    <td>{skjema.bedriftNr}</td>
+                                    <td>{status(skjema)}</td>
+                                    <td>
+                                        <Lenke
+                                            href={
+                                                '/permittering/skjema/kontaktinformasjon/' +
+                                                skjema.id
+                                            }
+                                        >
+                                            Gå til
+                                        </Lenke>
+                                    </td>
+                                </tr>
+                            );
+                        })}
                 </tbody>
             </table>
         </Normaltekst>
