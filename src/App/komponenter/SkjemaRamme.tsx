@@ -7,6 +7,7 @@ import { createSkjemaPath, SkjemaSideProps, skjemaSteg } from '../Skjema/skjema-
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import HvitSideBoks from './HvitSideBoks';
 import VerticalSpacer from './VerticalSpacer';
+import { AvbrytSkjema } from './AvbrytSkjema/AvbrytSkjema';
 
 const SkjemaRamme: FunctionComponent<SkjemaSideProps> = ({ children }) => {
     const history = useHistory();
@@ -29,6 +30,10 @@ const SkjemaRamme: FunctionComponent<SkjemaSideProps> = ({ children }) => {
                 autoResponsiv
             />
             <HvitSideBoks>{children}</HvitSideBoks>
+            <VerticalSpacer rem={1} />
+            <div style={{ textAlign: 'center' }}>
+                <AvbrytSkjema />
+            </div>
         </>
     );
 };
