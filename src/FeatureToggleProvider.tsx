@@ -3,6 +3,7 @@ import { featurePath } from './paths.json';
 
 export enum Feature {
     frontenderpaa = 'permittering.frontend',
+    skjulSkjema = 'permittering.frontend.skjulSkjema',
 }
 
 const featureTogglePath = (features: Feature[]): string => {
