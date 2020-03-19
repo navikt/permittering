@@ -1,19 +1,25 @@
-import React, { FunctionComponent, useContext } from 'react';
-import './Skjema.less';
+import React, { FunctionComponent, useContext, useState } from 'react';
+import '../Skjema.less';
+import './Side2.less';
 import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
-import Sidetittel from 'nav-frontend-typografi/lib/sidetittel';
-import SkjemaContext from '../SkjemaContext/SkjemaContext';
+
 import { Textarea } from 'nav-frontend-skjema';
 import Checkbox from 'nav-frontend-skjema/lib/checkbox';
 import 'react-day-picker/lib/style.css';
-import Datovelger from '../komponenter/Datovelger/Datovelger';
-import SkjemaRamme from '../komponenter/SkjemaRamme';
+
 import { useHistory } from 'react-router-dom';
-import { mergeFritekst, splittOppFritekst } from '../../utils/fritekstFunksjoner';
-import { nesteSide, SkjemaSideProps, skjemaSteg } from './skjema-steg';
+
 import { Knapp } from 'nav-frontend-knapper';
+import SkjemaContext from '../../SkjemaContext/SkjemaContext';
+import { nesteSide, SkjemaSideProps, skjemaSteg } from '../skjema-steg';
+import { mergeFritekst, splittOppFritekst } from '../../../utils/fritekstFunksjoner';
+import SkjemaRamme from '../../komponenter/SkjemaRamme';
+import Datovelger from '../../komponenter/Datovelger/Datovelger';
+import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
 
 const Side2: FunctionComponent<SkjemaSideProps> = () => {
+    const [datoFra, setDatoFra] = useState(new Date());
+
     const history = useHistory();
     const context = useContext(SkjemaContext);
     let aarsak = '';
@@ -41,7 +47,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
     const forrigePath = nesteSide(steg, context.skjema.id);
     return (
         <SkjemaRamme>
-            <Sidetittel>Generelle opplysninger</Sidetittel>
+            <Systemtittel>Generelle opplysninger</Systemtittel>
             <div className={'skjema-innhold__side-2-text-area'}>
                 <Textarea
                     label="Hva er årsaken til permitteringen"
@@ -61,22 +67,24 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
             <div className={'skjema-innhold__side-2-dato-container'}>
                 <Datovelger
                     value={context.skjema.startDato}
-                    onChange={event =>
-                        context.endreSkjemaVerdi('startDato', event.currentTarget.value)
-                    }
+                    onChange={event => {
+                        context.endreSkjemaVerdi('startDato', event.currentTarget.value);
+                        setDatoFra(event.currentTarget.value);
+                    }}
                     overtekst={'Fra'}
                 />
                 <div className={'skjema-innhold__dato-velger-til'}>
                     <Datovelger
                         value={context.skjema.sluttDato}
-                        onChange={event =>
-                            context.endreSkjemaVerdi('sluttDato', event.currentTarget.value)
-                        }
+                        onChange={event => {
+                            context.endreSkjemaVerdi('sluttDato', event.currentTarget.value);
+                        }}
                         disabled={context.skjema.ukjentSluttDato}
                         overtekst={'Til'}
+                        skalVareEtter={datoFra}
                     />
                     <Checkbox
-                        label={'Ukjent slutt dato'}
+                        label={'Ukjent sluttdato'}
                         checked={context.skjema.ukjentSluttDato}
                         onChange={() =>
                             context.endreSkjemaVerdi(

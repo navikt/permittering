@@ -5,7 +5,7 @@ import 'react-day-picker/lib/style.css';
 import { Collapse } from 'react-collapse';
 import Input from 'nav-frontend-skjema/lib/input';
 import DayPicker from 'react-day-picker';
-import { skrivOmDato, skrivOmDatoStreng } from './datofunksjoner';
+import { datoValidering, skrivOmDato, skrivOmDatoStreng } from './datofunksjoner';
 import { Label } from 'nav-frontend-skjema';
 import { guid } from 'nav-frontend-js-utils';
 
@@ -14,6 +14,7 @@ interface Props {
     value?: string;
     onChange: (event: any) => void;
     disabled?: boolean;
+    skalVareEtter?: Date;
 }
 
 const Datovelger: FunctionComponent<Props> = props => {
@@ -22,11 +23,39 @@ const Datovelger: FunctionComponent<Props> = props => {
     const selectedDate = new Date(props.value || new Date());
     const [tempDate, setTempDate] = useState(skrivOmDato(selectedDate));
     const datovelgerId = guid();
+    const [feilmelding, setFeilMelding] = useState('');
+
+    const onDatoClick = (day: Date) => {
+        const feilmelding = datoValidering(day, props.skalVareEtter);
+        if (feilmelding !== '') {
+            setFeilMelding(feilmelding);
+        } else {
+            props.onChange({
+                currentTarget: {
+                    value: day,
+                },
+            });
+            setErApen(false);
+            setFeilMelding('');
+        }
+    };
+
+    const inputOnBlur = (event: any) => {
+        setEditing(false);
+        const newDato = skrivOmDatoStreng(event.currentTarget.value);
+        if (newDato) {
+            onDatoClick(newDato);
+        } else {
+            setFeilMelding('dd/mm/yyyy');
+        }
+    };
+
     return (
         <div className={'datofelt'}>
             <Label htmlFor={datovelgerId}>{props.overtekst}</Label>
             <div className={'datofelt__input-container'}>
                 <Input
+                    feil={feilmelding}
                     disabled={props.disabled}
                     id={datovelgerId}
                     aria-label="Skriv startdato:"
@@ -37,15 +66,7 @@ const Datovelger: FunctionComponent<Props> = props => {
                         setTempDate(event.currentTarget.value);
                     }}
                     onBlur={event => {
-                        setEditing(false);
-                        const newDato = skrivOmDatoStreng(event.currentTarget.value);
-                        if (newDato) {
-                            props.onChange({
-                                currentTarget: {
-                                    value: newDato,
-                                },
-                            });
-                        }
+                        inputOnBlur(event);
                     }}
                 />
                 <button
@@ -61,14 +82,7 @@ const Datovelger: FunctionComponent<Props> = props => {
                     selectedDays={selectedDate}
                     month={selectedDate}
                     firstDayOfWeek={1}
-                    onDayClick={day => {
-                        props.onChange({
-                            currentTarget: {
-                                value: day,
-                            },
-                        });
-                        setErApen(false);
-                    }}
+                    onDayClick={day => onDatoClick(day)}
                 />
             </Collapse>
         </div>
