@@ -79,6 +79,7 @@ const Datovelger: FunctionComponent<Props> = props => {
             </div>
             <Collapse isOpened={erApen}>
                 <DayPicker
+                    className={'datofelt__collapse'}
                     selectedDays={selectedDate}
                     month={selectedDate}
                     firstDayOfWeek={1}
