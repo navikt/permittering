@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
+import { Select } from 'nav-frontend-skjema';
 
 interface Props {
     organisasjoner: Array<Organisasjon>;
@@ -8,7 +9,7 @@ interface Props {
 
 export const BedriftsVelger: FunctionComponent<Props> = props => {
     return (
-        <select
+        <Select
             className={'hva-skal-du-rapportere__bedriftsDropdown'}
             onChange={event => {
                 props.setOrganisasjon(event.target.value);
@@ -24,6 +25,6 @@ export const BedriftsVelger: FunctionComponent<Props> = props => {
                     </option>
                 );
             })}
-        </select>
+        </Select>
     );
 };

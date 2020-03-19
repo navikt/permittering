@@ -15,6 +15,9 @@ const Side1: FunctionComponent<SkjemaSideProps> = () => {
     const history = useHistory();
     const steg = skjemaSteg(history.location.pathname);
     const nestePath = nesteSide(steg, context.skjema.id);
+    const skjemaType = context.skjema.type;
+    console.log(skjemaType);
+
     return (
         <SkjemaRamme>
             <Systemtittel>Kontaktinformasjon</Systemtittel>

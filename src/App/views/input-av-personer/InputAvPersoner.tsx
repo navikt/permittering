@@ -48,10 +48,24 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
     const steg = skjemaSteg(history.location.pathname);
     const nestePath = nesteSide(steg, context.skjema.id);
     const forrigePath = forrigeSide(steg, context.skjema.id);
+
+    const lagTekstBasertPaSkjemaType = () => {
+        const type = context.skjema.type;
+        switch (true) {
+            case type === 'MASSEOPPSIGELSE':
+                return 'Hvem skal sies opp?';
+            case type === 'PERMITTERING_UTEN_LØNN':
+                return 'Hvem skal permitteres?';
+            case type === 'INNSKRENKNING_I_ARBEIDSTID':
+                return 'Hvem gjelder innskrenkningen?';
+        }
+        return 'Hvem skal permitteres?';
+    };
+
     return (
         <SkjemaRamme>
             <div className={'input-av-personer__overskrift-og-knapper'}>
-                <Systemtittel>Hvem skal permitteres?</Systemtittel>
+                <Systemtittel>{lagTekstBasertPaSkjemaType()}</Systemtittel>
                 <div className={'input-av-personer__fram-og-tilbake'}>
                     <Knapp
                         mini
