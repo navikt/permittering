@@ -11,7 +11,7 @@ import { useHistory } from 'react-router-dom';
 
 import { Knapp } from 'nav-frontend-knapper';
 import SkjemaContext from '../../SkjemaContext/SkjemaContext';
-import { nesteSide, SkjemaSideProps, skjemaSteg } from '../skjema-steg';
+import { forrigeSide, nesteSide, SkjemaSideProps, skjemaSteg } from '../skjema-steg';
 import { mergeFritekst, splittOppFritekst } from '../../../utils/fritekstFunksjoner';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import Datovelger from '../../komponenter/Datovelger/Datovelger';
@@ -42,9 +42,10 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
         fritekstFelter[key] = value;
         context.endreSkjemaVerdi('fritekst', mergeFritekst(fritekstFelter));
     };
+
     const steg = skjemaSteg(history.location.pathname);
     const nestePath = nesteSide(steg, context.skjema.id);
-    const forrigePath = nesteSide(steg, context.skjema.id);
+    const forrigePath = forrigeSide(steg, context.skjema.id);
 
     const lagTekstBasertPaSkjemaType = () => {
         const type = context.skjema.type;
