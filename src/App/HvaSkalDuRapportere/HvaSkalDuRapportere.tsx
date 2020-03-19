@@ -8,6 +8,8 @@ import Ingress from 'nav-frontend-typografi/lib/ingress';
 import { useHistory } from 'react-router-dom';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import { Permitteringsskjema } from '../../types/permitteringsskjema';
+import { OrganisasjonsListeContext } from '../OrganisasjonslisteProvider';
+import { BedriftsVelger } from '../komponenter/Bedriftsvelger/Bedriftsvelger';
 
 /*
 interface Props {
@@ -16,7 +18,10 @@ interface Props {
 */
 const HvaSkalDuRapportere: FunctionComponent = props => {
     const context = useContext(SkjemaContext);
-
+    const { organisasjoner } = useContext(OrganisasjonsListeContext);
+    const [valgtOrganisasjon, setValgtOrganisasjon] = useState(
+        organisasjoner[0].OrganizationNumber
+    );
     const [skjemaType, setSkjemaType] = useState<Permitteringsskjema['type'] | undefined>(
         'PERMITTERING_UTEN_LØNN'
     );
@@ -24,7 +29,7 @@ const HvaSkalDuRapportere: FunctionComponent = props => {
     const history = useHistory();
     const opprettOgNavigerTilSkjema = async () => {
         const newId = await context.opprett({
-            bedriftNr: '910825569',
+            bedriftNr: valgtOrganisasjon,
             type: skjemaType!,
         });
         history.push('/skjema/kontaktinformasjon/' + newId);
@@ -68,6 +73,10 @@ const HvaSkalDuRapportere: FunctionComponent = props => {
                     onChange={() => setSkjemaType('INNSKRENKNING_I_ARBEIDSTID')}
                 />
             </div>
+            <BedriftsVelger
+                organisasjoner={organisasjoner}
+                setOrganisasjon={setValgtOrganisasjon}
+            />
             <div className={'hva-skal-du-rapportere__har-varslet'}>
                 <Checkbox
                     onChange={() => setDiskutertMedAnsatte(!diskutertMedAnsatte)}

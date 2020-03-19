@@ -17,8 +17,24 @@ export const skrivOmDatoStreng = (datoStreng: string) => {
     const month = parseInt(parts[1]);
     const day = parseInt(parts[0]);
     if (year > 1970 && month > 0 && day > 0) {
-        return new Date(year, month - 1, day);
+        const returnDate = new Date(year, month - 1, day);
+        console.log(returnDate);
+        return returnDate;
     } else {
         return false;
     }
+};
+
+export const datoValidering = (day: Date, after?: Date) => {
+    if (after) {
+        if (day.getTime() <= after.getTime()) {
+            return 'Slutt- før Til-dato';
+        } else {
+            return '';
+        }
+    }
+    if (day.getTime() + 84400000 < new Date().getTime()) {
+        return 'Kan ikke velge tilbake i tid';
+    }
+    return '';
 };
