@@ -19,7 +19,7 @@ const Forside: FunctionComponent = () => {
         <HvitSideBoks>
             <div className={'forside__topp'}>
                 <Systemtittel>Tidligere skjemaer virksomheten har sendt til NAV</Systemtittel>
-                <Hovedknapp onClick={() => history.push('/skjema/start')}>Nytt skjema</Hovedknapp>
+                <Hovedknapp onClick={() => history.push('skjema/start')}>Nytt skjema</Hovedknapp>
             </div>
             {skjemaer.length ? (
                 <SkjemaTabell skjemaer={skjemaer} />
