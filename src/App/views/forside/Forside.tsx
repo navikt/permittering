@@ -6,10 +6,12 @@ import { Permitteringsskjema } from '../../../types/permitteringsskjema';
 import { hentAlle } from '../../../api/skjema-api';
 import './Forside.less';
 import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
+import { useHistory } from 'react-router';
 import { Feature, FeatureToggleContext } from '../../../FeatureToggleProvider';
 import { useHistory } from 'react-router';
 
 const Forside: FunctionComponent = () => {
+    const history = useHistory();
     const featureToggleContext = useContext(FeatureToggleContext);
     const lonnstilskuddToggle = featureToggleContext[Feature.frontenderpaa];
     const history = useHistory();
