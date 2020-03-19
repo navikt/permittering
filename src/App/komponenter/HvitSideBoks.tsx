@@ -1,10 +1,12 @@
-import * as React from 'react';
+import React from 'react';
 import './HvitSideBoks.less';
 
-const HvitSideBoks: React.FunctionComponent = props => (
-    <div className={"hvit-side-boks"}>
-        {props.children}
-    </div>
+interface Props {
+    classname?: string;
+}
+
+const HvitSideBoks: React.FunctionComponent<Props> = props => (
+    <div className={'hvit-side-boks' + ' ' + props.classname}>{props.children}</div>
 );
 
 export default HvitSideBoks;
