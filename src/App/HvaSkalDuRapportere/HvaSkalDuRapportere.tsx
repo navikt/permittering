@@ -9,7 +9,7 @@ import { useHistory } from 'react-router-dom';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import { Permitteringsskjema } from '../../types/permitteringsskjema';
 import { OrganisasjonsListeContext } from '../OrganisasjonslisteProvider';
-import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
+import { BedriftsVelger } from '../komponenter/Bedriftsvelger/Bedriftsvelger';
 
 /*
 interface Props {
@@ -73,24 +73,10 @@ const HvaSkalDuRapportere: FunctionComponent = props => {
                     onChange={() => setSkjemaType('INNSKRENKNING_I_ARBEIDSTID')}
                 />
             </div>
-            <select
-                className={'hva-skal-du-rapportere__bedriftsDropdown'}
-                value={valgtOrganisasjon}
-                onChange={event => {
-                    setValgtOrganisasjon(event.target.value);
-                }}
-            >
-                {organisasjoner.map(organisasjon => {
-                    return (
-                        <option
-                            key={organisasjon.OrganizationNumber}
-                            value={organisasjon.OrganizationNumber}
-                        >
-                            {organisasjon.Name} - {organisasjon.OrganizationNumber}
-                        </option>
-                    );
-                })}
-            </select>
+            <BedriftsVelger
+                organisasjoner={organisasjoner}
+                setOrganisasjon={setValgtOrganisasjon}
+            />
             <div className={'hva-skal-du-rapportere__har-varslet'}>
                 <Checkbox
                     onChange={() => setDiskutertMedAnsatte(!diskutertMedAnsatte)}
