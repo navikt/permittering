@@ -9,7 +9,7 @@ import HvaSkalDuRapportere from './HvaSkalDuRapportere/HvaSkalDuRapportere';
 import { SkjemaProvider } from './SkjemaContext/SkjemaContext';
 import Side1 from './Skjema/Side1/Side1';
 import Forside from './views/forside/Forside';
-import Side2 from './Skjema/Side2';
+import Side2 from './Skjema/Side2/Side2';
 import Oppsummering from './Skjema/side4-oppsummering/Oppsummering';
 import Kvitteringsside from './views/kvittering/Kvitteringsside';
 import { OrganisasjonsListeProvider } from './OrganisasjonslisteProvider';

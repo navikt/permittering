@@ -1,17 +1,21 @@
 import React, { FunctionComponent, useContext, useState } from 'react';
-import './Skjema.less';
+import '../Skjema.less';
+import './Side2.less';
 import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
 import Sidetittel from 'nav-frontend-typografi/lib/sidetittel';
-import SkjemaContext from '../SkjemaContext/SkjemaContext';
+
 import { Textarea } from 'nav-frontend-skjema';
 import Checkbox from 'nav-frontend-skjema/lib/checkbox';
 import 'react-day-picker/lib/style.css';
-import Datovelger from '../komponenter/Datovelger/Datovelger';
-import SkjemaRamme from '../komponenter/SkjemaRamme';
+
 import { useHistory } from 'react-router-dom';
-import { mergeFritekst, splittOppFritekst } from '../../utils/fritekstFunksjoner';
-import { nesteSide, SkjemaSideProps, skjemaSteg } from './skjema-steg';
+
 import { Knapp } from 'nav-frontend-knapper';
+import SkjemaContext from '../../SkjemaContext/SkjemaContext';
+import { nesteSide, SkjemaSideProps, skjemaSteg } from '../skjema-steg';
+import { mergeFritekst, splittOppFritekst } from '../../../utils/fritekstFunksjoner';
+import SkjemaRamme from '../../komponenter/SkjemaRamme';
+import Datovelger from '../../komponenter/Datovelger/Datovelger';
 
 const Side2: FunctionComponent<SkjemaSideProps> = () => {
     const [datoFra, setDatoFra] = useState(new Date());

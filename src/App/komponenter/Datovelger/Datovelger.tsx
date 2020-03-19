@@ -46,7 +46,7 @@ const Datovelger: FunctionComponent<Props> = props => {
         if (newDato) {
             onDatoClick(newDato);
         } else {
-            setFeilMelding('Dato må være på formen dd/mm/yyyy');
+            setFeilMelding('dd/mm/yyyy');
         }
     };
 
