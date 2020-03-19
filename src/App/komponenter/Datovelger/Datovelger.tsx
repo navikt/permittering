@@ -14,6 +14,7 @@ interface Props {
     value?: string;
     onChange: (event: any) => void;
     disabled?: boolean;
+    skalVareEtter?: Date;
 }
 
 const Datovelger: FunctionComponent<Props> = props => {
@@ -22,6 +23,37 @@ const Datovelger: FunctionComponent<Props> = props => {
     const selectedDate = new Date(props.value || new Date());
     const [tempDate, setTempDate] = useState(skrivOmDato(selectedDate));
     const datovelgerId = guid();
+    const [feilmelding, setFeilMelding] = useState('');
+
+    const onDatoClick = (day: Date) => {
+        if (props.skalVareEtter) {
+            if (day.getTime() < props.skalVareEtter.getTime()) {
+                setFeilMelding('Sluttdato kan ikke være før Til-dato');
+                return;
+            } else {
+                props.onChange({
+                    currentTarget: {
+                        value: day,
+                    },
+                });
+                return;
+            }
+        }
+        if (day.getTime() + 84400000 > new Date().getTime()) {
+            props.onChange({
+                currentTarget: {
+                    value: day,
+                },
+            });
+            return;
+        } else {
+            setFeilMelding('Dato kan ikke være tilbake i tid');
+        }
+        setErApen(false);
+    };
+
+    console.log(feilmelding);
+
     return (
         <div className={'datofelt'}>
             <Label htmlFor={datovelgerId}>{props.overtekst}</Label>
@@ -61,14 +93,7 @@ const Datovelger: FunctionComponent<Props> = props => {
                     selectedDays={selectedDate}
                     month={selectedDate}
                     firstDayOfWeek={1}
-                    onDayClick={day => {
-                        props.onChange({
-                            currentTarget: {
-                                value: day,
-                            },
-                        });
-                        setErApen(false);
-                    }}
+                    onDayClick={day => onDatoClick(day)}
                 />
             </Collapse>
         </div>

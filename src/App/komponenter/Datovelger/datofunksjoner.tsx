@@ -17,8 +17,17 @@ export const skrivOmDatoStreng = (datoStreng: string) => {
     const month = parseInt(parts[1]);
     const day = parseInt(parts[0]);
     if (year > 1970 && month > 0 && day > 0) {
-        return new Date(year, month - 1, day);
+        const returnDate = new Date(year, month - 1, day);
+        console.log(returnDate);
+        return returnDate;
     } else {
         return false;
     }
+};
+
+export const tilDatoSenereEnnFraValidering = (fraDato: Date, tilDato: Date) => {
+    if (fraDato.getTime() > tilDato.getTime()) {
+        return false;
+    }
+    return true;
 };

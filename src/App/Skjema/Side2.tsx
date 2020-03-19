@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import './Skjema.less';
 import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
 import Sidetittel from 'nav-frontend-typografi/lib/sidetittel';
@@ -14,6 +14,10 @@ import { nesteSide, SkjemaSideProps, skjemaSteg } from './skjema-steg';
 import { Knapp } from 'nav-frontend-knapper';
 
 const Side2: FunctionComponent<SkjemaSideProps> = () => {
+    const [datoFra, setDatoFra] = useState(new Date());
+
+    console.log(datoFra, 'dato FRa');
+
     const history = useHistory();
     const context = useContext(SkjemaContext);
     let aarsak = '';
@@ -61,19 +65,21 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
             <div className={'skjema-innhold__side-2-dato-container'}>
                 <Datovelger
                     value={context.skjema.startDato}
-                    onChange={event =>
-                        context.endreSkjemaVerdi('startDato', event.currentTarget.value)
-                    }
+                    onChange={event => {
+                        context.endreSkjemaVerdi('startDato', event.currentTarget.value);
+                        setDatoFra(event.currentTarget.value);
+                    }}
                     overtekst={'Fra'}
                 />
                 <div className={'skjema-innhold__dato-velger-til'}>
                     <Datovelger
                         value={context.skjema.sluttDato}
-                        onChange={event =>
-                            context.endreSkjemaVerdi('sluttDato', event.currentTarget.value)
-                        }
+                        onChange={event => {
+                            context.endreSkjemaVerdi('sluttDato', event.currentTarget.value);
+                        }}
                         disabled={context.skjema.ukjentSluttDato}
                         overtekst={'Til'}
+                        skalVareEtter={datoFra}
                     />
                     <Checkbox
                         label={'Ukjent slutt dato'}
