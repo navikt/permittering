@@ -31,6 +31,7 @@ const Datovelger: FunctionComponent<Props> = props => {
                 setFeilMelding('Sluttdato kan ikke være før Til-dato');
                 return;
             } else {
+                setFeilMelding('');
                 props.onChange({
                     currentTarget: {
                         value: day,
@@ -47,6 +48,7 @@ const Datovelger: FunctionComponent<Props> = props => {
                 },
             });
             setErApen(false);
+            setFeilMelding('');
             return;
         } else {
             setFeilMelding('Dato kan ikke være tilbake i tid');
@@ -61,6 +63,7 @@ const Datovelger: FunctionComponent<Props> = props => {
             <Label htmlFor={datovelgerId}>{props.overtekst}</Label>
             <div className={'datofelt__input-container'}>
                 <Input
+                    feil={feilmelding}
                     disabled={props.disabled}
                     id={datovelgerId}
                     aria-label="Skriv startdato:"
