@@ -7,18 +7,23 @@ import Knapp from 'nav-frontend-knapper/lib/knapp';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import SkjemaContext from '../../SkjemaContext/SkjemaContext';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
+import { splittOppFritekst } from '../../../utils/fritekstFunksjoner';
 import { forrigeSide, SkjemaSideProps, skjemaSteg } from '../skjema-steg';
 import veilederIkon from './gjenstand.svg';
 import infoIkon from './info.svg';
 import './Oppsummering.less';
-// import {Simulate} from "react-dom/test-utils";
-// import contextMenu = Simulate.contextMenu;
 
 const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
     const history = useHistory();
     const steg = skjemaSteg(history.location.pathname);
     const forrigePath = forrigeSide(steg, context.skjema.id);
+
+    const existerendeFelter = context.skjema.fritekst
+        ? splittOppFritekst(context.skjema.fritekst)
+        : null;
+    const yrker = existerendeFelter && existerendeFelter.yrker ? existerendeFelter.yrker : '';
+    const annet = existerendeFelter && existerendeFelter.annet ? existerendeFelter.annet : '';
 
     return (
         <SkjemaRamme>
@@ -85,7 +90,7 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                             </tbody>
                         </table>
                         <div className="endre-lenke">
-                            <Lenke href="">Endre</Lenke>
+                            <Lenke href={`/skjema/hvem-rammes/${context.skjema.id}`}>Endre</Lenke>
                         </div>
                     </div>
 
@@ -94,13 +99,12 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                             <Normaltekst className="overskrift">
                                 Hvilken arbeidsgrupper (yrkeskategorier) tilhører de berørte?
                             </Normaltekst>
-                            <Normaltekst>
-                                {context.skjema.fritekst &&
-                                    context.skjema.fritekst.split('## YRKER')}
-                            </Normaltekst>
+                            <Normaltekst>{yrker}</Normaltekst>
                         </div>
                         <div className="endre-lenke">
-                            <Lenke href="">Endre</Lenke>
+                            <Lenke href={`/skjema/generelle-opplysninger/${context.skjema.id}`}>
+                                Endre
+                            </Lenke>
                         </div>
                     </div>
 
@@ -108,21 +112,23 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                         <table className="tabell">
                             <tbody>
                                 <tr>
-                                    <th>Permitteringene vil finne sted fra :</th>
+                                    <th>Permitteringene vil finne sted fra:</th>
                                     <td>{context.skjema.startDato}</td>
                                 </tr>
                                 <tr>
                                     <th>Permitteringene vil vare til:</th>
                                     <td>
-                                        {context.skjema.sluttDato
-                                            ? context.skjema.sluttDato
-                                            : 'Vet ikke hvor lenge de vil vare'}
+                                        {context.skjema.ukjentSluttDato
+                                            ? 'Vet ikke hvor lenge de vil vare'
+                                            : context.skjema.sluttDato}
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                         <div className="endre-lenke">
-                            <Lenke href="">Endre</Lenke>
+                            <Lenke href={`/skjema/generelle-opplysninger/${context.skjema.id}`}>
+                                Endre
+                            </Lenke>
                         </div>
                     </div>
 
@@ -131,13 +137,12 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                             <Normaltekst className="overskrift">
                                 Eventuelt andre relevante opplysninger
                             </Normaltekst>
-                            <Normaltekst>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                            </Normaltekst>
+                            <Normaltekst>{annet}</Normaltekst>
                         </div>
                         <div className="endre-lenke">
-                            <Lenke href="">Endre</Lenke>
+                            <Lenke href={`/skjema/generelle-opplysninger/${context.skjema.id}`}>
+                                Endre
+                            </Lenke>
                         </div>
                     </div>
                 </Veilederpanel>
