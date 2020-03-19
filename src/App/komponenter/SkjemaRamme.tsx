@@ -18,17 +18,15 @@ const SkjemaRamme: FunctionComponent<SkjemaSideProps> = ({ children }) => {
         history.push('/skjema/kvitteringsside');
     }
     return (
-        <>
-            <div className="skjema-container">
-                <Stegindikator
-                    steg={steg as StegindikatorStegProps[]}
-                    onChange={index => skiftSide(index)}
-                    visLabel
-                    autoResponsiv
-                />
-                {context.skjema.id && <div className="skjema-innhold">{children}</div>}
-            </div>
-        </>
+        <div className="skjema-container">
+            <Stegindikator
+                steg={steg as StegindikatorStegProps[]}
+                onChange={index => skiftSide(index)}
+                visLabel
+                autoResponsiv
+            />
+            {context.skjema.id && <div className="skjema-innhold">{children}</div>}
+        </div>
     );
 };
 
