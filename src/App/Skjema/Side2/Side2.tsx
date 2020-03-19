@@ -54,7 +54,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
             case type === 'PERMITTERING_UTEN_LØNN':
                 return 'Hva er årsaken til massepermitteringen';
             case type === 'INNSKRENKNING_I_ARBEIDSTID':
-                return 'Hva er årsaken til innskrenkingen';
+                return 'Hva er årsaken til innskrenkningen';
         }
         return 'Hva er årsaken til permitteringen"';
     };
