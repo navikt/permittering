@@ -36,6 +36,7 @@ const Datovelger: FunctionComponent<Props> = props => {
                         value: day,
                     },
                 });
+                setErApen(false);
                 return;
             }
         }
@@ -45,11 +46,12 @@ const Datovelger: FunctionComponent<Props> = props => {
                     value: day,
                 },
             });
+            setErApen(false);
             return;
         } else {
             setFeilMelding('Dato kan ikke være tilbake i tid');
+            return;
         }
-        setErApen(false);
     };
 
     console.log(feilmelding);

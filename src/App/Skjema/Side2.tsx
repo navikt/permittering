@@ -16,8 +16,6 @@ import { Knapp } from 'nav-frontend-knapper';
 const Side2: FunctionComponent<SkjemaSideProps> = () => {
     const [datoFra, setDatoFra] = useState(new Date());
 
-    console.log(datoFra, 'dato FRa');
-
     const history = useHistory();
     const context = useContext(SkjemaContext);
     let aarsak = '';
