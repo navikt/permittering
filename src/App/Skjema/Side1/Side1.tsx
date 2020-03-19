@@ -10,7 +10,7 @@ import './Side1.less';
 import { Knapp } from 'nav-frontend-knapper';
 import { nesteSide, SkjemaSideProps, skjemaSteg } from '../skjema-steg';
 
-const Side1: FunctionComponent<SkjemaSideProps> = ({}) => {
+const Side1: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
     const history = useHistory();
     const steg = skjemaSteg(history.location.pathname);
@@ -66,7 +66,7 @@ const Side1: FunctionComponent<SkjemaSideProps> = ({}) => {
                 />
             </div>
             <div className={'skjema-innhold__fram-og-tilbake'}>
-                <Knapp disabled> Tilbake</Knapp>
+                <Knapp disabled>Tilbake</Knapp>
                 <Hovedknapp
                     onClick={async () => {
                         await context.lagre();
