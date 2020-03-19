@@ -45,7 +45,7 @@ export const OrganisasjonsListeProvider: FunctionComponent = props => {
                 setOrganisasjoner([]);
                 //setVisFeilmelding(true);
             });
-    }, []);
+    }, [organisasjoner]);
 
     let defaultContext: OrganisajonsContext = {
         organisasjoner,
