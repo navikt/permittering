@@ -82,8 +82,7 @@ module.exports = function(app) {
     });
 
     app.get(paths.featurePath, (req, res) => {
-        const features = alleFeatures.reduce((obj, item) => ({ ...obj, [item]: true }), {});
-        res.json(features);
+        res.json({ 'permittering.visskjema': true });
     });
 
     app.post(paths.skjemaSendInnPath, (req, res) => {
