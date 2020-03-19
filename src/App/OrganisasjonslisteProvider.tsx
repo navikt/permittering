@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
 import { hentOrganisasjonerFraAltinn } from '../api/AltinnApi';
+import IkkeTilgang from './IkkeTilgang/IkkeTilgang';
 
 export enum Tilgang {
     LASTER,
@@ -51,9 +52,7 @@ export const OrganisasjonsListeProvider: FunctionComponent = props => {
     return (
         <>
             {organisasjonslisteFerdigLastet !== Tilgang.LASTER &&
-                organisasjonslisteFerdigLastet === Tilgang.IKKE_TILGANG && (
-                    <>Du har desverre ikke tilgang til noe organisasjoner i altinn</>
-                )}
+                organisasjonslisteFerdigLastet === Tilgang.IKKE_TILGANG && <IkkeTilgang />}
             {organisasjonslisteFerdigLastet !== Tilgang.LASTER &&
                 organisasjonslisteFerdigLastet === Tilgang.TILGANG && (
                     <OrganisasjonsListeContext.Provider value={defaultContext}>
