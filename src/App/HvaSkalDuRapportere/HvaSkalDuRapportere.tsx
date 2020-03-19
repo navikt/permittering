@@ -14,7 +14,7 @@ import { BedriftsVelger } from '../komponenter/Bedriftsvelger/Bedriftsvelger';
 /*
 interface Props {
     byttSide: (indeks: number) => void;
-}
+}git
 */
 const HvaSkalDuRapportere: FunctionComponent = props => {
     const context = useContext(SkjemaContext);
