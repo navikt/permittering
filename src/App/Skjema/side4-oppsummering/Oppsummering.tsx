@@ -7,16 +7,15 @@ import Knapp from 'nav-frontend-knapper/lib/knapp';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import SkjemaContext from '../../SkjemaContext/SkjemaContext';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
-import { forrigeSide, nesteSide, SkjemaSideProps, skjemaSteg } from '../skjema-steg';
+import { forrigeSide, SkjemaSideProps, skjemaSteg } from '../skjema-steg';
 import veilederIkon from './gjenstand.svg';
 import infoIkon from './info.svg';
 import './Oppsummering.less';
 
-const Oppsummering: FunctionComponent<SkjemaSideProps> = props => {
+const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
     const history = useHistory();
     const steg = skjemaSteg(history.location.pathname);
-    const nestePath = nesteSide(steg, context.skjema.id);
     const forrigePath = forrigeSide(steg, context.skjema.id);
 
     return (
@@ -167,9 +166,8 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = props => {
                             history.push('/skjema/kvitteringsside');
                         }}
                     >
-                        Send inn Meldingen
+                        Send inn meldingen
                     </Hovedknapp>
-                    <Knapp>Fram</Knapp>
                 </div>
             </section>
         </SkjemaRamme>
