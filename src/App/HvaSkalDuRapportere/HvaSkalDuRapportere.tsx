@@ -19,7 +19,9 @@ interface Props {
 const HvaSkalDuRapportere: FunctionComponent = props => {
     const context = useContext(SkjemaContext);
     const { organisasjoner } = useContext(OrganisasjonsListeContext);
-    const [valgtOrganisasjon, setValgtOrganisasjon] = useState<null | Organisasjon>(null);
+    const [valgtOrganisasjon, setValgtOrganisasjon] = useState(
+        organisasjoner[0].OrganizationNumber
+    );
     const [skjemaType, setSkjemaType] = useState<Permitteringsskjema['type'] | undefined>(
         'PERMITTERING_UTEN_LØNN'
     );
@@ -27,7 +29,7 @@ const HvaSkalDuRapportere: FunctionComponent = props => {
     const history = useHistory();
     const opprettOgNavigerTilSkjema = async () => {
         const newId = await context.opprett({
-            bedriftNr: '910825569',
+            bedriftNr: valgtOrganisasjon,
             type: skjemaType!,
         });
         history.push('/skjema/kontaktinformasjon/' + newId);
@@ -72,14 +74,18 @@ const HvaSkalDuRapportere: FunctionComponent = props => {
                 />
             </div>
             <select
-                value={valgtOrganisasjon?.OrganizationNumber}
+                className={'hva-skal-du-rapportere__bedriftsDropdown'}
+                value={valgtOrganisasjon}
                 onChange={event => {
-                    console.log(event.target.value);
+                    setValgtOrganisasjon(event.target.value);
                 }}
             >
                 {organisasjoner.map(organisasjon => {
                     return (
-                        <option value={organisasjon.OrganizationNumber}>
+                        <option
+                            key={organisasjon.OrganizationNumber}
+                            value={organisasjon.OrganizationNumber}
+                        >
                             {organisasjon.Name} - {organisasjon.OrganizationNumber}
                         </option>
                     );
