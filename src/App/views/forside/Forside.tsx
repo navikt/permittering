@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import SkjemaTabell from './komponenter/SkjemaTabell';
 import HvitSideBoks from '../../komponenter/HvitSideBoks';
 import { Hovedknapp } from 'nav-frontend-knapper';
@@ -7,10 +7,14 @@ import { hentAlle } from '../../../api/skjema-api';
 import './Forside.less';
 import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
 import { useHistory } from 'react-router';
+import { Feature, FeatureToggleContext } from '../../../FeatureToggleProvider';
 
 const Forside: FunctionComponent = () => {
     const history = useHistory();
+    const featureToggleContext = useContext(FeatureToggleContext);
+    const visskjema = featureToggleContext[Feature.visskjema];
     const [skjemaer, setSkjemaer] = useState<Permitteringsskjema[]>([]);
+
     useEffect(() => {
         hentAlle().then(setSkjemaer);
     }, []);
@@ -19,7 +23,11 @@ const Forside: FunctionComponent = () => {
         <HvitSideBoks>
             <div className={'forside__topp'}>
                 <Systemtittel>Tidligere skjemaer du har opprettet</Systemtittel>
-                <Hovedknapp onClick={() => history.push('skjema/start')}>Nytt skjema</Hovedknapp>
+                {visskjema && (
+                    <Hovedknapp onClick={() => history.push('skjema/start')}>
+                        Nytt skjema
+                    </Hovedknapp>
+                )}
             </div>
             {skjemaer.length ? (
                 <SkjemaTabell skjemaer={skjemaer} />

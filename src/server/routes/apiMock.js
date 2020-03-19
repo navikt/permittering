@@ -80,6 +80,11 @@ module.exports = function(app) {
         console.log('Fetching organisasjoner');
         res.json(organisasjoner);
     });
+
+    app.get(paths.featurePath, (req, res) => {
+        res.json({ 'permittering.visskjema': true });
+    });
+
     app.post(paths.skjemaSendInnPath, (req, res) => {
         const inputData = req.body;
         const sendtInnTidspunkt = new Date().toJSON();
