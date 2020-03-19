@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useState } from 'react';
 import { featurePath } from './paths.json';
 
 export enum Feature {
-    frontenderpaa = 'permittering.frontend',
+    visskjema = 'permittering.visskjema',
 }
 
 const featureTogglePath = (features: Feature[]): string => {

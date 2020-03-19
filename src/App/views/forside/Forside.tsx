@@ -12,7 +12,7 @@ import { Feature, FeatureToggleContext } from '../../../FeatureToggleProvider';
 const Forside: FunctionComponent = () => {
     const history = useHistory();
     const featureToggleContext = useContext(FeatureToggleContext);
-    const lonnstilskuddToggle = featureToggleContext[Feature.frontenderpaa];
+    const visskjema = featureToggleContext[Feature.visskjema];
     const [skjemaer, setSkjemaer] = useState<Permitteringsskjema[]>([]);
 
     useEffect(() => {
@@ -23,7 +23,7 @@ const Forside: FunctionComponent = () => {
         <HvitSideBoks>
             <div className={'forside__topp'}>
                 <Systemtittel>Tidligere skjemaer du har opprettet</Systemtittel>
-                {lonnstilskuddToggle && (
+                {visskjema && (
                     <Hovedknapp onClick={() => history.push('skjema/start')}>
                         Nytt skjema
                     </Hovedknapp>
