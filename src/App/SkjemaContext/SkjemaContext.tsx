@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FunctionComponent, useEffect, useState } from 'react';
 import { OpprettSkjema, Permitteringsskjema } from '../../types/permitteringsskjema';
-import { hent, lagre, opprett, sendInn } from '../../api/skjema-api';
+import { avbryt, hent, lagre, opprett, sendInn } from '../../api/skjema-api';
 import { useParams } from 'react-router-dom';
 
 type Context = {
@@ -10,6 +10,7 @@ type Context = {
     lagre: () => void;
     opprett: (data: OpprettSkjema) => Promise<Permitteringsskjema['id']>;
     sendInn: () => void;
+    avbryt: () => void;
     valider: () => string[];
 };
 
@@ -56,6 +57,9 @@ export const SkjemaProvider: FunctionComponent = props => {
                 feil.push('Kontaktperson må ha telefonnr');
             }
             return feil;
+        },
+        avbryt: async () => {
+            await avbryt(skjema.id).then(setSkjema);
         },
         skjema,
     };

@@ -4,6 +4,7 @@
     "skjemaListPath": "/permittering/api/skjema",
     "skjemaPath": "/permittering/api/skjema/:id",
     "skjemaSendInnPath": "/permittering/api/skjema/:id/send-inn",
+    "skjemaAvbrytPath": "/permittering/api/skjema/:id/avbryt",
     "isAlivePath": "/permittering/internal/isAlive",
     "isReadyPath": "/permittering/internal/isReady",
     "redirectTilLoginPath": "/permittering/redirect-til-login",
