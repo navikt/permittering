@@ -44,7 +44,8 @@ export const OrganisasjonsListeProvider: FunctionComponent = props => {
                         organisasjon => organisasjon.OrganizationForm === 'BEDR'
                     )
                 );
-                if (organisasjoner.length > 0) setOrganisasjonslisteFerdigLastet(Tilgang.TILGANG);
+                if (organisasjonsliste.length > 0)
+                    setOrganisasjonslisteFerdigLastet(Tilgang.TILGANG);
                 else {
                     setOrganisasjonslisteFerdigLastet(Tilgang.IKKE_TILGANG);
                 }
@@ -53,7 +54,7 @@ export const OrganisasjonsListeProvider: FunctionComponent = props => {
                 setOrganisasjoner([]);
                 //setVisFeilmelding(true);
             });
-    }, [organisasjoner]);
+    }, []);
 
     let defaultContext: OrganisajonsContext = {
         organisasjoner,
