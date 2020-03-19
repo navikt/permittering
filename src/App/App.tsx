@@ -21,9 +21,9 @@ function App() {
         <IntlProvider locale={'nb'}>
             <div className="app">
                 <LoginBoundary>
-                    <OrganisasjonsListeProvider>
-                        <Router basename={basePath}>
-                            <Banner />
+                    <Router basename={basePath}>
+                        <Banner />
+                        <OrganisasjonsListeProvider>
                             <Route exact path="/">
                                 <Forside />
                             </Route>
@@ -55,8 +55,8 @@ function App() {
                             <Route exact path="/skjema/kvitteringsside">
                                 <Kvitteringsside />
                             </Route>
-                        </Router>
-                    </OrganisasjonsListeProvider>
+                        </OrganisasjonsListeProvider>
+                    </Router>
                 </LoginBoundary>
             </div>
         </IntlProvider>

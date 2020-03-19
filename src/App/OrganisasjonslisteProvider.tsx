@@ -11,8 +11,6 @@ export enum Tilgang {
 export type OrganisajonsContext = {
     organisasjoner: Array<Organisasjon>;
     organisasjonslisteFerdigLastet: Tilgang;
-    valgtOrganisasjon: null | Organisasjon;
-    endreOrganisasjon: (org: Organisasjon) => void;
 };
 
 const OrganisasjonsListeContext = React.createContext<OrganisajonsContext>(
@@ -25,27 +23,17 @@ export const OrganisasjonsListeProvider: FunctionComponent = props => {
     const [organisasjonslisteFerdigLastet, setOrganisasjonslisteFerdigLastet] = useState(
         Tilgang.LASTER
     );
-    const [valgtOrganisasjon, setValgtOrganisasjon] = useState<null | Organisasjon>(null);
-
-    const endreOrganisasjon = async (org?: Organisasjon) => {
-        console.log('endre org kallt');
-        if (org) {
-            await setValgtOrganisasjon(org);
-        }
-    };
 
     useEffect(() => {
         const abortController = new AbortController();
         const signal = abortController.signal;
         hentOrganisasjonerFraAltinn(signal)
             .then(organisasjonsliste => {
-                setOrganisasjoner(
-                    organisasjonsliste.filter(
-                        organisasjon => organisasjon.OrganizationForm === 'BEDR'
-                    )
+                const kunBedrifter = organisasjonsliste.filter(
+                    organisasjon => organisasjon.OrganizationForm === 'BEDR'
                 );
-                if (organisasjonsliste.length > 0)
-                    setOrganisasjonslisteFerdigLastet(Tilgang.TILGANG);
+                setOrganisasjoner(kunBedrifter);
+                if (kunBedrifter.length > 0) setOrganisasjonslisteFerdigLastet(Tilgang.TILGANG);
                 else {
                     setOrganisasjonslisteFerdigLastet(Tilgang.IKKE_TILGANG);
                 }
@@ -59,16 +47,19 @@ export const OrganisasjonsListeProvider: FunctionComponent = props => {
     let defaultContext: OrganisajonsContext = {
         organisasjoner,
         organisasjonslisteFerdigLastet,
-        valgtOrganisasjon,
-        endreOrganisasjon,
     };
     return (
         <>
-            {organisasjonslisteFerdigLastet !== Tilgang.LASTER && (
-                <OrganisasjonsListeContext.Provider value={defaultContext}>
-                    {props.children}
-                </OrganisasjonsListeContext.Provider>
-            )}
+            {organisasjonslisteFerdigLastet !== Tilgang.LASTER &&
+                organisasjonslisteFerdigLastet === Tilgang.IKKE_TILGANG && (
+                    <>Du har desverre ikke tilgang til noe organisasjoner i altinn</>
+                )}
+            {organisasjonslisteFerdigLastet !== Tilgang.LASTER &&
+                organisasjonslisteFerdigLastet === Tilgang.TILGANG && (
+                    <OrganisasjonsListeContext.Provider value={defaultContext}>
+                        {props.children}
+                    </OrganisasjonsListeContext.Provider>
+                )}
         </>
     );
 };
