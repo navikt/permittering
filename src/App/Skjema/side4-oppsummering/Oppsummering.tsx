@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
-import { Normaltekst, Sidetittel, Undertittel } from 'nav-frontend-typografi';
+import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
 import Lenke from 'nav-frontend-lenker';
 import Knapp from 'nav-frontend-knapper/lib/knapp';
 import Veilederpanel from 'nav-frontend-veilederpanel';
@@ -23,7 +23,7 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = props => {
         <SkjemaRamme>
             <section className="oppsummering">
                 <div className="oppsummering__sidetittel">
-                    <Sidetittel>Er opplysningene riktige?</Sidetittel>
+                    <Systemtittel>Er opplysningene riktige?</Systemtittel>
                 </div>
                 <Veilederpanel
                     type="plakat"
