@@ -1,6 +1,6 @@
 import { OpprettSkjema, Permitteringsskjema } from '../types/permitteringsskjema';
 import axios from 'axios';
-import { skjemaListPath, skjemaPath, skjemaSendInnPath } from '../paths.json';
+import { skjemaListPath, skjemaPath, skjemaSendInnPath, skjemaAvbrytPath } from '../paths.json';
 
 const api = axios.create({
     baseURL: '',
@@ -46,5 +46,11 @@ export const lagre = async (skjema: Permitteringsskjema) => {
 export const sendInn = async (id: Permitteringsskjema['id']) => {
     const skjemaSendInnUrl = skjemaSendInnPath.replace(':id', id);
     const response = await api.post(skjemaSendInnUrl);
+    return response.data;
+};
+
+export const avbryt = async (id: Permitteringsskjema['id']) => {
+    const skjemaAvbrytUrl = skjemaAvbrytPath.replace(':id', id);
+    const response = await api.post(skjemaAvbrytUrl);
     return response.data;
 };
