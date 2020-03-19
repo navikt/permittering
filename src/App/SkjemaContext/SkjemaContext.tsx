@@ -3,6 +3,8 @@ import { FunctionComponent, useEffect, useState } from 'react';
 import { OpprettSkjema, Permitteringsskjema } from '../../types/permitteringsskjema';
 import { avbryt, hent, lagre, opprett, sendInn } from '../../api/skjema-api';
 import { useParams } from 'react-router-dom';
+import { useContext } from 'react';
+import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 
 type Context = {
     skjema: Permitteringsskjema;
@@ -19,6 +21,8 @@ const SkjemaContext = React.createContext<Context>({} as Context);
 export const SkjemaProvider: FunctionComponent = props => {
     const [skjema, setSkjema] = useState<Permitteringsskjema>({} as Permitteringsskjema);
     const { id } = useParams();
+    const featureToggleContext = useContext(FeatureToggleContext);
+    const visskjema = featureToggleContext[Feature.visskjema];
 
     useEffect(() => {
         if (id) {
@@ -65,7 +69,9 @@ export const SkjemaProvider: FunctionComponent = props => {
     };
     return (
         <>
-            <SkjemaContext.Provider value={context}>{props.children}</SkjemaContext.Provider>
+            {visskjema && (
+                <SkjemaContext.Provider value={context}>{props.children}</SkjemaContext.Provider>
+            )}
         </>
     );
 };

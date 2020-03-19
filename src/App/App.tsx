@@ -29,34 +29,37 @@ function App() {
                                 <Route exact path="/">
                                     <Forside />
                                 </Route>
-                                <Route exact path="/skjema/start">
-                                    <SkjemaProvider>
-                                        <HvaSkalDuRapportere />
-                                    </SkjemaProvider>
-                                </Route>
-                                <Route exact path="/skjema/kontaktinformasjon/:id">
-                                    <SkjemaProvider>
-                                        <Side1 />
-                                    </SkjemaProvider>
-                                </Route>
-                                <Route exact path="/skjema/generelle-opplysninger/:id">
-                                    <SkjemaProvider>
-                                        <Side2 />
-                                    </SkjemaProvider>
-                                </Route>
-                                <Route exact path="/skjema/hvem-rammes/:id">
-                                    <SkjemaProvider>
-                                        <InputAvPersoner />
-                                    </SkjemaProvider>
-                                </Route>
-                                <Route exact path="/skjema/oppsummering/:id">
-                                    <SkjemaProvider>
-                                        <Oppsummering />
-                                    </SkjemaProvider>
-                                </Route>
-                                <Route exact path="/skjema/kvitteringsside">
-                                    <Kvitteringsside />
-                                </Route>
+                                <>
+                                    <Route exact path="/skjema/start">
+                                        <SkjemaProvider>
+                                            <HvaSkalDuRapportere />
+                                        </SkjemaProvider>
+                                    </Route>
+                                    <Route exact path="/skjema/kontaktinformasjon/:id">
+                                        <SkjemaProvider>
+                                            <Side1 />
+                                        </SkjemaProvider>
+                                    </Route>
+                                    <Route exact path="/skjema/generelle-opplysninger/:id">
+                                        <SkjemaProvider>
+                                            <Side2 />
+                                        </SkjemaProvider>
+                                    </Route>
+                                    <Route exact path="/skjema/hvem-rammes/:id">
+                                        <SkjemaProvider>
+                                            <InputAvPersoner />
+                                        </SkjemaProvider>
+                                    </Route>
+                                    <Route exact path="/skjema/oppsummering/:id">
+                                        <SkjemaProvider>
+                                            <Oppsummering />
+                                        </SkjemaProvider>
+                                    </Route>
+                                    <Route exact path="/skjema/kvitteringsside">
+                                        <Kvitteringsside />
+                                    </Route>
+                                </>{' '}
+                                )}
                             </FeatureToggleProvider>
                         </OrganisasjonsListeProvider>
                     </Router>
