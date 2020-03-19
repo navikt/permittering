@@ -27,7 +27,7 @@ export const skrivOmDatoStreng = (datoStreng: string) => {
 
 export const datoValidering = (day: Date, after?: Date) => {
     if (after) {
-        if (day.getTime() < after.getTime()) {
+        if (day.getTime() <= after.getTime()) {
             return 'Slutt- før Til-dato';
         } else {
             return '';
