@@ -17,7 +17,7 @@ const Forside: FunctionComponent = () => {
         <HvitSideBoks>
             <div className={'forside__topp'}>
                 <Systemtittel>Tidligere skjemaer virksomheten har sendt til NAV</Systemtittel>
-                <Hovedknapp onClick={() => (window.location.href = 'permittering/skjema/start')}>
+                <Hovedknapp onClick={() => (window.location.href = '/skjema/start')}>
                     Nytt skjema
                 </Hovedknapp>
             </div>
