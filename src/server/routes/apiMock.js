@@ -80,6 +80,12 @@ module.exports = function(app) {
         console.log('Fetching organisasjoner');
         res.json(organisasjoner);
     });
+
+    const features = alleFeatures.reduce((obj, item) => ({ ...obj, [item]: true }), {});
+    app.get(paths.featurePath, (req, res) => {
+        res.json(features);
+    });
+
     app.post(paths.skjemaSendInnPath, (req, res) => {
         const inputData = req.body;
         const sendtInnTidspunkt = new Date().toJSON();

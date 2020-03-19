@@ -10,5 +10,6 @@
     "redirectTilLoginPath": "/permittering/redirect-til-login",
     "settingsJsPath": "/permittering/static/js/settings.js",
     "veilarbstepupPath": "/permittering/veilarbstepup/status",
-    "hentOrganisasjonerLink": "/permittering/api/organisasjoner"
+    "hentOrganisasjonerLink": "/permittering/api/organisasjoner",
+    "featurePath": "/permittering/api/feature"
 }

@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { apiPath } from './paths.json';
+import { featurePath } from './paths.json';
 
 export enum Feature {
     frontenderpaa = 'permittering.frontend',
@@ -7,7 +7,7 @@ export enum Feature {
 
 const featureTogglePath = (features: Feature[]): string => {
     const query = features.map(feature => `feature=${feature}`).join('&');
-    return `${apiPath}/feature?${query}`;
+    return `${featurePath}?${query}`;
 };
 
 export const alleFeatures = Object.values(Feature);
