@@ -1,9 +1,13 @@
 {
-  "basePath": "/permittering",
-  "apiPath": "/permittering/api",
-  "skjemaListPath": "/permittering/api/skjema",
-  "skjemaPath": "/permittering/api/skjema/:id",
-  "isAlivePath": "/permittering/internal/isAlive",
-  "isReadyPath": "/permittering/internal/isReady",
-  "redirectTilLoginPath": "/permittering/redirect-til-login"
+    "basePath": "/permittering",
+    "apiPath": "/permittering/api",
+    "skjemaListPath": "/permittering/api/skjema",
+    "skjemaPath": "/permittering/api/skjema/:id",
+    "skjemaSendInnPath": "/permittering/api/skjema/:id/send-inn",
+    "isAlivePath": "/permittering/internal/isAlive",
+    "isReadyPath": "/permittering/internal/isReady",
+    "redirectTilLoginPath": "/permittering/redirect-til-login",
+    "settingsJsPath": "/permittering/static/js/settings.js",
+    "veilarbstepupPath": "/permittering/veilarbstepup/status",
+    "hentOrganisasjonerLink": "/permittering/api/organisasjoner"
 }

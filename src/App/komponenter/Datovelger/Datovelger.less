@@ -2,20 +2,26 @@
 
 .datofelt {
     margin: 2rem 0 0.5rem 0;
+    position: relative;
 
     &__input-container {
         display: flex;
-        position: relative;
+    }
+
+    .ReactCollapse--collapse {
+        position: absolute;
+        top: 137px;
+        left: -20px;
+        z-index: 999;
+        background-color: @white;
+    }
+
+    .ReactCollapse--content {
+        border: 1px solid @navGra60;
     }
 
     &__input {
         width: 13rem;
-    }
-
-    &__collapse {
-        border: 1px solid @navGra60;
-        background-color: @white;
-        overflow: hidden;
     }
 
     &__knapp {
@@ -23,8 +29,8 @@
         background-color: transparent;
         height: 2.5rem;
         width: 2.5rem;
-        left: 10.5rem;
         border: 1px solid @navBlaDarken40;
+        right: 0;
 
         &:focus {
             outline: none;
