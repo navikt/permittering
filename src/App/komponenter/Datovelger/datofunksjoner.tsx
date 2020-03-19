@@ -25,9 +25,16 @@ export const skrivOmDatoStreng = (datoStreng: string) => {
     }
 };
 
-export const tilDatoSenereEnnFraValidering = (fraDato: Date, tilDato: Date) => {
-    if (fraDato.getTime() > tilDato.getTime()) {
-        return false;
+export const datoValidering = (day: Date, after?: Date) => {
+    if (after) {
+        if (day.getTime() < after.getTime()) {
+            return 'Sluttdato kan ikke være før Til-dato';
+        } else {
+            return '';
+        }
     }
-    return true;
+    if (day.getTime() + 84400000 < new Date().getTime()) {
+        return 'Dato kan ikke være tilbake i tid';
+    }
+    return '';
 };
