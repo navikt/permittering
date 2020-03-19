@@ -45,12 +45,26 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
     const steg = skjemaSteg(history.location.pathname);
     const nestePath = nesteSide(steg, context.skjema.id);
     const forrigePath = nesteSide(steg, context.skjema.id);
+
+    const lagTekstBasertPaSkjemaType = () => {
+        const type = context.skjema.type;
+        switch (true) {
+            case type === 'MASSEOPPSIGELSE':
+                return 'Hva er årsaken til masseoppsigelsen';
+            case type === 'PERMITTERING_UTEN_LØNN':
+                return 'Hva er årsaken til massepermitteringen';
+            case type === 'INNSKRENKNING_I_ARBEIDSTID':
+                return 'Hva er årsaken til innskrenkingen';
+        }
+        return 'Hva er årsaken til permitteringen"';
+    };
+
     return (
         <SkjemaRamme>
             <Systemtittel>Generelle opplysninger</Systemtittel>
             <div className={'skjema-innhold__side-2-text-area'}>
                 <Textarea
-                    label="Hva er årsaken til permitteringen"
+                    label={lagTekstBasertPaSkjemaType()}
                     value={aarsak}
                     maxLength={1000}
                     onChange={event => endreFritekstFelt('aarsak', event.currentTarget.value)}
