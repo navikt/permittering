@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import SkjemaTabell from './komponenter/SkjemaTabell';
 import HvitSideBoks from '../../komponenter/HvitSideBoks';
 import { Hovedknapp } from 'nav-frontend-knapper';
@@ -6,8 +6,12 @@ import { Permitteringsskjema } from '../../../types/permitteringsskjema';
 import { hentAlle } from '../../../api/skjema-api';
 import './Forside.less';
 import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
+import { Feature, FeatureToggleContext } from '../../../FeatureToggleProvider';
 
 const Forside: FunctionComponent = () => {
+    const featureToggleContext = useContext(FeatureToggleContext);
+    const lonnstilskuddToggle = featureToggleContext[Feature.frontenderpaa];
+
     const [skjemaer, setSkjemaer] = useState<Permitteringsskjema[]>([]);
     useEffect(() => {
         hentAlle().then(setSkjemaer);
@@ -17,9 +21,13 @@ const Forside: FunctionComponent = () => {
         <HvitSideBoks>
             <div className={'forside__topp'}>
                 <Systemtittel>Tidligere skjemaer virksomheten har sendt til NAV</Systemtittel>
-                <Hovedknapp onClick={() => (window.location.href = 'permittering/skjema/start')}>
-                    Nytt skjema
-                </Hovedknapp>
+                {lonnstilskuddToggle && (
+                    <Hovedknapp
+                        onClick={() => (window.location.href = 'permittering/skjema/start')}
+                    >
+                        Nytt skjema
+                    </Hovedknapp>
+                )}
             </div>
             {skjemaer.length ? (
                 <SkjemaTabell skjemaer={skjemaer} />

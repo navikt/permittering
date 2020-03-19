@@ -15,6 +15,7 @@ import Kvitteringsside from './views/kvittering/Kvitteringsside';
 import { OrganisasjonsListeProvider } from './OrganisasjonslisteProvider';
 import { IntlProvider } from 'react-intl';
 import 'moment/locale/nb';
+import { FeatureToggleProvider } from '../FeatureToggleProvider';
 
 function App() {
     return (
@@ -24,37 +25,39 @@ function App() {
                     <Router basename={basePath}>
                         <Banner />
                         <OrganisasjonsListeProvider>
-                            <Route exact path="/">
-                                <Forside />
-                            </Route>
-                            <Route exact path="/skjema/start">
-                                <SkjemaProvider>
-                                    <HvaSkalDuRapportere />
-                                </SkjemaProvider>
-                            </Route>
-                            <Route exact path="/skjema/kontaktinformasjon/:id">
-                                <SkjemaProvider>
-                                    <Side1 />
-                                </SkjemaProvider>
-                            </Route>
-                            <Route exact path="/skjema/generelle-opplysninger/:id">
-                                <SkjemaProvider>
-                                    <Side2 />
-                                </SkjemaProvider>
-                            </Route>
-                            <Route exact path="/skjema/hvem-rammes/:id">
-                                <SkjemaProvider>
-                                    <InputAvPersoner />
-                                </SkjemaProvider>
-                            </Route>
-                            <Route exact path="/skjema/oppsummering/:id">
-                                <SkjemaProvider>
-                                    <Oppsummering />
-                                </SkjemaProvider>
-                            </Route>
-                            <Route exact path="/skjema/kvitteringsside">
-                                <Kvitteringsside />
-                            </Route>
+                            <FeatureToggleProvider>
+                                <Route exact path="/">
+                                    <Forside />
+                                </Route>
+                                <Route exact path="/skjema/start">
+                                    <SkjemaProvider>
+                                        <HvaSkalDuRapportere />
+                                    </SkjemaProvider>
+                                </Route>
+                                <Route exact path="/skjema/kontaktinformasjon/:id">
+                                    <SkjemaProvider>
+                                        <Side1 />
+                                    </SkjemaProvider>
+                                </Route>
+                                <Route exact path="/skjema/generelle-opplysninger/:id">
+                                    <SkjemaProvider>
+                                        <Side2 />
+                                    </SkjemaProvider>
+                                </Route>
+                                <Route exact path="/skjema/hvem-rammes/:id">
+                                    <SkjemaProvider>
+                                        <InputAvPersoner />
+                                    </SkjemaProvider>
+                                </Route>
+                                <Route exact path="/skjema/oppsummering/:id">
+                                    <SkjemaProvider>
+                                        <Oppsummering />
+                                    </SkjemaProvider>
+                                </Route>
+                                <Route exact path="/skjema/kvitteringsside">
+                                    <Kvitteringsside />
+                                </Route>
+                            </FeatureToggleProvider>
                         </OrganisasjonsListeProvider>
                     </Router>
                 </LoginBoundary>
