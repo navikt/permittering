@@ -7,7 +7,7 @@ const IkkeTilgang: FunctionComponent = props => {
     return (
         <HvitSideBoks>
             <Undertittel>
-                Du har Desverre ikke tilgang til å fylle ut skjema for permittering
+                Du har dessverre ikke tilgang til å fylle ut skjema om permittering
             </Undertittel>
             <br />
             <>

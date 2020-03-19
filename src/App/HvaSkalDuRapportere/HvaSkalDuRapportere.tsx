@@ -2,30 +2,20 @@ import React, { FunctionComponent, useContext, useState } from 'react';
 import './HvaSkalDuRapportere.less';
 import Innholdstittel from 'nav-frontend-typografi/lib/innholdstittel';
 import AlternativBoks from './AlternativBoks/AlternativBoks';
-import Checkbox from 'nav-frontend-skjema/lib/checkbox';
 import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
-import Ingress from 'nav-frontend-typografi/lib/ingress';
 import { useHistory } from 'react-router-dom';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import { Permitteringsskjema } from '../../types/permitteringsskjema';
 import { OrganisasjonsListeContext } from '../OrganisasjonslisteProvider';
 import { BedriftsVelger } from '../komponenter/Bedriftsvelger/Bedriftsvelger';
 
-/*
-interface Props {
-    byttSide: (indeks: number) => void;
-}git
-*/
-const HvaSkalDuRapportere: FunctionComponent = props => {
+const HvaSkalDuRapportere: FunctionComponent = () => {
     const context = useContext(SkjemaContext);
     const { organisasjoner } = useContext(OrganisasjonsListeContext);
     const [valgtOrganisasjon, setValgtOrganisasjon] = useState(
         organisasjoner[0].OrganizationNumber
     );
-    const [skjemaType, setSkjemaType] = useState<Permitteringsskjema['type'] | undefined>(
-        'PERMITTERING_UTEN_LØNN'
-    );
-    const [diskutertMedAnsatte, setDiskutertMedAnsatte] = useState(false);
+    const [skjemaType, setSkjemaType] = useState<Permitteringsskjema['type'] | undefined>();
     const history = useHistory();
     const opprettOgNavigerTilSkjema = async () => {
         const newId = await context.opprett({
@@ -41,50 +31,44 @@ const HvaSkalDuRapportere: FunctionComponent = props => {
             <div className={'hva-skal-du-rapportere__boks-container'}>
                 <AlternativBoks
                     innholdstekst={
-                        'Over til personer osv osv, there is something about parenthood. gives a sense.\n' +
-                        '        bla bla bla bla. send in to a great rooted desire. sende dette skjeamet\n' +
-                        '        bla bla bla bla. send in to a great rooted desire. sende dette skjeamet\n' +
-                        '        bla bla bla bla. send in to a great rooted desire. sende dette skjeamet'
+                        <>
+                            <b>Permittering uten lønn</b> handler om at arbeidsgiver pålegger
+                            arbeidstaker et midlertidig fritak uten lønn.
+                        </>
                     }
-                    overskrift={'Masseoppsigelser'}
+                    radioknappSkrift={'Permittering uten lønn'}
+                    onChange={() => setSkjemaType('PERMITTERING_UTEN_LØNN')}
+                    checked={skjemaType === 'PERMITTERING_UTEN_LØNN'}
+                />
+                <AlternativBoks
+                    innholdstekst={
+                        <>
+                            <b>Oppsigelse</b> betyr at arbeidsforholdet mellom arbeidsgiver og
+                            arbeidstaker avsluttes.
+                        </>
+                    }
                     radioknappSkrift={'Masseoppsigelser'}
                     onChange={() => setSkjemaType('MASSEOPPSIGELSE')}
+                    checked={skjemaType === 'MASSEOPPSIGELSE'}
                 />
                 <AlternativBoks
                     innholdstekst={
-                        'Over til personer osv osv, there is something about parenthood. gives a sense.\n' +
-                        '        bla bla bla bla. send in to a great rooted desire. sende dette skjeamet\n' +
-                        '        bla bla bla bla. send in to a great rooted desire. sende dette skjeamet\n' +
-                        '        bla bla bla bla. send in to a great rooted desire. sende dette skjeamet'
+                        <>
+                            <b>Innskrenkning i arbeidstid</b> vil si at arbeidstakerens
+                            stillingsprosent blir redusert.
+                        </>
                     }
-                    overskrift={'Massepermittering uten lønn'}
-                    radioknappSkrift={'Massepermittering uten lønn'}
-                    onChange={() => setSkjemaType('PERMITTERING_UTEN_LØNN')}
-                />
-                <AlternativBoks
-                    innholdstekst={
-                        'Over til personer osv osv, there is something about parenthood. gives a sense.\n' +
-                        '        bla bla bla bla. send in to a great rooted desire. sende dette skjeamet\n' +
-                        '        bla bla bla bla. send in to a great rooted desire. sende dette skjeamet\n' +
-                        '        bla bla bla bla. send in to a great rooted desire. sende dette skjeamet'
-                    }
-                    overskrift={'Innskrenkning av arbeidstid'}
-                    radioknappSkrift={'Innskrenkning av arbeidstid'}
+                    radioknappSkrift={'Innskrenkning i arbeidstid'}
                     onChange={() => setSkjemaType('INNSKRENKNING_I_ARBEIDSTID')}
+                    checked={skjemaType === 'INNSKRENKNING_I_ARBEIDSTID'}
                 />
             </div>
             <BedriftsVelger
                 organisasjoner={organisasjoner}
                 setOrganisasjon={setValgtOrganisasjon}
             />
-            <div className={'hva-skal-du-rapportere__har-varslet'}>
-                <Checkbox
-                    onChange={() => setDiskutertMedAnsatte(!diskutertMedAnsatte)}
-                    label={<Ingress>Jeg har varslet det ansatte det gjelder</Ingress>}
-                />
-            </div>
             <Hovedknapp
-                disabled={!diskutertMedAnsatte || skjemaType === undefined}
+                disabled={skjemaType === undefined}
                 className={'hva-skal-du-rapportere__hoved-knapp'}
                 onClick={opprettOgNavigerTilSkjema}
             >

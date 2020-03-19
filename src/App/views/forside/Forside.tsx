@@ -22,7 +22,7 @@ const Forside: FunctionComponent = () => {
     return (
         <HvitSideBoks>
             <div className={'forside__topp'}>
-                <Systemtittel>Tidligere skjemaer virksomheten har sendt til NAV</Systemtittel>
+                <Systemtittel>Tidligere skjemaer du har opprettet</Systemtittel>
                 {lonnstilskuddToggle && (
                     <Hovedknapp onClick={() => history.push('skjema/start')}>
                         Nytt skjema
