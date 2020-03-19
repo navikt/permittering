@@ -25,12 +25,7 @@ const dummySkjemaer: PermitteringsskjemaITabell[] = [
   }
 ];
 
-interface Props {
-  setOrganisasjoner: (organisasjoner: Array<Organisasjon>) => void;
-}
-const Forside = (props: Props) => {
-  const setOrgs = props.setOrganisasjoner;
-
+const Forside = () => {
   return (
     <HvitSideBoks>
       <Undertittel>Eksisterende varsler</Undertittel>

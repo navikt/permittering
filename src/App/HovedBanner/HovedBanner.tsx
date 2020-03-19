@@ -6,21 +6,22 @@ import "@navikt/bedriftsmeny/lib/bedriftsmeny.css";
 
 import "./HovedBanner.less";
 import { Organisasjon } from "@navikt/bedriftsmeny/lib/Organisasjon";
-import { OrganisasjonsListeContext } from "../OrgnisasjonslisteProvider";
+import { OrganisasjonsListeContext } from "../OrganisasjonslisteProvider";
 
 interface Props extends RouteComponentProps {
   byttOrganisasjon?: (org: Organisasjon) => void;
 }
-
 const Banner: FunctionComponent<Props> = props => {
-  const { organisasjoner } = useContext(OrganisasjonsListeContext);
+  const { organisasjoner, organisasjonslisteFerdigLastet } = useContext(
+    OrganisasjonsListeContext
+  );
+
   const { history } = props;
   const onOrganisasjonChange = (organisasjon?: Organisasjon) => {
     if (organisasjon) {
       //endreOrganisasjon(organisasjon);
     }
   };
-
   return (
     <Bedriftsmeny
       sidetittel="Permittering"
