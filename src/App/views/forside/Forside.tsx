@@ -1,12 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import SkjemaTabell from './komponenter/SkjemaTabell';
 import HvitSideBoks from '../../komponenter/HvitSideBoks';
 import { Undertittel } from 'nav-frontend-typografi';
 import Lenke from 'nav-frontend-lenker';
 import { Knapp } from 'nav-frontend-knapper';
 import { PermitteringsskjemaITabell } from '../../../types/permitteringsskjema';
-import { hentOrganisasjonerFraAltinn } from '../../../api/AltinnApi';
-import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
 
 const dummySkjemaer: PermitteringsskjemaITabell[] = [
     {
@@ -25,25 +23,7 @@ const dummySkjemaer: PermitteringsskjemaITabell[] = [
     },
 ];
 
-interface Props {
-    setOrganisasjoner: (organisasjoner: Array<Organisasjon>) => void;
-}
-const Forside = (props: Props) => {
-    const setOrgs = props.setOrganisasjoner;
-    useEffect(() => {
-        const abortController = new AbortController();
-        const signal = abortController.signal;
-        hentOrganisasjonerFraAltinn(signal).then(organisasjonsliste => {
-            setOrgs(
-                organisasjonsliste.filter(
-                    organisasjon =>
-                        organisasjon.OrganizationForm === 'BEDR' ||
-                        organisasjon.Type === 'Enterprise'
-                )
-            );
-        });
-    }, [setOrgs]);
-
+const Forside = () => {
     return (
         <HvitSideBoks>
             <Undertittel>Eksisterende varsler</Undertittel>
