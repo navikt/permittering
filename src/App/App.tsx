@@ -13,49 +13,53 @@ import Side2 from './Skjema/Side2';
 import Oppsummering from './Skjema/side4-oppsummering/Oppsummering';
 import Kvitteringsside from './views/kvittering/Kvitteringsside';
 import { OrganisasjonsListeProvider } from './OrganisasjonslisteProvider';
+import { IntlProvider } from 'react-intl';
+import 'moment/locale/nb';
 
 function App() {
     return (
-        <div className="app">
-            <LoginBoundary>
-                <OrganisasjonsListeProvider>
-                    <Router basename={basePath}>
-                        <Banner />
-                        <Route exact path="/">
-                            <Forside />
-                        </Route>
-                        <Route exact path="/skjema/start">
-                            <SkjemaProvider>
-                                <HvaSkalDuRapportere />
-                            </SkjemaProvider>
-                        </Route>
-                        <Route exact path="/skjema/kontaktinformasjon/:id">
-                            <SkjemaProvider>
-                                <Side1 />
-                            </SkjemaProvider>
-                        </Route>
-                        <Route exact path="/skjema/generelle-opplysninger/:id">
-                            <SkjemaProvider>
-                                <Side2 />
-                            </SkjemaProvider>
-                        </Route>
-                        <Route exact path="/skjema/hvem-rammes/:id">
-                            <SkjemaProvider>
-                                <InputAvPersoner />
-                            </SkjemaProvider>
-                        </Route>
-                        <Route exact path="/skjema/oppsummering/:id">
-                            <SkjemaProvider>
-                                <Oppsummering />
-                            </SkjemaProvider>
-                        </Route>
-                        <Route exact path="/skjema/kvitteringsside">
-                            <Kvitteringsside />
-                        </Route>
-                    </Router>
-                </OrganisasjonsListeProvider>
-            </LoginBoundary>
-        </div>
+        <IntlProvider locale={'nb'}>
+            <div className="app">
+                <LoginBoundary>
+                    <OrganisasjonsListeProvider>
+                        <Router basename={basePath}>
+                            <Banner />
+                            <Route exact path="/">
+                                <Forside />
+                            </Route>
+                            <Route exact path="/skjema/start">
+                                <SkjemaProvider>
+                                    <HvaSkalDuRapportere />
+                                </SkjemaProvider>
+                            </Route>
+                            <Route exact path="/skjema/kontaktinformasjon/:id">
+                                <SkjemaProvider>
+                                    <Side1 />
+                                </SkjemaProvider>
+                            </Route>
+                            <Route exact path="/skjema/generelle-opplysninger/:id">
+                                <SkjemaProvider>
+                                    <Side2 />
+                                </SkjemaProvider>
+                            </Route>
+                            <Route exact path="/skjema/hvem-rammes/:id">
+                                <SkjemaProvider>
+                                    <InputAvPersoner />
+                                </SkjemaProvider>
+                            </Route>
+                            <Route exact path="/skjema/oppsummering/:id">
+                                <SkjemaProvider>
+                                    <Oppsummering />
+                                </SkjemaProvider>
+                            </Route>
+                            <Route exact path="/skjema/kvitteringsside">
+                                <Kvitteringsside />
+                            </Route>
+                        </Router>
+                    </OrganisasjonsListeProvider>
+                </LoginBoundary>
+            </div>
+        </IntlProvider>
     );
 }
 
