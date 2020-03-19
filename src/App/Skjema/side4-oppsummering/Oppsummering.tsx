@@ -22,6 +22,7 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     const existerendeFelter = context.skjema.fritekst
         ? splittOppFritekst(context.skjema.fritekst)
         : null;
+    const aarsak = existerendeFelter && existerendeFelter.aarsak ? existerendeFelter.aarsak : '';
     const yrker = existerendeFelter && existerendeFelter.yrker ? existerendeFelter.yrker : '';
     const annet = existerendeFelter && existerendeFelter.annet ? existerendeFelter.annet : '';
 
@@ -75,6 +76,20 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                         </table>
                         <div className="endre-lenke">
                             <Lenke href={`/skjema/kontaktinformasjon/${context.skjema.id}`}>
+                                Endre
+                            </Lenke>
+                        </div>
+                    </div>
+
+                    <div className="oppsummering__boks aarsak">
+                        <div className="tekst">
+                            <Normaltekst className="overskrift">
+                                Hvorfor skal dere permittere?
+                            </Normaltekst>
+                            <Normaltekst>{aarsak}</Normaltekst>
+                        </div>
+                        <div className="endre-lenke">
+                            <Lenke href={`/skjema/generelle-opplysninger/${context.skjema.id}`}>
                                 Endre
                             </Lenke>
                         </div>
