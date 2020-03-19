@@ -17,7 +17,7 @@ const SkjemaRamme: FunctionComponent<SkjemaSideProps> = ({ children }) => {
         history.push(createSkjemaPath(steg[index].slug, id));
     };
     if (context.skjema.sendtInnTidspunkt) {
-        history.push('/skjema/kvitteringsside');
+        history.replace('/skjema/kvitteringsside');
     }
     return (
         <>
