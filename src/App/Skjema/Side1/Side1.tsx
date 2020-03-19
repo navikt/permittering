@@ -73,7 +73,7 @@ const Side1: FunctionComponent<SkjemaSideProps> = ({}) => {
                         history.push(nestePath || '');
                     }}
                 >
-                    Videre
+                    Neste
                 </Hovedknapp>
             </div>
         </SkjemaRamme>

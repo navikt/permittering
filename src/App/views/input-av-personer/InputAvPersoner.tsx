@@ -101,14 +101,14 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
                 >
                     Tilbake
                 </Knapp>
-                <Knapp
+                <Hovedknapp
                     onClick={async () => {
                         await context.lagre();
                         history.push(nestePath || '');
                     }}
                 >
                     Neste
-                </Knapp>
+                </Hovedknapp>
             </div>
         </SkjemaRamme>
     );

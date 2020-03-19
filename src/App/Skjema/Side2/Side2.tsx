@@ -84,7 +84,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
                         skalVareEtter={datoFra}
                     />
                     <Checkbox
-                        label={'Ukjent slutt dato'}
+                        label={'Ukjent sluttdato'}
                         checked={context.skjema.ukjentSluttDato}
                         onChange={() =>
                             context.endreSkjemaVerdi(
@@ -119,7 +119,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
                         history.push(nestePath || '');
                     }}
                 >
-                    Videre
+                    Neste
                 </Hovedknapp>
             </div>
         </SkjemaRamme>

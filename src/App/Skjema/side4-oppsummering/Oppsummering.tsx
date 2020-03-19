@@ -169,7 +169,7 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = props => {
                     >
                         Send inn Meldingen
                     </Hovedknapp>
-                    <Knapp>Fram</Knapp>
+                    <Knapp>Neste</Knapp>
                 </div>
             </section>
         </SkjemaRamme>
