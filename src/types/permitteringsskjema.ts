@@ -16,6 +16,7 @@ export type Permitteringsskjema = {
     personer: Person[];
     antallBerørt?: number;
     sendtInnTidspunkt?: string;
+    avbrutt: boolean;
 };
 
 export type Person = {
@@ -26,8 +27,3 @@ export type Person = {
 };
 
 export type OpprettSkjema = Pick<Permitteringsskjema, 'bedriftNr' | 'type'>;
-
-export type PermitteringsskjemaITabell = Pick<
-    Permitteringsskjema,
-    'id' | 'bedriftNr' | 'bedriftNavn' | 'antallBerørt' | 'sendtInnTidspunkt'
->;

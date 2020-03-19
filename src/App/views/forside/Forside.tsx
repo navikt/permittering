@@ -6,9 +6,11 @@ import { Permitteringsskjema } from '../../../types/permitteringsskjema';
 import { hentAlle } from '../../../api/skjema-api';
 import './Forside.less';
 import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
+import { useHistory } from 'react-router';
 import { Feature, FeatureToggleContext } from '../../../FeatureToggleProvider';
 
 const Forside: FunctionComponent = () => {
+    const history = useHistory();
     const featureToggleContext = useContext(FeatureToggleContext);
     const lonnstilskuddToggle = featureToggleContext[Feature.frontenderpaa];
 
@@ -22,9 +24,7 @@ const Forside: FunctionComponent = () => {
             <div className={'forside__topp'}>
                 <Systemtittel>Tidligere skjemaer virksomheten har sendt til NAV</Systemtittel>
                 {lonnstilskuddToggle && (
-                    <Hovedknapp
-                        onClick={() => (window.location.href = 'permittering/skjema/start')}
-                    >
+                    <Hovedknapp onClick={() => history.push('skjema/start')}>
                         Nytt skjema
                     </Hovedknapp>
                 )}

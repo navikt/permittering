@@ -8,14 +8,24 @@ interface SkjemaTabellProps {
     skjemaer: Permitteringsskjema[];
 }
 
+const status = (skjema: Permitteringsskjema) => {
+    if (skjema.avbrutt) {
+        return 'Avbrutt';
+    } else if (skjema.sendtInnTidspunkt) {
+        return 'Sendt inn';
+    } else {
+        return 'Ikke sendt inn';
+    }
+};
+
 const SkjemaTabell: React.FunctionComponent<SkjemaTabellProps> = ({ skjemaer }) => {
-    const lagTekstBasertPaSkjemaType = (type: string) => {
-        switch (true) {
-            case type === 'MASSEOPPSIGELSE':
+    const lagTekstBasertPaSkjemaType = (type: Permitteringsskjema['type']) => {
+        switch (type) {
+            case 'MASSEOPPSIGELSE':
                 return 'Masseoppsigelse';
-            case type === 'PERMITTERING_UTEN_LØNN':
+            case 'PERMITTERING_UTEN_LØNN':
                 return 'Permittering uten lønn';
-            case type === 'INNSKRENKNING_I_ARBEIDSTID':
+            case 'INNSKRENKNING_I_ARBEIDSTID':
                 return 'Innskrenkning i arbeidstid';
         }
         return 'Ukjent';
@@ -51,12 +61,7 @@ const SkjemaTabell: React.FunctionComponent<SkjemaTabellProps> = ({ skjemaer }) 
                                 <td>{lagTekstBasertPaSkjemaType(skjema.type)}</td>
                                 <td>{moment(skjema.opprettetTidspunkt).format('lll')}</td>
                                 <td>{skjema.bedriftNr}</td>
-                                <td>
-                                    {skjema.sendtInnTidspunkt
-                                        ? 'Sendt inn ' +
-                                          moment(skjema.sendtInnTidspunkt).format('lll')
-                                        : 'Ikke sendt inn'}
-                                </td>
+                                <td>{status(skjema)}</td>
                                 <td>
                                     <Lenke
                                         href={
