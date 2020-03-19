@@ -25,14 +25,14 @@ const Kvitteringsside = () => {
                 border
                 tittelProps="normaltekst"
             >
-                Gå til Min Side – Arbeidsgiver
+                Gå til Min side – arbeidsgiver
             </Lenkepanel>
             <Lenkepanel
                 href="https://www.nav.no/no/bedrift/innhold-til-bedrift-forside/nyheter/permitteringer-som-folge-av-koronaviruset"
                 border
                 tittelProps="normaltekst"
             >
-                Informasjon om permitteringer til arbeidsgivere i forbindelse med Koronaviruset
+                Informasjon om permitteringer til arbeidsgivere i forbindelse med koronaviruset
             </Lenkepanel>
         </HvitSideBoks>
     );

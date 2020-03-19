@@ -5,6 +5,8 @@ import { useHistory, useParams } from 'react-router-dom';
 import { StegindikatorStegProps } from 'nav-frontend-stegindikator/lib/stegindikator-steg';
 import { createSkjemaPath, SkjemaSideProps, skjemaSteg } from '../Skjema/skjema-steg';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
+import HvitSideBoks from './HvitSideBoks';
+import VerticalSpacer from './VerticalSpacer';
 
 const SkjemaRamme: FunctionComponent<SkjemaSideProps> = ({ children }) => {
     const history = useHistory();
@@ -18,15 +20,16 @@ const SkjemaRamme: FunctionComponent<SkjemaSideProps> = ({ children }) => {
         history.push('/skjema/kvitteringsside');
     }
     return (
-        <div className="skjema-container">
+        <>
+            <VerticalSpacer rem={2} />
             <Stegindikator
                 steg={steg as StegindikatorStegProps[]}
                 onChange={index => skiftSide(index)}
                 visLabel
                 autoResponsiv
             />
-            {context.skjema.id && <div className="skjema-innhold">{children}</div>}
-        </div>
+            <HvitSideBoks>{children}</HvitSideBoks>
+        </>
     );
 };
 
