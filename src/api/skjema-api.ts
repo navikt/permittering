@@ -1,8 +1,9 @@
 import { OpprettSkjema, Permitteringsskjema } from '../types/permitteringsskjema';
 import axios from 'axios';
+import { skjemaListPath, skjemaPath, skjemaSendInnPath } from '../paths.json';
 
 const api = axios.create({
-    baseURL: '/permittering/api/skjema',
+    baseURL: '',
     withCredentials: true,
     timeout: 30000,
 });
@@ -21,26 +22,29 @@ api.interceptors.response.use(
 );
 
 export const hent = async (id: string) => {
-    const response = await api.get(`/${id}`);
+    const url = skjemaPath.replace(':id', id);
+    const response = await api.get(url);
     return response.data;
 };
 
 export const hentAlle = async () => {
-    const response = await api.get('');
+    const response = await api.get(skjemaListPath);
     return response.data;
 };
 
 export const opprett = async (data: OpprettSkjema) => {
-    const response = await api.post('', data);
+    const response = await api.post(skjemaListPath, data);
     return response.data;
 };
 
 export const lagre = async (skjema: Permitteringsskjema) => {
-    const response = await api.put(`/${skjema.id}`, skjema);
+    const url = skjemaPath.replace(':id', skjema.id);
+    const response = await api.put(url, skjema);
     return response.data;
 };
 
 export const sendInn = async (id: Permitteringsskjema['id']) => {
-    const response = await api.post(`/${id}/send-inn`);
+    const skjemaSendInnUrl = skjemaSendInnPath.replace(':id', id);
+    const response = await api.post(skjemaSendInnUrl);
     return response.data;
 };

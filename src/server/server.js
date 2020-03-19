@@ -1,28 +1,16 @@
-const app = require('express')();
+const express = require('express');
 const internalRoutes = require('./routes/internals');
 const indexRoute = require('./routes/indexPath');
 const loginRoutes = require('./routes/login');
 const apiProxy = require('./routes/apiProxy');
-const createEnvSettingsFile = require('./envSettings.js');
-const path = require('path');
-const buildPath = path.join(__dirname, '../../build');
+const settingsJsRoutes = require('./routes/settingsJs');
+const veilarbstepupRoutes = require('./routes/veilarbstepup');
 
-const BASE_PATH = '/permittering';
-const veilarbStatusProxyConfig = require('./veilarbStatusProxyConfig');
-
-app.use(`${BASE_PATH}/veilarbstepup/status`, veilarbStatusProxyConfig);
-
-app.get(`${BASE_PATH}/static/js/settings.js`, (req, res) => res.send(createEnvSettingsFile()));
-/*app.get(`${BASE_PATH}/redirect-til-login`, (req, res) => {
-
-  const loginUrl =
-    process.env.LOGIN_URL ||
-    "http://localhost:8080/permitteringsskjema-api/local/cookie?redirect=http://localhost:3000/permittering";
-  res.redirect(loginUrl);
-});*/
-
-const startServer = (app, port) => {
-    console.log('start server');
+const startServer = port => {
+    const app = express();
+    console.log('start regular server');
+    settingsJsRoutes(app);
+    veilarbstepupRoutes(app);
     loginRoutes(app);
     apiProxy(app);
     internalRoutes(app);
@@ -32,19 +20,22 @@ const startServer = (app, port) => {
     });
 };
 
-const startMockServer = html => {
-    console.log('start server');
+const startMockServer = port => {
+    console.log('start mock server');
+    const app = express();
+    settingsJsRoutes(app);
+    veilarbstepupRoutes(app);
     loginRoutes(app);
     apiProxy(app);
     internalRoutes(app);
     indexRoute(app);
     app.listen(port, () => {
-        console.log('Server listening on port', port);
+        console.log('Mock server listening on port', port);
     });
 };
 
 if (process.env.REACT_APP_MOCK) {
-    startMockServer();
+    startMockServer(process.env.PORT || 3000);
 } else {
-    startServer(app, process.env.PORT || 3000);
+    startServer(process.env.PORT || 3000);
 }
