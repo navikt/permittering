@@ -59,7 +59,6 @@ function App() {
                                         <Kvitteringsside />
                                     </Route>
                                 </>{' '}
-                                )}
                             </FeatureToggleProvider>
                         </OrganisasjonsListeProvider>
                     </Router>
