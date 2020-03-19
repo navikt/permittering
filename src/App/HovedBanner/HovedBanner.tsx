@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router';
 
 import Bedriftsmeny from '@navikt/bedriftsmeny';
@@ -6,14 +6,11 @@ import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 
 import './HovedBanner.less';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
-import { OrganisasjonsListeContext } from '../OrganisasjonslisteProvider';
 
 interface Props extends RouteComponentProps {
     byttOrganisasjon?: (org: Organisasjon) => void;
 }
 const Banner: FunctionComponent<Props> = props => {
-    const { organisasjoner } = useContext(OrganisasjonsListeContext);
-
     const { history } = props;
     const onOrganisasjonChange = (organisasjon?: Organisasjon) => {
         if (organisasjon) {
@@ -23,7 +20,7 @@ const Banner: FunctionComponent<Props> = props => {
     return (
         <Bedriftsmeny
             sidetittel="Permittering"
-            organisasjoner={organisasjoner}
+            organisasjoner={[]}
             onOrganisasjonChange={onOrganisasjonChange}
             history={history}
         />
