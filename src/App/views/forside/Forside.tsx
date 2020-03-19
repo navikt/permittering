@@ -6,8 +6,10 @@ import { Permitteringsskjema } from '../../../types/permitteringsskjema';
 import { hentAlle } from '../../../api/skjema-api';
 import './Forside.less';
 import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
+import { useHistory } from 'react-router';
 
 const Forside: FunctionComponent = () => {
+    const history = useHistory();
     const [skjemaer, setSkjemaer] = useState<Permitteringsskjema[]>([]);
     useEffect(() => {
         hentAlle().then(setSkjemaer);
@@ -17,9 +19,7 @@ const Forside: FunctionComponent = () => {
         <HvitSideBoks>
             <div className={'forside__topp'}>
                 <Systemtittel>Tidligere skjemaer virksomheten har sendt til NAV</Systemtittel>
-                <Hovedknapp onClick={() => (window.location.href = '/skjema/start')}>
-                    Nytt skjema
-                </Hovedknapp>
+                <Hovedknapp onClick={() => history.push('/skjema/start')}>Nytt skjema</Hovedknapp>
             </div>
             {skjemaer.length ? (
                 <SkjemaTabell skjemaer={skjemaer} />
