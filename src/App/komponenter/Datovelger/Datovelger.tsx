@@ -1,13 +1,13 @@
 import React, { FunctionComponent, useState } from 'react';
-import './Datovelger.less';
-import kalender from './kalender.svg';
-import 'react-day-picker/lib/style.css';
 import { Collapse } from 'react-collapse';
-import Input from 'nav-frontend-skjema/lib/input';
 import DayPicker from 'react-day-picker';
-import { datoValidering, skrivOmDato, skrivOmDatoStreng } from './datofunksjoner';
+import 'react-day-picker/lib/style.css';
+import Input from 'nav-frontend-skjema/lib/input';
 import { Label } from 'nav-frontend-skjema';
 import { guid } from 'nav-frontend-js-utils';
+import { datoValidering, skrivOmDato, skrivOmDatoStreng } from './datofunksjoner';
+import kalender from './kalender.svg';
+import './Datovelger.less';
 
 interface Props {
     overtekst: string;
@@ -22,8 +22,9 @@ const Datovelger: FunctionComponent<Props> = props => {
     const [editing, setEditing] = useState(false);
     const selectedDate = new Date(props.value || new Date());
     const [tempDate, setTempDate] = useState(skrivOmDato(selectedDate));
-    const datovelgerId = guid();
     const [feilmelding, setFeilMelding] = useState('');
+
+    const datovelgerId = guid();
 
     const onDatoClick = (day: Date) => {
         const feilmelding = datoValidering(day, props.skalVareEtter);
