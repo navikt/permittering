@@ -36,8 +36,8 @@ export const datoValidering = (day: Date, after?: Date, before?: Date) => {
             return 'Slutt- før Til-dato';
         }
     }
-    if (day.getTime() + 84400000 < new Date().getTime()) {
+    /*if (day.getTime() + 84400000 < new Date().getTime()) {
         return 'Kan ikke velge tilbake i tid';
-    }
+    }*/
     return '';
 };

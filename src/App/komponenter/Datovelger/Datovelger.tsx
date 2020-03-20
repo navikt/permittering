@@ -37,9 +37,9 @@ const Datovelger: FunctionComponent<Props> = props => {
                     value: day,
                 },
             });
-            setErApen(false);
             setFeilMelding('');
         }
+        setErApen(false);
     };
 
     const inputOnBlur = (event: any) => {
@@ -49,6 +49,7 @@ const Datovelger: FunctionComponent<Props> = props => {
             onDatoClick(newDato);
         } else {
             setFeilMelding('dd/mm/yyyy');
+            setErApen(false);
         }
     };
 
