@@ -75,7 +75,9 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                             </tbody>
                         </table>
                         <div className="endre-lenke">
-                            <Lenke href={`/skjema/kontaktinformasjon/${context.skjema.id}`}>
+                            <Lenke
+                                href={`/permittering/skjema/kontaktinformasjon/${context.skjema.id}`}
+                            >
                                 Endre
                             </Lenke>
                         </div>
@@ -89,7 +91,9 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                             <Normaltekst>{aarsak}</Normaltekst>
                         </div>
                         <div className="endre-lenke">
-                            <Lenke href={`/skjema/generelle-opplysninger/${context.skjema.id}`}>
+                            <Lenke
+                                href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
+                            >
                                 Endre
                             </Lenke>
                         </div>
@@ -105,7 +109,9 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                             </tbody>
                         </table>
                         <div className="endre-lenke">
-                            <Lenke href={`/skjema/hvem-rammes/${context.skjema.id}`}>Endre</Lenke>
+                            <Lenke href={`/permittering/skjema/hvem-rammes/${context.skjema.id}`}>
+                                Endre
+                            </Lenke>
                         </div>
                     </div>
 
@@ -117,7 +123,9 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                             <Normaltekst>{yrker}</Normaltekst>
                         </div>
                         <div className="endre-lenke">
-                            <Lenke href={`/skjema/generelle-opplysninger/${context.skjema.id}`}>
+                            <Lenke
+                                href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
+                            >
                                 Endre
                             </Lenke>
                         </div>
@@ -141,7 +149,9 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                             </tbody>
                         </table>
                         <div className="endre-lenke">
-                            <Lenke href={`/skjema/generelle-opplysninger/${context.skjema.id}`}>
+                            <Lenke
+                                href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
+                            >
                                 Endre
                             </Lenke>
                         </div>
@@ -155,7 +165,9 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                             <Normaltekst>{annet}</Normaltekst>
                         </div>
                         <div className="endre-lenke">
-                            <Lenke href={`/skjema/generelle-opplysninger/${context.skjema.id}`}>
+                            <Lenke
+                                href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
+                            >
                                 Endre
                             </Lenke>
                         </div>
@@ -192,9 +204,8 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                             history.push('/skjema/kvitteringsside');
                         }}
                     >
-                        Send inn meldingen
+                        Send til NAV
                     </Hovedknapp>
-                    <Knapp>Neste</Knapp>
                 </div>
             </section>
         </SkjemaRamme>
