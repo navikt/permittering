@@ -8,3 +8,4 @@ services:
       - PORT=3000
       - APIGW_URL=http://host.docker.internal:8080
       - APIGW_HEADER=wobaduppdupp
+      - LOGIN_URL=http://localhost:8080/permitteringsskjema-api/local/cookie?redirect=http://localhost:3030/permittering

@@ -4,7 +4,7 @@ import { OpprettSkjema, Permitteringsskjema } from '../../types/permitteringsskj
 import { avbryt, hent, lagre, opprett, sendInn } from '../../api/skjema-api';
 import { useParams } from 'react-router-dom';
 import { useContext } from 'react';
-import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
+import { Feature, FeatureToggleContext } from '../FeatureToggleProvider';
 
 type Context = {
     skjema: Permitteringsskjema;
