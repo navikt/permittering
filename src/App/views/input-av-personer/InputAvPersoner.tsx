@@ -57,7 +57,7 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
             case type === 'PERMITTERING_UTEN_LØNN':
                 return 'Hvem skal permitteres?';
             case type === 'INNSKRENKNING_I_ARBEIDSTID':
-                return 'Hvem gjelder innskrenkningen?';
+                return 'Hvem sin arbeidstid skal innskrenkes?';
         }
         return 'Hvem skal permitteres?';
     };

@@ -16,6 +16,7 @@ import { mergeFritekst, splittOppFritekst } from '../../../utils/fritekstFunksjo
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import Datovelger from '../../komponenter/Datovelger/Datovelger';
 import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
+import { Element } from 'nav-frontend-typografi';
 
 const Side2: FunctionComponent<SkjemaSideProps> = () => {
     const [datoFra, setDatoFra] = useState(new Date());
@@ -73,12 +74,14 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
             </div>
             <div className={'skjema-innhold__side-2-text-area'}>
                 <Textarea
-                    label="Hvilke arbeidsgrupper (yrkeskategorier) tilhører de berørte"
+                    description="For eksempel kokk, sjåfør eller revisor"
+                    label="Hvilke yrkeskategorier tilhører de berørte?"
                     value={yrker}
                     maxLength={1000}
                     onChange={event => endreFritekstFelt('yrker', event.currentTarget.value)}
                 />
             </div>
+            <Element>For hvilken periode gjelder dette?</Element>
             <div className={'skjema-innhold__side-2-dato-container'}>
                 <Datovelger
                     value={context.skjema.startDato}
@@ -86,7 +89,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
                         context.endreSkjemaVerdi('startDato', event.currentTarget.value);
                         setDatoFra(event.currentTarget.value);
                     }}
-                    overtekst={'Fra'}
+                    overtekst={'Fra:'}
                 />
                 <div className={'skjema-innhold__dato-velger-til'}>
                     <Datovelger
@@ -95,11 +98,11 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
                             context.endreSkjemaVerdi('sluttDato', event.currentTarget.value);
                         }}
                         disabled={context.skjema.ukjentSluttDato}
-                        overtekst={'Til'}
+                        overtekst={'Til:'}
                         skalVareEtter={datoFra}
                     />
                     <Checkbox
-                        label={'Ukjent sluttdato'}
+                        label={'Vet ikke hvor lenge det vil vare'}
                         checked={context.skjema.ukjentSluttDato}
                         onChange={() =>
                             context.endreSkjemaVerdi(
@@ -112,7 +115,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
             </div>
             <div className={'skjema-innhold__side-2-text-area'}>
                 <Textarea
-                    label="Eventuelle andre opplysninger"
+                    label="Andre relevante opplysninger"
                     value={annet}
                     maxLength={1000}
                     onChange={event => endreFritekstFelt('annet', event.currentTarget.value)}

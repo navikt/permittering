@@ -68,6 +68,7 @@ const PersonTabell: React.FunctionComponent<PersonTabellProps> = ({ personer, se
                 <tr>
                     <th>
                         <Checkbox
+                            className="velg-alle-checkbox"
                             label="Velg alle"
                             checked={checkAll}
                             onChange={onCheckAllClicked}
@@ -77,7 +78,7 @@ const PersonTabell: React.FunctionComponent<PersonTabellProps> = ({ personer, se
                         Fødselsnummer
                     </th>
                     <th role="columnheader" aria-sort="none">
-                        Identifikasjon
+                        Kjønn og alder
                     </th>
                 </tr>
             </thead>

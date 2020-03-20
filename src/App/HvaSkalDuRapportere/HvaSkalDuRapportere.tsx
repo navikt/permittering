@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './HvaSkalDuRapportere.less';
-import Innholdstittel from 'nav-frontend-typografi/lib/innholdstittel';
 import AlternativBoks from './AlternativBoks/AlternativBoks';
 import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
 import { useHistory } from 'react-router-dom';
@@ -8,6 +7,7 @@ import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import { Permitteringsskjema } from '../../types/permitteringsskjema';
 import { OrganisasjonsListeContext } from '../OrganisasjonslisteProvider';
 import { BedriftsVelger } from '../komponenter/Bedriftsvelger/Bedriftsvelger';
+import { Systemtittel } from 'nav-frontend-typografi';
 
 const HvaSkalDuRapportere: FunctionComponent = () => {
     const context = useContext(SkjemaContext);
@@ -27,7 +27,7 @@ const HvaSkalDuRapportere: FunctionComponent = () => {
 
     return (
         <div className="hva-skal-du-rapportere">
-            <Innholdstittel>Hva skal du rapportere til oss</Innholdstittel>
+            <Systemtittel>Hva vil du informere NAV om?</Systemtittel>
             <div className={'hva-skal-du-rapportere__boks-container'}>
                 <AlternativBoks
                     innholdstekst={

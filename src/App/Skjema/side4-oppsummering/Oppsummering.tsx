@@ -99,7 +99,7 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                         <table className="tabell">
                             <tbody>
                                 <tr>
-                                    <th>Antall arbeidstakere som vil kunne bli berørt:</th>
+                                    <th>Antall arbeidstakere som berøres:</th>
                                     <td>{context.skjema.antallBerørt}</td>
                                 </tr>
                             </tbody>
@@ -114,7 +114,7 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                     <div className="oppsummering__boks yrkeskategorier">
                         <div className="tekst">
                             <Normaltekst className="overskrift">
-                                Hvilken arbeidsgrupper (yrkeskategorier) tilhører de berørte?
+                                Hvilke yrkeskategorier tilhører de berørte?
                             </Normaltekst>
                             <Normaltekst>{yrker}</Normaltekst>
                         </div>
@@ -156,7 +156,7 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                     <div className="oppsummering__boks andre-opplysninger">
                         <div className="tekst">
                             <Normaltekst className="overskrift">
-                                Eventuelt andre relevante opplysninger
+                                Andre relevante opplysninger
                             </Normaltekst>
                             <Normaltekst>{annet}</Normaltekst>
                         </div>
