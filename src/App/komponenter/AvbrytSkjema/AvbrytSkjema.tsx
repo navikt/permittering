@@ -3,7 +3,7 @@ import { FunctionComponent, useContext, useState } from 'react';
 import ModalWrapper from 'nav-frontend-modal';
 import Lenke from 'nav-frontend-lenker';
 import SkjemaContext from '../../SkjemaContext/SkjemaContext';
-import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { Fareknapp, Flatknapp } from 'nav-frontend-knapper';
 import { useHistory } from 'react-router-dom';
 import VerticalSpacer from '../VerticalSpacer';
