@@ -1,22 +1,19 @@
 import React, { FunctionComponent, useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import 'react-day-picker/lib/style.css';
 import '../Skjema.less';
 import './Side2.less';
 import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
-
+import { Knapp } from 'nav-frontend-knapper';
 import { Textarea } from 'nav-frontend-skjema';
 import Checkbox from 'nav-frontend-skjema/lib/checkbox';
-import 'react-day-picker/lib/style.css';
-
-import { useHistory } from 'react-router-dom';
-
-import { Knapp } from 'nav-frontend-knapper';
+import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
+import { Element } from 'nav-frontend-typografi';
 import SkjemaContext from '../../SkjemaContext/SkjemaContext';
 import { forrigeSide, nesteSide, SkjemaSideProps, skjemaSteg } from '../skjema-steg';
 import { mergeFritekst, splittOppFritekst } from '../../../utils/fritekstFunksjoner';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import Datovelger from '../../komponenter/Datovelger/Datovelger';
-import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
-import { Element } from 'nav-frontend-typografi';
 import Banner from '../../HovedBanner/HovedBanner';
 
 export const lagTekstBasertPaSkjemaType = (type: string) => {
@@ -37,6 +34,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
 
     const history = useHistory();
     const context = useContext(SkjemaContext);
+
     let aarsak = '';
     let yrker = '';
     let annet = '';
@@ -69,7 +67,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
                 <Systemtittel>Generelle opplysninger</Systemtittel>
                 <div className={'skjema-innhold__side-2-text-area'}>
                     <Textarea
-                        label={lagTekstBasertPaSkjemaType()}
+                        label={lagTekstBasertPaSkjemaType(context.skjema.type)}
                         value={aarsak}
                         maxLength={1000}
                         onChange={event => endreFritekstFelt('aarsak', event.currentTarget.value)}
