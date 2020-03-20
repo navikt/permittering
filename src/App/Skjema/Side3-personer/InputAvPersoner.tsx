@@ -1,23 +1,25 @@
 import React, { FunctionComponent, useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import PersonTabell from './komponenter/PersonTabell';
-import LeggTilPersonerModal from './komponenter/LeggTilPersonModal';
+import { Systemtittel } from 'nav-frontend-typografi';
 import SkjemaContext from '../../SkjemaContext/SkjemaContext';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
-import { useHistory } from 'react-router-dom';
+import PersonTabell from './komponenter/PersonTabell';
+import LeggTilPersonerModal from './komponenter/LeggTilPersonModal';
 import { Person } from '../../../types/permitteringsskjema';
-import './InputAvPersoner.less';
-import { Systemtittel } from 'nav-frontend-typografi';
-import { forrigeSide, nesteSide, SkjemaSideProps, skjemaSteg } from '../../Skjema/skjema-steg';
+import { forrigeSide, nesteSide, SkjemaSideProps, skjemaSteg } from '../skjema-steg';
 import Banner from '../../HovedBanner/HovedBanner';
+import './InputAvPersoner.less';
 
 const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
+    const history = useHistory();
     const context = useContext(SkjemaContext);
     let { personer = [] } = context.skjema;
-    const history = useHistory();
+
     const [modalIsOpen, setModal] = useState(false);
     const closeModal = () => setModal(false);
     const openModal = () => setModal(true);
+
     const leggTilPersoner = (nyePersoner: Array<any>) => {
         const personerCopy = [...personer];
         nyePersoner.forEach(person => {
@@ -35,6 +37,7 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
         context.endreSkjemaVerdi('personer', personerCopy);
         closeModal();
     };
+
     const fjernPersoner = (fnumbers: Array<string>) => {
         const personerCopy = [...personer];
         fnumbers.forEach(fnr => {
@@ -43,9 +46,11 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
         });
         context.endreSkjemaVerdi('personer', personerCopy);
     };
+
     const selectedPersons = () => {
         return personer.filter(e => e.selected).map(e => e.fnr);
     };
+
     const steg = skjemaSteg(history.location.pathname);
     const nestePath = nesteSide(steg, context.skjema.id);
     const forrigePath = forrigeSide(steg, context.skjema.id);
@@ -67,9 +72,9 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
         <>
             <Banner sidetittel={context.skjema.type} />
             <SkjemaRamme>
-                <div className={'input-av-personer__overskrift-og-knapper'}>
+                <div className="input-av-personer__overskrift-og-knapper">
                     <Systemtittel>{lagTekstBasertPaSkjemaType()}</Systemtittel>
-                    <div className={'input-av-personer__fram-og-tilbake'}>
+                    <div className="input-av-personer__fram-og-tilbake">
                         <Knapp
                             mini
                             onClick={async () => {
@@ -85,13 +90,13 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
                                 await context.lagre();
                                 history.push(nestePath || '');
                             }}
-                            className={'input-av-personer__mini-knapp-neste'}
+                            className="input-av-personer__mini-knapp-neste"
                         >
                             Neste
                         </Hovedknapp>
                     </div>
                 </div>
-                <div className={'input-av-personer__knapper-overst'}>
+                <div className="input-av-personer__knapper-overst">
                     <Hovedknapp onClick={() => openModal()}>Legg til ansatte</Hovedknapp>
                     <Knapp
                         disabled={selectedPersons().length === 0}
@@ -111,7 +116,7 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
                         context.endreSkjemaVerdi('personer', personer)
                     }
                 />
-                <div className={'skjema-innhold__fram-og-tilbake'}>
+                <div className="skjema-innhold__fram-og-tilbake">
                     <Knapp
                         onClick={async () => {
                             await context.lagre();
@@ -133,4 +138,5 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
         </>
     );
 };
+
 export default InputAvPersoner;
