@@ -66,7 +66,7 @@ const PersonTabell: React.FunctionComponent<PersonTabellProps> = ({ personer, se
         <table className="input-av-personer__tabell tabell">
             <thead>
                 <tr>
-                    <th>
+                    <th className="kolonneheader-checkbox">
                         <Checkbox
                             className="velg-alle-checkbox"
                             label="Velg alle"
