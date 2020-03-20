@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import Modal from 'nav-frontend-modal';
 import { Knapp } from 'nav-frontend-knapper';
 import { Normaltekst, Undertittel, Element } from 'nav-frontend-typografi';
-import './LeggTilPersonModal.less';
 import { Textarea } from 'nav-frontend-skjema';
 // @ts-ignore
 import validator from '@navikt/fnrvalidator';
+import './LeggTilPersonModal.less';
 
 interface LeggTilPersonerModalProps {
     modalIsOpen: boolean;
@@ -45,12 +45,16 @@ const LeggTilPersonerModal: React.FunctionComponent<LeggTilPersonerModalProps> =
         >
             <div className={'legg-til-person-modal__container'}>
                 <Undertittel className={'legg-til-person-modal__undertittel'}>
-                    Legg til permitterte ansatte
+                    Hvem berøres?
                 </Undertittel>
                 <Element>Lim inn fødselsnummer til de som berøres</Element>
                 <Normaltekst>
                     <ul>
                         <li>Du kan lime inn ett eller flere fødselsnummer på en gang</li>
+                        <li>
+                            Fødselsnummer må kun inneholde tall og være uten mellomrom eller andre
+                            tegn
+                        </li>
                         <li>
                             Du kan for eksempel lime inn alt innholdet i et Excel-ark så luker vi ut
                             hva som er fødselsnummer
@@ -70,7 +74,9 @@ const LeggTilPersonerModal: React.FunctionComponent<LeggTilPersonerModalProps> =
                     }}
                 />
                 {fnrCount > 0 && (
-                    <Normaltekst>Finner {fnrCount} gyldige fødselsnummer.</Normaltekst>
+                    <Normaltekst className="antall-gyldige-fnr">
+                        Finner {fnrCount} gyldige fødselsnummer.
+                    </Normaltekst>
                 )}
                 <Knapp
                     className={'legg-til-person-modal__legg-til-knapp'}

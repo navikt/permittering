@@ -9,6 +9,7 @@ import { Person } from '../../../types/permitteringsskjema';
 import './InputAvPersoner.less';
 import { Systemtittel } from 'nav-frontend-typografi';
 import { forrigeSide, nesteSide, SkjemaSideProps, skjemaSteg } from '../../Skjema/skjema-steg';
+import Banner from '../../HovedBanner/HovedBanner';
 
 const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
@@ -63,12 +64,55 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
     };
 
     return (
-        <SkjemaRamme>
-            <div className={'input-av-personer__overskrift-og-knapper'}>
-                <Systemtittel>{lagTekstBasertPaSkjemaType()}</Systemtittel>
-                <div className={'input-av-personer__fram-og-tilbake'}>
+        <>
+            <Banner sidetittel={context.skjema.type} />
+            <SkjemaRamme>
+                <div className={'input-av-personer__overskrift-og-knapper'}>
+                    <Systemtittel>{lagTekstBasertPaSkjemaType()}</Systemtittel>
+                    <div className={'input-av-personer__fram-og-tilbake'}>
+                        <Knapp
+                            mini
+                            onClick={async () => {
+                                await context.lagre();
+                                history.push(forrigePath || '');
+                            }}
+                        >
+                            Tilbake
+                        </Knapp>
+                        <Hovedknapp
+                            mini
+                            onClick={async () => {
+                                await context.lagre();
+                                history.push(nestePath || '');
+                            }}
+                            className={'input-av-personer__mini-knapp-neste'}
+                        >
+                            Neste
+                        </Hovedknapp>
+                    </div>
+                </div>
+                <div className={'input-av-personer__knapper-overst'}>
+                    <Hovedknapp onClick={() => openModal()}>Legg til ansatte</Hovedknapp>
                     <Knapp
-                        mini
+                        disabled={selectedPersons().length === 0}
+                        onClick={() => fjernPersoner(selectedPersons())}
+                    >
+                        Slett fra liste ({selectedPersons().length})
+                    </Knapp>
+                </div>
+                <LeggTilPersonerModal
+                    modalIsOpen={modalIsOpen}
+                    closeModal={closeModal}
+                    leggTilPersoner={leggTilPersoner}
+                />
+                <PersonTabell
+                    personer={personer}
+                    setPersoner={(personer: Person[]) =>
+                        context.endreSkjemaVerdi('personer', personer)
+                    }
+                />
+                <div className={'skjema-innhold__fram-og-tilbake'}>
+                    <Knapp
                         onClick={async () => {
                             await context.lagre();
                             history.push(forrigePath || '');
@@ -77,54 +121,16 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
                         Tilbake
                     </Knapp>
                     <Hovedknapp
-                        mini
                         onClick={async () => {
                             await context.lagre();
                             history.push(nestePath || '');
                         }}
-                        className={'input-av-personer__mini-knapp-neste'}
                     >
                         Neste
                     </Hovedknapp>
                 </div>
-            </div>
-            <div className={'input-av-personer__knapper-overst'}>
-                <Hovedknapp onClick={() => openModal()}>Legg til ansatte</Hovedknapp>
-                <Knapp
-                    disabled={selectedPersons().length === 0}
-                    onClick={() => fjernPersoner(selectedPersons())}
-                >
-                    Slett fra liste ({selectedPersons().length})
-                </Knapp>
-            </div>
-            <LeggTilPersonerModal
-                modalIsOpen={modalIsOpen}
-                closeModal={closeModal}
-                leggTilPersoner={leggTilPersoner}
-            />
-            <PersonTabell
-                personer={personer}
-                setPersoner={(personer: Person[]) => context.endreSkjemaVerdi('personer', personer)}
-            />
-            <div className={'skjema-innhold__fram-og-tilbake'}>
-                <Knapp
-                    onClick={async () => {
-                        await context.lagre();
-                        history.push(forrigePath || '');
-                    }}
-                >
-                    Tilbake
-                </Knapp>
-                <Hovedknapp
-                    onClick={async () => {
-                        await context.lagre();
-                        history.push(nestePath || '');
-                    }}
-                >
-                    Neste
-                </Hovedknapp>
-            </div>
-        </SkjemaRamme>
+            </SkjemaRamme>
+        </>
     );
 };
 export default InputAvPersoner;
