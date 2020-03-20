@@ -10,7 +10,7 @@ export interface SkjemaSteg {
 export const skjemaSteg = (currentPathName: string): SkjemaSteg[] => {
     return [
         {
-            label: 'Kontakinformasjon',
+            label: 'Kontaktinformasjon',
             aktiv: false,
             slug: 'kontaktinformasjon',
         },
@@ -20,7 +20,7 @@ export const skjemaSteg = (currentPathName: string): SkjemaSteg[] => {
             slug: 'generelle-opplysninger',
         },
         {
-            label: 'Hvem rammes',
+            label: 'Hvem berøres?',
             aktiv: false,
             slug: 'hvem-rammes',
         },
