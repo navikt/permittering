@@ -15,6 +15,7 @@ interface Props {
     onChange: (event: any) => void;
     disabled?: boolean;
     skalVareEtter?: Date;
+    skalVareFoer?: Date;
 }
 
 const Datovelger: FunctionComponent<Props> = props => {
@@ -27,7 +28,7 @@ const Datovelger: FunctionComponent<Props> = props => {
     const datovelgerId = guid();
 
     const onDatoClick = (day: Date) => {
-        const feilmelding = datoValidering(day, props.skalVareEtter);
+        const feilmelding = datoValidering(day, props.skalVareEtter, props.skalVareFoer);
         if (feilmelding !== '') {
             setFeilMelding(feilmelding);
         } else {
