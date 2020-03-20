@@ -6,7 +6,9 @@ interface Props {
 }
 
 const HvitSideBoks: React.FunctionComponent<Props> = props => (
-    <div className={'hvit-side-boks' + ' ' + props.classname}>{props.children}</div>
+    <div className={`hvit-side-boks ${props.classname ? props.classname : ''}`}>
+        {props.children}
+    </div>
 );
 
 export default HvitSideBoks;

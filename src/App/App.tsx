@@ -3,7 +3,6 @@ import './App.less';
 import { basePath } from '../paths.json';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import InputAvPersoner from './views/input-av-personer/InputAvPersoner';
-import Banner from './HovedBanner/HovedBanner';
 import LoginBoundary from './LoginBoundary';
 import HvaSkalDuRapportere from './HvaSkalDuRapportere/HvaSkalDuRapportere';
 import { SkjemaProvider } from './SkjemaContext/SkjemaContext';
@@ -23,7 +22,6 @@ function App() {
             <div className="app">
                 <LoginBoundary>
                     <Router basename={basePath}>
-                        <Banner />
                         <OrganisasjonsListeProvider>
                             <FeatureToggleProvider>
                                 <Route exact path="/">
