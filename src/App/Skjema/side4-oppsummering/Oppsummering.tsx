@@ -49,10 +49,6 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                                     <th>Bedr. nr:</th>
                                     <td>{context.skjema.bedriftNr}</td>
                                 </tr>
-                                <tr>
-                                    <th>Org nr:</th>
-                                    <td>0000000000</td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
