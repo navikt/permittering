@@ -22,7 +22,7 @@ const Forside: FunctionComponent = () => {
     return (
         <HvitSideBoks>
             <div className={'forside__topp'}>
-                <Systemtittel>Tidligere skjemaer du har opprettet</Systemtittel>
+                <Systemtittel>Dine skjema</Systemtittel>
                 {visskjema && (
                     <Hovedknapp onClick={() => history.push('skjema/start')}>
                         Nytt skjema
