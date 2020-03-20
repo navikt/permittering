@@ -7,7 +7,8 @@ import { createSkjemaPath, SkjemaSideProps, skjemaSteg } from '../Skjema/skjema-
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import HvitSideBoks from './HvitSideBoks';
 import VerticalSpacer from './VerticalSpacer';
-import { AvbrytSkjema } from './AvbrytSkjema/AvbrytSkjema';
+import { SlettSkjema } from './SlettSkjema/SlettSkjema';
+import { AvbrytOgLagreSkjema } from './AvbrytOgLagreSkjema/AvbrytOgLagreSkjema';
 
 const SkjemaRamme: FunctionComponent<SkjemaSideProps> = ({ children }) => {
     const history = useHistory();
@@ -31,8 +32,11 @@ const SkjemaRamme: FunctionComponent<SkjemaSideProps> = ({ children }) => {
             />
             <HvitSideBoks>{children}</HvitSideBoks>
             <VerticalSpacer rem={1} />
-            <div style={{ textAlign: 'center' }}>
-                <AvbrytSkjema />
+            <div style={{ width: '45rem', margin: '0 auto' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <AvbrytOgLagreSkjema />
+                    <SlettSkjema />
+                </div>
             </div>
         </>
     );
