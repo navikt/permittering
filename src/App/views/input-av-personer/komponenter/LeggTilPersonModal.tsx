@@ -47,13 +47,13 @@ const LeggTilPersonerModal: React.FunctionComponent<LeggTilPersonerModalProps> =
                 <Undertittel className={'legg-til-person-modal__undertittel'}>
                     Legg til permitterte ansatte
                 </Undertittel>
-                <Element>Lim inn fødselsnummeret til de som skal permitteres</Element>
+                <Element>Lim inn fødselsnummer til de som berøres</Element>
                 <Normaltekst>
                     <ul>
-                        <li>Du kan lime inn alle på en gang</li>
+                        <li>Du kan lime inn ett eller flere fødselsnummer på en gang</li>
                         <li>
-                            Du kan lime inn alt innholdet i et excel ark så luker vi ut hva som er
-                            fødselsnummer
+                            Du kan for eksempel lime inn alt innholdet i et Excel-ark så luker vi ut
+                            hva som er fødselsnummer
                         </li>
                     </ul>
                 </Normaltekst>
