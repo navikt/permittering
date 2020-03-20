@@ -1,9 +1,8 @@
 const paths = require('../../paths');
+const dummyLoginUrl =
+    'http://localhost:8080/permitteringsskjema-api/local/cookie?redirect=http://localhost:3000/permittering';
 module.exports = app => {
     app.get(paths.redirectTilLoginPath, (req, res) => {
-        const loginUrl =
-            process.env.LOGIN_URL ||
-            'http://localhost:8080/permitteringsskjema-api/local/cookie?redirect=http://localhost:3000/permittering';
-        res.redirect(loginUrl);
+        res.redirect(process.env.LOGIN_URL || dummyLoginUrl);
     });
 };

@@ -1,6 +1,7 @@
 function createEnvSettingsFile() {
-    return `window.appSettings = {
-            MILJO: "${process.env.NAIS_CLUSTER_NAME}",
-        };`;
+    const settings = JSON.stringify({
+        MILJO: process.env.NAIS_CLUSTER_NAME,
+    });
+    return `window.appSettings = ${settings};`;
 }
 module.exports = createEnvSettingsFile;

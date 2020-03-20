@@ -7,7 +7,7 @@ import { hentAlle } from '../../../api/skjema-api';
 import './Forside.less';
 import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
 import { useHistory } from 'react-router';
-import { Feature, FeatureToggleContext } from '../../../FeatureToggleProvider';
+import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 
 const Forside: FunctionComponent = () => {
     const history = useHistory();
