@@ -69,7 +69,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
                 <Systemtittel>Generelle opplysninger</Systemtittel>
                 <div className={'skjema-innhold__side-2-text-area'}>
                     <Textarea
-                        label={lagTekstBasertPaSkjemaType(context.skjema.type)}
+                        label={lagTekstBasertPaSkjemaType()}
                         value={aarsak}
                         maxLength={1000}
                         onChange={event => endreFritekstFelt('aarsak', event.currentTarget.value)}
@@ -84,7 +84,9 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
                         onChange={event => endreFritekstFelt('yrker', event.currentTarget.value)}
                     />
                 </div>
-                <Element>For hvilken periode gjelder dette?</Element>
+                <Element className={'skjema-innhold__side-2-dato-overskrift'}>
+                    For hvilken periode gjelder dette?
+                </Element>
                 <div className={'skjema-innhold__side-2-dato-container'}>
                     <Datovelger
                         value={context.skjema.startDato}
