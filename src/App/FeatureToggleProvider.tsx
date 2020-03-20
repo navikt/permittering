@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { featurePath } from './paths.json';
+// @ts-ignore
+import { featurePath } from '../paths.json';
 
 export enum Feature {
     visskjema = 'permittering.visskjema',

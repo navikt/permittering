@@ -10,6 +10,7 @@ interface Props {
 export const BedriftsVelger: FunctionComponent<Props> = props => {
     return (
         <Select
+            label="Hvilken virksomhet skal du rapportere for?"
             className={'hva-skal-du-rapportere__bedriftsDropdown'}
             onChange={event => {
                 props.setOrganisasjon(event.target.value);

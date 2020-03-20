@@ -7,7 +7,7 @@ import { hentAlle } from '../../../api/skjema-api';
 import './Forside.less';
 import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
 import { useHistory } from 'react-router';
-import { Feature, FeatureToggleContext } from '../../../FeatureToggleProvider';
+import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 
 const Forside: FunctionComponent = () => {
     const history = useHistory();
@@ -22,7 +22,7 @@ const Forside: FunctionComponent = () => {
     return (
         <HvitSideBoks>
             <div className={'forside__topp'}>
-                <Systemtittel>Tidligere skjemaer du har opprettet</Systemtittel>
+                <Systemtittel>Dine skjema</Systemtittel>
                 {visskjema && (
                     <Hovedknapp onClick={() => history.push('skjema/start')}>
                         Nytt skjema

@@ -15,7 +15,7 @@ import Kvitteringsside from './views/kvittering/Kvitteringsside';
 import { OrganisasjonsListeProvider } from './OrganisasjonslisteProvider';
 import { IntlProvider } from 'react-intl';
 import 'moment/locale/nb';
-import { FeatureToggleProvider } from '../FeatureToggleProvider';
+import { FeatureToggleProvider } from './FeatureToggleProvider';
 
 function App() {
     return (

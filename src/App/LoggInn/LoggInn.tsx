@@ -13,7 +13,6 @@ const LoggInn = () => {
         if (environment.MILJO === 'prod-sbs' || environment.MILJO === 'dev-sbs') {
             window.location.href = redirectTilLoginPath;
         } else {
-            //document.cookie = "localhost-idtoken=0123456789..*; path=/;";
             window.location.href = redirectTilLoginPath;
         }
     };

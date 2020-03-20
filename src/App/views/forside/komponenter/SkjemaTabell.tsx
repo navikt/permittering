@@ -12,7 +12,7 @@ const status = (skjema: Permitteringsskjema) => {
     if (skjema.sendtInnTidspunkt) {
         return 'Sendt inn';
     } else {
-        return 'Ikke sendt inn';
+        return 'Påbegynt';
     }
 };
 
