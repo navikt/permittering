@@ -19,6 +19,7 @@ import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
 
 const Side2: FunctionComponent<SkjemaSideProps> = () => {
     const [datoFra, setDatoFra] = useState(new Date());
+    const [datoTil, setDatoTil] = useState(undefined);
 
     const history = useHistory();
     const context = useContext(SkjemaContext);
@@ -86,6 +87,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
                         context.endreSkjemaVerdi('startDato', event.currentTarget.value);
                         setDatoFra(event.currentTarget.value);
                     }}
+                    skalVareFoer={datoTil}
                     overtekst={'Fra'}
                 />
                 <div className={'skjema-innhold__dato-velger-til'}>
@@ -93,6 +95,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
                         value={context.skjema.sluttDato}
                         onChange={event => {
                             context.endreSkjemaVerdi('sluttDato', event.currentTarget.value);
+                            setDatoTil(event.currentTarget.value);
                         }}
                         disabled={context.skjema.ukjentSluttDato}
                         overtekst={'Til'}
