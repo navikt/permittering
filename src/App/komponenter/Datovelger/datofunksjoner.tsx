@@ -41,3 +41,31 @@ export const datoValidering = (day: Date, after?: Date, before?: Date) => {
     }*/
     return '';
 };
+
+export const WEEKDAYS_SHORT = {
+    no: ['Sø', 'Ma', 'Ti', 'On', 'To', 'Fr', 'Lø'],
+};
+export const MONTHS = {
+    no: [
+        'Januar',
+        'Februar',
+        'Mars',
+        'April',
+        'Mai',
+        'Juni',
+        'Juli',
+        'August',
+        'September',
+        'Oktober',
+        'November',
+        'Desember',
+    ],
+};
+
+export const WEEKDAYS_LONG = {
+    no: ['Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag', 'Søndag'],
+};
+
+export const LABELS = {
+    no: { nextMonth: 'Neste måned', previousMonth: 'Forrige måned' },
+};

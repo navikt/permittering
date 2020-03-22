@@ -5,7 +5,15 @@ import 'react-day-picker/lib/style.css';
 import Input from 'nav-frontend-skjema/lib/input';
 import { Label } from 'nav-frontend-skjema';
 import { guid } from 'nav-frontend-js-utils';
-import { datoValidering, skrivOmDato, skrivOmDatoStreng } from './datofunksjoner';
+import {
+    datoValidering,
+    LABELS,
+    MONTHS,
+    skrivOmDato,
+    skrivOmDatoStreng,
+    WEEKDAYS_LONG,
+    WEEKDAYS_SHORT,
+} from './datofunksjoner';
 import kalender from './kalender.svg';
 import './Datovelger.less';
 
@@ -87,6 +95,10 @@ const Datovelger: FunctionComponent<Props> = props => {
                     month={selectedDate}
                     firstDayOfWeek={1}
                     onDayClick={day => onDatoClick(day)}
+                    months={MONTHS['no']}
+                    weekdaysLong={WEEKDAYS_LONG['no']}
+                    weekdaysShort={WEEKDAYS_SHORT['no']}
+                    labels={LABELS['no']}
                 />
             </Collapse>
         </div>
