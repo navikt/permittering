@@ -43,7 +43,7 @@ export const datoValidering = (day: Date, after?: Date, before?: Date) => {
 };
 
 export const WEEKDAYS_SHORT = {
-    no: ['Ma', 'Ti', 'On', 'To', 'Fr', 'Lø', 'Sø'],
+    no: ['Sø', 'Ma', 'Ti', 'On', 'To', 'Fr', 'Lø'],
 };
 export const MONTHS = {
     no: [

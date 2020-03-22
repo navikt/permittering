@@ -95,7 +95,6 @@ const Datovelger: FunctionComponent<Props> = props => {
                     month={selectedDate}
                     firstDayOfWeek={1}
                     onDayClick={day => onDatoClick(day)}
-                    locale={'no'}
                     months={MONTHS['no']}
                     weekdaysLong={WEEKDAYS_LONG['no']}
                     weekdaysShort={WEEKDAYS_SHORT['no']}
