@@ -11,21 +11,10 @@ import { splittOppFritekst } from '../../../utils/fritekstFunksjoner';
 import { forrigeSide, SkjemaSideProps, skjemaSteg } from '../skjema-steg';
 import veilederIkon from './gjenstand.svg';
 import infoIkon from './info.svg';
-import './Oppsummering.less';
 import { lagTekstBasertPaSkjemaType } from '../Side2/Side2';
 import Banner from '../../HovedBanner/HovedBanner';
-
-const lagTekstVarighet = (type: string, fraEllerTil: string) => {
-    switch (true) {
-        case type === 'MASSEOPPSIGELSE':
-            return `Oppsigelsene ${fraEllerTil}`;
-        case type === 'PERMITTERING_UTEN_LØNN':
-            return `Permitteringene ${fraEllerTil}`;
-        case type === 'INNSKRENKNING_I_ARBEIDSTID':
-            return `Innskrenkningen i arbeidstid ${fraEllerTil}`;
-    }
-    return `Permitteringene ${fraEllerTil}`;
-};
+import { formatterDato, lagTekstVarighet } from './oppsummering-utils';
+import './Oppsummering.less';
 
 const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
@@ -36,9 +25,16 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     const existerendeFelter = context.skjema.fritekst
         ? splittOppFritekst(context.skjema.fritekst)
         : null;
+
     const aarsak = existerendeFelter && existerendeFelter.aarsak ? existerendeFelter.aarsak : '';
     const yrker = existerendeFelter && existerendeFelter.yrker ? existerendeFelter.yrker : '';
     const annet = existerendeFelter && existerendeFelter.annet ? existerendeFelter.annet : '';
+    const fraDato = context.skjema.startDato
+        ? formatterDato(new Date(context.skjema.startDato))
+        : '';
+    const tilDato = context.skjema.sluttDato
+        ? formatterDato(new Date(context.skjema.sluttDato))
+        : '';
 
     return (
         <>
@@ -155,7 +151,7 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                                                 'vil finne sted fra:'
                                             )}
                                         </th>
-                                        <td>{context.skjema.startDato}</td>
+                                        <td>{fraDato}</td>
                                     </tr>
                                     <tr>
                                         <th>
@@ -164,7 +160,7 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                                         <td>
                                             {context.skjema.ukjentSluttDato
                                                 ? 'Vet ikke hvor lenge de vil vare'
-                                                : context.skjema.sluttDato}
+                                                : tilDato}
                                         </td>
                                     </tr>
                                 </tbody>
