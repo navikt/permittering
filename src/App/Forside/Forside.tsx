@@ -1,14 +1,14 @@
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
-import SkjemaTabell from './komponenter/SkjemaTabell';
-import HvitSideBoks from '../komponenter/HvitSideBoks';
+import { useHistory } from 'react-router';
 import { Hovedknapp } from 'nav-frontend-knapper';
+import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
+import { Feature, FeatureToggleContext } from '../FeatureToggleProvider';
 import { Permitteringsskjema } from '../../types/permitteringsskjema';
 import { hentAlle } from '../../api/skjema-api';
-import './Forside.less';
-import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
-import { useHistory } from 'react-router';
-import { Feature, FeatureToggleContext } from '../FeatureToggleProvider';
 import Banner from '../HovedBanner/HovedBanner';
+import SkjemaTabell from './komponenter/SkjemaTabell';
+import HvitSideBoks from '../komponenter/HvitSideBoks';
+import './Forside.less';
 
 const Forside: FunctionComponent = () => {
     const history = useHistory();
@@ -26,7 +26,7 @@ const Forside: FunctionComponent = () => {
         <>
             <Banner sidetittel={sidetittel} />
             <HvitSideBoks>
-                <div className={'forside__topp'}>
+                <div className="forside__topp">
                     <Systemtittel>Dine skjema</Systemtittel>
                     {visskjema && (
                         <Hovedknapp onClick={() => history.push('skjema/start')}>
@@ -45,4 +45,5 @@ const Forside: FunctionComponent = () => {
         </>
     );
 };
+
 export default Forside;
