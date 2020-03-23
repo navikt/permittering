@@ -7,7 +7,6 @@ import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import { useHistory } from 'react-router-dom';
 import Undertittel from 'nav-frontend-typografi/lib/undertittel';
 import './Side1.less';
-import { Knapp } from 'nav-frontend-knapper';
 import { nesteSide, SkjemaSideProps, skjemaSteg } from '../skjema-steg';
 import Banner from '../../HovedBanner/HovedBanner';
 
@@ -70,7 +69,7 @@ const Side1: FunctionComponent<SkjemaSideProps> = () => {
                     />
                 </div>
                 <div className={'skjema-innhold__fram-og-tilbake'}>
-                    <Knapp disabled>Tilbake</Knapp>
+                    &nbsp;
                     <Hovedknapp
                         onClick={async () => {
                             await context.lagre();
