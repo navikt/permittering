@@ -28,12 +28,12 @@ export const skrivOmDatoStreng = (datoStreng: string) => {
 export const datoValidering = (day: Date, after?: Date, before?: Date) => {
     if (after) {
         if (day.getTime() <= after.getTime()) {
-            return 'Fra-dato må være før til-dato';
+            return 'Til-dato må være etter fra-dato';
         }
     }
     if (before) {
         if (day.getTime() >= before.getTime()) {
-            return 'Til-dato må være etter fra-dato';
+            return 'Fra-dato må være før til-dato';
         }
     }
     /*if (day.getTime() + 84400000 < new Date().getTime()) {
