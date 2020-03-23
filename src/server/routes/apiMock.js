@@ -71,7 +71,7 @@ module.exports = function(app) {
     /**
      * Sletter ett skjema
      */
-    app.delete(paths.skjemaPath, (req, res) => {
+    app.post(paths.skjemaAvbrytPath, (req, res) => {
         const skjema = storageClient.deleteObject(req.params.id);
         res.json(skjema);
     });
