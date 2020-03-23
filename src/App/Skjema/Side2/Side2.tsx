@@ -109,7 +109,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
                 </div>
                 <div className={'skjema-innhold__side-2-text-area'}>
                     <Textarea
-                        label="Andre relevante opplysninger"
+                        label="Andre relevante opplysninger (frivillig)"
                         value={annet}
                         maxLength={1000}
                         onChange={event => endreFritekstFelt('annet', event.currentTarget.value)}
