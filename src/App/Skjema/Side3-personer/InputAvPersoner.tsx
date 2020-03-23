@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { Element, Ingress, Systemtittel } from 'nav-frontend-typografi';
+import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import SkjemaContext from '../../SkjemaContext/SkjemaContext';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import PersonTabell from './komponenter/PersonTabell';
@@ -68,6 +68,15 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
         return 'Hvem skal permitteres?';
     };
 
+    const lagInfoTekstBasertPaSkjemaType = () => {
+        const type = context.skjema.type;
+        if (type === 'PERMITTERING_UTEN_LØNN') {
+            return 'Fødselsnummer vil brukes i saksbehandlingen av søknad om dagpenger under permittering for den enkelte ansatte';
+        } else {
+            return 'Fødselsnummer vil brukes i saksbehandlingen for den enkelte ansatte.';
+        }
+    };
+
     return (
         <>
             <Banner sidetittel={context.skjema.type} />
@@ -96,6 +105,9 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
                         </Hovedknapp>
                     </div>
                 </div>
+                <Normaltekst className={'input-av-personer__infotekst'}>
+                    {lagInfoTekstBasertPaSkjemaType()}
+                </Normaltekst>
                 <div className="input-av-personer__knapper-overst">
                     <Hovedknapp onClick={() => openModal()}>Legg til ansatte</Hovedknapp>
                     <div className="slett-knapp">

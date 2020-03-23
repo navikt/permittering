@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
 import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
@@ -11,14 +11,17 @@ import { splittOppFritekst } from '../../../utils/fritekstFunksjoner';
 import { forrigeSide, SkjemaSideProps, skjemaSteg } from '../skjema-steg';
 import veilederIkon from './gjenstand.svg';
 import infoIkon from './info.svg';
-import { lagTekstBasertPaSkjemaType } from '../Side2/Side2';
 import Banner from '../../HovedBanner/HovedBanner';
-import { formatterDato, lagTekstVarighet } from './oppsummering-utils';
+import { formatterDato, lagTekstBasertPaSkjemaType, lagTekstVarighet } from './oppsummering-utils';
 import './Oppsummering.less';
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
+import VerticalSpacer from '../../komponenter/VerticalSpacer';
+import SjekkOmFyltUt from '../../komponenter/SjekkOmFyltUt/SjekkOmFyltUt';
 
 const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
     const history = useHistory();
+    const [feilmelding, setFeilmelding] = useState('');
     const steg = skjemaSteg(history.location.pathname);
     const forrigePath = forrigeSide(steg, context.skjema.id);
 
@@ -58,7 +61,7 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                                         <td>{context.skjema.bedriftNavn}</td>
                                     </tr>
                                     <tr>
-                                        <th>Bedr. nr:</th>
+                                        <th>Bedriftsnummer:</th>
                                         <td>{context.skjema.bedriftNr}</td>
                                     </tr>
                                 </tbody>
@@ -70,15 +73,21 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                                 <tbody>
                                     <tr>
                                         <th>Kontaktperson:</th>
-                                        <td>{context.skjema.kontaktNavn}</td>
+                                        <td>
+                                            <SjekkOmFyltUt verdi={context.skjema.kontaktNavn} />
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>Telefonnummer:</th>
-                                        <td>{context.skjema.kontaktTlf}</td>
+                                        <td>
+                                            <SjekkOmFyltUt verdi={context.skjema.kontaktTlf} />
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>E-post:</th>
-                                        <td>{context.skjema.kontaktEpost}</td>
+                                        <td>
+                                            <SjekkOmFyltUt verdi={context.skjema.kontaktEpost} />
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -96,7 +105,9 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                                 <Normaltekst className="overskrift">
                                     {lagTekstBasertPaSkjemaType(context.skjema.type)}
                                 </Normaltekst>
-                                <Normaltekst>{aarsak}</Normaltekst>
+                                <Normaltekst>
+                                    <SjekkOmFyltUt verdi={aarsak} />
+                                </Normaltekst>
                             </div>
                             <div className="endre-lenke">
                                 <Lenke
@@ -112,7 +123,9 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                                 <tbody>
                                     <tr>
                                         <th>Antall arbeidstakere som berøres:</th>
-                                        <td>{context.skjema.antallBerørt}</td>
+                                        <td>
+                                            <SjekkOmFyltUt verdi={context.skjema.antallBerørt} />
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -130,7 +143,9 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                                 <Normaltekst className="overskrift">
                                     Hvilke yrkeskategorier tilhører de berørte?
                                 </Normaltekst>
-                                <Normaltekst>{yrker}</Normaltekst>
+                                <Normaltekst>
+                                    <SjekkOmFyltUt verdi={yrker} />
+                                </Normaltekst>
                             </div>
                             <div className="endre-lenke">
                                 <Lenke
@@ -151,16 +166,20 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                                                 'vil finne sted fra:'
                                             )}
                                         </th>
-                                        <td>{fraDato}</td>
+                                        <td>
+                                            <SjekkOmFyltUt verdi={fraDato} />
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>
                                             {lagTekstVarighet(context.skjema.type, 'vil vare til:')}
                                         </th>
                                         <td>
-                                            {context.skjema.ukjentSluttDato
-                                                ? 'Vet ikke hvor lenge de vil vare'
-                                                : tilDato}
+                                            {context.skjema.ukjentSluttDato ? (
+                                                'Vet ikke hvor lenge det vil vare'
+                                            ) : (
+                                                <SjekkOmFyltUt verdi={tilDato} />
+                                            )}
                                         </td>
                                     </tr>
                                 </tbody>
@@ -214,16 +233,28 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                             Tilbake
                         </Knapp>
                         <Hovedknapp
-                            disabled={context.valider().length > 0}
                             className={'skjema-innhold__lagre'}
                             onClick={async () => {
-                                await context.sendInn();
-                                history.push('/skjema/kvitteringsside');
+                                try {
+                                    setFeilmelding('');
+                                    await context.sendInn();
+                                    history.push('/skjema/kvitteringsside');
+                                } catch (e) {
+                                    debugger;
+                                    setFeilmelding(e.response.data.messages);
+                                }
                             }}
                         >
                             Send til NAV
                         </Hovedknapp>
                     </div>
+
+                    {feilmelding && (
+                        <>
+                            <VerticalSpacer rem={1} />
+                            <AlertStripeAdvarsel>{feilmelding}</AlertStripeAdvarsel>
+                        </>
+                    )}
                 </section>
             </SkjemaRamme>
         </>
