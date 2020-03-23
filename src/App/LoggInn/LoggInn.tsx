@@ -1,12 +1,16 @@
 import React from 'react';
 import { Ingress, Normaltekst, Sidetittel } from 'nav-frontend-typografi';
-import handshake from './handshake.svg';
+import skjema from './skjema.svg';
 import './Logginn.less';
 import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
 import Lenke from 'nav-frontend-lenker';
 import LoggInnBanner from './LoggInnBanner/LoggInnBanner';
 import environment from '../../utils/environment';
 import { redirectTilLoginPath } from '../../paths.json';
+
+/*<Sidetittel className="innloggingsside__sidetittel">
+    Gi beskjed til NAV
+</Sidetittel>*/
 
 const LoggInn = () => {
     const redirectTilLogin = () => {
@@ -21,15 +25,12 @@ const LoggInn = () => {
         <div className="innloggingsside">
             <LoggInnBanner />
             <div className="innloggingsside__innhold">
-                <div className="innloggingsside__circle">
-                    <img src={handshake} className="handtrykkbilde" alt="bilde av håndtrykk" />
-                </div>
-                <Sidetittel className="innloggingsside__sidetittel">
-                    Send inn permitteringsskjema
-                </Sidetittel>
+                <img src={skjema} className="innloggingsside__circle" alt="bilde av håndtrykk" />
 
+                <Sidetittel className="innloggingsside__sidetittel">Gi beskjed til NAV</Sidetittel>
                 <Ingress className="innloggingsside__ingress">
-                    Logg inn for å sende inn skjema
+                    Arbeidsgivers meldeplikt til NAV ved masseoppsigelser, permittering uten lønn og
+                    innskrenkning i arbeidstid.
                 </Ingress>
 
                 <Hovedknapp className="innloggingsside__loginKnapp" onClick={redirectTilLogin}>
