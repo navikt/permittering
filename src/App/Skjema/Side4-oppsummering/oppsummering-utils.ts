@@ -1,13 +1,13 @@
 export const lagTekstBasertPaSkjemaType = (type: string) => {
     switch (true) {
         case type === 'MASSEOPPSIGELSE':
-            return 'Hvorfor skal dere si opp ansatte?';
+            return 'Hva er årsaken til masseoppsigelsen?';
         case type === 'PERMITTERING_UTEN_LØNN':
-            return 'Hvorfor skal dere permittere?';
+            return 'Hva er årsaken til permitteringen?';
         case type === 'INNSKRENKNING_I_ARBEIDSTID':
-            return 'Hvorfor skal dere innskrenke arbeidstiden til ansatte?';
+            return 'Hva er årsaken til innskrenkningen';
     }
-    return 'Hvorfor skal dere permittere?';
+    return '';
 };
 
 export const lagTekstVarighet = (type: string, fraEllerTil: string) => {
