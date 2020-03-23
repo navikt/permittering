@@ -14,6 +14,7 @@ import Banner from '../../HovedBanner/HovedBanner';
 import { formatterDato, lagTekstBasertPaSkjemaType, lagTekstVarighet } from './oppsummering-utils';
 import './Oppsummering.less';
 import SjekkOmFyltUt from '../../komponenter/SjekkOmFyltUt/SjekkOmFyltUt';
+import VerticalSpacer from '../../komponenter/VerticalSpacer';
 
 const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
@@ -225,7 +226,9 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                                         await context.sendInn();
                                         history.push('/skjema/kvitteringsside');
                                     } catch (e) {
-                                        setFeilmelding(e.response.data.messages);
+                                        if (e.response.status === 400) {
+                                            setFeilmelding('Du må fylle ut alle feltene');
+                                        }
                                     }
                                 }}
                             >
@@ -233,7 +236,7 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                             </Hovedknapp>
                             {feilmelding && (
                                 <>
-                                    <br />
+                                    <VerticalSpacer rem={0.5} />
                                     <b className="typo-feilmelding">{feilmelding}</b>
                                 </>
                             )}
