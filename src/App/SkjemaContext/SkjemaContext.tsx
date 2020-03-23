@@ -34,7 +34,7 @@ export const SkjemaProvider: FunctionComponent = props => {
             setSkjema({ ...skjema, [felt]: verdi });
         },
         lagre: async () => {
-            skjema.antallBerørt = skjema.personer.length;
+            skjema.antallBerørt = skjema.personer ? skjema.personer.length : 0;
             skjema.varsletNavDato = new Date().toJSON();
             skjema.varsletAnsattDato = new Date().toJSON();
             await lagre(skjema).then(setSkjema);
