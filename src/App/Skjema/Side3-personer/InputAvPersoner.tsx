@@ -10,11 +10,15 @@ import { Person } from '../../../types/permitteringsskjema';
 import { forrigeSide, nesteSide, SkjemaSideProps, skjemaSteg } from '../skjema-steg';
 import Banner from '../../HovedBanner/HovedBanner';
 import './InputAvPersoner.less';
+import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 
 const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
     const history = useHistory();
     const context = useContext(SkjemaContext);
     let { personer = [] } = context.skjema;
+
+    const featureToggleContext = useContext(FeatureToggleContext);
+    const tillatMassePermittering = featureToggleContext[Feature.tillatMassePermittering];
 
     const [modalIsOpen, setModal] = useState(false);
     const closeModal = () => setModal(false);
@@ -51,7 +55,7 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
         return personer.filter(e => e.selected).map(e => e.fnr);
     };
 
-    const steg = skjemaSteg(history.location.pathname);
+    const steg = skjemaSteg(history.location.pathname, tillatMassePermittering);
     const nestePath = nesteSide(steg, context.skjema.id);
     const forrigePath = forrigeSide(steg, context.skjema.id);
 

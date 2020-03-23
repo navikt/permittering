@@ -16,6 +16,7 @@ import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import Datovelger from '../../komponenter/Datovelger/Datovelger';
 import Banner from '../../HovedBanner/HovedBanner';
 import { lagTekstBasertPaSkjemaType } from '../Side4-oppsummering/oppsummering-utils';
+import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 
 const Side2: FunctionComponent<SkjemaSideProps> = () => {
     const [datoFra, setDatoFra] = useState(new Date());
@@ -23,6 +24,9 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
 
     const history = useHistory();
     const context = useContext(SkjemaContext);
+
+    const featureToggleContext = useContext(FeatureToggleContext);
+    const tillatMassePermittering = featureToggleContext[Feature.tillatMassePermittering];
 
     let aarsak = '';
     let yrker = '';
@@ -45,7 +49,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
         context.endreSkjemaVerdi('fritekst', mergeFritekst(fritekstFelter));
     };
 
-    const steg = skjemaSteg(history.location.pathname);
+    const steg = skjemaSteg(history.location.pathname, tillatMassePermittering);
     const nestePath = nesteSide(steg, context.skjema.id);
     const forrigePath = forrigeSide(steg, context.skjema.id);
 

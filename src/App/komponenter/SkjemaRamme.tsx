@@ -9,12 +9,15 @@ import HvitSideBoks from './HvitSideBoks';
 import VerticalSpacer from './VerticalSpacer';
 import { SlettSkjema } from './SlettSkjema/SlettSkjema';
 import { AvbrytOgLagreSkjema } from './AvbrytOgLagreSkjema/AvbrytOgLagreSkjema';
+import { Feature, FeatureToggleContext } from '../FeatureToggleProvider';
 
 const SkjemaRamme: FunctionComponent<SkjemaSideProps> = ({ children }) => {
+    const featureToggleContext = useContext(FeatureToggleContext);
+    const tillatMassePermittering = featureToggleContext[Feature.tillatMassePermittering];
     const history = useHistory();
     const context = useContext(SkjemaContext);
     let { id } = useParams();
-    const steg = skjemaSteg(history.location.pathname);
+    const steg = skjemaSteg(history.location.pathname, tillatMassePermittering);
     const skiftSide = (index: number) => {
         history.push(createSkjemaPath(steg[index].slug, id));
     };

@@ -10,11 +10,15 @@ import './Side1.less';
 import { Knapp } from 'nav-frontend-knapper';
 import { nesteSide, SkjemaSideProps, skjemaSteg } from '../skjema-steg';
 import Banner from '../../HovedBanner/HovedBanner';
+import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 
 const Side1: FunctionComponent<SkjemaSideProps> = () => {
+    const featureToggleContext = useContext(FeatureToggleContext);
+    const tillatMassePermittering = featureToggleContext[Feature.tillatMassePermittering];
+
     const context = useContext(SkjemaContext);
     const history = useHistory();
-    const steg = skjemaSteg(history.location.pathname);
+    const steg = skjemaSteg(history.location.pathname, tillatMassePermittering);
     const nestePath = nesteSide(steg, context.skjema.id);
 
     return (

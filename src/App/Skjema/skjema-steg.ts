@@ -7,7 +7,10 @@ export interface SkjemaSteg {
     slug: string;
 }
 
-export const skjemaSteg = (currentPathName: string): SkjemaSteg[] => {
+export const skjemaSteg = (
+    currentPathName: string,
+    tillatMassePermittering: boolean
+): SkjemaSteg[] => {
     return [
         {
             label: 'Kontaktinformasjon',
@@ -29,11 +32,20 @@ export const skjemaSteg = (currentPathName: string): SkjemaSteg[] => {
             aktiv: false,
             slug: 'oppsummering',
         },
-    ].map((item, index) => ({
-        ...item,
-        index,
-        aktiv: currentPathName.includes(item.slug),
-    }));
+    ]
+        .filter(item => {
+            if (!tillatMassePermittering) {
+                if (item.slug === 'hvem-rammes') {
+                    return false;
+                }
+            }
+            return true;
+        })
+        .map((item, index) => ({
+            ...item,
+            index,
+            aktiv: currentPathName.includes(item.slug),
+        }));
 };
 export const createSkjemaPath = (slug: string, id?: string) => {
     return ['', 'skjema', slug, id].join('/');

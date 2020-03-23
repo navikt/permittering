@@ -16,12 +16,15 @@ import './Oppsummering.less';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import SjekkOmFyltUt from '../../komponenter/SjekkOmFyltUt/SjekkOmFyltUt';
+import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 
 const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
     const history = useHistory();
+    const featureToggleContext = useContext(FeatureToggleContext);
+    const tillatMassePermittering = featureToggleContext[Feature.tillatMassePermittering];
     const [feilmelding, setFeilmelding] = useState('');
-    const steg = skjemaSteg(history.location.pathname);
+    const steg = skjemaSteg(history.location.pathname, tillatMassePermittering);
     const forrigePath = forrigeSide(steg, context.skjema.id);
 
     const existerendeFelter = context.skjema.fritekst
