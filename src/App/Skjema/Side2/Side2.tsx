@@ -15,18 +15,7 @@ import { mergeFritekst, splittOppFritekst } from '../../../utils/fritekstFunksjo
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import Datovelger from '../../komponenter/Datovelger/Datovelger';
 import Banner from '../../HovedBanner/HovedBanner';
-
-export const lagTekstBasertPaSkjemaType = (type: string) => {
-    switch (true) {
-        case type === 'MASSEOPPSIGELSE':
-            return 'Hvorfor skal dere si opp ansatte?';
-        case type === 'PERMITTERING_UTEN_LØNN':
-            return 'Hvorfor skal dere permittere?';
-        case type === 'INNSKRENKNING_I_ARBEIDSTID':
-            return 'Hvorfor skal dere innskrenke arbeidstiden til ansatte?';
-    }
-    return 'Hvorfor skal dere permittere?';
-};
+import { lagTekstBasertPaSkjemaType } from '../Side4-oppsummering/oppsummering-utils';
 
 const Side2: FunctionComponent<SkjemaSideProps> = () => {
     const [datoFra, setDatoFra] = useState(new Date());

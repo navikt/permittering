@@ -13,7 +13,6 @@ type Context = {
     opprett: (data: OpprettSkjema) => Promise<Permitteringsskjema['id']>;
     sendInn: () => void;
     avbryt: () => void;
-    valider: () => string[];
 };
 
 const SkjemaContext = React.createContext<Context>({} as Context);
@@ -35,7 +34,7 @@ export const SkjemaProvider: FunctionComponent = props => {
             setSkjema({ ...skjema, [felt]: verdi });
         },
         lagre: async () => {
-            skjema.antallBerørt = 0;
+            skjema.antallBerørt = skjema.personer.length;
             skjema.varsletNavDato = new Date().toJSON();
             skjema.varsletAnsattDato = new Date().toJSON();
             await lagre(skjema).then(setSkjema);
@@ -48,19 +47,6 @@ export const SkjemaProvider: FunctionComponent = props => {
         },
         sendInn: async () => {
             await sendInn(skjema.id).then(setSkjema);
-        },
-        valider: () => {
-            const feil = [];
-            if (!skjema.personer || skjema.personer.length === 0) {
-                feil.push('Må legge til personer');
-            }
-            if (!skjema.kontaktNavn) {
-                feil.push('Må ha med en kontaktperson');
-            }
-            if (!skjema.kontaktTlf) {
-                feil.push('Kontaktperson må ha telefonnr');
-            }
-            return feil;
         },
         avbryt: async () => {
             await avbryt(skjema.id).then(setSkjema);
