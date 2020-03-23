@@ -1,21 +1,40 @@
-@import "~nav-frontend-core/less/_variabler";
+@import '~nav-frontend-core/less/_variabler';
 
 body {
-  margin: 0;
+    margin: 0;
+
+    textarea[placeholder] {
+        font-family: 'Source Sans Pro', Arial, sans-serif !important;
+        font-size: 1rem !important;
+    }
+
+    textarea:-ms-input-placeholder,
+    textarea::placeholder,
+    textarea::-webkit-input-placeholder {
+        font-family: 'Source Sans Pro', Arial, sans-serif !important;
+        font-size: 1rem !important;
+    }
 }
 
 .app {
-  background-color: @navLysGra;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+    background-color: @navLysGra;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Source Sans Pro', Arial, sans-serif !important;
 
-  .feilmelding-altinn {
-    padding: 2.5rem 1rem;
-    @media (min-width: @screen-sm) {
-      max-width: 49.5rem;
-      padding: 2.5rem 2rem;
-      margin: 0 auto;
+    input,
+    textarea {
+        font-family: 'Source Sans Pro', Arial, sans-serif !important;
+        font-size: 1rem !important;
     }
-  }
+
+    .feilmelding-altinn {
+        padding: 2.5rem 1rem;
+        @media (min-width: @screen-sm) {
+            max-width: 49.5rem;
+            padding: 2.5rem 2rem;
+            margin: 0 auto;
+        }
+    }
 }
