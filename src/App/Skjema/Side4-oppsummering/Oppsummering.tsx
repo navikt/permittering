@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
-import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
+import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import Lenke from 'nav-frontend-lenker';
 import Knapp from 'nav-frontend-knapper/lib/knapp';
 import Veilederpanel from 'nav-frontend-veilederpanel';
@@ -10,7 +10,6 @@ import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import { splittOppFritekst } from '../../../utils/fritekstFunksjoner';
 import { forrigeSide, SkjemaSideProps, skjemaSteg } from '../skjema-steg';
 import veilederIkon from './gjenstand.svg';
-import infoIkon from './info.svg';
 import Banner from '../../HovedBanner/HovedBanner';
 import { formatterDato, lagTekstBasertPaSkjemaType, lagTekstVarighet } from './oppsummering-utils';
 import './Oppsummering.less';
@@ -191,27 +190,6 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                                 </Lenke>
                             </div>
                         </div>
-                    </Veilederpanel>
-
-                    <Veilederpanel
-                        type="plakat"
-                        kompakt
-                        fargetema="info"
-                        svg={<img src={infoIkon} alt="" aria-hidden="true" />}
-                    >
-                        <Undertittel>Som arbeidsgiver må du:</Undertittel>
-                        <ul>
-                            <li>
-                                Informere ansatte om muligheten for å søke dagpenger under
-                                permittering
-                            </li>
-                            <li>
-                                {' '}
-                                <Lenke href="https://www.nav.no/arbeid/dagpenger/permittert">
-                                    Lenke til søknad om dagpenger
-                                </Lenke>
-                            </li>
-                        </ul>
                     </Veilederpanel>
 
                     <div className="skjema-innhold__fram-og-tilbake">
