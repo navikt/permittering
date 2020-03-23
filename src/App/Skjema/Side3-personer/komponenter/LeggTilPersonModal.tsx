@@ -45,7 +45,7 @@ const LeggTilPersonerModal: React.FunctionComponent<LeggTilPersonerModalProps> =
         >
             <div className="legg-til-person-modal__container">
                 <Undertittel className="legg-til-person-modal__undertittel">
-                    Legg til ansatte
+                    Hvem berøres?
                 </Undertittel>
                 <Element>Lim inn fødselsnummer til de som berøres</Element>
                 <Normaltekst>
@@ -87,7 +87,7 @@ const LeggTilPersonerModal: React.FunctionComponent<LeggTilPersonerModalProps> =
                         setFnrCount(0);
                     }}
                 >
-                    Legg til ansatte i lista
+                    Legg til personer i lista
                 </Knapp>
             </div>
         </Modal>
