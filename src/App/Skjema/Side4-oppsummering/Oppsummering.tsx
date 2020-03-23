@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
 import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
@@ -11,14 +11,16 @@ import { splittOppFritekst } from '../../../utils/fritekstFunksjoner';
 import { forrigeSide, SkjemaSideProps, skjemaSteg } from '../skjema-steg';
 import veilederIkon from './gjenstand.svg';
 import infoIkon from './info.svg';
-import { lagTekstBasertPaSkjemaType } from '../Side2/Side2';
 import Banner from '../../HovedBanner/HovedBanner';
-import { formatterDato, lagTekstVarighet } from './oppsummering-utils';
+import { formatterDato, lagTekstBasertPaSkjemaType, lagTekstVarighet } from './oppsummering-utils';
 import './Oppsummering.less';
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
+import VerticalSpacer from '../../komponenter/VerticalSpacer';
 
 const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
     const history = useHistory();
+    const [feilmelding, setFeilmelding] = useState('');
     const steg = skjemaSteg(history.location.pathname);
     const forrigePath = forrigeSide(steg, context.skjema.id);
 
@@ -214,16 +216,28 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                             Tilbake
                         </Knapp>
                         <Hovedknapp
-                            disabled={context.valider().length > 0}
                             className={'skjema-innhold__lagre'}
                             onClick={async () => {
-                                await context.sendInn();
-                                history.push('/skjema/kvitteringsside');
+                                try {
+                                    setFeilmelding('');
+                                    await context.sendInn();
+                                    history.push('/skjema/kvitteringsside');
+                                } catch (e) {
+                                    debugger;
+                                    setFeilmelding(e.response.data.messages);
+                                }
                             }}
                         >
                             Send til NAV
                         </Hovedknapp>
                     </div>
+
+                    {feilmelding && (
+                        <>
+                            <VerticalSpacer rem={1} />
+                            <AlertStripeAdvarsel>{feilmelding}</AlertStripeAdvarsel>
+                        </>
+                    )}
                 </section>
             </SkjemaRamme>
         </>
