@@ -201,8 +201,16 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                     >
                         <Undertittel>Som arbeidsgiver må du:</Undertittel>
                         <ul>
-                            <li>Bla bla bla</li>
-                            <li>Bla bla bla</li>
+                            <li>
+                                Informere ansatte om muligheten for å søke dagpenger under
+                                permittering
+                            </li>
+                            <li>
+                                {' '}
+                                <Lenke href="https://www.nav.no/arbeid/dagpenger/permittert">
+                                    Lenke til søknad om dagpenger
+                                </Lenke>
+                            </li>
                         </ul>
                     </Veilederpanel>
 
