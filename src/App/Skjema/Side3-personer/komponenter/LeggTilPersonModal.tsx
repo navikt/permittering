@@ -43,9 +43,9 @@ const LeggTilPersonerModal: React.FunctionComponent<LeggTilPersonerModalProps> =
             closeButton={true}
             contentLabel="Min modalrute"
         >
-            <div className={'legg-til-person-modal__container'}>
-                <Undertittel className={'legg-til-person-modal__undertittel'}>
-                    Hvem berøres?
+            <div className="legg-til-person-modal__container">
+                <Undertittel className="legg-til-person-modal__undertittel">
+                    Legg til ansatte
                 </Undertittel>
                 <Element>Lim inn fødselsnummer til de som berøres</Element>
                 <Normaltekst>
@@ -87,7 +87,7 @@ const LeggTilPersonerModal: React.FunctionComponent<LeggTilPersonerModalProps> =
                         setFnrCount(0);
                     }}
                 >
-                    Legg til personer i lista
+                    Legg til ansatte i lista
                 </Knapp>
             </div>
         </Modal>

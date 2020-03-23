@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { Systemtittel } from 'nav-frontend-typografi';
+import { Element, Ingress, Systemtittel } from 'nav-frontend-typografi';
 import SkjemaContext from '../../SkjemaContext/SkjemaContext';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import PersonTabell from './komponenter/PersonTabell';
@@ -98,12 +98,17 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
                 </div>
                 <div className="input-av-personer__knapper-overst">
                     <Hovedknapp onClick={() => openModal()}>Legg til ansatte</Hovedknapp>
-                    <Knapp
-                        disabled={selectedPersons().length === 0}
-                        onClick={() => fjernPersoner(selectedPersons())}
-                    >
-                        Slett fra liste ({selectedPersons().length})
-                    </Knapp>
+                    <div className="slett-knapp">
+                        <Ingress className="antall-lagt-til">
+                            {personer.length + ' lagt til'}
+                        </Ingress>
+                        <Knapp
+                            disabled={selectedPersons().length === 0}
+                            onClick={() => fjernPersoner(selectedPersons())}
+                        >
+                            Slett fra liste ({selectedPersons().length})
+                        </Knapp>
+                    </div>
                 </div>
                 <LeggTilPersonerModal
                     modalIsOpen={modalIsOpen}
