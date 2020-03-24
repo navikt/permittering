@@ -16,12 +16,14 @@ import Datovelger from '../../komponenter/Datovelger/Datovelger';
 import Banner from '../../HovedBanner/HovedBanner';
 import { lagTekstBasertPaSkjemaType } from '../Side4-oppsummering/oppsummering-utils';
 import Input from 'nav-frontend-skjema/lib/input';
+import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 
 const Side2: FunctionComponent<SkjemaSideProps> = () => {
     const [datoFra, setDatoFra] = useState(new Date());
     const [datoTil, setDatoTil] = useState(undefined);
     const [feilMeldingAntallBerort, setFeilmeldingAntallBerort] = useState('');
-
+    const featureToggleContext = useContext(FeatureToggleContext);
+    const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
     const history = useHistory();
     const context = useContext(SkjemaContext);
 
@@ -58,22 +60,26 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
             <Banner sidetittel={context.skjema.type} />
             <SkjemaRamme>
                 <Systemtittel>Generelle opplysninger</Systemtittel>
-
-                <div className={'skjema-innhold__side-2-text-area'}>
-                    <Input
-                        label="Hvor mange ansatte blir berørt?"
-                        defaultValue={context.skjema.antallBerørt}
-                        bredde="XS"
-                        feil={feilMeldingAntallBerort}
-                        onBlur={(event: any) => {
-                            if (erGyldigNr(event.currentTarget.value)) {
-                                context.endreSkjemaVerdi('antallBerørt', event.currentTarget.value);
-                                setFeilmeldingAntallBerort('');
-                            } else setFeilmeldingAntallBerort('Vennligst oppgi et tall');
-                        }}
-                        onChange={() => setFeilmeldingAntallBerort('')}
-                    />
-                </div>
+                {!tillatFnrInput && (
+                    <div className={'skjema-innhold__side-2-text-area'}>
+                        <Input
+                            label="Hvor mange ansatte blir berørt?"
+                            defaultValue={context.skjema.antallBerørt}
+                            bredde="XS"
+                            feil={feilMeldingAntallBerort}
+                            onBlur={(event: any) => {
+                                if (erGyldigNr(event.currentTarget.value)) {
+                                    context.endreSkjemaVerdi(
+                                        'antallBerørt',
+                                        event.currentTarget.value
+                                    );
+                                    setFeilmeldingAntallBerort('');
+                                } else setFeilmeldingAntallBerort('Vennligst oppgi et tall');
+                            }}
+                            onChange={() => setFeilmeldingAntallBerort('')}
+                        />
+                    </div>
+                )}
                 <div className={'skjema-innhold__side-2-text-area'}>
                     <Textarea
                         label={lagTekstBasertPaSkjemaType(context.skjema.type)}
