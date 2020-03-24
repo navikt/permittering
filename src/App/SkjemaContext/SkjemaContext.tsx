@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { FunctionComponent, useEffect, useState } from 'react';
 import { OpprettSkjema, Permitteringsskjema } from '../../types/permitteringsskjema';
 import { avbryt, hent, lagre, opprett, sendInn } from '../../api/skjema-api';
@@ -22,6 +22,7 @@ export const SkjemaProvider: FunctionComponent = props => {
     const { id } = useParams();
     const featureToggleContext = useContext(FeatureToggleContext);
     const visskjema = featureToggleContext[Feature.visskjema];
+    const visfnrinput = featureToggleContext[Feature.visfnrinput];
 
     useEffect(() => {
         if (id) {
@@ -34,7 +35,10 @@ export const SkjemaProvider: FunctionComponent = props => {
             setSkjema({ ...skjema, [felt]: verdi });
         },
         lagre: async () => {
-            skjema.antallBerørt = skjema.personer ? skjema.personer.length : 0;
+            skjema.antallBerørt =
+                visfnrinput && skjema.personer
+                    ? skjema.personer.length
+                    : context.skjema.antallBerørt;
             skjema.varsletNavDato = new Date().toJSON();
             skjema.varsletAnsattDato = new Date().toJSON();
             await lagre(skjema).then(setSkjema);
