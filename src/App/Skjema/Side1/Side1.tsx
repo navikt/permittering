@@ -60,7 +60,13 @@ const Side1: FunctionComponent<SkjemaSideProps> = () => {
                         feil={feilMeldingTelefonNr}
                         onBlur={(event: any) => {
                             if (erGyldigTelefonNr(event.currentTarget.value)) {
-                                context.endreSkjemaVerdi('kontaktTlf', event.currentTarget.value);
+                                const telefonNummer = event.currentTarget.value;
+                                const riktigFormat = telefonNummer.substr(
+                                    telefonNummer.length - 8,
+                                    telefonNummer.length
+                                );
+                                console.log(riktigFormat);
+                                context.endreSkjemaVerdi('kontaktTlf', riktigFormat);
                                 setFeilmeldingTelefonNr('');
                             } else
                                 setFeilmeldingTelefonNr('Vennligst oppgi et gyldig telefonnummer');
