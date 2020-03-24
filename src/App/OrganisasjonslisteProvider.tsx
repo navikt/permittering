@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
+import { Organisasjon } from '../types/Organisasjon';
 import { hentOrganisasjonerFraAltinn } from '../api/AltinnApi';
 import IkkeTilgang from './IkkeTilgang/IkkeTilgang';
 

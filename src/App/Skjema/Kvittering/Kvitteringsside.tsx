@@ -1,10 +1,10 @@
 import React from 'react';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import Lenkepanel from 'nav-frontend-lenkepanel/lib';
-import Banner from '../../HovedBanner/HovedBanner';
 import HvitSideBoks from '../../komponenter/HvitSideBoks';
 import KvitteringIkon from './KvitteringIkon';
 import './Kvitteringsside.less';
+import Dekorator from '../../komponenter/Dekorator/Dekorator';
 
 const Kvitteringsside = () => {
     const sidetittel =
@@ -12,7 +12,7 @@ const Kvitteringsside = () => {
 
     return (
         <>
-            <Banner sidetittel={sidetittel} />
+            <Dekorator sidetittel={sidetittel} />
             <HvitSideBoks classname="kvitteringside">
                 <div className="kvitteringside__ikon">
                     <KvitteringIkon />
