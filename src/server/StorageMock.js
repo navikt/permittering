@@ -1,14 +1,6 @@
 let mockStorage = [];
 
 const listObjects = () => {
-    /*
-  const output = [];
-  mockStorage.forEach(obj => {
-    output.push({
-      id: obj.id
-    });
-  });
-   */
     return mockStorage;
 };
 

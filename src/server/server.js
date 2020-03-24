@@ -20,22 +20,10 @@ const startServer = port => {
     });
 };
 
-const startMockServer = port => {
-    console.log('start mock server');
-    const app = express();
-    settingsJsRoutes(app);
-    veilarbstepupRoutes(app);
-    loginRoutes(app);
-    apiProxy(app);
-    internalRoutes(app);
-    indexRoute(app);
-    app.listen(port, () => {
-        console.log('Mock server listening on port', port);
-    });
-};
-
-if (process.env.REACT_APP_MOCK) {
-    startMockServer(process.env.PORT || 3000);
-} else {
-    startServer(process.env.PORT || 3000);
-}
+/**
+ * Config for running the regular server
+ *
+ * @param app
+ * @param port
+ */
+startServer(process.env.PORT || 3000);

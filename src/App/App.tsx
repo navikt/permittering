@@ -15,6 +15,7 @@ import { OrganisasjonsListeProvider } from './OrganisasjonslisteProvider';
 import { IntlProvider } from 'react-intl';
 import 'moment/locale/nb';
 import { FeatureToggleProvider } from './FeatureToggleProvider';
+import Yrkeskategorier from './Skjema/Side5-yrker/Yrkeskategorier';
 
 function App() {
     return (
@@ -46,6 +47,11 @@ function App() {
                                     <Route exact path="/skjema/hvem-rammes/:id">
                                         <SkjemaProvider>
                                             <InputAvPersoner />
+                                        </SkjemaProvider>
+                                    </Route>
+                                    <Route exact path="/skjema/yrkeskategorier/:id">
+                                        <SkjemaProvider>
+                                            <Yrkeskategorier />
                                         </SkjemaProvider>
                                     </Route>
                                     <Route exact path="/skjema/oppsummering/:id">

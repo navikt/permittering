@@ -77,7 +77,6 @@ module.exports = function(app) {
     });
 
     app.get(paths.hentOrganisasjonerLink, (req, res) => {
-        console.log('Fetching organisasjoner');
         res.json(organisasjoner);
     });
 

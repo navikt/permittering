@@ -1,15 +1,16 @@
 {
-    "basePath": "/permittering",
     "apiPath": "/permittering/api",
-    "skjemaListPath": "/permittering/api/skjema",
-    "skjemaPath": "/permittering/api/skjema/:id",
-    "skjemaSendInnPath": "/permittering/api/skjema/:id/send-inn",
-    "skjemaAvbrytPath": "/permittering/api/skjema/:id/avbryt",
+    "basePath": "/permittering",
+    "featurePath": "/permittering/api/feature",
+    "hentOrganisasjonerLink": "/permittering/api/organisasjoner",
     "isAlivePath": "/permittering/internal/isAlive",
     "isReadyPath": "/permittering/internal/isReady",
     "redirectTilLoginPath": "/permittering/redirect-til-login",
     "settingsJsPath": "/permittering/static/js/settings.js",
-    "veilarbstepupPath": "/permittering/veilarbstepup/status",
-    "hentOrganisasjonerLink": "/permittering/api/organisasjoner",
-    "featurePath": "/permittering/api/feature"
+    "skjemaAvbrytPath": "/permittering/api/skjema/:id/avbryt",
+    "skjemaListPath": "/permittering/api/skjema",
+    "skjemaPath": "/permittering/api/skjema/:id",
+    "skjemaSendInnPath": "/permittering/api/skjema/:id/send-inn",
+    "stillingstitlerPath": "/stillingstitler/search",
+    "veilarbstepupPath": "/permittering/veilarbstepup/status"
 }

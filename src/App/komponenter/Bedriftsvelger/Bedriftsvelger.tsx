@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
+import { Organisasjon } from '../../../types/Organisasjon';
 import { Select } from 'nav-frontend-skjema';
 
 interface Props {

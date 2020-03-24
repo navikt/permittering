@@ -5,10 +5,10 @@ import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
 import { Feature, FeatureToggleContext } from '../FeatureToggleProvider';
 import { Permitteringsskjema } from '../../types/permitteringsskjema';
 import { hentAlle } from '../../api/skjema-api';
-import Banner from '../HovedBanner/HovedBanner';
 import SkjemaTabell from './komponenter/SkjemaTabell';
 import HvitSideBoks from '../komponenter/HvitSideBoks';
 import './Forside.less';
+import Dekorator from '../komponenter/Dekorator/Dekorator';
 
 const Forside: FunctionComponent = () => {
     const history = useHistory();
@@ -24,7 +24,7 @@ const Forside: FunctionComponent = () => {
 
     return (
         <>
-            <Banner sidetittel={sidetittel} />
+            <Dekorator sidetittel={sidetittel} />
             <HvitSideBoks>
                 <div className="forside__topp">
                     <Systemtittel>Dine skjema</Systemtittel>
