@@ -4,7 +4,6 @@ import { featurePath } from '../paths.json';
 
 export enum Feature {
     visskjema = 'permittering.visskjema',
-    visfnrinput = 'permittering.tillatFnrInput',
 }
 
 const featureTogglePath = (features: Feature[]): string => {

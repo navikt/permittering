@@ -22,7 +22,6 @@ export const SkjemaProvider: FunctionComponent = props => {
     const { id } = useParams();
     const featureToggleContext = useContext(FeatureToggleContext);
     const visskjema = featureToggleContext[Feature.visskjema];
-    const visfnrinput = featureToggleContext[Feature.visfnrinput];
 
     useEffect(() => {
         if (id) {
