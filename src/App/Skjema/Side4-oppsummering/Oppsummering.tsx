@@ -13,9 +13,8 @@ import veilederIkon from './gjenstand.svg';
 import Banner from '../../HovedBanner/HovedBanner';
 import { formatterDato, lagTekstBasertPaSkjemaType, lagTekstVarighet } from './oppsummering-utils';
 import './Oppsummering.less';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
-import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import SjekkOmFyltUt from '../../komponenter/SjekkOmFyltUt/SjekkOmFyltUt';
+import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 
 const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
@@ -221,29 +220,32 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                         >
                             Tilbake
                         </Knapp>
-                        <Hovedknapp
-                            className={'skjema-innhold__lagre'}
-                            onClick={async () => {
-                                try {
-                                    setFeilmelding('');
-                                    await context.sendInn();
-                                    history.push('/skjema/kvitteringsside');
-                                } catch (e) {
-                                    debugger;
-                                    setFeilmelding(e.response.data.messages);
-                                }
-                            }}
-                        >
-                            Send til NAV
-                        </Hovedknapp>
+                        <div>
+                            <Hovedknapp
+                                className={'skjema-innhold__lagre'}
+                                onClick={async () => {
+                                    try {
+                                        setFeilmelding('');
+                                        await context.sendInn();
+                                        history.push('/skjema/kvitteringsside');
+                                    } catch (e) {
+                                        if (e.response.status === 400) {
+                                            setFeilmelding('Du må fylle ut alle feltene');
+                                        }
+                                    }
+                                }}
+                            >
+                                Send til NAV
+                            </Hovedknapp>
+                            {feilmelding && (
+                                <>
+                                    <VerticalSpacer rem={0.5} />
+                                    <b className="typo-feilmelding">{feilmelding}</b>
+                                </>
+                            )}
+                            <br />
+                        </div>
                     </div>
-
-                    {feilmelding && (
-                        <>
-                            <VerticalSpacer rem={1} />
-                            <AlertStripeAdvarsel>{feilmelding}</AlertStripeAdvarsel>
-                        </>
-                    )}
                 </section>
             </SkjemaRamme>
         </>

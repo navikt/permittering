@@ -81,6 +81,21 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
         }
     };
 
+    const sjekkAntallAnsatte = () => {
+        if (personer.length === 1) {
+            return 'ansatt';
+        }
+        return 'ansatte';
+    };
+
+    const lagAntallAnsatteTekst = () => {
+        if (selectedPersons().length) {
+            return `${selectedPersons().length} av ${
+                personer.length
+            } ${sjekkAntallAnsatte()} valgt`;
+        } else return `${personer.length} ${sjekkAntallAnsatte()} lagt til`;
+    };
+
     return (
         <>
             <Banner sidetittel={context.skjema.type} />
@@ -115,9 +130,7 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
                 <div className="input-av-personer__knapper-overst">
                     <Hovedknapp onClick={() => openModal()}>Legg til ansatte</Hovedknapp>
                     <div className="slett-knapp">
-                        <Ingress className="antall-lagt-til">
-                            {personer.length + ' lagt til'}
-                        </Ingress>
+                        <Ingress className="antall-lagt-til">{lagAntallAnsatteTekst()}</Ingress>
                         <Knapp
                             disabled={selectedPersons().length === 0}
                             onClick={() => fjernPersoner(selectedPersons())}

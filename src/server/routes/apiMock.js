@@ -71,7 +71,7 @@ module.exports = function(app) {
     /**
      * Sletter ett skjema
      */
-    app.delete(paths.skjemaPath, (req, res) => {
+    app.post(paths.skjemaAvbrytPath, (req, res) => {
         const skjema = storageClient.deleteObject(req.params.id);
         res.json(skjema);
     });
@@ -86,9 +86,19 @@ module.exports = function(app) {
     });
 
     app.post(paths.skjemaSendInnPath, (req, res) => {
-        const inputData = req.body;
+        const data = storageClient.getObject(req.params.id);
+        if (
+            !data.kontaktNavn ||
+            !data.kontaktEpost ||
+            !data.kontaktTlf ||
+            !data.startDato ||
+            !data.fritekst
+        ) {
+            res.status(400).send();
+            return;
+        }
         const sendtInnTidspunkt = new Date().toJSON();
-        const skjema = storageClient.putObject(req.params.id, { ...inputData, sendtInnTidspunkt });
+        const skjema = storageClient.putObject(req.params.id, { ...data, sendtInnTidspunkt });
         res.status(201).json(skjema);
     });
 };

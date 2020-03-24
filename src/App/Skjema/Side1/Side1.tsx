@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
 import Input from 'nav-frontend-skjema/lib/input';
 import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
@@ -7,10 +7,10 @@ import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import { useHistory } from 'react-router-dom';
 import Undertittel from 'nav-frontend-typografi/lib/undertittel';
 import './Side1.less';
-import { Knapp } from 'nav-frontend-knapper';
 import { nesteSide, SkjemaSideProps, skjemaSteg } from '../skjema-steg';
 import Banner from '../../HovedBanner/HovedBanner';
 import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
+import { erGyldigEpost, erGyldigTelefonNr } from './inputFeltValideringer';
 
 const Side1: FunctionComponent<SkjemaSideProps> = () => {
     const featureToggleContext = useContext(FeatureToggleContext);
@@ -20,6 +20,10 @@ const Side1: FunctionComponent<SkjemaSideProps> = () => {
     const history = useHistory();
     const steg = skjemaSteg(history.location.pathname, tillatFnrInput);
     const nestePath = nesteSide(steg, context.skjema.id);
+    const [feilMeldingEpost, setFeilmeldingEpost] = useState('');
+    const [feilMeldingTelefonNr, setFeilmeldingTelefonNr] = useState('');
+
+    console.log('feilmelding epost:', feilMeldingEpost);
 
     return (
         <>
@@ -60,21 +64,35 @@ const Side1: FunctionComponent<SkjemaSideProps> = () => {
                         className={'skjema-innhold__side-1-input-felt'}
                         label="Telefonnummer"
                         defaultValue={context.skjema.kontaktTlf}
-                        onChange={event =>
-                            context.endreSkjemaVerdi('kontaktTlf', event.currentTarget.value)
-                        }
+                        feil={feilMeldingTelefonNr}
+                        onBlur={(event: any) => {
+                            console.log('onblur');
+                            if (erGyldigTelefonNr(event.currentTarget.value)) {
+                                context.endreSkjemaVerdi('kontaktTlf', event.currentTarget.value);
+                                setFeilmeldingTelefonNr('');
+                            } else
+                                setFeilmeldingTelefonNr('Vennligst oppgi et gyldig telefonnummer');
+                        }}
+                        onChange={() => setFeilmeldingTelefonNr('')}
                     />
                     <Input
                         className={'skjema-innhold__side-1-input-felt'}
                         label="E-post"
                         defaultValue={context.skjema.kontaktEpost}
-                        onChange={event =>
-                            context.endreSkjemaVerdi('kontaktEpost', event.currentTarget.value)
-                        }
+                        feil={feilMeldingEpost}
+                        onBlur={event => {
+                            if (erGyldigEpost(event.currentTarget.value)) {
+                                context.endreSkjemaVerdi('kontaktEpost', event.currentTarget.value);
+                                setFeilmeldingEpost('');
+                            } else {
+                                setFeilmeldingEpost('Vennligst oppgi en gyldig e-post');
+                            }
+                        }}
+                        onChange={() => setFeilmeldingEpost('')}
                     />
                 </div>
                 <div className={'skjema-innhold__fram-og-tilbake'}>
-                    <Knapp disabled>Tilbake</Knapp>
+                    &nbsp;
                     <Hovedknapp
                         onClick={async () => {
                             await context.lagre();

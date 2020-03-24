@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import 'react-day-picker/lib/style.css';
 import '../Skjema.less';
 import './Side2.less';
 import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
