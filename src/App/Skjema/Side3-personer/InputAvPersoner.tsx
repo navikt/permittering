@@ -7,18 +7,14 @@ import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import PersonTabell from './komponenter/PersonTabell';
 import LeggTilPersonerModal from './komponenter/LeggTilPersonModal';
 import { Person } from '../../../types/permitteringsskjema';
-import { forrigeSide, nesteSide, SkjemaSideProps, skjemaSteg } from '../skjema-steg';
+import { SkjemaSideProps, useSkjemaSteg } from '../use-skjema-steg';
 import Banner from '../../HovedBanner/HovedBanner';
 import './InputAvPersoner.less';
-import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 
 const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
     const history = useHistory();
     const context = useContext(SkjemaContext);
     let { personer = [] } = context.skjema;
-
-    const featureToggleContext = useContext(FeatureToggleContext);
-    const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
 
     const [modalIsOpen, setModal] = useState(false);
     const closeModal = () => setModal(false);
@@ -55,9 +51,7 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
         return personer.filter(e => e.selected).map(e => e.fnr);
     };
 
-    const steg = skjemaSteg(history.location.pathname, tillatFnrInput);
-    const nestePath = nesteSide(steg, context.skjema.id);
-    const forrigePath = forrigeSide(steg, context.skjema.id);
+    const { forrigeSide, nesteSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
 
     const lagTekstBasertPaSkjemaType = () => {
         const type = context.skjema.type;
@@ -107,7 +101,7 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
                             mini
                             onClick={async () => {
                                 await context.lagre();
-                                history.push(forrigePath || '');
+                                history.push(forrigeSide);
                             }}
                         >
                             Tilbake
@@ -116,7 +110,7 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
                             mini
                             onClick={async () => {
                                 await context.lagre();
-                                history.push(nestePath || '');
+                                history.push(nesteSide);
                             }}
                             className="input-av-personer__mini-knapp-neste"
                         >
@@ -154,7 +148,7 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
                     <Knapp
                         onClick={async () => {
                             await context.lagre();
-                            history.push(forrigePath || '');
+                            history.push(forrigeSide);
                         }}
                     >
                         Tilbake
@@ -162,7 +156,7 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
                     <Hovedknapp
                         onClick={async () => {
                             await context.lagre();
-                            history.push(nestePath || '');
+                            history.push(nesteSide);
                         }}
                     >
                         Neste

@@ -8,23 +8,19 @@ import Veilederpanel from 'nav-frontend-veilederpanel';
 import SkjemaContext from '../../SkjemaContext/SkjemaContext';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import { splittOppFritekst } from '../../../utils/fritekstFunksjoner';
-import { forrigeSide, SkjemaSideProps, skjemaSteg } from '../skjema-steg';
 import veilederIkon from './gjenstand.svg';
 import Banner from '../../HovedBanner/HovedBanner';
 import { formatterDato, lagTekstBasertPaSkjemaType, lagTekstVarighet } from './oppsummering-utils';
 import './Oppsummering.less';
 import SjekkOmFyltUt from '../../komponenter/SjekkOmFyltUt/SjekkOmFyltUt';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
-import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
+import { SkjemaSideProps, useSkjemaSteg } from '../use-skjema-steg';
 
 const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
     const history = useHistory();
-    const featureToggleContext = useContext(FeatureToggleContext);
-    const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
     const [feilmelding, setFeilmelding] = useState('');
-    const steg = skjemaSteg(history.location.pathname, tillatFnrInput);
-    const forrigePath = forrigeSide(steg, context.skjema.id);
+    const { forrigeSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
 
     const existerendeFelter = context.skjema.fritekst
         ? splittOppFritekst(context.skjema.fritekst)
@@ -215,7 +211,7 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                         <Knapp
                             onClick={async () => {
                                 await context.lagre();
-                                history.push(forrigePath || '');
+                                history.push(forrigeSide);
                             }}
                         >
                             Tilbake
