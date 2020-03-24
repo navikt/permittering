@@ -9,7 +9,7 @@ import Undertittel from 'nav-frontend-typografi/lib/undertittel';
 import './Side1.less';
 import { nesteSide, SkjemaSideProps, skjemaSteg } from '../skjema-steg';
 import Banner from '../../HovedBanner/HovedBanner';
-import { erGyldigEpost, erGyldigTelefonNr } from './inputFeltValideringer';
+import { erGyldigEpost, erGyldigTelefonNr, genererFeilMeldingForNr } from './inputFeltValideringer';
 
 const Side1: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
@@ -67,7 +67,9 @@ const Side1: FunctionComponent<SkjemaSideProps> = () => {
                                 context.endreSkjemaVerdi('kontaktTlf', event.currentTarget.value);
                                 setFeilmeldingTelefonNr('');
                             } else
-                                setFeilmeldingTelefonNr('Vennligst oppgi et gyldig telefonnummer');
+                                setFeilmeldingTelefonNr(
+                                    genererFeilMeldingForNr(event.currentTarget.value)
+                                );
                         }}
                         onChange={() => setFeilmeldingTelefonNr('')}
                     />
