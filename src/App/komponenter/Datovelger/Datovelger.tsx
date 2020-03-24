@@ -35,6 +35,14 @@ const Datovelger: FunctionComponent<Props> = props => {
 
     const datovelgerId = guid();
 
+    const tekstIInputfeltet = () => {
+        if (props.value) {
+            return editing ? tempDate : skrivOmDato(selectedDate);
+        } else {
+            return 'dd/mm/yyy';
+        }
+    };
+
     const onDatoClick = (day: Date) => {
         const feilmelding = datoValidering(day, props.skalVareEtter, props.skalVareFoer);
         if (feilmelding !== '') {
@@ -70,7 +78,7 @@ const Datovelger: FunctionComponent<Props> = props => {
                     disabled={props.disabled}
                     id={datovelgerId}
                     aria-label="Skriv startdato:"
-                    value={editing ? tempDate : skrivOmDato(selectedDate)}
+                    value={tekstIInputfeltet()}
                     className={'datofelt__input'}
                     onChange={event => {
                         setEditing(true);
