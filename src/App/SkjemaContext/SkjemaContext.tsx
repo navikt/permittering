@@ -22,6 +22,7 @@ export const SkjemaProvider: FunctionComponent = props => {
     const { id } = useParams();
     const featureToggleContext = useContext(FeatureToggleContext);
     const visskjema = featureToggleContext[Feature.visskjema];
+    const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
     useEffect(() => {
         if (id) {
             hent(id).then(setSkjema);
@@ -33,7 +34,9 @@ export const SkjemaProvider: FunctionComponent = props => {
             setSkjema({ ...skjema, [felt]: verdi });
         },
         lagre: async () => {
-            skjema.antallBerørt = skjema.personer ? skjema.personer.length : 0;
+            if (tillatFnrInput) {
+                skjema.antallBerørt = skjema.personer ? skjema.personer.length : 0;
+            }
             skjema.varsletNavDato = new Date().toJSON();
             skjema.varsletAnsattDato = new Date().toJSON();
             await lagre(skjema).then(setSkjema);
