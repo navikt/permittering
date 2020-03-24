@@ -24,13 +24,13 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
     const history = useHistory();
     const context = useContext(SkjemaContext);
 
-    let aarsak = '';
+    let årsak = '';
     let yrker = '';
     let annet = '';
     if (context.skjema.fritekst) {
         const existerendeFelter = splittOppFritekst(context.skjema.fritekst);
-        if (existerendeFelter.aarsak) {
-            aarsak = existerendeFelter.aarsak;
+        if (existerendeFelter.årsak) {
+            årsak = existerendeFelter.årsak;
         }
         if (existerendeFelter.yrker) {
             yrker = existerendeFelter.yrker;
@@ -40,7 +40,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
         }
     }
     const endreFritekstFelt = (key: string, value: string) => {
-        const fritekstFelter: any = { aarsak, yrker, annet };
+        const fritekstFelter: any = { årsak, yrker, annet };
         fritekstFelter[key] = value;
         context.endreSkjemaVerdi('fritekst', mergeFritekst(fritekstFelter));
     };
@@ -57,9 +57,9 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
                 <div className={'skjema-innhold__side-2-text-area'}>
                     <Textarea
                         label={lagTekstBasertPaSkjemaType(context.skjema.type)}
-                        value={aarsak}
+                        value={årsak}
                         maxLength={1000}
-                        onChange={event => endreFritekstFelt('aarsak', event.currentTarget.value)}
+                        onChange={event => endreFritekstFelt('årsak', event.currentTarget.value)}
                     />
                 </div>
                 <div className={'skjema-innhold__side-2-text-area'}>
