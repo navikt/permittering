@@ -9,7 +9,7 @@ import Checkbox from 'nav-frontend-skjema/lib/checkbox';
 import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
 import { Element } from 'nav-frontend-typografi';
 import SkjemaContext from '../../SkjemaContext/SkjemaContext';
-import { forrigeSide, nesteSide, SkjemaSideProps, skjemaSteg } from '../skjema-steg';
+import { SkjemaSideProps, useSkjemaSteg } from '../use-skjema-steg';
 import { mergeFritekst, splittOppFritekst } from '../../../utils/fritekstFunksjoner';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import Datovelger from '../../komponenter/Datovelger/Datovelger';
@@ -51,9 +51,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
         context.endreSkjemaVerdi('fritekst', mergeFritekst(fritekstFelter));
     };
 
-    const steg = skjemaSteg(history.location.pathname);
-    const nestePath = nesteSide(steg, context.skjema.id);
-    const forrigePath = forrigeSide(steg, context.skjema.id);
+    const { forrigeSide, nesteSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
 
     return (
         <>
@@ -141,7 +139,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
                     <Knapp
                         onClick={async () => {
                             await context.lagre();
-                            history.push(forrigePath || '');
+                            history.push(forrigeSide);
                         }}
                     >
                         {' '}
@@ -150,7 +148,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
                     <Hovedknapp
                         onClick={async () => {
                             await context.lagre();
-                            history.push(nestePath || '');
+                            history.push(nesteSide);
                         }}
                     >
                         Neste

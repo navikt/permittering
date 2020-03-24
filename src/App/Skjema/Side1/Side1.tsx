@@ -7,15 +7,14 @@ import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import { useHistory } from 'react-router-dom';
 import Undertittel from 'nav-frontend-typografi/lib/undertittel';
 import './Side1.less';
-import { nesteSide, SkjemaSideProps, skjemaSteg } from '../skjema-steg';
+import { SkjemaSideProps, useSkjemaSteg } from '../use-skjema-steg';
 import Banner from '../../HovedBanner/HovedBanner';
 import { erGyldigEpost, erGyldigTelefonNr, genererFeilMeldingForNr } from './inputFeltValideringer';
 
 const Side1: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
     const history = useHistory();
-    const steg = skjemaSteg(history.location.pathname);
-    const nestePath = nesteSide(steg, context.skjema.id);
+    const { nesteSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
     const [feilMeldingEpost, setFeilmeldingEpost] = useState('');
     const [feilMeldingTelefonNr, setFeilmeldingTelefonNr] = useState('');
 
@@ -94,7 +93,7 @@ const Side1: FunctionComponent<SkjemaSideProps> = () => {
                     <Hovedknapp
                         onClick={async () => {
                             await context.lagre();
-                            history.push(nestePath || '');
+                            history.push(nesteSide);
                         }}
                     >
                         Neste
