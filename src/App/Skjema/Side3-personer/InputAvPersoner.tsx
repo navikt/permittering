@@ -18,7 +18,7 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
     let { personer = [] } = context.skjema;
 
     const featureToggleContext = useContext(FeatureToggleContext);
-    const tillatMassePermittering = featureToggleContext[Feature.tillatMassePermittering];
+    const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
 
     const [modalIsOpen, setModal] = useState(false);
     const closeModal = () => setModal(false);
@@ -55,7 +55,7 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
         return personer.filter(e => e.selected).map(e => e.fnr);
     };
 
-    const steg = skjemaSteg(history.location.pathname, tillatMassePermittering);
+    const steg = skjemaSteg(history.location.pathname, tillatFnrInput);
     const nestePath = nesteSide(steg, context.skjema.id);
     const forrigePath = forrigeSide(steg, context.skjema.id);
 

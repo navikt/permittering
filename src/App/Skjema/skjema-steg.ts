@@ -7,10 +7,7 @@ export interface SkjemaSteg {
     slug: string;
 }
 
-export const skjemaSteg = (
-    currentPathName: string,
-    tillatMassePermittering: boolean
-): SkjemaSteg[] => {
+export const skjemaSteg = (currentPathName: string, tillatFnrInput: boolean): SkjemaSteg[] => {
     return [
         {
             label: 'Kontaktinformasjon',
@@ -34,7 +31,7 @@ export const skjemaSteg = (
         },
     ]
         .filter(item => {
-            if (!tillatMassePermittering) {
+            if (!tillatFnrInput) {
                 if (item.slug === 'hvem-rammes') {
                     return false;
                 }

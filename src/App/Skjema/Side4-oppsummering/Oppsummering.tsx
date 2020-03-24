@@ -22,9 +22,9 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
     const history = useHistory();
     const featureToggleContext = useContext(FeatureToggleContext);
-    const tillatMassePermittering = featureToggleContext[Feature.tillatMassePermittering];
+    const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
     const [feilmelding, setFeilmelding] = useState('');
-    const steg = skjemaSteg(history.location.pathname, tillatMassePermittering);
+    const steg = skjemaSteg(history.location.pathname, tillatFnrInput);
     const forrigePath = forrigeSide(steg, context.skjema.id);
 
     const existerendeFelter = context.skjema.fritekst

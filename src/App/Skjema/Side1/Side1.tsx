@@ -14,11 +14,11 @@ import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 
 const Side1: FunctionComponent<SkjemaSideProps> = () => {
     const featureToggleContext = useContext(FeatureToggleContext);
-    const tillatMassePermittering = featureToggleContext[Feature.tillatMassePermittering];
+    const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
 
     const context = useContext(SkjemaContext);
     const history = useHistory();
-    const steg = skjemaSteg(history.location.pathname, tillatMassePermittering);
+    const steg = skjemaSteg(history.location.pathname, tillatFnrInput);
     const nestePath = nesteSide(steg, context.skjema.id);
 
     return (

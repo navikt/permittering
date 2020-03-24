@@ -26,7 +26,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
 
     const featureToggleContext = useContext(FeatureToggleContext);
-    const tillatMassePermittering = featureToggleContext[Feature.tillatMassePermittering];
+    const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
 
     let aarsak = '';
     let yrker = '';
@@ -49,7 +49,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
         context.endreSkjemaVerdi('fritekst', mergeFritekst(fritekstFelter));
     };
 
-    const steg = skjemaSteg(history.location.pathname, tillatMassePermittering);
+    const steg = skjemaSteg(history.location.pathname, tillatFnrInput);
     const nestePath = nesteSide(steg, context.skjema.id);
     const forrigePath = forrigeSide(steg, context.skjema.id);
 
