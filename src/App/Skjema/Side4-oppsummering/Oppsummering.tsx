@@ -15,13 +15,15 @@ import './Oppsummering.less';
 import SjekkOmFyltUt from '../../komponenter/SjekkOmFyltUt/SjekkOmFyltUt';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { SkjemaSideProps, useSkjemaSteg } from '../use-skjema-steg';
+import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 
 const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
     const history = useHistory();
     const [feilmelding, setFeilmelding] = useState('');
     const { forrigeSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
-
+    const featureToggleContext = useContext(FeatureToggleContext);
+    const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
     const existerendeFelter = context.skjema.fritekst
         ? splittOppFritekst(context.skjema.fritekst)
         : null;
@@ -35,6 +37,9 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     const tilDato = context.skjema.sluttDato
         ? formatterDato(new Date(context.skjema.sluttDato))
         : '';
+    const endreantallberørteLenke = tillatFnrInput
+        ? `/permittering/skjema/hvem-rammes/${context.skjema.id}`
+        : `/permittering/skjema/generelle-opplysninger/${context.skjema.id}`;
 
     return (
         <>
@@ -127,11 +132,7 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                                 </tbody>
                             </table>
                             <div className="endre-lenke">
-                                <Lenke
-                                    href={`/permittering/skjema/hvem-rammes/${context.skjema.id}`}
-                                >
-                                    Endre
-                                </Lenke>
+                                <Lenke href={endreantallberørteLenke}>Endre</Lenke>
                             </div>
                         </div>
 
