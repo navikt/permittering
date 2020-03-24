@@ -22,7 +22,6 @@ export const SkjemaProvider: FunctionComponent = props => {
     const { id } = useParams();
     const featureToggleContext = useContext(FeatureToggleContext);
     const visskjema = featureToggleContext[Feature.visskjema];
-
     useEffect(() => {
         if (id) {
             hent(id).then(setSkjema);
@@ -34,10 +33,7 @@ export const SkjemaProvider: FunctionComponent = props => {
             setSkjema({ ...skjema, [felt]: verdi });
         },
         lagre: async () => {
-            skjema.antallBerørt =
-                visfnrinput && skjema.personer
-                    ? skjema.personer.length
-                    : context.skjema.antallBerørt;
+            skjema.antallBerørt = skjema.personer ? skjema.personer.length : 0;
             skjema.varsletNavDato = new Date().toJSON();
             skjema.varsletAnsattDato = new Date().toJSON();
             await lagre(skjema).then(setSkjema);
