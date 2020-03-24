@@ -26,7 +26,10 @@ const SkjemaRamme: FunctionComponent<SkjemaSideProps> = ({ children }) => {
             <VerticalSpacer rem={2} />
             <Stegindikator
                 steg={steg as StegindikatorStegProps[]}
-                onChange={index => skiftSide(index)}
+                onChange={async index => {
+                    await context.lagre();
+                    skiftSide(index);
+                }}
                 visLabel
                 autoResponsiv
             />
