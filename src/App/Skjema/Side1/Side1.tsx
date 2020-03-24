@@ -9,7 +9,7 @@ import Undertittel from 'nav-frontend-typografi/lib/undertittel';
 import './Side1.less';
 import { SkjemaSideProps, useSkjemaSteg } from '../use-skjema-steg';
 import Banner from '../../HovedBanner/HovedBanner';
-import { erGyldigEpost, erGyldigTelefonNr, genererFeilMeldingForNr } from './inputFeltValideringer';
+import { erGyldigEpost, erGyldigTelefonNr } from './inputFeltValideringer';
 
 const Side1: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
@@ -17,8 +17,6 @@ const Side1: FunctionComponent<SkjemaSideProps> = () => {
     const { nesteSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
     const [feilMeldingEpost, setFeilmeldingEpost] = useState('');
     const [feilMeldingTelefonNr, setFeilmeldingTelefonNr] = useState('');
-
-    console.log('feilmelding epost:', feilMeldingEpost);
 
     return (
         <>
@@ -61,14 +59,11 @@ const Side1: FunctionComponent<SkjemaSideProps> = () => {
                         defaultValue={context.skjema.kontaktTlf}
                         feil={feilMeldingTelefonNr}
                         onBlur={(event: any) => {
-                            console.log('onblur');
                             if (erGyldigTelefonNr(event.currentTarget.value)) {
                                 context.endreSkjemaVerdi('kontaktTlf', event.currentTarget.value);
                                 setFeilmeldingTelefonNr('');
                             } else
-                                setFeilmeldingTelefonNr(
-                                    genererFeilMeldingForNr(event.currentTarget.value)
-                                );
+                                setFeilmeldingTelefonNr('Vennligst oppgi et gyldig telefonnummer');
                         }}
                         onChange={() => setFeilmeldingTelefonNr('')}
                     />
