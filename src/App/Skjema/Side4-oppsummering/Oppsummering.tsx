@@ -27,7 +27,7 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
         ? splittOppFritekst(context.skjema.fritekst)
         : null;
 
-    const aarsak = existerendeFelter && existerendeFelter.aarsak ? existerendeFelter.aarsak : '';
+    const årsak = existerendeFelter && existerendeFelter.årsak ? existerendeFelter.årsak : '';
     const yrker = existerendeFelter && existerendeFelter.yrker ? existerendeFelter.yrker : '';
     const annet = existerendeFelter && existerendeFelter.annet ? existerendeFelter.annet : '';
     const fraDato = context.skjema.startDato
@@ -104,7 +104,7 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                                     {lagTekstBasertPaSkjemaType(context.skjema.type)}
                                 </Normaltekst>
                                 <Normaltekst>
-                                    <SjekkOmFyltUt verdi={aarsak} />
+                                    <SjekkOmFyltUt verdi={årsak} />
                                 </Normaltekst>
                             </div>
                             <div className="endre-lenke">

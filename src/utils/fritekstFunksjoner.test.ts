@@ -3,7 +3,7 @@ import { mergeFritekst, splittOppFritekst } from './fritekstFunksjoner';
 const assert = require('assert');
 describe('Fritekst Funksjoner', function() {
     it('should parse fritekst', () => {
-        const fritekst = `## EN OVERSKRIFT HER
+        const fritekst = `### EN OVERSKRIFT HER
         
         Noe kropp på 
         meldinger 
