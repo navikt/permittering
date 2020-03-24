@@ -1,4 +1,4 @@
 {
     "permittering.visskjema": true,
-    "permittering.tillatFnrInput": true
+    "permittering.tillatFnrInput": false
 }

@@ -6,9 +6,9 @@ import { RadioPanelGruppe } from 'nav-frontend-skjema';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import { OrganisasjonsListeContext } from '../OrganisasjonslisteProvider';
 import { Permitteringsskjema } from '../../types/permitteringsskjema';
-import Banner from '../HovedBanner/HovedBanner';
 import { BedriftsVelger } from '../komponenter/Bedriftsvelger/Bedriftsvelger';
 import './HvaSkalDuRapportere.less';
+import Dekorator from '../komponenter/Dekorator/Dekorator';
 
 const HvaSkalDuRapportere = () => {
     const history = useHistory();
@@ -49,7 +49,7 @@ const HvaSkalDuRapportere = () => {
 
     return (
         <>
-            <Banner sidetittel={sidetittel} />
+            <Dekorator sidetittel={sidetittel} />
             <div className="hva-skal-du-rapportere">
                 <Systemtittel>Hva vil du informere NAV om?</Systemtittel>
                 <RadioPanelGruppe
