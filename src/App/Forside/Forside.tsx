@@ -9,6 +9,7 @@ import SkjemaTabell from './komponenter/SkjemaTabell';
 import HvitSideBoks from '../komponenter/HvitSideBoks';
 import './Forside.less';
 import Dekorator from '../komponenter/Dekorator/Dekorator';
+import { loggNavarendeSteg } from '../../utils/funksjonerForAmplitudeLogging';
 
 const Forside: FunctionComponent = () => {
     const history = useHistory();
@@ -21,6 +22,8 @@ const Forside: FunctionComponent = () => {
     useEffect(() => {
         hentAlle().then(setSkjemaer);
     }, []);
+
+    loggNavarendeSteg('oversikt-tidligere-skjema');
 
     return (
         <>
