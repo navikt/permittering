@@ -1,19 +1,21 @@
 import * as React from 'react';
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useContext, useState } from 'react';
 import ModalWrapper from 'nav-frontend-modal';
 import Lenke from 'nav-frontend-lenker';
+import SkjemaContext from '../../../SkjemaContext/SkjemaContext';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
+import { Fareknapp, Flatknapp } from 'nav-frontend-knapper';
 import { useHistory } from 'react-router-dom';
-import VerticalSpacer from '../VerticalSpacer';
+import VerticalSpacer from '../../VerticalSpacer';
 
-export const AvbrytOgLagreSkjema: FunctionComponent = () => {
+export const SlettSkjema: FunctionComponent = () => {
+    const context = useContext(SkjemaContext);
     const [isOpen, setOpen] = useState<boolean>(false);
     const history = useHistory();
     return (
         <>
             <Lenke href={'#'} onClick={() => setOpen(true)}>
-                Lagre skjema og gå til oversikten
+                Slett skjema
             </Lenke>
             <ModalWrapper
                 isOpen={isOpen}
@@ -22,22 +24,22 @@ export const AvbrytOgLagreSkjema: FunctionComponent = () => {
                 contentLabel="Min modalrute"
             >
                 <div style={{ padding: '1rem' }}>
-                    <Undertittel>Lagre og gå til oversikten?</Undertittel>
+                    <Undertittel>Slett skjema?</Undertittel>
                     <VerticalSpacer rem={1} />
                     <Normaltekst>
-                        Du er i ferd med å forlate skjema. Innholdet i skjemaet blir bevart og du
-                        kan fortsette utfylling senere.
+                        Hvis du fortsetter vil innholdet i skjemaet bli slettet.
                     </Normaltekst>
                     <VerticalSpacer rem={2} />
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Hovedknapp
-                            onClick={() => {
+                        <Fareknapp
+                            onClick={async () => {
+                                await context.avbryt();
                                 history.push('/');
                             }}
                         >
-                            Lagre og gå til oversikten
-                        </Hovedknapp>
-                        <Flatknapp onClick={() => setOpen(false)}>Avbryt</Flatknapp>
+                            Slett skjema
+                        </Fareknapp>
+                        <Flatknapp onClick={() => setOpen(false)}>Behold skjema</Flatknapp>
                     </div>
                 </div>
             </ModalWrapper>

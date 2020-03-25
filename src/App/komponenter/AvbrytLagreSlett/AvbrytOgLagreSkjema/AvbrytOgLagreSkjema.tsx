@@ -1,21 +1,19 @@
-import * as React from 'react';
-import { FunctionComponent, useContext, useState } from 'react';
+import React from 'react';
+import { FunctionComponent, useState } from 'react';
 import ModalWrapper from 'nav-frontend-modal';
 import Lenke from 'nav-frontend-lenker';
-import SkjemaContext from '../../SkjemaContext/SkjemaContext';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import { Fareknapp, Flatknapp } from 'nav-frontend-knapper';
+import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
 import { useHistory } from 'react-router-dom';
-import VerticalSpacer from '../VerticalSpacer';
+import VerticalSpacer from '../../VerticalSpacer';
 
-export const SlettSkjema: FunctionComponent = () => {
-    const context = useContext(SkjemaContext);
+export const AvbrytOgLagreSkjema: FunctionComponent = () => {
     const [isOpen, setOpen] = useState<boolean>(false);
     const history = useHistory();
     return (
         <>
-            <Lenke href={'#'} onClick={() => setOpen(true)}>
-                Slett skjema
+            <Lenke href="#" onClick={() => setOpen(true)}>
+                Lagre skjema og gå til oversikten
             </Lenke>
             <ModalWrapper
                 isOpen={isOpen}
@@ -24,22 +22,22 @@ export const SlettSkjema: FunctionComponent = () => {
                 contentLabel="Min modalrute"
             >
                 <div style={{ padding: '1rem' }}>
-                    <Undertittel>Slett skjema?</Undertittel>
+                    <Undertittel>Lagre og gå til oversikten?</Undertittel>
                     <VerticalSpacer rem={1} />
                     <Normaltekst>
-                        Hvis du fortsetter vil innholdet i skjemaet bli slettet.
+                        Du er i ferd med å forlate skjema. Innholdet i skjemaet blir bevart og du
+                        kan fortsette utfylling senere.
                     </Normaltekst>
                     <VerticalSpacer rem={2} />
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Fareknapp
-                            onClick={async () => {
-                                await context.avbryt();
+                        <Hovedknapp
+                            onClick={() => {
                                 history.push('/');
                             }}
                         >
-                            Slett skjema
-                        </Fareknapp>
-                        <Flatknapp onClick={() => setOpen(false)}>Behold skjema</Flatknapp>
+                            Lagre og gå til oversikten
+                        </Hovedknapp>
+                        <Flatknapp onClick={() => setOpen(false)}>Avbryt</Flatknapp>
                     </div>
                 </div>
             </ModalWrapper>

@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import '../Skjema.less';
 import './Side2.less';
 import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
 import { Knapp } from 'nav-frontend-knapper';
@@ -68,7 +67,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
     const { forrigeSide, nesteSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
 
     return (
-        <>
+        <div>
             <Banner sidetittel={context.skjema.type} />
             <SkjemaRamme>
                 <Systemtittel>Generelle opplysninger</Systemtittel>
@@ -173,7 +172,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
                     </Hovedknapp>
                 </div>
             </SkjemaRamme>
-        </>
+        </div>
     );
 };
 
