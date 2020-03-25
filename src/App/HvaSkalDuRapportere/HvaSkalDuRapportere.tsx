@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
@@ -9,6 +9,8 @@ import { Permitteringsskjema } from '../../types/permitteringsskjema';
 import { BedriftsVelger } from '../komponenter/Bedriftsvelger/Bedriftsvelger';
 import './HvaSkalDuRapportere.less';
 import Dekorator from '../komponenter/Dekorator/Dekorator';
+import environment from '../../utils/environment';
+import { loggBedriftsInfo } from '../../utils/funksjonerForAmplitudeLogging';
 
 const HvaSkalDuRapportere = () => {
     const history = useHistory();
@@ -18,6 +20,16 @@ const HvaSkalDuRapportere = () => {
         organisasjoner[0].OrganizationNumber
     );
     const [skjemaType, setSkjemaType] = useState<Permitteringsskjema['type'] | undefined>();
+
+    useEffect(() => {
+        if (environment.MILJO === 'prod-sbs') {
+            const fullBedrift = organisasjoner.filter(
+                org => org.OrganizationNumber === valgtOrganisasjon
+            )[0];
+            console.log('full bedrift: ', fullBedrift);
+            loggBedriftsInfo(fullBedrift);
+        }
+    }, [valgtOrganisasjon, organisasjoner]);
 
     const opprettOgNavigerTilSkjema = async () => {
         const newId = await context.opprett({

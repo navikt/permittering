@@ -18,7 +18,6 @@ import Banner from '../../HovedBanner/HovedBanner';
 import { lagTekstBasertPaSkjemaType } from '../Side4-oppsummering/oppsummering-utils';
 
 import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
-import { hent } from '../../../api/skjema-api';
 
 const Side2: FunctionComponent<SkjemaSideProps> = () => {
     const [datoFra, setDatoFra] = useState(new Date());
@@ -34,7 +33,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
             context.endreSkjemaVerdi('sluttDato', undefined);
             setDatoTil(undefined);
         }
-    }, [context.skjema.sluttDato, context.skjema.ukjentSluttDato]);
+    }, [context.skjema.sluttDato, context.skjema.ukjentSluttDato, context]);
 
     let årsak = '';
     let yrker = '';
