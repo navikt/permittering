@@ -6,6 +6,10 @@ import {
 } from '../types/organisasjonFraEnhetsRegisteret';
 import { hentOverordnetEnhet, hentUnderenhet } from '../api/enhetsRegisteretApi';
 
+export const brukerLoggetPa = () => {
+    amplitude.logEvent('#permitteringOgOppsigelse bruker logget på');
+};
+
 export const loggBedriftsInfo = async (organisasjon: Organisasjon) => {
     let infoFraEereg: OrganisasjonFraEnhetsregisteret = tomEnhetsregOrg;
     await hentUnderenhet(organisasjon.OrganizationNumber).then(underenhet => {
