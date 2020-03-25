@@ -1,6 +1,8 @@
 @import '~nav-frontend-core/less/_variabler';
 
 .oppsummering {
+    margin: 0 1rem;
+
     &__tittel {
         width: 100%;
         display: flex;
@@ -17,15 +19,24 @@
         }
     }
 
+    .endre-lenke {
+        margin: 0.5rem 0 1rem;
+    }
+
     .tabell {
         tbody tr:first-child {
             border-top: none;
         }
 
-        th,
+        th {
+            border-bottom: 0;
+            padding: 0.25rem 1rem 0.25rem 0;
+        }
+
         td {
             border-bottom: 0;
-            padding: 0.25rem 1rem;
+            padding: 0.25rem 0.5rem 0.25rem 0;
+            overflow-wrap: break-word;
         }
     }
 
@@ -36,7 +47,10 @@
                 width: 116px;
             }
             td {
-                max-width: 200px;
+                max-width: 180px;
+                @media (max-width: 374px) {
+                    max-width: 135px;
+                }
             }
         }
     }
@@ -48,12 +62,13 @@
     &__boks.andre-opplysninger,
     &__boks.aarsak {
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
     }
 
     &__boks.antall-arbeidstakere {
         th {
-            width: 231px;
+            width: 140px;
         }
     }
 
@@ -61,8 +76,8 @@
     &__boks.andre-opplysninger,
     &__boks.aarsak {
         .tekst {
-            max-width: 800px;
-            padding: 1rem;
+            max-width: 329px;
+            padding: 1rem 1rem 0.5rem 0;
         }
         .overskrift {
             font-weight: 600;
@@ -71,15 +86,21 @@
 
     &__boks.varighet {
         th {
-            width: 233px;
+            width: 163px;
         }
+    }
+
+    .nav-veilederpanel--kompakt.nav-veilederpanel--plakat {
+        margin-top: 3.125rem;
+        padding: 2rem 1rem;
+        padding-top: 4.25rem;
     }
 
     .nav-veilederpanel {
         margin-bottom: 5rem;
 
         &__content {
-            padding-bottom: 4rem;
+            padding-bottom: 0;
         }
     }
 
@@ -90,5 +111,73 @@
 
     .nav-veilederpanel--info {
         border: 2px solid @navDypBlaLighten60;
+    }
+}
+
+@media (min-width: @screen-sm) {
+    .oppsummering {
+        margin: 0;
+
+        .endre-lenke {
+            margin: 0;
+        }
+
+        .tabell {
+            th,
+            td {
+                border-bottom: 0;
+                padding: 0.25rem 1rem;
+            }
+        }
+
+        &__boks.bedriftinfo,
+        &__boks.kontaktinfo {
+            .tabell {
+                td {
+                    max-width: 200px;
+                }
+            }
+        }
+
+        &__boks.kontaktinfo,
+        &__boks.antall-arbeidstakere,
+        &__boks.yrkeskategorier,
+        &__boks.varighet,
+        &__boks.andre-opplysninger,
+        &__boks.aarsak {
+            flex-direction: row;
+        }
+
+        &__boks.antall-arbeidstakere {
+            th {
+                width: 231px;
+            }
+        }
+
+        &__boks.yrkeskategorier,
+        &__boks.andre-opplysninger,
+        &__boks.aarsak {
+            .tekst {
+                max-width: 800px;
+                padding: 1rem;
+            }
+        }
+        &__boks.varighet {
+            th {
+                width: 233px;
+            }
+        }
+
+        .nav-veilederpanel--kompakt.nav-veilederpanel--plakat {
+            margin-top: 3.125rem;
+            padding: 2rem;
+            padding-top: 4.25rem;
+        }
+
+        .nav-veilederpanel {
+            &__content {
+                padding-bottom: 1rem;
+            }
+        }
     }
 }
