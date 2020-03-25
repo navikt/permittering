@@ -8,6 +8,7 @@ import { Textarea } from 'nav-frontend-skjema';
 import Checkbox from 'nav-frontend-skjema/lib/checkbox';
 import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
 import { Element } from 'nav-frontend-typografi';
+import Input from 'nav-frontend-skjema/lib/input';
 import SkjemaContext from '../../SkjemaContext/SkjemaContext';
 import { SkjemaSideProps, useSkjemaSteg } from '../use-skjema-steg';
 import { mergeFritekst, splittOppFritekst } from '../../../utils/fritekstFunksjoner';
@@ -15,7 +16,7 @@ import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import Datovelger from '../../komponenter/Datovelger/Datovelger';
 import Banner from '../../HovedBanner/HovedBanner';
 import { lagTekstBasertPaSkjemaType } from '../Side4-oppsummering/oppsummering-utils';
-import Input from 'nav-frontend-skjema/lib/input';
+
 import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 
 const Side2: FunctionComponent<SkjemaSideProps> = () => {

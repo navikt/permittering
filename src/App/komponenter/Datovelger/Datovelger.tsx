@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { useRef, FunctionComponent, useState, useEffect } from 'react';
 import { Collapse } from 'react-collapse';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
@@ -27,6 +27,7 @@ interface Props {
 }
 
 const Datovelger: FunctionComponent<Props> = props => {
+    const datepickernode = useRef<HTMLDivElement>(null);
     const [erApen, setErApen] = useState(false);
     const [editing, setEditing] = useState(false);
     const selectedDate = new Date(props.value || new Date());
@@ -39,7 +40,7 @@ const Datovelger: FunctionComponent<Props> = props => {
         if (props.value) {
             return editing ? tempDate : skrivOmDato(selectedDate);
         } else {
-            return 'dd/mm/yyy';
+            return 'dd/mm/yyyy';
         }
     };
 
@@ -69,8 +70,25 @@ const Datovelger: FunctionComponent<Props> = props => {
         }
     };
 
+    const handleOutsideClick: { (event: MouseEvent): void } = (e: MouseEvent) => {
+        const node = datepickernode.current;
+        // @ts-ignore
+        if (node && node.contains(e.target as HTMLElement)) {
+            return;
+        }
+        setErApen(false);
+    };
+
+    useEffect(() => {
+        document.addEventListener('click', handleOutsideClick, false);
+
+        return () => {
+            window.removeEventListener('click', handleOutsideClick, false);
+        };
+    }, []);
+
     return (
-        <div className={'datofelt'}>
+        <div ref={datepickernode} className={'datofelt'}>
             <Label htmlFor={datovelgerId}>{props.overtekst}</Label>
             <div className={'datofelt__input-container'}>
                 <Input
