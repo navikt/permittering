@@ -16,8 +16,11 @@ import { IntlProvider } from 'react-intl';
 import 'moment/locale/nb';
 import { FeatureToggleProvider } from './FeatureToggleProvider';
 import Yrkeskategorier from './Skjema/Side5-yrker/Yrkeskategorier';
+import { brukerLoggetPa } from '../utils/funksjonerForAmplitudeLogging';
 
 function App() {
+    brukerLoggetPa();
+
     return (
         <IntlProvider locale={'nb'}>
             <div className="app">

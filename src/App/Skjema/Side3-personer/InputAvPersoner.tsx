@@ -10,6 +10,7 @@ import { Person } from '../../../types/permitteringsskjema';
 import { SkjemaSideProps, useSkjemaSteg } from '../use-skjema-steg';
 import Banner from '../../HovedBanner/HovedBanner';
 import './InputAvPersoner.less';
+import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
 
 const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
     const history = useHistory();
@@ -19,6 +20,8 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
     const [modalIsOpen, setModal] = useState(false);
     const closeModal = () => setModal(false);
     const openModal = () => setModal(true);
+
+    loggNavarendeSteg('legg-til-personer');
 
     const leggTilPersoner = (nyePersoner: Array<any>) => {
         const personerCopy = [...personer];
