@@ -23,8 +23,7 @@ const Kvitteringsside = () => {
                 <div className="kvitteringside__tekst">
                     <Systemtittel>Skjema er sendt til NAV</Systemtittel>
                     <Normaltekst className="kvitteringside-ingress">
-                        Vi sender skjemaet til NAV-kontoret i den kommunen som virksomheten din
-                        tilhører.
+                        Skjemaet er sendt til NAV i kommunen eller fylket virksomheten din tilhører.
                     </Normaltekst>
                 </div>
                 <Lenkepanel

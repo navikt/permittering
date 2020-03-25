@@ -26,7 +26,6 @@ const HvaSkalDuRapportere = () => {
             const fullBedrift = organisasjoner.filter(
                 org => org.OrganizationNumber === valgtOrganisasjon
             )[0];
-            console.log('full bedrift: ', fullBedrift);
             loggBedriftsInfo(fullBedrift);
         }
     }, [valgtOrganisasjon, organisasjoner]);
