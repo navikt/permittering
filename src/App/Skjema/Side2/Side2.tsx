@@ -18,6 +18,7 @@ import Banner from '../../HovedBanner/HovedBanner';
 import { lagTekstBasertPaSkjemaType } from '../Side4-oppsummering/oppsummering-utils';
 
 import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
+import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
 
 const Side2: FunctionComponent<SkjemaSideProps> = () => {
     const [datoFra, setDatoFra] = useState(new Date());
@@ -27,6 +28,8 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
     const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
     const history = useHistory();
     const context = useContext(SkjemaContext);
+
+    loggNavarendeSteg('generelle-opplysninger');
 
     useEffect(() => {
         if (context.skjema.ukjentSluttDato) {

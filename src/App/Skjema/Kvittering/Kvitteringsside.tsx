@@ -5,10 +5,13 @@ import HvitSideBoks from '../../komponenter/HvitSideBoks';
 import KvitteringIkon from './KvitteringIkon';
 import './Kvitteringsside.less';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
+import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
 
 const Kvitteringsside = () => {
     const sidetittel =
         'Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid';
+
+    loggNavarendeSteg('kvittering');
 
     return (
         <>

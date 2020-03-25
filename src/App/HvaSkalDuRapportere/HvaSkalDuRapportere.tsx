@@ -10,7 +10,7 @@ import { BedriftsVelger } from '../komponenter/Bedriftsvelger/Bedriftsvelger';
 import './HvaSkalDuRapportere.less';
 import Dekorator from '../komponenter/Dekorator/Dekorator';
 import environment from '../../utils/environment';
-import { loggBedriftsInfo } from '../../utils/funksjonerForAmplitudeLogging';
+import { loggBedriftsInfo, loggSkjemaValg } from '../../utils/funksjonerForAmplitudeLogging';
 
 const HvaSkalDuRapportere = () => {
     const history = useHistory();
@@ -69,7 +69,10 @@ const HvaSkalDuRapportere = () => {
                     legend=""
                     radios={radios}
                     checked={skjemaType}
-                    onChange={(event, value) => setSkjemaType(value)}
+                    onChange={(event, value) => {
+                        setSkjemaType(value);
+                        loggSkjemaValg(value);
+                    }}
                 />
                 <div className="hva-skal-du-rapportere__forklaring-boks">
                     <Normaltekst className="forklaring">
