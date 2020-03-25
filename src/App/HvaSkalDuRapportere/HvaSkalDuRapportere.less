@@ -1,3 +1,5 @@
+@import '~nav-frontend-core/less/_variabler';
+
 .hva-skal-du-rapportere {
     margin-top: 3rem;
     padding: 3rem 2rem 3rem 2rem;
@@ -6,13 +8,16 @@
     display: flex;
     flex-direction: column;
     align-self: center;
+    width: 70%;
 
     .typo-systemtittel {
         margin-bottom: 3rem;
     }
 
     .inputPanelGruppe__inner {
+        position: initial;
         display: flex;
+        flex-direction: row;
         flex-wrap: wrap;
         justify-content: space-between;
 
@@ -44,5 +49,81 @@
     &__knapp {
         align-self: center;
         margin-top: 1.5rem;
+    }
+}
+
+@media (max-width: @screen-md-min) {
+    .hva-skal-du-rapportere {
+        margin: 3rem 0 0 0;
+        padding: 3rem 1rem 3rem 1rem;
+        max-width: 50rem;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+        width: 90%;
+        position: relative;
+
+        .typo-systemtittel {
+            margin-bottom: 3rem;
+        }
+
+        .inputPanelGruppe__inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .radioPanel {
+                width: 90%;
+            }
+
+            .inputPanel {
+                margin-bottom: 0.5rem;
+            }
+        }
+    }
+}
+
+@media (max-width: @screen-sm-min) {
+    .hva-skal-du-rapportere {
+        margin-top: 3rem;
+        padding: 3rem 0 3rem 0;
+        width: 100%;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+
+        .typo-systemtittel {
+            margin-left: 1rem;
+        }
+
+        .inputPanelGruppe__inner {
+            .radioPanel {
+                width: 80%;
+            }
+
+            .inputPanel {
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        &__forklaring-boks {
+            margin: 1.5rem 1rem 0 1rem;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+
+            .forklaring {
+                width: 90%;
+                margin: 0.5rem 0rem 0.5rem 0rem;
+            }
+        }
+
+        &__bedriftsDropdown {
+            margin: 2rem;
+        }
     }
 }
