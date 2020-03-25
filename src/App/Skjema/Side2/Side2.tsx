@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext, useState } from 'react';
+import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import '../Skjema.less';
 import './Side2.less';
@@ -17,6 +17,7 @@ import Banner from '../../HovedBanner/HovedBanner';
 import { lagTekstBasertPaSkjemaType } from '../Side4-oppsummering/oppsummering-utils';
 import Input from 'nav-frontend-skjema/lib/input';
 import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
+import { hent } from '../../../api/skjema-api';
 
 const Side2: FunctionComponent<SkjemaSideProps> = () => {
     const [datoFra, setDatoFra] = useState(new Date());
@@ -26,6 +27,13 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
     const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
     const history = useHistory();
     const context = useContext(SkjemaContext);
+
+    useEffect(() => {
+        if (context.skjema.ukjentSluttDato) {
+            context.endreSkjemaVerdi('sluttDato', undefined);
+            setDatoTil(undefined);
+        }
+    }, [context.skjema.sluttDato, context.skjema.ukjentSluttDato]);
 
     let årsak = '';
     let yrker = '';
