@@ -39,7 +39,7 @@ const Datovelger: FunctionComponent<Props> = props => {
         if (props.value) {
             return editing ? tempDate : skrivOmDato(selectedDate);
         } else {
-            return 'dd/mm/yyy';
+            return 'dd/mm/yyyy';
         }
     };
 
