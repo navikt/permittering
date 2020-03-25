@@ -65,7 +65,6 @@ const Side1: FunctionComponent<SkjemaSideProps> = () => {
                                     telefonNummer.length - 8,
                                     telefonNummer.length
                                 );
-                                console.log(riktigFormat);
                                 context.endreSkjemaVerdi('kontaktTlf', riktigFormat);
                                 setFeilmeldingTelefonNr('');
                             } else
