@@ -1,5 +1,5 @@
 import React from 'react';
-import { Systemtittel } from 'nav-frontend-typografi';
+import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import Lenkepanel from 'nav-frontend-lenkepanel/lib';
 import HvitSideBoks from '../../komponenter/HvitSideBoks';
 import KvitteringIkon from './KvitteringIkon';
@@ -19,6 +19,10 @@ const Kvitteringsside = () => {
                 </div>
                 <div className="kvitteringside__tekst">
                     <Systemtittel>Skjema er sendt til NAV</Systemtittel>
+                    <Normaltekst className="kvitteringside-ingress">
+                        Vi sender skjemaet til NAV-kontoret i den kommunen som virksomheten din
+                        tilhører.
+                    </Normaltekst>
                 </div>
                 <Lenkepanel
                     href="https://arbeidsgiver.nav.no/min-side-arbeidsgiver/"
