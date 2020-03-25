@@ -36,7 +36,8 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
             context.endreSkjemaVerdi('sluttDato', undefined);
             setDatoTil(undefined);
         }
-    }, [context.skjema.sluttDato, context.skjema.ukjentSluttDato, context]);
+        // eslint-disable-next-line
+    }, [context.skjema.sluttDato, context.skjema.ukjentSluttDato]);
 
     let årsak = '';
     let yrker = '';
