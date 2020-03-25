@@ -15,6 +15,22 @@
 
     .knapper {
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .lagre-lenke {
+            margin-bottom: 1rem;
+        }
+
+        @media (min-width: @screen-sm) {
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 0 0 4rem;
+
+            .lagre-lenke {
+                margin-bottom: 0;
+            }
+        }
     }
 }

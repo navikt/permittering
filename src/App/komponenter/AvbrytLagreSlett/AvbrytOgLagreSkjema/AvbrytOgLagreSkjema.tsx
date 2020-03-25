@@ -15,6 +15,7 @@ export const AvbrytOgLagreSkjema = () => {
     return (
         <>
             <Lenke
+                className="lagre-lenke"
                 href="#"
                 onClick={e => {
                     e.preventDefault();
