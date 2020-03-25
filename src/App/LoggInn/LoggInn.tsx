@@ -5,7 +5,6 @@ import './Logginn.less';
 import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
 import Lenke from 'nav-frontend-lenker';
 import LoggInnBanner from './LoggInnBanner/LoggInnBanner';
-import environment from '../../utils/environment';
 import { redirectTilLoginPath } from '../../paths.json';
 
 /*<Sidetittel className="innloggingsside__sidetittel">
@@ -14,11 +13,7 @@ import { redirectTilLoginPath } from '../../paths.json';
 
 const LoggInn = () => {
     const redirectTilLogin = () => {
-        if (environment.MILJO === 'prod-sbs' || environment.MILJO === 'dev-sbs') {
-            window.location.href = redirectTilLoginPath;
-        } else {
-            window.location.href = redirectTilLoginPath;
-        }
+        window.location.href = redirectTilLoginPath;
     };
 
     return (
