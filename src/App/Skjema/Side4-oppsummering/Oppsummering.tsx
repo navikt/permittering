@@ -16,6 +16,10 @@ import SjekkOmFyltUt from '../../komponenter/SjekkOmFyltUt/SjekkOmFyltUt';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { SkjemaSideProps, useSkjemaSteg } from '../use-skjema-steg';
 import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
+import {
+    loggNavarendeSteg,
+    loggSkjemaInnsendt,
+} from '../../../utils/funksjonerForAmplitudeLogging';
 
 const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
@@ -40,6 +44,8 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     const endreantallberørteLenke = tillatFnrInput
         ? `/permittering/skjema/hvem-rammes/${context.skjema.id}`
         : `/permittering/skjema/generelle-opplysninger/${context.skjema.id}`;
+
+    loggNavarendeSteg('oppsummeringsside');
 
     return (
         <>
@@ -225,6 +231,7 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                                         setFeilmelding('');
                                         await context.sendInn();
                                         history.push('/skjema/kvitteringsside');
+                                        loggSkjemaInnsendt();
                                     } catch (e) {
                                         if (e.response.status === 400) {
                                             setFeilmelding('Du må fylle ut alle feltene');

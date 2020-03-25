@@ -10,6 +10,7 @@ import './Side1.less';
 import { SkjemaSideProps, useSkjemaSteg } from '../use-skjema-steg';
 import Banner from '../../HovedBanner/HovedBanner';
 import { erGyldigEpost, erGyldigTelefonNr } from './inputFeltValideringer';
+import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
 
 const Side1: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
@@ -17,6 +18,8 @@ const Side1: FunctionComponent<SkjemaSideProps> = () => {
     const { nesteSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
     const [feilMeldingEpost, setFeilmeldingEpost] = useState('');
     const [feilMeldingTelefonNr, setFeilmeldingTelefonNr] = useState('');
+
+    loggNavarendeSteg('kontaktinformasjon');
 
     return (
         <>
