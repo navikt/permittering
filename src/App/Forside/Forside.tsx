@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import { Element, Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
+import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import infoIkon from './info.svg';
 import { Feature, FeatureToggleContext } from '../FeatureToggleProvider';
 import { Permitteringsskjema } from '../../types/permitteringsskjema';
@@ -33,7 +33,7 @@ const Forside: FunctionComponent = () => {
                     <img src={infoIkon} alt="" aria-hidden="true" />
                 </div>
                 <div className={'forside__info-om-meldeplikt-boks__innhold'}>
-                    <Undertittel>Arbeidsgivers meldeplikt til NAV</Undertittel>
+                    <Systemtittel>Arbeidsgivers meldeplikt til NAV</Systemtittel>
                     <div className={'forside__info-om-meldeplikt-boks__innhold__ingress'}>
                         <Normaltekst>
                             Skal du permittere, si opp eller innskrenke arbeidstiden til 10 eller
@@ -42,13 +42,16 @@ const Forside: FunctionComponent = () => {
                         </Normaltekst>
                     </div>
                     <Element>Dette er bestemt av:</Element>
-                    <Lenke href={'https://lovdata.no/lov/2004-12-10-76/§8'}>
-                        <span>Arbeidsmiljøloven §8</span> <EksternLenke />{' '}
-                    </Lenke>
-                    <br />
-                    <Lenke href={'https://lovdata.no/lov/2005-06-17-62/§15-2'}>
-                        <span>Arbeidsmiljøloven §15-2 </span> <EksternLenke />{' '}
-                    </Lenke>
+                    <div>
+                        <Lenke href={'https://lovdata.no/lov/2004-12-10-76/§8'}>
+                            <span>Arbeidsmarkedsloven §8</span> <EksternLenke />{' '}
+                        </Lenke>
+                    </div>
+                    <div>
+                        <Lenke href={'https://lovdata.no/lov/2005-06-17-62/§15-2'}>
+                            <span>Arbeidsmiljøloven §15-2 </span> <EksternLenke />{' '}
+                        </Lenke>
+                    </div>
                     <br />
                     {visskjema && (
                         <div
