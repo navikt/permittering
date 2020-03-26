@@ -19,7 +19,12 @@ const InfoOmMeldepliktBoks: FunctionComponent<Props> = props => {
     return (
         <div className={'forside__info-om-meldeplikt-boks'}>
             <div>
-                <img src={infoIkon} alt="" aria-hidden="true" />
+                <img
+                    className={'forside__info-om-meldeplikt-boks__ikon'}
+                    src={infoIkon}
+                    alt=""
+                    aria-hidden="true"
+                />
             </div>
             <div className={'forside__info-om-meldeplikt-boks__innhold'}>
                 <Systemtittel>Arbeidsgivers meldeplikt til NAV</Systemtittel>
