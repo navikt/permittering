@@ -5,7 +5,7 @@ import Lenke from 'nav-frontend-lenker';
 import Normaltekst from 'nav-frontend-typografi/lib/normaltekst';
 
 interface SkjemaTabellProps {
-    skjemaer: Permitteringsskjema[];
+    skjemaer: any;
 }
 
 const status = (skjema: Permitteringsskjema) => {
@@ -52,8 +52,8 @@ const SkjemaTabell: React.FunctionComponent<SkjemaTabellProps> = ({ skjemaer }) 
                 </thead>
                 <tbody>
                     {skjemaer
-                        .filter(skjema => !skjema.avbrutt)
-                        .map(skjema => {
+                        .filter((skjema: Permitteringsskjema) => !skjema.avbrutt)
+                        .map((skjema: Permitteringsskjema) => {
                             return (
                                 <tr key={skjema.id}>
                                     <td>{lagTekstBasertPaSkjemaType(skjema.type)}</td>
