@@ -31,7 +31,7 @@ export const OrganisasjonsListeProvider: FunctionComponent = props => {
         hentOrganisasjonerFraAltinn(signal)
             .then(organisasjonsliste => {
                 const kunBedrifter = organisasjonsliste.filter(
-                    organisasjon => organisasjon.OrganizationForm === 'BEDR'
+                    organisasjon => organisasjon.OrganizationForm === 'BEDR' || 'AAFY'
                 );
                 setOrganisasjoner(kunBedrifter);
                 if (kunBedrifter.length > 0) setOrganisasjonslisteFerdigLastet(Tilgang.TILGANG);
