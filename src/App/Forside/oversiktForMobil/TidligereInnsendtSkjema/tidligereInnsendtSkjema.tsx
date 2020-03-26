@@ -5,6 +5,7 @@ import './tidligereInnsendtSkjema.less';
 import { Permitteringsskjema } from '../../../../types/permitteringsskjema';
 import Lenkepanel from 'nav-frontend-lenkepanel/lib';
 import Element from 'nav-frontend-typografi/lib/element';
+import moment from 'moment';
 
 const status = (skjema: Permitteringsskjema) => {
     if (skjema.sendtInnTidspunkt) {
@@ -45,7 +46,10 @@ const TidligereInnsendtSkjema: FunctionComponent<Props> = props => {
                     </Element>
                     <AttributtVisning
                         attributt="Dato sendt inn"
-                        attributtVerdi={props.tidligereSkjema.sendtInnTidspunkt}
+                        attributtVerdi={
+                            props.tidligereSkjema.sendtInnTidspunkt &&
+                            moment(props.tidligereSkjema.sendtInnTidspunkt).format('L')
+                        }
                     />
                     <AttributtVisning
                         attributt="Bedriftsnummer"
