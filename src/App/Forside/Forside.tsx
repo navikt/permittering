@@ -13,6 +13,7 @@ import Dekorator from '../komponenter/Dekorator/Dekorator';
 import Lenke from 'nav-frontend-lenker';
 import { EksternLenke } from './EksternLenke';
 import { loggNavarendeSteg } from '../../utils/funksjonerForAmplitudeLogging';
+import OversiktForMobil from './oversiktForMobil/oversiktForMobil';
 
 const Forside: FunctionComponent = () => {
     const history = useHistory();
@@ -73,7 +74,8 @@ const Forside: FunctionComponent = () => {
                 <div className="forside__topp">
                     <Systemtittel>Dine skjema</Systemtittel>
                 </div>
-                {skjemaer.length ? (
+                <OversiktForMobil listeMedSkjema={skjemaer}></OversiktForMobil>
+                {skjemaer.length === -1 ? (
                     <SkjemaTabell skjemaer={skjemaer} />
                 ) : (
                     <p>
