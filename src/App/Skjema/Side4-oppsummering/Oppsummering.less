@@ -20,12 +20,10 @@
     }
 
     .endre-lenke {
-        width: 10%;
         margin: 0.5rem 0 1rem;
     }
 
     .tabell {
-        width: 90%;
         tbody tr:first-child {
             border-top: none;
         }
@@ -78,7 +76,6 @@
     &__boks.andre-opplysninger,
     &__boks.aarsak {
         .tekst {
-            max-width: 90%;
             padding: 1rem 1rem 0.5rem 0;
         }
         .overskrift {
@@ -117,18 +114,20 @@
 
     .feilmelding-send-inn {
         margin-top: 0.5rem;
-        text-align: end;
+        text-align: right;
     }
 }
 
 @media (min-width: @screen-sm) {
     .oppsummering {
         .endre-lenke {
+            width: 10%;
             margin: 0;
-            text-align: end;
+            text-align: right;
         }
 
         .tabell {
+            width: 90%;
             th,
             td {
                 border-bottom: 0;
@@ -164,7 +163,7 @@
         &__boks.andre-opplysninger,
         &__boks.aarsak {
             .tekst {
-                // max-width: 800px;
+                max-width: 90%;
                 padding: 1rem;
             }
         }

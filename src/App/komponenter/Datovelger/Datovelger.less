@@ -3,6 +3,7 @@
 .datofelt {
     margin: 0 0 0.5rem 0;
     position: relative;
+    width: 10rem;
 
     &__input-container {
         display: flex;
@@ -21,7 +22,7 @@
     }
 
     &__input {
-        width: 15rem;
+        width: 10rem;
     }
 
     &__knapp {
@@ -40,6 +41,16 @@
         &:hover {
             background-color: @navBlaLighten80;
             border: 2px solid @navBlaDarken40;
+        }
+    }
+}
+
+@media (min-width: @screen-sm) {
+    .datofelt {
+        width: 15rem;
+
+        &__input {
+            width: 15rem;
         }
     }
 }
