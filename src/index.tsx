@@ -1,3 +1,4 @@
+import 'react-app-polyfill/ie11';
 import 'core-js';
 import 'unorm/lib/unorm';
 import React from 'react';
