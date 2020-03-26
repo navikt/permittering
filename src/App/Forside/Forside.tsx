@@ -75,9 +75,9 @@ const Forside: FunctionComponent = () => {
                 <div className="forside__topp">
                     <Systemtittel>Dine skjema</Systemtittel>
                 </div>
-                <OversiktForMobil listeMedSkjema={hardkodedeSkjema}></OversiktForMobil>
-                {skjemaer.length === -1 ? (
-                    <SkjemaTabell skjemaer={skjemaer} />
+                <OversiktForMobil listeMedSkjema={hardkodedeSkjema} />
+                {skjemaer.length === 0 ? (
+                    <SkjemaTabell skjemaer={hardkodedeSkjema} />
                 ) : (
                     <p>
                         <i>Ingen skjemaer</i>
