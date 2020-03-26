@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { Feilmelding, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import Lenke from 'nav-frontend-lenker';
 import Knapp from 'nav-frontend-knapper/lib/knapp';
 import Veilederpanel from 'nav-frontend-veilederpanel';
@@ -13,7 +13,6 @@ import Banner from '../../HovedBanner/HovedBanner';
 import { formatterDato, lagTekstBasertPaSkjemaType, lagTekstVarighet } from './oppsummering-utils';
 import './Oppsummering.less';
 import SjekkOmFyltUt from '../../komponenter/SjekkOmFyltUt/SjekkOmFyltUt';
-import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { SkjemaSideProps, useSkjemaSteg } from '../use-skjema-steg';
 import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 import {
@@ -223,33 +222,29 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                         >
                             Tilbake
                         </Knapp>
-                        <div>
-                            <Hovedknapp
-                                className={'skjema-innhold__lagre'}
-                                onClick={async () => {
-                                    try {
-                                        setFeilmelding('');
-                                        await context.sendInn();
-                                        history.push('/skjema/kvitteringsside');
-                                        loggSkjemaInnsendt();
-                                    } catch (e) {
-                                        if (e.response.status === 400) {
-                                            setFeilmelding('Du må fylle ut alle feltene');
-                                        }
+                        <Hovedknapp
+                            className="skjema-innhold__lagre"
+                            onClick={async () => {
+                                try {
+                                    setFeilmelding('');
+                                    await context.sendInn();
+                                    history.push('/skjema/kvitteringsside');
+                                    loggSkjemaInnsendt();
+                                } catch (e) {
+                                    if (e.response.status === 400) {
+                                        setFeilmelding('Du må fylle ut alle feltene');
                                     }
-                                }}
-                            >
-                                Send til NAV
-                            </Hovedknapp>
-                            {feilmelding && (
-                                <>
-                                    <VerticalSpacer rem={0.5} />
-                                    <b className="typo-feilmelding">{feilmelding}</b>
-                                </>
-                            )}
-                            <br />
-                        </div>
+                                }
+                            }}
+                        >
+                            Send til NAV
+                        </Hovedknapp>
                     </div>
+                    {feilmelding && (
+                        <div className="feilmelding-send-inn">
+                            <Feilmelding>{feilmelding}</Feilmelding>
+                        </div>
+                    )}
                 </section>
             </SkjemaRamme>
         </>

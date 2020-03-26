@@ -35,7 +35,6 @@ const SkjemaRamme: FunctionComponent = ({ children }) => {
                 visLabel
                 autoResponsiv
             />
-            <VerticalSpacer rem={2} />
             <HvitSideBoks>{children}</HvitSideBoks>
             <VerticalSpacer rem={1} />
             <AvbrytLagreSlett />
