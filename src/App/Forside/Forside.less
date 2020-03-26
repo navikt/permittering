@@ -1,3 +1,5 @@
+@import '~nav-frontend-core/less/_variabler';
+
 .forside {
     &__topp {
         display: flex;
@@ -8,21 +10,16 @@
             margin-right: 2rem;
         }
     }
-    &__info-om-meldeplikt-boks {
-        flex-direction: row;
-        border-style: solid;
-        border-color: #cce1f3;
-        border-width: 2px;
 
-        &__innhold {
-            margin: 0 0 0 2rem;
+    &__tabell-container {
+        display: initial;
+    }
+}
 
-            &__ingress {
-                margin: 1.5rem 0 1rem 0;
-            }
-            &__meld-til-nav-knapp {
-                margin: 1rem 0 0 0;
-            }
+@media (max-width: @screen-md) {
+    .forside {
+        &__tabell-container {
+            display: none;
         }
     }
 }

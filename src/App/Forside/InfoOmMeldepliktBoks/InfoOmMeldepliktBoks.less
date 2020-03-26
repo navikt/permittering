@@ -1,0 +1,64 @@
+@import '~nav-frontend-core/less/_variabler';
+
+.forside {
+    &__info-om-meldeplikt-boks {
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+        border: 2px solid #cce1f3;
+        margin-top: 2rem;
+        border-radius: 4px;
+        padding: 3rem 2rem 2rem 2rem;
+        background-color: white;
+        position: relative;
+
+        @media (min-width: @screen-sm) {
+            max-width: 37rem;
+        }
+
+        @media (min-width: @screen-md) {
+            max-width: 45rem;
+        }
+
+        &__ikon {
+            position: absolute;
+        }
+
+        &__innhold {
+            margin: 0 0 0 8rem;
+
+            &__ingress {
+                margin: 1.5rem 0 1rem 0;
+            }
+            &__meld-til-nav-knapp {
+                margin: 1rem 0 0 0;
+            }
+        }
+    }
+}
+
+@media (max-width: @screen-sm) {
+    .forside {
+        &__info-om-meldeplikt-boks {
+            align-items: center;
+            width: 80%;
+
+            &__innhold {
+                display: flex;
+                flex-direction: column;
+                margin: 0;
+
+                &__meld-til-nav-knapp {
+                    margin-top: 1rem;
+                    display: flex;
+                    align-self: center;
+                }
+            }
+
+            &__ikon {
+                position: initial;
+                margin-bottom: 2rem;
+            }
+        }
+    }
+}
