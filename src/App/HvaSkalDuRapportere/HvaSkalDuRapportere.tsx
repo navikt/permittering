@@ -30,6 +30,8 @@ const HvaSkalDuRapportere = () => {
         }
     }, [valgtOrganisasjon, organisasjoner]);
 
+    loggSkjemaValg('hva-skal-du-varsle-om');
+
     const opprettOgNavigerTilSkjema = async () => {
         const newId = await context.opprett({
             bedriftNr: valgtOrganisasjon,
