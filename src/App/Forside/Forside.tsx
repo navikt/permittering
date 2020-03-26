@@ -71,11 +71,10 @@ const Forside: FunctionComponent = () => {
                     )}
                 </div>
             </HvitSideBoks>
-            <HvitSideBoks>
+            <HvitSideBoks classname={'forside__tabell-container'}>
                 <div className="forside__topp">
                     <Systemtittel>Dine skjema</Systemtittel>
                 </div>
-                <OversiktForMobil listeMedSkjema={hardkodedeSkjema} />
                 {skjemaer.length === 0 ? (
                     <SkjemaTabell skjemaer={hardkodedeSkjema} />
                 ) : (
@@ -84,6 +83,7 @@ const Forside: FunctionComponent = () => {
                     </p>
                 )}
             </HvitSideBoks>
+            <OversiktForMobil listeMedSkjema={hardkodedeSkjema} />
         </>
     );
 };

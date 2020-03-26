@@ -1,9 +1,10 @@
 @import '../../../../../node_modules/nav-frontend-core/less/_variabler';
 
-.arbeidsforhold {
+.tidligere-skjema {
     display: flex;
     border-top: solid 1.5px @navLysGra;
-    background-color: white;
+    background-color: transparent;
+    justify-content: center;
 
     &__overskrift-kort {
         margin-bottom: 0.5rem;
@@ -11,12 +12,19 @@
 
     &__liste {
         display: flex;
-        width: 100%;
+        width: 80%;
         flex-direction: column;
         margin: 1.5rem 0;
+        align-self: center;
 
         @media (min-width: @screen-sm) {
             margin: 1.5rem 0 1.5rem 2rem;
         }
+    }
+}
+
+@media (min-width: @screen-sm) {
+    .tidligere-skjema {
+        display: none;
     }
 }
