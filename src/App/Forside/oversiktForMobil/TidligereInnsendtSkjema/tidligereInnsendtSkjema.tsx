@@ -37,7 +37,9 @@ const TidligereInnsendtSkjema: FunctionComponent<Props> = props => {
         <li className="arbeidsforhold">
             <ul className="arbeidsforhold__liste">
                 <Lenkepanel tittelProps={'normaltekst'} href={'hola'}>
-                    <Element>{lagTekstBasertPaSkjemaType(props.tidligereSkjema.type)}</Element>
+                    <Element className={'arbeidsforhold__overskrift-kort'}>
+                        {lagTekstBasertPaSkjemaType(props.tidligereSkjema.type)}
+                    </Element>
                     <AttributtVisning
                         attributt="Dato sendt inn"
                         attributtVerdi={props.tidligereSkjema.sendtInnTidspunkt}
