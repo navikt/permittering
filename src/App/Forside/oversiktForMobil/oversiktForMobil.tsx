@@ -19,6 +19,11 @@ const OversiktForMobil: FunctionComponent<Props> = (props: Props) => {
                 {' '}
                 Dine skjema{' '}
             </Undertittel>
+            {props.listeMedSkjema.length === 0 && (
+                <Undertittel className={'forside__mobilvisning__undertittel'}>
+                    <i>Ingen skjemaer</i>
+                </Undertittel>
+            )}
             <ul className={'forside__mobilvisning__ul'}>{rader}</ul>
         </div>
     );

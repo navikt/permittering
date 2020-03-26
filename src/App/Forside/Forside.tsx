@@ -25,6 +25,8 @@ const Forside: FunctionComponent = () => {
     }, []);
 
     loggNavarendeSteg('oversikt-tidligere-skjema');
+    console.log(skjemaer);
+    console.log(hardkodedeSkjema);
 
     return (
         <>
@@ -34,15 +36,15 @@ const Forside: FunctionComponent = () => {
                 <div className="forside__topp">
                     <Systemtittel>Dine skjema</Systemtittel>
                 </div>
-                {skjemaer.length === 0 ? (
-                    <SkjemaTabell skjemaer={hardkodedeSkjema} />
+                {skjemaer.length > 0 ? (
+                    <SkjemaTabell skjemaer={skjemaer} />
                 ) : (
                     <p>
                         <i>Ingen skjemaer</i>
                     </p>
                 )}
             </HvitSideBoks>
-            <OversiktForMobil listeMedSkjema={hardkodedeSkjema} />
+            <OversiktForMobil listeMedSkjema={skjemaer} />
         </>
     );
 };

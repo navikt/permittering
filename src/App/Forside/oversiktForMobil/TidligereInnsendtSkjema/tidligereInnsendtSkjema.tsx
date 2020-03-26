@@ -36,7 +36,10 @@ const TidligereInnsendtSkjema: FunctionComponent<Props> = props => {
     return (
         <li className="tidligere-skjema">
             <ul className="tidligere-skjema__liste">
-                <Lenkepanel tittelProps={'normaltekst'} href={'hola'}>
+                <Lenkepanel
+                    tittelProps={'normaltekst'}
+                    href={'/permittering/skjema/kontaktinformasjon/' + props.tidligereSkjema.id}
+                >
                     <Element className={'tidligere-skjema__overskrift-kort'}>
                         {lagTekstBasertPaSkjemaType(props.tidligereSkjema.type)}
                     </Element>
