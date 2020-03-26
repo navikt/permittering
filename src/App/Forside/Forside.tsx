@@ -14,6 +14,7 @@ import Lenke from 'nav-frontend-lenker';
 import { EksternLenke } from './EksternLenke';
 import { loggNavarendeSteg } from '../../utils/funksjonerForAmplitudeLogging';
 import OversiktForMobil from './oversiktForMobil/oversiktForMobil';
+import { hardkodedeSkjema } from '../../hardkodetListeMedSkjema';
 
 const Forside: FunctionComponent = () => {
     const history = useHistory();
@@ -74,7 +75,7 @@ const Forside: FunctionComponent = () => {
                 <div className="forside__topp">
                     <Systemtittel>Dine skjema</Systemtittel>
                 </div>
-                <OversiktForMobil listeMedSkjema={skjemaer}></OversiktForMobil>
+                <OversiktForMobil listeMedSkjema={hardkodedeSkjema}></OversiktForMobil>
                 {skjemaer.length === -1 ? (
                     <SkjemaTabell skjemaer={skjemaer} />
                 ) : (

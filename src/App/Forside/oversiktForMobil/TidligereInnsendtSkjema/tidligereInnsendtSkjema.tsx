@@ -34,10 +34,6 @@ const TidligereInnsendtSkjema: FunctionComponent<Props> = props => {
     return (
         <li className="arbeidsforhold">
             <ul className="arbeidsforhold__liste">
-                <li className="attributt">
-                    <div className="attributt__navn">Navn</div>
-                    <div className="attributt__verdi"></div>
-                </li>
                 <AttributtVisning
                     attributt="Skjemaet gjelder"
                     attributtVerdi={lagTekstBasertPaSkjemaType(props.tidligereSkjema.type)}

@@ -6,14 +6,13 @@ import TidligereInnsendtSkjema from './TidligereInnsendtSkjema/tidligereInnsendt
 
 interface Props {
     className?: string;
-    listeMedSkjema: Permitteringsskjema[];
+    listeMedSkjema: any;
 }
 
 const OversiktForMobil: FunctionComponent<Props> = (props: Props) => {
-    const rader = props.listeMedSkjema.map(skjema => (
+    const rader = props.listeMedSkjema.map((skjema: Permitteringsskjema) => (
         <TidligereInnsendtSkjema key={skjema.id} tidligereSkjema={skjema} />
     ));
-
     return <ul className={props.className}>{rader}</ul>;
 };
 
