@@ -6,6 +6,7 @@ const api = axios.create({
     baseURL: '',
     withCredentials: true,
     timeout: 30000,
+    headers: { Pragma: 'no-cache', 'Cache-Control': 'no-cache' },
 });
 
 api.interceptors.response.use(
