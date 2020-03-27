@@ -1,14 +1,12 @@
 @import '~nav-frontend-core/less/_variabler';
 
 .hva-skal-du-rapportere {
-    margin-top: 3rem;
-    padding: 3rem 2rem 3rem 2rem;
-    max-width: 50rem;
     background-color: white;
     display: flex;
     flex-direction: column;
     align-self: center;
-    width: 70%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 
     .typo-systemtittel {
         margin-bottom: 3rem;
@@ -52,43 +50,8 @@
     }
 }
 
-@media (max-width: @screen-md-min) {
-    .hva-skal-du-rapportere {
-        margin: 3rem 0 0 0;
-        padding: 3rem 1rem 3rem 1rem;
-        max-width: 50rem;
-        background-color: white;
-        display: flex;
-        flex-direction: column;
-        align-self: center;
-        width: 90%;
-        position: relative;
-
-        .typo-systemtittel {
-            margin-bottom: 3rem;
-        }
-
-        .inputPanelGruppe__inner {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            .radioPanel {
-                width: 90%;
-            }
-
-            .inputPanel {
-                margin-bottom: 0.5rem;
-            }
-        }
-    }
-}
-
 @media (max-width: @screen-sm-min) {
     .hva-skal-du-rapportere {
-        margin-top: 3rem;
-        padding: 3rem 0 3rem 0;
-        width: 100%;
         background-color: white;
         display: flex;
         flex-direction: column;
@@ -105,6 +68,7 @@
 
             .inputPanel {
                 margin-bottom: 0.5rem;
+                width: 90%;
             }
         }
 
@@ -124,6 +88,34 @@
 
         &__bedriftsDropdown {
             margin: 2rem;
+        }
+    }
+}
+
+@media (max-width: @screen-md-min) {
+    .hva-skal-du-rapportere {
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+        position: relative;
+
+        .typo-systemtittel {
+            margin-bottom: 3rem;
+        }
+
+        .inputPanelGruppe__inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .radioPanel {
+                width: 75%;
+            }
+
+            .inputPanel {
+                margin-bottom: 0.5rem;
+            }
         }
     }
 }
