@@ -17,6 +17,9 @@ export type Permitteringsskjema = {
     antallBerørt?: number;
     sendtInnTidspunkt?: string;
     avbrutt: boolean;
+    årsakskode?: string;
+    årsakstekst?: string;
+    yrkeskategorier?: Yrkeskategori[];
 };
 
 export type Person = {
@@ -24,6 +27,13 @@ export type Person = {
     grad?: number;
     selected?: boolean;
     kommentar: string;
+};
+
+export type Yrkeskategori = {
+    konseptId: number;
+    styrk08: string;
+    label: string;
+    antall?: number;
 };
 
 export type OpprettSkjema = Pick<Permitteringsskjema, 'bedriftNr' | 'type'>;
