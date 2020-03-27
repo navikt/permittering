@@ -6,6 +6,7 @@ import KvitteringIkon from './KvitteringIkon';
 import './Kvitteringsside.less';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
+import VerticalSpacer from '../../komponenter/VerticalSpacer';
 
 const Kvitteringsside = () => {
     const sidetittel =
@@ -16,6 +17,7 @@ const Kvitteringsside = () => {
     return (
         <>
             <Dekorator sidetittel={sidetittel} />
+            <VerticalSpacer rem={2} />
             <HvitSideBoks classname="kvitteringside">
                 <div className="kvitteringside__ikon">
                     <KvitteringIkon />

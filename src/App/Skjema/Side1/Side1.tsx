@@ -1,16 +1,16 @@
 import React, { FunctionComponent, useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
 import Input from 'nav-frontend-skjema/lib/input';
 import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
+import Undertittel from 'nav-frontend-typografi/lib/undertittel';
 import SkjemaContext from '../../SkjemaContext/SkjemaContext';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
-import { useHistory } from 'react-router-dom';
-import Undertittel from 'nav-frontend-typografi/lib/undertittel';
-import './Side1.less';
 import { SkjemaSideProps, useSkjemaSteg } from '../use-skjema-steg';
 import Banner from '../../HovedBanner/HovedBanner';
 import { erGyldigEpost, erGyldigTelefonNr } from './inputFeltValideringer';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
+import './Side1.less';
 
 const Side1: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);

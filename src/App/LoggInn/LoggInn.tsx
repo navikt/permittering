@@ -1,15 +1,11 @@
 import React from 'react';
 import { Ingress, Normaltekst, Sidetittel } from 'nav-frontend-typografi';
-import skjema from './skjema.svg';
-import './Logginn.less';
 import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
 import Lenke from 'nav-frontend-lenker';
 import LoggInnBanner from './LoggInnBanner/LoggInnBanner';
 import { redirectTilLoginPath } from '../../paths.json';
-
-/*<Sidetittel className="innloggingsside__sidetittel">
-    Gi beskjed til NAV
-</Sidetittel>*/
+import skjema from './skjema.svg';
+import './Logginn.less';
 
 const LoggInn = () => {
     const redirectTilLogin = () => {
@@ -22,7 +18,7 @@ const LoggInn = () => {
             <div className="innloggingsside__innhold">
                 <img src={skjema} className="innloggingsside__circle" alt="bilde av håndtrykk" />
 
-                <Sidetittel className="innloggingsside__sidetittel">Gi beskjed til NAV</Sidetittel>
+                <Sidetittel className="innloggingsside__sidetittel">Meld fra til NAV</Sidetittel>
                 <Ingress className="innloggingsside__ingress">
                     Arbeidsgivers meldeplikt til NAV ved masseoppsigelser, permittering uten lønn og
                     innskrenkning i arbeidstid.

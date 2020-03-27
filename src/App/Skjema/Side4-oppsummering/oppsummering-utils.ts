@@ -10,18 +10,6 @@ export const lagTekstBasertPaSkjemaType = (type: string) => {
     return '';
 };
 
-export const lagTekstVarighet = (type: string, fraEllerTil: string) => {
-    switch (true) {
-        case type === 'MASSEOPPSIGELSE':
-            return `Oppsigelsene ${fraEllerTil}`;
-        case type === 'PERMITTERING_UTEN_LØNN':
-            return `Permitteringene ${fraEllerTil}`;
-        case type === 'INNSKRENKNING_I_ARBEIDSTID':
-            return `Innskrenkningen i arbeidstid ${fraEllerTil}`;
-    }
-    return `Permitteringene ${fraEllerTil}`;
-};
-
 const finnMaaned = (month: number): string => {
     switch (month) {
         case 0:

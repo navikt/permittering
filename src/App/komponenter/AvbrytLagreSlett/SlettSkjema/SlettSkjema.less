@@ -1,0 +1,15 @@
+@import '~nav-frontend-core/less/_variabler';
+
+.slett-modal-innhold {
+    padding: 1rem;
+
+    &__knapper {
+        display: flex;
+        flex-direction: column;
+
+        @media (min-width: @screen-sm) {
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
+}
