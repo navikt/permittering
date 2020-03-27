@@ -1,187 +1,157 @@
 @import '~nav-frontend-core/less/_variabler';
 
 .oppsummering {
-    margin: 0 1rem;
+    margin: 0;
 
-    &__tittel {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        padding-bottom: 2rem;
+    &__tittel-desktop {
+        display: none;
+    }
+
+    &__tittel-mobil {
+        margin: 0.5rem 0 1rem;
     }
 
     &__boks {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         padding: 0.5rem 0;
         border-bottom: @navLysGra 2px solid;
 
         &:last-child {
             border-bottom: none;
         }
-    }
 
-    .endre-lenke {
-        margin: 0.5rem 0 1rem;
-    }
-
-    .tabell {
-        tbody tr:first-child {
-            border-top: none;
-        }
-
-        th {
-            border-bottom: 0;
-            padding: 0.25rem 1rem 0.25rem 0;
-        }
-
-        td {
-            border-bottom: 0;
-            padding: 0.25rem 0.5rem 0.25rem 0;
-            overflow-wrap: break-word;
-        }
-    }
-
-    &__boks.bedriftinfo,
-    &__boks.kontaktinfo {
         .tabell {
+            margin-bottom: 1rem;
+            tbody tr:first-child {
+                border-top: none;
+            }
+
+            th,
+            td {
+                border-bottom: 0;
+                padding: 0.25rem 0.5rem 0.25rem 0;
+            }
+
             th {
                 width: 116px;
             }
+
             td {
-                max-width: 180px;
-                @media (max-width: 374px) {
-                    max-width: 135px;
+                padding: 0.25rem 0.5rem 0.25rem 0;
+                max-width: 138px;
+                overflow-wrap: break-word;
+                @media (min-width: 375px) {
+                    max-width: 170px;
                 }
             }
         }
-    }
 
-    &__boks.kontaktinfo,
-    &__boks.antall-arbeidstakere,
-    &__boks.yrkeskategorier,
-    &__boks.varighet,
-    &__boks.andre-opplysninger,
-    &__boks.aarsak {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
-    &__boks.antall-arbeidstakere {
-        th {
-            width: 140px;
+        .endre-lenke {
+            margin: 0 0 0.5rem;
         }
-    }
 
-    &__boks.yrkeskategorier,
-    &__boks.andre-opplysninger,
-    &__boks.aarsak {
+        .fra-til {
+            display: inline-block;
+            margin-right: 0.5rem;
+            width: 2rem;
+        }
+
         .tekst {
-            max-width: 329px;
-            padding: 1rem 1rem 0.5rem 0;
+            padding: 0.5rem 1rem 0.5rem 0;
         }
+
         .overskrift {
             font-weight: 600;
         }
     }
 
-    &__boks.varighet {
-        th {
-            width: 163px;
-        }
+    .feilmelding-send-inn {
+        margin-top: 0.5rem;
+        text-align: right;
+    }
+
+    .nav-veileder.nav-veileder--flytende {
+        display: none;
     }
 
     .nav-veilederpanel--kompakt.nav-veilederpanel--plakat {
-        margin-top: 3.125rem;
-        padding: 2rem 1rem;
-        padding-top: 4.25rem;
-    }
-
-    .nav-veilederpanel {
-        margin-bottom: 5rem;
-
-        &__content {
-            padding-bottom: 0;
-        }
-    }
-
-    .nav-veileder__frame svg,
-    .nav-veileder__frame img {
-        height: 100%;
+        margin-top: 0;
+        padding: 0;
     }
 
     .nav-veilederpanel--info {
-        border: 2px solid @navDypBlaLighten60;
+        border: 0;
     }
 }
 
 @media (min-width: @screen-sm) {
     .oppsummering {
-        margin: 0;
-
-        .endre-lenke {
-            margin: 0;
-            width: 10%;
-            text-align: right;
+        &__tittel-desktop {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            padding-bottom: 2rem;
         }
 
-        .tabell {
-            width: 90%;
-
-            th,
-            td {
-                border-bottom: 0;
-                padding: 0.25rem 1rem;
-            }
+        &__tittel-mobil {
+            display: none;
         }
 
-        &__boks.bedriftinfo,
-        &__boks.kontaktinfo {
+        &__boks {
+            flex-direction: row;
+
             .tabell {
+                margin-bottom: 0;
+                width: 90%;
                 td {
-                    max-width: 200px;
+                    max-width: none;
+                }
+                th,
+                td {
+                    border-bottom: 0;
+                    padding: 0.25rem 1rem 0.25rem 0.5rem;
                 }
             }
-        }
 
-        &__boks.kontaktinfo,
-        &__boks.antall-arbeidstakere,
-        &__boks.yrkeskategorier,
-        &__boks.varighet,
-        &__boks.andre-opplysninger,
-        &__boks.aarsak {
-            flex-direction: row;
-        }
-
-        &__boks.antall-arbeidstakere {
-            th {
-                width: 231px;
+            .endre-lenke {
+                width: 10%;
+                margin: 0;
+                text-align: right;
             }
-        }
 
-        &__boks.yrkeskategorier,
-        &__boks.andre-opplysninger,
-        &__boks.aarsak {
             .tekst {
-                max-width: 90%;
-                padding: 1rem;
+                width: 90%;
+                padding: 0.5rem;
             }
-        }
-        &__boks.varighet {
-            th {
-                width: 233px;
-            }
-        }
-
-        .nav-veilederpanel--kompakt.nav-veilederpanel--plakat {
-            margin-top: 3.125rem;
-            padding: 2rem;
-            padding-top: 4.25rem;
         }
 
         .nav-veilederpanel {
+            margin-bottom: 3rem;
+
             &__content {
                 padding-bottom: 1rem;
             }
+
+            &--info {
+                border: 2px solid @navDypBlaLighten60;
+            }
+
+            &--kompakt.nav-veilederpanel--plakat {
+                margin-top: 3.125rem;
+                padding: 2rem;
+                padding-top: 4.25rem;
+            }
+        }
+
+        .nav-veileder__frame svg,
+        .nav-veileder__frame img {
+            height: 100%;
+        }
+
+        .nav-veileder.nav-veileder--flytende {
+            display: initial;
         }
     }
 }

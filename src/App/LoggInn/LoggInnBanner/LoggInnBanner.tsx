@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sidetittel, Ingress } from 'nav-frontend-typografi';
+import { Sidetittel } from 'nav-frontend-typografi';
 import kontor from './kontor.svg';
 import './LoggInnBanner.less';
 
@@ -8,10 +8,10 @@ const LoggInnBanner = () => {
         <div className="logg-inn-banner">
             <div className="logg-inn-banner__container">
                 <div className="logg-inn-banner__tittel-og-tekst">
-                    <Sidetittel className="logg-inn-banner__tittel">Permitteringsskjema</Sidetittel>
-                    <Ingress className="logg-inn-banner__ingress">
-                        Innloggede tjenester for arbeidsgiver
-                    </Ingress>
+                    <Sidetittel className="logg-inn-banner__tittel">
+                        Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i
+                        arbeidstid
+                    </Sidetittel>
                 </div>
                 <div className="logg-inn-banner__bilder">
                     <img src={kontor} alt="" />

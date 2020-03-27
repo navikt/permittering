@@ -1,18 +1,27 @@
-import * as React from 'react';
-import { FunctionComponent, useState } from 'react';
+import React from 'react';
+import { useState } from 'react';
 import ModalWrapper from 'nav-frontend-modal';
 import Lenke from 'nav-frontend-lenker';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
 import { useHistory } from 'react-router-dom';
-import VerticalSpacer from '../VerticalSpacer';
+import VerticalSpacer from '../../VerticalSpacer';
+import './AvbrytOgLagreSkjema.less';
 
-export const AvbrytOgLagreSkjema: FunctionComponent = () => {
+export const AvbrytOgLagreSkjema = () => {
     const [isOpen, setOpen] = useState<boolean>(false);
     const history = useHistory();
+
     return (
         <>
-            <Lenke href={'#'} onClick={() => setOpen(true)}>
+            <Lenke
+                className="lagre-lenke"
+                href="#"
+                onClick={e => {
+                    e.preventDefault();
+                    setOpen(true);
+                }}
+            >
                 Lagre skjema og gå til oversikten
             </Lenke>
             <ModalWrapper
@@ -21,7 +30,7 @@ export const AvbrytOgLagreSkjema: FunctionComponent = () => {
                 closeButton={true}
                 contentLabel="Min modalrute"
             >
-                <div style={{ padding: '1rem' }}>
+                <div className="avbryt-modal-innhold">
                     <Undertittel>Lagre og gå til oversikten?</Undertittel>
                     <VerticalSpacer rem={1} />
                     <Normaltekst>
@@ -29,7 +38,7 @@ export const AvbrytOgLagreSkjema: FunctionComponent = () => {
                         kan fortsette utfylling senere.
                     </Normaltekst>
                     <VerticalSpacer rem={2} />
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <div className="avbryt-modal-innhold__knapper">
                         <Hovedknapp
                             onClick={() => {
                                 history.push('/');
