@@ -7,11 +7,11 @@ import { redirectTilLoginPath } from '../../paths.json';
 import skjema from './skjema.svg';
 import './Logginn.less';
 
-const LoggInn = () => {
-    const redirectTilLogin = () => {
-        window.location.href = redirectTilLoginPath;
-    };
+export const redirectTilLogin = () => {
+    window.location.href = redirectTilLoginPath;
+};
 
+const LoggInn = () => {
     return (
         <div className="innloggingsside">
             <LoggInnBanner />

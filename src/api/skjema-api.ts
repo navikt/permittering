@@ -1,6 +1,7 @@
 import { OpprettSkjema, Permitteringsskjema } from '../types/permitteringsskjema';
 import axios from 'axios';
 import { skjemaListPath, skjemaPath, skjemaSendInnPath, skjemaAvbrytPath } from '../paths.json';
+import { redirectTilLogin } from '../App/LoggInn/LoggInn';
 
 const api = axios.create({
     baseURL: '',
@@ -13,7 +14,7 @@ api.interceptors.response.use(
     response => response,
     error => {
         if (error.response.status === 401) {
-            // redirectToLogin();
+            redirectTilLogin();
         } else if (error.response.status === 403) {
             // redirectToIngenTilgang();
         } else {
