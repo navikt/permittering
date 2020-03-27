@@ -1,8 +1,12 @@
+import 'react-app-polyfill/ie11';
+import 'abortcontroller-polyfill/dist/polyfill-patch-fetch';
+import 'core-js';
+import 'unorm/lib/unorm';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { init as Sentry } from '@sentry/browser';
-import 'core-js';
-import 'unorm/lib/unorm';
+
 import App from './App/App';
 
 Sentry({
