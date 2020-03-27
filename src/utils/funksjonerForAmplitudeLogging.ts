@@ -45,19 +45,20 @@ export const loggBedriftsInfo = async (organisasjon: Organisasjon) => {
         await hentOverordnetEnhet(organisasjon.ParentOrganizationNumber).then(enhet => {
             infoFraEeregJuridisk = enhet;
         });
-        if (infoFraEereg.naeringskode1.kode.startsWith('84')) {
+        if (infoFraEereg.naeringskode1.kode && infoFraEereg.naeringskode1.kode.startsWith('84')) {
             amplitude.logEvent('#permitteringsskjema-forside OFFENTLIG');
-            if (infoFraEereg.institusjonellSektorkode.kode === '6500') {
+            if (
+                infoFraEereg.institusjonellSektorkode.kode &&
+                infoFraEereg.institusjonellSektorkode.kode === '6500'
+            ) {
                 amplitude.logEvent('#permitteringsskjema-forside  Kommuneforvaltningen');
             }
-            if (infoFraEereg.institusjonellSektorkode.kode === '6100') {
+            if (
+                infoFraEereg.institusjonellSektorkode.kode &&
+                infoFraEereg.institusjonellSektorkode.kode === '6100'
+            ) {
                 amplitude.logEvent('#permitteringsskjema-forside  Statsforvaltningen');
             }
-
-            amplitude.logEvent(
-                '#permitteringsskjema-forside  kode er: ',
-                infoFraEereg.institusjonellSektorkode.kode
-            );
         } else {
             amplitude.logEvent('#permitteringsskjema-forside  PRIVAT');
         }
