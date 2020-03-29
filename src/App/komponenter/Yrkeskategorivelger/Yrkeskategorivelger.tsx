@@ -1,12 +1,18 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import { stringify } from 'querystring';
 import Autocomplete from '@navikt/nap-autocomplete';
 import { Label } from 'nav-frontend-skjema';
+import { Normaltekst } from 'nav-frontend-typografi';
+import YrkeskategoriValgt from './YrkeskategoriValgteYrker';
+import { stillingstitlerPath } from '../../../paths.json';
+import './Yrkeskategorivelger.less';
+import SkjemaContext from '../../SkjemaContext/SkjemaContext';
 
 const getUpdatedSuggestions = async (path: string, q: string) => {
     const result = await fetch(path + '?' + stringify({ q }));
     const data = await result.json();
     const suggestions: { key: any; value: any; styrk08: any }[] = [];
+
     data.forEach((d: any) => {
         suggestions.push({
             key: d.konseptId,
@@ -16,34 +22,60 @@ const getUpdatedSuggestions = async (path: string, q: string) => {
     });
     return suggestions;
 };
+
 export const Yrkeskategorivelger: FunctionComponent<any> = props => {
-    const [suggestions, setSuggestions] = React.useState<any>([]);
-    const [value, setValue] = React.useState('');
+    // const context = useContext(SkjemaContext);
+    const [suggestions, setSuggestions] = useState<any>([]);
+    const [value, setValue] = useState('');
+    const [selected, setSelected] = React.useState<any[]>([]);
+
+    /* const leggTilYrke = (nyYrkeskategori: array<any>) => {
+        const yrkeskategoriCopy = [...yrkeskategori];
+
+        const nyKategori = {
+            key: d.konseptId,
+            value: d.label,
+            styrk08: d.styrk08,
+        };
+        yrkeskategoriCopy.push(nyKategori);
+        context.endreSkjemaVerdi('yrkeskategori', yrkeskategoriCopy);
+    }); */
+
     return (
-        <>
-            <Label htmlFor={'yrkeskategori'}>Hvilke yrkeskategorier tilhører de berørte?</Label>
+        <div className="yrkeskategorier">
+            <Label htmlFor={'yrkeskategori'} id="yrkeskategori-label">
+                Hvilke yrkeskategorier tilhører de berørte?
+            </Label>
+            <Normaltekst id="autocomplete-input-description">For eksempel: kokk</Normaltekst>
             <Autocomplete
                 suggestions={suggestions}
                 value={value}
-                onChange={async (v: any) => {
-                    setValue(v);
-                    const newSuggestionList = await getUpdatedSuggestions(props.searchPath, v);
+                onChange={async (value: any) => {
+                    setValue(value);
+                    const newSuggestionList = await getUpdatedSuggestions(
+                        stillingstitlerPath,
+                        value
+                    );
                     setSuggestions(newSuggestionList);
                 }}
-                id="test"
-                placeholder="Søk etter yrke"
-                ariaLabel="test"
+                id="yrkeskategori-input"
+                placeholder="Skriv inn og velg fra listen"
+                ariaLabel="yrkeskategori-label"
                 name="yrkeskategori"
-                onSelect={d => {
-                    const existing = props.selected.find((e: any) => e.key === d.key);
-                    if (existing === undefined) {
-                        const selectedCopy = [...props.selected];
-                        selectedCopy.push(d);
-                        props.setSelected(selectedCopy);
+                aria-describedby="autocomplete-input-description"
+                onSelect={valgt => {
+                    const existing = selected.find((e: any) => e.key === valgt.key);
+                    if (!existing) {
+                        // const selectedCopy = [...selected];
+                        selected.push(valgt);
+                        setSelected(selected);
+                        // leggTilYrke(valgt);
                         setValue('');
                     }
                 }}
             />
-        </>
+            {selected && <Normaltekst>Du har valgt:</Normaltekst>}
+            <YrkeskategoriValgt selected={selected} setSelected={setSelected} />
+        </div>
     );
 };

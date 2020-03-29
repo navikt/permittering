@@ -17,11 +17,13 @@ import { lagTekstBasertPaSkjemaType } from '../Side4-oppsummering/oppsummering-u
 import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
 import './Side2.less';
+import { Yrkeskategorivelger } from '../../komponenter/Yrkeskategorivelger/Yrkeskategorivelger';
 
 const Side2: FunctionComponent<SkjemaSideProps> = () => {
     const [datoFra, setDatoFra] = useState(new Date());
     const [datoTil, setDatoTil] = useState(undefined);
     const [feilMeldingAntallBerort, setFeilmeldingAntallBerort] = useState('');
+
     const featureToggleContext = useContext(FeatureToggleContext);
     const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
     const history = useHistory();
@@ -58,7 +60,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
     };
 
     const endreFritekstFelt = (key: string, value: string) => {
-        const fritekstFelter: any = { årsak, yrker, annet };
+        const fritekstFelter: any = { årsak, annet };
         fritekstFelter[key] = value;
         context.endreSkjemaVerdi('fritekst', mergeFritekst(fritekstFelter));
     };
@@ -90,6 +92,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
                         />
                     </div>
                 )}
+
                 <div className="skjema-innhold__side-2-text-area">
                     <Textarea
                         label={lagTekstBasertPaSkjemaType(context.skjema.type)}
@@ -98,15 +101,11 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
                         onChange={event => endreFritekstFelt('årsak', event.currentTarget.value)}
                     />
                 </div>
+
                 <div className="skjema-innhold__side-2-text-area">
-                    <Textarea
-                        description="For eksempel kokk, sjåfør eller revisor"
-                        label="Hvilke yrkeskategorier tilhører de berørte?"
-                        value={yrker}
-                        maxLength={1000}
-                        onChange={event => endreFritekstFelt('yrker', event.currentTarget.value)}
-                    />
+                    <Yrkeskategorivelger />
                 </div>
+
                 <Element className="skjema-innhold__side-2-dato-overskrift">
                     For hvilken periode gjelder dette?
                 </Element>

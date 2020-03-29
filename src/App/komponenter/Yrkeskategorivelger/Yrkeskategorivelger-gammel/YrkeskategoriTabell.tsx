@@ -1,7 +1,7 @@
 import React from 'react';
 import 'nav-frontend-tabell-style';
 import { Input } from 'nav-frontend-skjema';
-import SlettKnapp from '../../../komponenter/SlettKnapp/SlettKnapp';
+import SlettKnapp from './SlettKnapp/SlettKnapp';
 
 const YrkeskategoriTabell: React.FunctionComponent<any> = ({ selected, setSelected }) => {
     return (
