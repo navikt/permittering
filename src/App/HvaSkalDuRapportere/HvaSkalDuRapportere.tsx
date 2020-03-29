@@ -11,6 +11,7 @@ import './HvaSkalDuRapportere.less';
 import Dekorator from '../komponenter/Dekorator/Dekorator';
 import environment from '../../utils/environment';
 import { loggBedriftsInfo, loggSkjemaValg } from '../../utils/funksjonerForAmplitudeLogging';
+import HvitSideBoks from '../komponenter/HvitSideBoks';
 
 const HvaSkalDuRapportere = () => {
     const history = useHistory();
@@ -63,7 +64,7 @@ const HvaSkalDuRapportere = () => {
     return (
         <>
             <Dekorator sidetittel={sidetittel} />
-            <div className="hva-skal-du-rapportere">
+            <HvitSideBoks classname="hva-skal-du-rapportere">
                 <Systemtittel>Hva vil du informere NAV om?</Systemtittel>
                 <RadioPanelGruppe
                     name="samplename"
@@ -100,7 +101,7 @@ const HvaSkalDuRapportere = () => {
                 >
                     Gå til skjema
                 </Hovedknapp>
-            </div>
+            </HvitSideBoks>
         </>
     );
 };

@@ -53,7 +53,7 @@ const generateMock = async () => {
     const mockdata = await fetchMockData();
     const scrambled = mockdata.map(s => ({
         label: s.label,
-        styrk08: Math.floor(1000 + Math.random() * 9000),
+        styrk08: '' + Math.floor(1000 + Math.random() * 9000),
         konseptId: Math.floor(20000 + Math.random() * 400000),
     }));
     fs.writeFileSync(targetPath, JSON.stringify(scrambled));
