@@ -2,7 +2,7 @@ export interface OrganisasjonFraEnhetsregisteret {
     organisasjonsnummer: string;
     navn: string;
     organisasjonsform: organisasjonsform;
-    naeringskode1: naeringskode1;
+    naeringskode1?: naeringskode1;
     naeringskode2: naeringskode2;
     naeringskode3: naeringskode3;
     postadresse: postadresse;

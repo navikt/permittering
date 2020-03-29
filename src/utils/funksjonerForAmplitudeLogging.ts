@@ -45,7 +45,7 @@ export const loggBedriftsInfo = async (organisasjon: Organisasjon) => {
         await hentOverordnetEnhet(organisasjon.ParentOrganizationNumber).then(enhet => {
             infoFraEeregJuridisk = enhet;
         });
-        if (infoFraEereg.naeringskode1.kode && infoFraEereg.naeringskode1.kode.startsWith('84')) {
+        if (infoFraEereg.naeringskode1 && infoFraEereg.naeringskode1.kode.startsWith('84')) {
             amplitude.logEvent('#permitteringsskjema-forside OFFENTLIG');
             if (
                 infoFraEereg.institusjonellSektorkode.kode &&
