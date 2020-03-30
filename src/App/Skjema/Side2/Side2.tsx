@@ -29,7 +29,9 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
     const history = useHistory();
     const context = useContext(SkjemaContext);
 
-    loggNavarendeSteg('generelle-opplysninger');
+    useEffect(() => {
+        loggNavarendeSteg('generelle-opplysninger');
+    }, []);
 
     useEffect(() => {
         if (context.skjema.ukjentSluttDato) {

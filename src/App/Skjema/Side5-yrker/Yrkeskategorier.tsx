@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent, useContext, useEffect } from 'react';
 import SkjemaContext from '../../SkjemaContext/SkjemaContext';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import { SkjemaSideProps } from '../use-skjema-steg';
@@ -12,7 +12,9 @@ const Yrkeskategorier: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
     const [selected, setSelected] = React.useState<any>([]);
 
-    loggNavarendeSteg('yrkeskategorier');
+    useEffect(() => {
+        loggNavarendeSteg('yrkeskategorier');
+    }, []);
 
     return (
         <>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.less';
 import { basePath } from '../paths.json';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -19,7 +19,9 @@ import Yrkeskategorier from './Skjema/Side5-yrker/Yrkeskategorier';
 import { brukerLoggetPa } from '../utils/funksjonerForAmplitudeLogging';
 
 function App() {
-    brukerLoggetPa();
+    useEffect(() => {
+        brukerLoggetPa();
+    }, []);
 
     return (
         <IntlProvider locale={'nb'}>
