@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext, useState } from 'react';
+import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
@@ -21,7 +21,9 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
     const closeModal = () => setModal(false);
     const openModal = () => setModal(true);
 
-    loggNavarendeSteg('legg-til-personer');
+    useEffect(() => {
+        loggNavarendeSteg('legg-til-personer');
+    }, []);
 
     const leggTilPersoner = (nyePersoner: Array<any>) => {
         const personerCopy = [...personer];

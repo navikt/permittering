@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext, useState } from 'react';
+import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
 import Input from 'nav-frontend-skjema/lib/input';
@@ -19,7 +19,9 @@ const Side1: FunctionComponent<SkjemaSideProps> = () => {
     const [feilMeldingEpost, setFeilmeldingEpost] = useState('');
     const [feilMeldingTelefonNr, setFeilmeldingTelefonNr] = useState('');
 
-    loggNavarendeSteg('kontaktinformasjon');
+    useEffect(() => {
+        loggNavarendeSteg('kontaktinformasjon');
+    }, []);
 
     return (
         <>

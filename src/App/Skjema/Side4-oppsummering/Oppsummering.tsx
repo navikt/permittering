@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext, useState } from 'react';
+import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
 import { Feilmelding, Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
@@ -53,7 +53,9 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
         ? `/permittering/skjema/hvem-rammes/${context.skjema.id}`
         : `/permittering/skjema/generelle-opplysninger/${context.skjema.id}`;
 
-    loggNavarendeSteg('oppsummeringsside');
+    useEffect(() => {
+        loggNavarendeSteg('oppsummeringsside');
+    }, []);
 
     return (
         <>
