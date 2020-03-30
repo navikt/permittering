@@ -17,10 +17,12 @@ import { lagTekstBasertPaSkjemaType } from '../Side4-oppsummering/oppsummering-u
 import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
 import './Side2.less';
+import { Permitteringsårsaksvelger } from '../../komponenter/PermitteringsÅrsaksVelger/PermitteringsÅrsaksVelger';
 
 const Side2: FunctionComponent<SkjemaSideProps> = () => {
     const [datoFra, setDatoFra] = useState(new Date());
     const [datoTil, setDatoTil] = useState(undefined);
+    const [valgtårsakskode, setAArsakskoder] = useState('');
     const [feilMeldingAntallBerort, setFeilmeldingAntallBerort] = useState('');
     const featureToggleContext = useContext(FeatureToggleContext);
     const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
@@ -93,13 +95,20 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
                     </div>
                 )}
                 <div className="skjema-innhold__side-2-text-area">
-                    <Textarea
-                        label={lagTekstBasertPaSkjemaType(context.skjema.type)}
-                        value={årsak}
-                        maxLength={1000}
-                        onChange={event => endreFritekstFelt('årsak', event.currentTarget.value)}
-                    />
+                    <Permitteringsårsaksvelger årsak={valgtårsakskode} setÅrsak={setAArsakskoder} />
                 </div>
+                {valgtårsakskode === 'Andre årsaker' && (
+                    <div className="skjema-innhold__side-2-text-area">
+                        <Textarea
+                            label={lagTekstBasertPaSkjemaType(context.skjema.type)}
+                            value={årsak}
+                            maxLength={1000}
+                            onChange={event =>
+                                endreFritekstFelt('årsak', event.currentTarget.value)
+                            }
+                        />
+                    </div>
+                )}
                 <div className="skjema-innhold__side-2-text-area">
                     <Textarea
                         description="For eksempel kokk, sjåfør eller revisor"
