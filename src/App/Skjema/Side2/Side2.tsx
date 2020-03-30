@@ -17,7 +17,7 @@ import { lagTekstBasertPaSkjemaType } from '../Side4-oppsummering/oppsummering-u
 import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
 import './Side2.less';
-import { Yrkeskategorivelger } from '../../komponenter/Yrkeskategorivelger/Yrkeskategorivelger';
+import Yrkeskategorivelger from '../../komponenter/Yrkeskategorivelger/Yrkeskategorivelger';
 
 const Side2: FunctionComponent<SkjemaSideProps> = () => {
     const [datoFra, setDatoFra] = useState(new Date());
@@ -40,15 +40,11 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
     }, [context.skjema.sluttDato, context.skjema.ukjentSluttDato]);
 
     let årsak = '';
-    let yrker = '';
     let annet = '';
     if (context.skjema.fritekst) {
         const existerendeFelter = splittOppFritekst(context.skjema.fritekst);
         if (existerendeFelter.årsak) {
             årsak = existerendeFelter.årsak;
-        }
-        if (existerendeFelter.yrker) {
-            yrker = existerendeFelter.yrker;
         }
         if (existerendeFelter.annet) {
             annet = existerendeFelter.annet;

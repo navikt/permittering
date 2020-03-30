@@ -42,6 +42,9 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
         return;
     };
 
+    const yrker2 = context.skjema.yrkeskategorier
+        ? context.skjema.yrkeskategorier[0].label
+        : 'undefined';
     const fraDato = context.skjema.startDato
         ? formatterDato(new Date(context.skjema.startDato))
         : '';
@@ -143,6 +146,20 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                             </div>
                             <div className="endre-lenke">
                                 <Lenke href={endreantallberørteLenke}>Endre</Lenke>
+                            </div>
+                        </div>
+
+                        <div className="oppsummering__boks yrkeskategorier">
+                            <div className="tekst">
+                                <Normaltekst className="overskrift">Yrkeskategorier</Normaltekst>
+                                <Normaltekst>{yrker2}</Normaltekst>
+                            </div>
+                            <div className="endre-lenke">
+                                <Lenke
+                                    href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
+                                >
+                                    Endre
+                                </Lenke>
                             </div>
                         </div>
 

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { stringify } from 'querystring';
 import Autocomplete from '@navikt/nap-autocomplete';
 import { Label } from 'nav-frontend-skjema';
@@ -7,39 +7,58 @@ import YrkeskategoriValgt from './YrkeskategoriValgteYrker';
 import { stillingstitlerPath } from '../../../paths.json';
 import './Yrkeskategorivelger.less';
 import SkjemaContext from '../../SkjemaContext/SkjemaContext';
+import { Yrkeskategori } from '../../../types/permitteringsskjema';
+
+interface Sokeforslag {
+    key: any;
+    value: any;
+    styrk08?: any;
+}
 
 const getUpdatedSuggestions = async (path: string, q: string) => {
     const result = await fetch(path + '?' + stringify({ q }));
     const data = await result.json();
-    const suggestions: { key: any; value: any; styrk08: any }[] = [];
+    const suggestions: Sokeforslag[] = [];
 
-    data.forEach((d: any) => {
+    data.forEach((kategori: Yrkeskategori) => {
         suggestions.push({
-            key: d.konseptId,
-            value: d.label,
-            styrk08: d.styrk08,
+            key: kategori.konseptId,
+            value: kategori.label,
+            styrk08: kategori.styrk08,
         });
     });
     return suggestions;
 };
 
-export const Yrkeskategorivelger: FunctionComponent<any> = props => {
-    // const context = useContext(SkjemaContext);
+const Yrkeskategorivelger = () => {
+    const context = useContext(SkjemaContext);
     const [suggestions, setSuggestions] = useState<any>([]);
     const [value, setValue] = useState('');
     const [selected, setSelected] = React.useState<any[]>([]);
+    let { yrkeskategorier = [] } = context.skjema;
 
-    /* const leggTilYrke = (nyYrkeskategori: array<any>) => {
-        const yrkeskategoriCopy = [...yrkeskategori];
+    const leggTilYrke = (nyYrkeskategori: Sokeforslag) => {
+        const yrkeskategorierCopy = [...yrkeskategorier];
+        console.log('yrkeskategorierCopy', yrkeskategorierCopy);
+        console.log('nyYrkeskategori', nyYrkeskategori);
 
         const nyKategori = {
-            key: d.konseptId,
-            value: d.label,
-            styrk08: d.styrk08,
+            konseptId: nyYrkeskategori.key,
+            label: nyYrkeskategori.value,
+            styrk08: nyYrkeskategori.styrk08,
         };
-        yrkeskategoriCopy.push(nyKategori);
-        context.endreSkjemaVerdi('yrkeskategori', yrkeskategoriCopy);
-    }); */
+        console.log('nyKategori', nyKategori);
+        yrkeskategorierCopy.push(nyKategori);
+        console.log('yrkeskategorierCopyppdt', yrkeskategorierCopy);
+        context.endreSkjemaVerdi('yrkeskategorier', yrkeskategorierCopy);
+    };
+
+    const fjernYrkeskategori = (nyYrkeskategori: Sokeforslag) => {
+        const yrkeskategorierCopy = [...yrkeskategorier];
+        let foundIndex = yrkeskategorierCopy.findIndex(e => e.konseptId === nyYrkeskategori.key);
+        yrkeskategorierCopy.splice(foundIndex, 1);
+        context.endreSkjemaVerdi('yrkeskategorier', yrkeskategorierCopy);
+    };
 
     return (
         <div className="yrkeskategorier">
@@ -64,18 +83,24 @@ export const Yrkeskategorivelger: FunctionComponent<any> = props => {
                 name="yrkeskategori"
                 aria-describedby="autocomplete-input-description"
                 onSelect={valgt => {
-                    const existing = selected.find((e: any) => e.key === valgt.key);
-                    if (!existing) {
-                        // const selectedCopy = [...selected];
-                        selected.push(valgt);
-                        setSelected(selected);
-                        // leggTilYrke(valgt);
+                    console.log('valgt', valgt);
+                    const finnesAllerede = selected.find((e: Sokeforslag) => e.key === valgt.key);
+                    if (!finnesAllerede) {
+                        console.log('selected:', selected);
+                        leggTilYrke(valgt);
+                        setSelected([...selected, valgt]);
                         setValue('');
                     }
                 }}
             />
-            {selected && <Normaltekst>Du har valgt:</Normaltekst>}
-            <YrkeskategoriValgt selected={selected} setSelected={setSelected} />
+            {selected.length ? <Normaltekst>Du har valgt:</Normaltekst> : null}
+            <YrkeskategoriValgt
+                selected={selected}
+                setSelected={setSelected}
+                fjernYrkeskategori={fjernYrkeskategori}
+            />
         </div>
     );
 };
+
+export default Yrkeskategorivelger;
