@@ -10,7 +10,6 @@ import './Forside.less';
 import Dekorator from '../komponenter/Dekorator/Dekorator';
 import { loggNavarendeSteg } from '../../utils/funksjonerForAmplitudeLogging';
 import OversiktForMobil from './oversiktForMobil/oversiktForMobil';
-import { hardkodedeSkjema } from '../../hardkodetListeMedSkjema';
 import InfoOmMeldepliktBoks from './InfoOmMeldepliktBoks/InfoOmMeldepliktBoks';
 
 const Forside: FunctionComponent = () => {
@@ -21,12 +20,9 @@ const Forside: FunctionComponent = () => {
         'Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid';
 
     useEffect(() => {
+        loggNavarendeSteg('oversikt-tidligere-skjema');
         hentAlle().then(setSkjemaer);
     }, []);
-
-    loggNavarendeSteg('oversikt-tidligere-skjema');
-    console.log(skjemaer);
-    console.log(hardkodedeSkjema);
 
     return (
         <>

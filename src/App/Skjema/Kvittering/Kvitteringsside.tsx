@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import Lenkepanel from 'nav-frontend-lenkepanel/lib';
 import HvitSideBoks from '../../komponenter/HvitSideBoks';
@@ -12,7 +12,9 @@ const Kvitteringsside = () => {
     const sidetittel =
         'Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid';
 
-    loggNavarendeSteg('kvittering');
+    useEffect(() => {
+        loggNavarendeSteg('kvittering');
+    }, []);
 
     return (
         <>
