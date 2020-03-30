@@ -50,48 +50,6 @@
     }
 }
 
-@media (max-width: @screen-sm-min) {
-    .hva-skal-du-rapportere {
-        background-color: white;
-        display: flex;
-        flex-direction: column;
-        align-self: center;
-
-        .typo-systemtittel {
-            margin-left: 1rem;
-        }
-
-        .inputPanelGruppe__inner {
-            .radioPanel {
-                width: 80%;
-            }
-
-            .inputPanel {
-                margin-bottom: 0.5rem;
-                width: 90%;
-            }
-        }
-
-        &__forklaring-boks {
-            margin: 1.5rem 1rem 0 1rem;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-
-            .forklaring {
-                width: 90%;
-                margin: 0.5rem 0rem 0.5rem 0rem;
-            }
-        }
-
-        &__bedriftsDropdown {
-            margin: 2rem;
-        }
-    }
-}
-
 @media (max-width: @screen-md-min) {
     .hva-skal-du-rapportere {
         background-color: white;
@@ -110,12 +68,49 @@
             align-items: center;
 
             .radioPanel {
-                width: 75%;
+                width: 90%;
             }
 
             .inputPanel {
                 margin-bottom: 0.5rem;
             }
+        }
+    }
+}
+
+@media (max-width: @screen-sm-min) {
+    .hva-skal-du-rapportere {
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+
+        .inputPanelGruppe__inner {
+            .radioPanel {
+                width: 80%;
+            }
+
+            .inputPanel {
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        &__forklaring-boks {
+            margin: 1.5rem 1rem 0 1rem;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-self: center;
+
+            .forklaring {
+                width: 90%;
+                margin-bottom: 1rem;
+            }
+        }
+
+        &__bedriftsDropdown {
+            margin: 2rem 0 2rem 0;
         }
     }
 }
