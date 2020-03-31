@@ -54,6 +54,7 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
         : `/permittering/skjema/generelle-opplysninger/${context.skjema.id}`;
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         loggNavarendeSteg('oppsummeringsside');
     }, []);
 

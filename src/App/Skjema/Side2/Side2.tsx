@@ -28,6 +28,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         loggNavarendeSteg('generelle-opplysninger');
     }, []);
 
