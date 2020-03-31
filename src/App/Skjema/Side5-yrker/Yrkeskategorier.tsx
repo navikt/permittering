@@ -13,6 +13,7 @@ const Yrkeskategorier: FunctionComponent<SkjemaSideProps> = () => {
     const [selected, setSelected] = React.useState<any>([]);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         loggNavarendeSteg('yrkeskategorier');
     }, []);
 

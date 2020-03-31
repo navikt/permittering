@@ -36,6 +36,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
     let { yrkeskategorier = [] } = context.skjema;
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         loggNavarendeSteg('generelle-opplysninger');
     }, []);
 

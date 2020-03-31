@@ -20,6 +20,7 @@ const Side1: FunctionComponent<SkjemaSideProps> = () => {
     const [feilMeldingTelefonNr, setFeilmeldingTelefonNr] = useState('');
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         loggNavarendeSteg('kontaktinformasjon');
     }, []);
 

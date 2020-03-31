@@ -22,6 +22,7 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
     const openModal = () => setModal(true);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         loggNavarendeSteg('legg-til-personer');
     }, []);
 
