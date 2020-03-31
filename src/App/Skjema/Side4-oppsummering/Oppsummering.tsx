@@ -24,6 +24,7 @@ import veilederIkon from './gjenstand.svg';
 import './Oppsummering.less';
 import environment from '../../../utils/environment';
 import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
+import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 
 const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
@@ -36,8 +37,7 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     const existerendeFelter = context.skjema.fritekst
         ? splittOppFritekst(context.skjema.fritekst)
         : null;
-
-    const årsak = existerendeFelter && existerendeFelter.årsak ? existerendeFelter.årsak : '';
+    const [lesbarårsakskode, setLesbarÅrsakskode] = useState<string | undefined>(undefined);
     const yrker = existerendeFelter && existerendeFelter.yrker ? existerendeFelter.yrker : '';
     const annet = existerendeFelter && existerendeFelter.annet ? existerendeFelter.annet : '';
 
@@ -77,6 +77,9 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
         window.scrollTo(0, 0);
         loggNavarendeSteg('oppsummeringsside');
     }, []);
+    useEffect(() => {
+        finnÅrsakstekst(context.skjema.årsakskode).then(setLesbarÅrsakskode);
+    }, [context.skjema.årsakskode]);
 
     const onSendClickLogging = () => {
         const antallBerorte = context.skjema.antallBerørt ? context.skjema.antallBerørt : 0;
@@ -145,27 +148,6 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                             </div>
                         </div>
 
-                        <div className="oppsummering__boks aarsak">
-                            <Undertittel className="oppsummering__tittel-mobil">
-                                Generelle opplysninger
-                            </Undertittel>
-                            <div className="tekst">
-                                <Normaltekst className="overskrift">
-                                    {lagTekstBasertPaSkjemaType(context.skjema.type)}
-                                </Normaltekst>
-                                <Normaltekst>
-                                    <SjekkOmFyltUt verdi={årsak} />
-                                </Normaltekst>
-                            </div>
-                            <div className="endre-lenke">
-                                <Lenke
-                                    href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
-                                >
-                                    Endre
-                                </Lenke>
-                            </div>
-                        </div>
-
                         <div className="oppsummering__boks antall-arbeidstakere">
                             <div className="tekst">
                                 <Normaltekst className="overskrift">Antall berørte:</Normaltekst>
@@ -176,6 +158,32 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                             </div>
                             <div className="endre-lenke">
                                 <Lenke href={endreantallberørteLenke}>Endre</Lenke>
+                            </div>
+                        </div>
+
+                        <div className="oppsummering__boks aarsak">
+                            <Undertittel className="oppsummering__tittel-mobil">
+                                Generelle opplysninger
+                            </Undertittel>
+                            <div className="tekst">
+                                <Normaltekst className="overskrift">
+                                    {lagTekstBasertPaSkjemaType(context.skjema.type)}
+                                </Normaltekst>
+                                <Normaltekst>
+                                    {context.skjema.årsakskode !== 'ANDRE_ÅRSAKER' && (
+                                        <SjekkOmFyltUt verdi={lesbarårsakskode} />
+                                    )}
+                                    {context.skjema.årsakskode === 'ANDRE_ÅRSAKER' && (
+                                        <SjekkOmFyltUt verdi={context.skjema.årsakstekst} />
+                                    )}
+                                </Normaltekst>
+                            </div>
+                            <div className="endre-lenke">
+                                <Lenke
+                                    href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
+                                >
+                                    Endre
+                                </Lenke>
                             </div>
                         </div>
 
