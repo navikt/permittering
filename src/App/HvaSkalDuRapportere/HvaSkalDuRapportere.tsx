@@ -10,7 +10,11 @@ import { BedriftsVelger } from '../komponenter/Bedriftsvelger/Bedriftsvelger';
 import './HvaSkalDuRapportere.less';
 import Dekorator from '../komponenter/Dekorator/Dekorator';
 import environment from '../../utils/environment';
-import { loggBedriftsInfo, loggSkjemaValg } from '../../utils/funksjonerForAmplitudeLogging';
+import {
+    loggAntallUnderenheter,
+    loggBedriftsInfo,
+    loggSkjemaValg,
+} from '../../utils/funksjonerForAmplitudeLogging';
 import HvitSideBoks from '../komponenter/HvitSideBoks';
 
 const HvaSkalDuRapportere = () => {
@@ -24,10 +28,7 @@ const HvaSkalDuRapportere = () => {
 
     useEffect(() => {
         if (environment.MILJO === 'prod-sbs') {
-            const fullBedrift = organisasjoner.filter(
-                org => org.OrganizationNumber === valgtOrganisasjon
-            )[0];
-            loggBedriftsInfo(fullBedrift);
+            loggAntallUnderenheter(organisasjoner.length);
         }
     }, [valgtOrganisasjon, organisasjoner]);
 
