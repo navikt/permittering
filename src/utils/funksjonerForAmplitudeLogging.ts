@@ -141,7 +141,6 @@ export const loggBedriftsInfo = async (organisasjon: Organisasjon): Promise<stri
 
 export const loggAntallUnderenheter = (antall: number) => {
     let skalLogges = '#permitteringsskjema antall underenheter: ';
-
     switch (true) {
         case antall === 1:
             skalLogges += '1';
@@ -170,7 +169,7 @@ export const loggProsentAndelPermittert = (
     antallAnsatte: number,
     antallBerorte: number
 ) => {
-    const prosentAndel = antallBerorte / antallAnsatte;
+    const prosentAndel = (antallBerorte / antallAnsatte) * 100;
     let skalLogges = '#permitteringsskjema ' + skjematype;
     switch (true) {
         case prosentAndel <= 10:
