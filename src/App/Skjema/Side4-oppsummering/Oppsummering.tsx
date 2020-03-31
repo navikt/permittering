@@ -32,7 +32,6 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
         : null;
 
     const årsak = existerendeFelter && existerendeFelter.årsak ? existerendeFelter.årsak : '';
-    const yrker = existerendeFelter && existerendeFelter.yrker ? existerendeFelter.yrker : '';
     const annet = existerendeFelter && existerendeFelter.annet ? existerendeFelter.annet : '';
 
     const lagAntallBerorteTekst = () => {
@@ -42,9 +41,10 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
         return;
     };
 
-    const yrker2 = context.skjema.yrkeskategorier
-        ? context.skjema.yrkeskategorier[0].label
-        : 'undefined';
+    const yrker = context.skjema.yrkeskategorier
+        ? context.skjema.yrkeskategorier.length
+        : undefined;
+
     const fraDato = context.skjema.startDato
         ? formatterDato(new Date(context.skjema.startDato))
         : '';
@@ -58,7 +58,8 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
 
     useEffect(() => {
         loggNavarendeSteg('oppsummeringsside');
-    }, []);
+        console.log('context.skjema.yrkeskategorier', context.skjema.yrkeskategorier);
+    }, [context.skjema.yrkeskategorier]);
 
     return (
         <>
@@ -154,25 +155,7 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                         <div className="oppsummering__boks yrkeskategorier">
                             <div className="tekst">
                                 <Normaltekst className="overskrift">Yrkeskategorier</Normaltekst>
-                                <Normaltekst>{yrker2}</Normaltekst>
-                            </div>
-                            <div className="endre-lenke">
-                                <Lenke
-                                    href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
-                                >
-                                    Endre
-                                </Lenke>
-                            </div>
-                        </div>
-
-                        <div className="oppsummering__boks yrkeskategorier">
-                            <div className="tekst">
-                                <Normaltekst className="overskrift">
-                                    Hvilke yrkeskategorier tilhører de berørte?
-                                </Normaltekst>
-                                <Normaltekst>
-                                    <SjekkOmFyltUt verdi={yrker} />
-                                </Normaltekst>
+                                <Normaltekst>{yrker}</Normaltekst>
                             </div>
                             <div className="endre-lenke">
                                 <Lenke

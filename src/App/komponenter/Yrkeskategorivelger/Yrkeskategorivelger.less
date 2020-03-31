@@ -1,8 +1,66 @@
 @import '~nav-frontend-core/less/_variabler';
 
+.yrkeskategorier {
+    .autocomplete-input-description {
+        margin: 0 0 0.5rem;
+    }
+
+    .autocomplete {
+        width: 100%;
+    }
+}
+
 .yrker-valgt {
     display: flex;
-    border-radius: 4px;
-    background-color: @navBlaLighten80;
-    width: fit-content;
+    flex-direction: column;
+
+    .yrke {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 4px;
+        background-color: @navBlaLighten80;
+        font-weight: 600;
+        padding: 0 0.5rem;
+        margin-left: 0;
+        margin-bottom: 0.8rem;
+    }
+
+    &__overskrift {
+        margin: 1rem 0 0.3rem;
+    }
+
+    .slettKnapp {
+        width: 22px;
+        height: 22px;
+        color: @navMorkGra;
+        margin-left: 0.3rem;
+    }
+}
+
+@media (min-width: @screen-sm) {
+    .yrkeskategorier {
+    }
+
+    .yrker-valgt {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        .yrke {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 0.5rem;
+            margin-left: 0.5rem;
+        }
+    }
+}
+
+@media (min-width: @screen-md) {
+    .yrkeskategorier {
+        .autocomplete {
+            width: 600px;
+        }
+    }
 }

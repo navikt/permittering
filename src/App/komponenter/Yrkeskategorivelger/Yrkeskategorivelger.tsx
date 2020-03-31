@@ -1,28 +1,25 @@
-import React, { useContext, useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { stringify } from 'querystring';
 import Autocomplete from '@navikt/nap-autocomplete';
 import { Label } from 'nav-frontend-skjema';
 import { Normaltekst } from 'nav-frontend-typografi';
-import YrkeskategoriValgt from './YrkeskategoriValgteYrker';
 import { stillingstitlerPath } from '../../../paths.json';
-import './Yrkeskategorivelger.less';
-import SkjemaContext from '../../SkjemaContext/SkjemaContext';
 import { Yrkeskategori } from '../../../types/permitteringsskjema';
+import { Suggestion } from '@navikt/nap-autocomplete/dist/types/Suggestion';
+import './Yrkeskategorivelger.less';
 
-interface Sokeforslag {
-    key: any;
-    value: any;
-    styrk08?: any;
+export interface Sokeforslag extends Suggestion {
+    styrk08?: string;
 }
 
 const getUpdatedSuggestions = async (path: string, q: string) => {
     const result = await fetch(path + '?' + stringify({ q }));
-    const data = await result.json();
-    const suggestions: Sokeforslag[] = [];
+    const data: Yrkeskategori[] = await result.json();
+    let suggestions: Sokeforslag[] = [];
 
     data.forEach((kategori: Yrkeskategori) => {
         suggestions.push({
-            key: kategori.konseptId,
+            key: kategori.konseptId.toString(),
             value: kategori.label,
             styrk08: kategori.styrk08,
         });
@@ -30,42 +27,29 @@ const getUpdatedSuggestions = async (path: string, q: string) => {
     return suggestions;
 };
 
-const Yrkeskategorivelger = () => {
-    const context = useContext(SkjemaContext);
+interface YrkeskategorivelgerProps {
+    yrkeskategorier: Yrkeskategori[];
+    leggTilYrkeskategori: (nykategori: Sokeforslag) => void;
+}
+
+const Yrkeskategorivelger: FunctionComponent<YrkeskategorivelgerProps> = ({
+    yrkeskategorier,
+    leggTilYrkeskategori,
+}) => {
     const [suggestions, setSuggestions] = useState<any>([]);
     const [value, setValue] = useState('');
-    const [selected, setSelected] = React.useState<any[]>([]);
-    let { yrkeskategorier = [] } = context.skjema;
-
-    const leggTilYrke = (nyYrkeskategori: Sokeforslag) => {
-        const yrkeskategorierCopy = [...yrkeskategorier];
-        console.log('yrkeskategorierCopy', yrkeskategorierCopy);
-        console.log('nyYrkeskategori', nyYrkeskategori);
-
-        const nyKategori = {
-            konseptId: nyYrkeskategori.key,
-            label: nyYrkeskategori.value,
-            styrk08: nyYrkeskategori.styrk08,
-        };
-        console.log('nyKategori', nyKategori);
-        yrkeskategorierCopy.push(nyKategori);
-        console.log('yrkeskategorierCopyppdt', yrkeskategorierCopy);
-        context.endreSkjemaVerdi('yrkeskategorier', yrkeskategorierCopy);
-    };
-
-    const fjernYrkeskategori = (nyYrkeskategori: Sokeforslag) => {
-        const yrkeskategorierCopy = [...yrkeskategorier];
-        let foundIndex = yrkeskategorierCopy.findIndex(e => e.konseptId === nyYrkeskategori.key);
-        yrkeskategorierCopy.splice(foundIndex, 1);
-        context.endreSkjemaVerdi('yrkeskategorier', yrkeskategorierCopy);
-    };
 
     return (
         <div className="yrkeskategorier">
             <Label htmlFor={'yrkeskategori'} id="yrkeskategori-label">
                 Hvilke yrkeskategorier tilhører de berørte?
             </Label>
-            <Normaltekst id="autocomplete-input-description">For eksempel: kokk</Normaltekst>
+            <Normaltekst
+                id="autocomplete-input-description"
+                className="autocomplete-input-description"
+            >
+                For eksempel: kokk
+            </Normaltekst>
             <Autocomplete
                 suggestions={suggestions}
                 value={value}
@@ -82,22 +66,15 @@ const Yrkeskategorivelger = () => {
                 ariaLabel="yrkeskategori-label"
                 name="yrkeskategori"
                 aria-describedby="autocomplete-input-description"
-                onSelect={valgt => {
-                    console.log('valgt', valgt);
-                    const finnesAllerede = selected.find((e: Sokeforslag) => e.key === valgt.key);
+                onSelect={(valgtYrke: Sokeforslag) => {
+                    const finnesAllerede = yrkeskategorier.find(
+                        (kategori: Yrkeskategori) => kategori.konseptId.toString() === valgtYrke.key
+                    );
                     if (!finnesAllerede) {
-                        console.log('selected:', selected);
-                        leggTilYrke(valgt);
-                        setSelected([...selected, valgt]);
+                        leggTilYrkeskategori(valgtYrke);
                         setValue('');
                     }
                 }}
-            />
-            {selected.length ? <Normaltekst>Du har valgt:</Normaltekst> : null}
-            <YrkeskategoriValgt
-                selected={selected}
-                setSelected={setSelected}
-                fjernYrkeskategori={fjernYrkeskategori}
             />
         </div>
     );
