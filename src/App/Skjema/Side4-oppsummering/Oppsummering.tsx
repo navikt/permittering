@@ -78,6 +78,7 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
         const antallBerorte = context.skjema.antallBerørt ? context.skjema.antallBerørt : 0;
         const antallIBedriftInt = parseInt(antallIBedrift);
         antallBerorte > 0 &&
+            context.skjema.type &&
             antallIBedriftInt > 0 &&
             loggProsentAndelPermittert(context.skjema.type, antallIBedriftInt, antallBerorte);
     };
