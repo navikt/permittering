@@ -34,11 +34,13 @@ export const loggSkjemaInnsendt = () => {
     amplitude.logEvent('#permitteringsskjema-oppsumeringsside send-inn-trykket-på');
 };
 
-export const loggBedriftsInfo = async (organisasjon: Organisasjon) => {
+export const loggBedriftsInfo = async (organisasjon: Organisasjon): Promise<string> => {
     let infoFraEereg: OrganisasjonFraEnhetsregisteret = tomEnhetsregOrg;
     await hentUnderenhet(organisasjon.OrganizationNumber).then(underenhet => {
         infoFraEereg = underenhet;
     });
+
+    const antallAnsatte = infoFraEereg.antallAnsatte;
 
     if (infoFraEereg !== tomEnhetsregOrg) {
         let infoFraEeregJuridisk: OrganisasjonFraEnhetsregisteret = tomEnhetsregOrg;
@@ -80,7 +82,7 @@ export const loggBedriftsInfo = async (organisasjon: Organisasjon) => {
             case antallAnsatte > 100:
                 amplitude.logEvent('#permitteringsskjema-forside over 100 ansatte');
                 break;
-            case antallAnsatte > 20:
+            case antallAnsatte >= 20:
                 amplitude.logEvent('#permitteringsskjema-forside over 20 ansatte');
                 break;
             default:
@@ -127,11 +129,80 @@ export const loggBedriftsInfo = async (organisasjon: Organisasjon) => {
                     '#permitteringsskjema-forside over 100 ansatte i juridisk enhet'
                 );
                 break;
-            case antallAnsatteJuridiske > 20:
+            case antallAnsatteJuridiske >= 20:
                 amplitude.logEvent('#permitteringsskjema-forside over 20 ansatte i juridisk enhet');
                 break;
             default:
                 break;
         }
     }
+    return antallAnsatte;
+};
+
+export const loggAntallUnderenheter = (antall: number) => {
+    let skalLogges = '#permitteringsskjema antall underenheter: ';
+
+    switch (true) {
+        case antall === 1:
+            skalLogges += '1';
+            break;
+        case antall <= 5:
+            skalLogges += ' 2-5';
+            break;
+        case antall <= 10:
+            skalLogges += '6-10';
+            break;
+        case antall <= 15:
+            skalLogges += '11-15';
+            break;
+        case antall <= 25:
+            skalLogges += '16-25';
+            break;
+        case antall > 25:
+            skalLogges += 'over 25';
+            break;
+    }
+    amplitude.logEvent(skalLogges);
+};
+
+export const loggProsentAndelPermittert = (
+    skjematype: string,
+    antallAnsatte: number,
+    antallBerorte: number
+) => {
+    const prosentAndel = antallBerorte / antallAnsatte;
+    let skalLogges = '#permitteringsskjema ' + skjematype;
+    switch (true) {
+        case prosentAndel <= 10:
+            skalLogges += ' 0-10%';
+            break;
+        case prosentAndel <= 20:
+            skalLogges += ' 10-20%';
+            break;
+        case prosentAndel <= 30:
+            skalLogges += '20-30%';
+            break;
+        case prosentAndel <= 40:
+            skalLogges += '30-40%';
+            break;
+        case prosentAndel <= 50:
+            skalLogges += '40-50%';
+            break;
+        case prosentAndel <= 60:
+            skalLogges += '50-60%';
+            break;
+        case prosentAndel <= 70:
+            skalLogges += '60-70%';
+            break;
+        case prosentAndel <= 80:
+            skalLogges += '70-80%';
+            break;
+        case prosentAndel <= 90:
+            skalLogges += '80-90%';
+            break;
+        case prosentAndel <= 100:
+            skalLogges += 'over 90%';
+            break;
+    }
+    amplitude.logEvent(skalLogges);
 };
