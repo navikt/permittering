@@ -28,11 +28,7 @@ const HvaSkalDuRapportere = () => {
 
     useEffect(() => {
         if (environment.MILJO === 'prod-sbs') {
-            const fullBedrift = organisasjoner.filter(
-                org => org.OrganizationNumber === valgtOrganisasjon
-            )[0];
             loggAntallUnderenheter(organisasjoner.length);
-            loggBedriftsInfo(fullBedrift);
         }
     }, [valgtOrganisasjon, organisasjoner]);
 
