@@ -117,6 +117,19 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                             </div>
                         </div>
 
+                        <div className="oppsummering__boks antall-arbeidstakere">
+                            <div className="tekst">
+                                <Normaltekst className="overskrift">Antall berørte:</Normaltekst>
+                                <Normaltekst>
+                                    <SjekkOmFyltUt verdi={context.skjema.antallBerørt} />
+                                    {lagAntallBerorteTekst()}
+                                </Normaltekst>
+                            </div>
+                            <div className="endre-lenke">
+                                <Lenke href={endreantallberørteLenke}>Endre</Lenke>
+                            </div>
+                        </div>
+
                         <div className="oppsummering__boks aarsak">
                             <Undertittel className="oppsummering__tittel-mobil">
                                 Generelle opplysninger
@@ -140,19 +153,6 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                                 >
                                     Endre
                                 </Lenke>
-                            </div>
-                        </div>
-
-                        <div className="oppsummering__boks antall-arbeidstakere">
-                            <div className="tekst">
-                                <Normaltekst className="overskrift">Antall berørte:</Normaltekst>
-                                <Normaltekst>
-                                    <SjekkOmFyltUt verdi={context.skjema.antallBerørt} />
-                                    {lagAntallBerorteTekst()}
-                                </Normaltekst>
-                            </div>
-                            <div className="endre-lenke">
-                                <Lenke href={endreantallberørteLenke}>Endre</Lenke>
                             </div>
                         </div>
 
