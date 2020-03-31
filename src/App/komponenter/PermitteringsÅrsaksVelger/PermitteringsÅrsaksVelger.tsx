@@ -5,7 +5,7 @@ import hentAArsakskoder from '../../../api/kodeverksAPI';
 interface Props {
     valgtårsak: string;
     setÅrsak: (årsak: string) => void;
-    label:string
+    label: string;
 }
 
 export const Permitteringsårsaksvelger: FunctionComponent<Props> = props => {
