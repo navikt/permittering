@@ -17,10 +17,10 @@ export const YrkeskategoriVisning = ({
                 return (
                     <div className="yrke" key={kategori.konseptId}>
                         <div>{kategori.label}</div>
-                        <button
-                            type="button"
-                            className="slettKnapp"
-                            aria-label="Slett"
+                        <div
+                            role="button"
+                            className="slett"
+                            aria-label="Slett yrkeskategori"
                             onClick={() => {
                                 const yrkeskategorierCopy = [...yrkeskategorier];
                                 yrkeskategorierCopy.splice(index, 1);
@@ -28,7 +28,7 @@ export const YrkeskategoriVisning = ({
                             }}
                         >
                             <SlettIkon />
-                        </button>
+                        </div>
                     </div>
                 );
             })}
