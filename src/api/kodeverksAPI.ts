@@ -6,7 +6,6 @@ const hentAArsakskoder = async (): Promise<any> => {
 };
 
 export const finnÅrsakstekst = async (årsakskode?: string) => {
-    console.log('finnÅrsakstekst', årsakskode);
     const årsakskoder = await hentAArsakskoder();
     const finnkode = Object.entries<string>(årsakskoder).find(kode => kode[0] === årsakskode);
     return finnkode ? finnkode[1] : undefined;

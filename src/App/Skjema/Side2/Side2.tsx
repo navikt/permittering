@@ -78,7 +78,6 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
 
     const setÅrsakstekst = (årsakstekst: string) => {
         context.endreSkjemaVerdi('årsakstekst', årsakstekst);
-        console.log('årsakstekst', context.skjema.årsakstekst);
     };
 
     const { forrigeSide, nesteSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
