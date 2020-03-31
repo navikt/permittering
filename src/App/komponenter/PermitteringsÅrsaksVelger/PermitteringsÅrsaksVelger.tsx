@@ -5,6 +5,7 @@ import hentAArsakskoder from '../../../api/kodeverksAPI';
 interface Props {
     valgtårsak: string;
     setÅrsak: (årsak: string) => void;
+    label:string
 }
 
 export const Permitteringsårsaksvelger: FunctionComponent<Props> = props => {
@@ -16,8 +17,7 @@ export const Permitteringsårsaksvelger: FunctionComponent<Props> = props => {
 
     return (
         <Select
-            label="Hvorfor skal dere permittere?"
-            className={'hva-skal-du-rapportere__bedriftsDropdown'}
+            label={props.label}
             onChange={event => {
                 props.setÅrsak(event.target.value);
             }}

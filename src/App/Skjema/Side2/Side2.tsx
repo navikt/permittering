@@ -109,6 +109,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
                 )}
                 <div className="skjema-innhold__side-2-text-area">
                     <Permitteringsårsaksvelger
+                        label={lagTekstBasertPaSkjemaType(context.skjema.type)}
                         valgtårsak={context.skjema.årsakskode || 'Velg årsak'}
                         setÅrsak={setÅrsak}
                     />
@@ -116,7 +117,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
                 {context.skjema.årsakskode === 'ANDRE_ÅRSAKER' && (
                     <div className="skjema-innhold__side-2-text-area">
                         <Textarea
-                            label={lagTekstBasertPaSkjemaType(context.skjema.type)}
+                            label={'Beskriv hva du mener med andre årsaker'}
                             value={context.skjema.årsakstekst || ''}
                             maxLength={1000}
                             onChange={event => setÅrsakstekst(event.currentTarget.value)}
