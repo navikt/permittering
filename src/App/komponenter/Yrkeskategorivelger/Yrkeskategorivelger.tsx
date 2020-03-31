@@ -54,6 +54,7 @@ const Yrkeskategorivelger: FunctionComponent<YrkeskategorivelgerProps> = ({
                 suggestions={suggestions}
                 value={value}
                 onChange={async (value: any) => {
+                    setSuggestions([]);
                     setValue(value);
                     const newSuggestionList = await getUpdatedSuggestions(
                         stillingstitlerPath,
