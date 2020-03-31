@@ -139,7 +139,7 @@ export const loggBedriftsInfo = async (organisasjon: Organisasjon): Promise<stri
     return antallAnsatte;
 };
 
-const loggAntallUnderenheter = (antall: number) => {
+export const loggAntallUnderenheter = (antall: number) => {
     let skalLogges = '#permitteringsskjema antall underenheter: ';
 
     switch (true) {
@@ -165,12 +165,13 @@ const loggAntallUnderenheter = (antall: number) => {
     amplitude.logEvent(skalLogges);
 };
 
-const loggProsentAndelPermittert = (
+export const loggProsentAndelPermittert = (
     skjematype: string,
-    antallAnsatte: string,
-    antallBerorte: string
+    antallAnsatte: number,
+    antallBerorte: number
 ) => {
-    const prosentAndel = parseInt(antallBerorte) / parseInt(antallAnsatte);
+    console.log('logg prosent kallt');
+    const prosentAndel = antallBerorte / antallAnsatte;
     let skalLogges = '#permitteringsskjema ' + skjematype;
     switch (true) {
         case prosentAndel <= 10:

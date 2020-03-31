@@ -10,7 +10,11 @@ import { BedriftsVelger } from '../komponenter/Bedriftsvelger/Bedriftsvelger';
 import './HvaSkalDuRapportere.less';
 import Dekorator from '../komponenter/Dekorator/Dekorator';
 import environment from '../../utils/environment';
-import { loggBedriftsInfo, loggSkjemaValg } from '../../utils/funksjonerForAmplitudeLogging';
+import {
+    loggAntallUnderenheter,
+    loggBedriftsInfo,
+    loggSkjemaValg,
+} from '../../utils/funksjonerForAmplitudeLogging';
 import HvitSideBoks from '../komponenter/HvitSideBoks';
 
 const HvaSkalDuRapportere = () => {
@@ -27,6 +31,7 @@ const HvaSkalDuRapportere = () => {
             const fullBedrift = organisasjoner.filter(
                 org => org.OrganizationNumber === valgtOrganisasjon
             )[0];
+            loggAntallUnderenheter(organisasjoner.length);
             loggBedriftsInfo(fullBedrift);
         }
     }, [valgtOrganisasjon, organisasjoner]);
