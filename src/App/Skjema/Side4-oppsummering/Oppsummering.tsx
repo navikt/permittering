@@ -48,7 +48,10 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
             const fullBedrift = organisasjoner.filter(
                 org => org.OrganizationNumber === context.skjema.bedriftNr
             )[0];
-            loggBedriftsInfo(fullBedrift).then(antallAnsatte => setAntallIBedrift(antallAnsatte));
+            fullBedrift &&
+                loggBedriftsInfo(fullBedrift).then(antallAnsatte =>
+                    setAntallIBedrift(antallAnsatte)
+                );
         }
     }, [organisasjoner, context.skjema.bedriftNr]);
 
