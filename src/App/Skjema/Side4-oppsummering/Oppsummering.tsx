@@ -77,7 +77,6 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     const onSendClickLogging = () => {
         const antallBerorte = context.skjema.antallBerørt ? context.skjema.antallBerørt : 0;
         const antallIBedriftInt = parseInt(antallIBedrift);
-        console.log('prover a logge, ', antallBerorte, antallIBedriftInt);
         antallBerorte > 0 &&
             antallIBedriftInt > 0 &&
             loggProsentAndelPermittert(context.skjema.type, antallIBedriftInt, antallBerorte);

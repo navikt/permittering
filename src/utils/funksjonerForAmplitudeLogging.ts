@@ -170,7 +170,6 @@ export const loggProsentAndelPermittert = (
     antallAnsatte: number,
     antallBerorte: number
 ) => {
-    console.log('logg prosent kallt');
     const prosentAndel = antallBerorte / antallAnsatte;
     let skalLogges = '#permitteringsskjema ' + skjematype;
     switch (true) {
