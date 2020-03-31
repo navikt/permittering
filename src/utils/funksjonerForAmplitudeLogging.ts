@@ -164,6 +164,31 @@ export const loggAntallUnderenheter = (antall: number) => {
     amplitude.logEvent(skalLogges);
 };
 
+export const loggAntallBerorte = (antall: number, skjematype: string) => {
+    let skalLogges = '#permitteringsskjema antall berørte: ' + skjematype;
+    switch (true) {
+        case antall <= 4:
+            skalLogges += ': 0-4';
+            break;
+        case antall <= 9:
+            skalLogges += ': 5-9';
+            break;
+        case antall <= 19:
+            skalLogges += ': 10-19';
+            break;
+        case antall <= 49:
+            skalLogges += ': 20-49';
+            break;
+        case antall <= 249:
+            skalLogges += ': 100-249';
+            break;
+        case antall > 250:
+            skalLogges += ': over 250';
+            break;
+    }
+    amplitude.logEvent(skalLogges);
+};
+
 export const loggProsentAndelPermittert = (
     skjematype: string,
     antallAnsatte: number,

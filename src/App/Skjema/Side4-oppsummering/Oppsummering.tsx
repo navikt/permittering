@@ -9,6 +9,7 @@ import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 import SkjemaContext from '../../SkjemaContext/SkjemaContext';
 import { SkjemaSideProps, useSkjemaSteg } from '../use-skjema-steg';
 import {
+    loggAntallBerorte,
     loggBedriftsInfo,
     loggNavarendeSteg,
     loggProsentAndelPermittert,
@@ -47,7 +48,10 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
             const fullBedrift = organisasjoner.filter(
                 org => org.OrganizationNumber === context.skjema.bedriftNr
             )[0];
-            loggBedriftsInfo(fullBedrift).then(antallAnsatte => setAntallIBedrift(antallAnsatte));
+            fullBedrift &&
+                loggBedriftsInfo(fullBedrift).then(antallAnsatte =>
+                    setAntallIBedrift(antallAnsatte)
+                );
         }
     }, [organisasjoner, context.skjema.bedriftNr]);
 
@@ -83,6 +87,7 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
         antallBerorte > 0 &&
             context.skjema.type &&
             antallIBedriftInt > 0 &&
+            loggAntallBerorte(antallBerorte, context.skjema.type) &&
             loggProsentAndelPermittert(context.skjema.type, antallIBedriftInt, antallBerorte);
     };
 
