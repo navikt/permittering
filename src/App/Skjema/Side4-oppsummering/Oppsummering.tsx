@@ -9,7 +9,9 @@ import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 import SkjemaContext from '../../SkjemaContext/SkjemaContext';
 import { SkjemaSideProps, useSkjemaSteg } from '../use-skjema-steg';
 import {
+    loggBedriftsInfo,
     loggNavarendeSteg,
+    loggProsentAndelPermittert,
     loggSkjemaInnsendt,
 } from '../../../utils/funksjonerForAmplitudeLogging';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
@@ -19,10 +21,13 @@ import { formatterDato, lagTekstBasertPaSkjemaType } from './oppsummering-utils'
 import SjekkOmFyltUt from '../../komponenter/SjekkOmFyltUt/SjekkOmFyltUt';
 import veilederIkon from './gjenstand.svg';
 import './Oppsummering.less';
+import environment from '../../../utils/environment';
+import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
 import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 
 const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
+    const { organisasjoner } = useContext(OrganisasjonsListeContext);
     const history = useHistory();
     const [feilmelding, setFeilmelding] = useState('');
     const { forrigeSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
@@ -34,6 +39,17 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     const [lesbarårsakskode, setLesbarÅrsakskode] = useState<string | undefined>(undefined);
     const yrker = existerendeFelter && existerendeFelter.yrker ? existerendeFelter.yrker : '';
     const annet = existerendeFelter && existerendeFelter.annet ? existerendeFelter.annet : '';
+
+    const [antallIBedrift, setAntallIBedrift] = useState('');
+
+    useEffect(() => {
+        if (environment.MILJO === 'prod-sbs') {
+            const fullBedrift = organisasjoner.filter(
+                org => org.OrganizationNumber === context.skjema.bedriftNr
+            )[0];
+            loggBedriftsInfo(fullBedrift).then(antallAnsatte => setAntallIBedrift(antallAnsatte));
+        }
+    }, [organisasjoner, context.skjema.bedriftNr]);
 
     const lagAntallBerorteTekst = () => {
         if (context.skjema.antallBerørt) {
@@ -54,11 +70,21 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
         : `/permittering/skjema/generelle-opplysninger/${context.skjema.id}`;
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         loggNavarendeSteg('oppsummeringsside');
     }, []);
     useEffect(() => {
         finnÅrsakstekst(context.skjema.årsakskode).then(setLesbarÅrsakskode);
     }, [context.skjema.årsakskode]);
+
+    const onSendClickLogging = () => {
+        const antallBerorte = context.skjema.antallBerørt ? context.skjema.antallBerørt : 0;
+        const antallIBedriftInt = parseInt(antallIBedrift);
+        antallBerorte > 0 &&
+            context.skjema.type &&
+            antallIBedriftInt > 0 &&
+            loggProsentAndelPermittert(context.skjema.type, antallIBedriftInt, antallBerorte);
+    };
 
     return (
         <>
@@ -232,6 +258,7 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                         <Hovedknapp
                             className="skjema-innhold__lagre"
                             onClick={async () => {
+                                onSendClickLogging();
                                 try {
                                     setFeilmelding('');
                                     await context.sendInn();
