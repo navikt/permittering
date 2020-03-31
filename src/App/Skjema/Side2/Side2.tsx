@@ -22,7 +22,6 @@ import { Permitteringsårsaksvelger } from '../../komponenter/PermitteringsÅrsa
 const Side2: FunctionComponent<SkjemaSideProps> = () => {
     const [datoFra, setDatoFra] = useState(new Date());
     const [datoTil, setDatoTil] = useState(undefined);
-    const [valgtårsakskode, setAArsakskoder] = useState('');
     const [feilMeldingAntallBerort, setFeilmeldingAntallBerort] = useState('');
     const featureToggleContext = useContext(FeatureToggleContext);
     const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
@@ -41,14 +40,16 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
         // eslint-disable-next-line
     }, [context.skjema.sluttDato, context.skjema.ukjentSluttDato]);
 
-    let årsak = '';
+    useEffect(() => {
+        if (context.skjema.årsakskode !== 'ANDRE_ÅRSAKER' && context.skjema.årsakstekst !== null) {
+            context.endreSkjemaVerdi('årsakstekst', null);
+        }
+    }, [context]);
+
     let yrker = '';
     let annet = '';
     if (context.skjema.fritekst) {
         const existerendeFelter = splittOppFritekst(context.skjema.fritekst);
-        if (existerendeFelter.årsak) {
-            årsak = existerendeFelter.årsak;
-        }
         if (existerendeFelter.yrker) {
             yrker = existerendeFelter.yrker;
         }
@@ -62,9 +63,21 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
     };
 
     const endreFritekstFelt = (key: string, value: string) => {
-        const fritekstFelter: any = { årsak, yrker, annet };
+        const fritekstFelter: any = { yrker, annet };
         fritekstFelter[key] = value;
         context.endreSkjemaVerdi('fritekst', mergeFritekst(fritekstFelter));
+    };
+    const setÅrsak = (årsak: string) => {
+        if (årsak === 'VELG_ÅRSAK') {
+            context.endreSkjemaVerdi('årsakskode', null);
+        } else {
+            context.endreSkjemaVerdi('årsakskode', årsak);
+        }
+    };
+
+    const setÅrsakstekst = (årsakstekst: string) => {
+        context.endreSkjemaVerdi('årsakstekst', årsakstekst);
+        console.log('årsakstekst', context.skjema.årsakstekst);
     };
 
     const { forrigeSide, nesteSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
@@ -95,17 +108,18 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
                     </div>
                 )}
                 <div className="skjema-innhold__side-2-text-area">
-                    <Permitteringsårsaksvelger årsak={valgtårsakskode} setÅrsak={setAArsakskoder} />
+                    <Permitteringsårsaksvelger
+                        valgtårsak={context.skjema.årsakskode || 'Velg årsak'}
+                        setÅrsak={setÅrsak}
+                    />
                 </div>
-                {valgtårsakskode === 'Andre årsaker' && (
+                {context.skjema.årsakskode === 'ANDRE_ÅRSAKER' && (
                     <div className="skjema-innhold__side-2-text-area">
                         <Textarea
                             label={lagTekstBasertPaSkjemaType(context.skjema.type)}
-                            value={årsak}
+                            value={context.skjema.årsakstekst || ''}
                             maxLength={1000}
-                            onChange={event =>
-                                endreFritekstFelt('årsak', event.currentTarget.value)
-                            }
+                            onChange={event => setÅrsakstekst(event.currentTarget.value)}
                         />
                     </div>
                 )}

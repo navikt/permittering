@@ -3,15 +3,17 @@ import React, { FunctionComponent, useEffect, useState } from 'react';
 import hentAArsakskoder from '../../../api/kodeverksAPI';
 
 interface Props {
-    årsak: string;
+    valgtårsak: string;
     setÅrsak: (årsak: string) => void;
 }
 
 export const Permitteringsårsaksvelger: FunctionComponent<Props> = props => {
-    const [aarsakskoder, setAArsakskoder] = useState({});
+    const [årsakskoder, setAArsakskoder] = useState({});
+
     useEffect(() => {
         hentAArsakskoder().then(setAArsakskoder);
     }, []);
+
     return (
         <Select
             label="Hvorfor skal dere permittere?"
@@ -19,11 +21,16 @@ export const Permitteringsårsaksvelger: FunctionComponent<Props> = props => {
             onChange={event => {
                 props.setÅrsak(event.target.value);
             }}
+            defaultValue={'Velg en årsak'}
+            value={props.valgtårsak}
         >
-            {Object.values<string>(aarsakskoder).map(årsakskode => {
+            <option key={'VELG_ÅRSAK'} value={'VELG_ÅRSAK'}>
+                {'Velg årsak'}
+            </option>
+            {Object.entries<string>(årsakskoder).map(årsakskode => {
                 return (
-                    <option key={årsakskode} value={årsakskode}>
-                        {årsakskode}
+                    <option key={årsakskode[0]} value={årsakskode[0]}>
+                        {årsakskode[1]}
                     </option>
                 );
             })}
