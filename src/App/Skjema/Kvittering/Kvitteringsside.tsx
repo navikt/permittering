@@ -13,6 +13,7 @@ const Kvitteringsside = () => {
         'Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid';
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         loggNavarendeSteg('kvittering');
     }, []);
 
