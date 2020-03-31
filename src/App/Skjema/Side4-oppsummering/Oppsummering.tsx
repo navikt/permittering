@@ -19,6 +19,7 @@ import { formatterDato, lagTekstBasertPaSkjemaType } from './oppsummering-utils'
 import SjekkOmFyltUt from '../../komponenter/SjekkOmFyltUt/SjekkOmFyltUt';
 import veilederIkon from './gjenstand.svg';
 import './Oppsummering.less';
+import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 
 const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
@@ -30,7 +31,7 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     const existerendeFelter = context.skjema.fritekst
         ? splittOppFritekst(context.skjema.fritekst)
         : null;
-
+    const [lesbarårsakskode, setLesbarÅrsakskode] = useState<string | undefined>(undefined);
     const yrker = existerendeFelter && existerendeFelter.yrker ? existerendeFelter.yrker : '';
     const annet = existerendeFelter && existerendeFelter.annet ? existerendeFelter.annet : '';
 
@@ -55,6 +56,9 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     useEffect(() => {
         loggNavarendeSteg('oppsummeringsside');
     }, []);
+    useEffect(() => {
+        finnÅrsakstekst(context.skjema.årsakskode).then(setLesbarÅrsakskode);
+    }, [context.skjema.årsakskode]);
 
     return (
         <>
@@ -123,7 +127,7 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                                 </Normaltekst>
                                 <Normaltekst>
                                     {context.skjema.årsakskode !== 'ANDRE_ÅRSAKER' && (
-                                        <SjekkOmFyltUt verdi={context.skjema.årsakskode} />
+                                        <SjekkOmFyltUt verdi={lesbarårsakskode} />
                                     )}
                                     {context.skjema.årsakskode === 'ANDRE_ÅRSAKER' && (
                                         <SjekkOmFyltUt verdi={context.skjema.årsakstekst} />
