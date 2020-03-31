@@ -36,10 +36,6 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
     let { yrkeskategorier = [] } = context.skjema;
 
     useEffect(() => {
-        console.log('yrkeskategorier', yrkeskategorier);
-    }, [yrkeskategorier]);
-
-    useEffect(() => {
         loggNavarendeSteg('generelle-opplysninger');
     }, []);
 

@@ -5,6 +5,7 @@ import { Feilmelding, Normaltekst, Systemtittel, Undertittel } from 'nav-fronten
 import Lenke from 'nav-frontend-lenker';
 import Knapp from 'nav-frontend-knapper/lib/knapp';
 import Veilederpanel from 'nav-frontend-veilederpanel';
+import { EtikettFokus } from 'nav-frontend-etiketter';
 import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 import SkjemaContext from '../../SkjemaContext/SkjemaContext';
 import { SkjemaSideProps, useSkjemaSteg } from '../use-skjema-steg';
@@ -19,6 +20,7 @@ import { formatterDato, lagTekstBasertPaSkjemaType } from './oppsummering-utils'
 import SjekkOmFyltUt from '../../komponenter/SjekkOmFyltUt/SjekkOmFyltUt';
 import veilederIkon from './gjenstand.svg';
 import './Oppsummering.less';
+import { Yrkeskategori } from '../../../types/permitteringsskjema';
 
 const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
@@ -40,10 +42,6 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
         }
         return;
     };
-
-    const yrker = context.skjema.yrkeskategorier
-        ? context.skjema.yrkeskategorier.length
-        : undefined;
 
     const fraDato = context.skjema.startDato
         ? formatterDato(new Date(context.skjema.startDato))
@@ -155,7 +153,20 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                         <div className="oppsummering__boks yrkeskategorier">
                             <div className="tekst">
                                 <Normaltekst className="overskrift">Yrkeskategorier</Normaltekst>
-                                <Normaltekst>{yrker}</Normaltekst>
+                                {context.skjema.yrkeskategorier &&
+                                context.skjema.yrkeskategorier.length ? (
+                                    context.skjema.yrkeskategorier.map(
+                                        (yrke: Yrkeskategori, index: number) => {
+                                            const erSisteElement =
+                                                context.skjema.yrkeskategorier.length === index + 1;
+                                            return (
+                                                <>{`${yrke.label}${erSisteElement ? '' : ', '}`}</>
+                                            );
+                                        }
+                                    )
+                                ) : (
+                                    <EtikettFokus>Ikke fylt ut</EtikettFokus>
+                                )}
                             </div>
                             <div className="endre-lenke">
                                 <Lenke

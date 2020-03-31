@@ -12,7 +12,7 @@
 
 .yrker-valgt {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
 
     .yrke {
         display: flex;
@@ -22,7 +22,7 @@
         background-color: @navBlaLighten80;
         font-weight: 600;
         padding: 0 0.5rem;
-        margin-left: 0;
+        margin-left: 0.5rem;
         margin-bottom: 0.8rem;
     }
 
@@ -39,20 +39,9 @@
 }
 
 @media (min-width: @screen-sm) {
-    .yrkeskategorier {
-    }
-
     .yrker-valgt {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-
         .yrke {
-            display: flex;
-            justify-content: center;
-            align-items: center;
             padding: 0 0.5rem;
-            margin-left: 0.5rem;
         }
     }
 }
