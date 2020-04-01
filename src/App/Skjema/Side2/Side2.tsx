@@ -17,6 +17,8 @@ import { lagTekstBasertPaSkjemaType } from '../Side4-oppsummering/oppsummering-u
 import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
 import './Side2.less';
+import { Permitteringsårsaksvelger } from '../../komponenter/PermitteringsÅrsaksVelger/PermitteringsÅrsaksVelger';
+import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 
 const Side2: FunctionComponent<SkjemaSideProps> = () => {
     const [datoFra, setDatoFra] = useState(new Date());
@@ -39,6 +41,16 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
         }
         // eslint-disable-next-line
     }, [context.skjema.sluttDato, context.skjema.ukjentSluttDato]);
+
+    useEffect(() => {
+        if (
+            context.skjema.årsakskode !== 'ANDRE_ÅRSAKER' &&
+            context.skjema.årsakstekst !== null &&
+            context.skjema.årsakskode !== undefined
+        ) {
+            context.endreSkjemaVerdi('årsakstekst', null);
+        }
+    }, [context]);
 
     let årsak = '';
     let yrker = '';
@@ -64,6 +76,32 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
         const fritekstFelter: any = { årsak, yrker, annet };
         fritekstFelter[key] = value;
         context.endreSkjemaVerdi('fritekst', mergeFritekst(fritekstFelter));
+    };
+
+    const setÅrsaksKode = (årsaksKode: string) => {
+        const fritekstFelter: any = { årsak, yrker, annet };
+        if (årsaksKode === 'VELG_ÅRSAK') {
+            fritekstFelter['årsak'] = '';
+            context.endreFritekstOgVerdi('årsakskode', null, mergeFritekst(fritekstFelter));
+        } else if (årsaksKode === 'ANDRE_ÅRSAKER') {
+            fritekstFelter['årsak'] = årsaksKode;
+            context.endreSkjemaVerdi('årsakskode', årsaksKode);
+        } else {
+            finnÅrsakstekst(årsaksKode).then(lesbarårsak => {
+                fritekstFelter['årsak'] = lesbarårsak;
+                context.endreFritekstOgVerdi(
+                    'årsakskode',
+                    årsaksKode,
+                    mergeFritekst(fritekstFelter)
+                );
+            });
+        }
+    };
+
+    const setÅrsakstekst = (årsakstekst: string) => {
+        const fritekstFelter: any = { årsak, yrker, annet };
+        fritekstFelter['årsak'] = årsakstekst;
+        context.endreFritekstOgVerdi('årsakstekst', årsakstekst, mergeFritekst(fritekstFelter));
     };
 
     const { forrigeSide, nesteSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
@@ -94,13 +132,22 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
                     </div>
                 )}
                 <div className="skjema-innhold__side-2-text-area">
-                    <Textarea
+                    <Permitteringsårsaksvelger
                         label={lagTekstBasertPaSkjemaType(context.skjema.type)}
-                        value={årsak}
-                        maxLength={1000}
-                        onChange={event => endreFritekstFelt('årsak', event.currentTarget.value)}
+                        valgtårsak={context.skjema.årsakskode || 'Velg årsak'}
+                        setÅrsak={setÅrsaksKode}
                     />
                 </div>
+                {context.skjema.årsakskode === 'ANDRE_ÅRSAKER' && (
+                    <div className="skjema-innhold__side-2-text-area">
+                        <Textarea
+                            label={'Beskriv hva du mener med andre årsaker'}
+                            value={context.skjema.årsakstekst || ''}
+                            maxLength={1000}
+                            onChange={event => setÅrsakstekst(event.currentTarget.value)}
+                        />
+                    </div>
+                )}
 
                 <div className="skjema-innhold__side-2-text-area">
                     <Textarea
