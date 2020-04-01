@@ -41,7 +41,6 @@ export const SkjemaProvider: FunctionComponent = props => {
         endreFritekstOgVerdi: (felt, verdi, fritekstVerdi) => {
             setSkjema({ ...skjema, [felt]: verdi, ['fritekst']: fritekstVerdi });
         },
-
         lagre: async () => {
             if (tillatFnrInput) {
                 skjema.antallBerørt = skjema.personer ? skjema.personer.length : 0;

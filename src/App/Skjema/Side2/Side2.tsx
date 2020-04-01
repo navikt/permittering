@@ -80,23 +80,28 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
 
     const setÅrsaksKode = (årsaksKode: string) => {
         const fritekstFelter: any = { årsak, yrker, annet };
-
         if (årsaksKode === 'VELG_ÅRSAK') {
-            context.endreSkjemaVerdi('årsakskode', null);
-        } else {
+            fritekstFelter['årsak'] = '';
+            context.endreFritekstOgVerdi('årsakskode', null, mergeFritekst(fritekstFelter));
+        } else if (årsaksKode === 'ANDRE_ÅRSAKER') {
             fritekstFelter['årsak'] = årsaksKode;
-            context.endreFritekstOgVerdi('årsakskode', årsaksKode, mergeFritekst(fritekstFelter));
+            context.endreSkjemaVerdi('årsakskode', årsaksKode);
+        } else {
+            finnÅrsakstekst(årsaksKode).then(lesbarårsak => {
+                fritekstFelter['årsak'] = lesbarårsak;
+                context.endreFritekstOgVerdi(
+                    'årsakskode',
+                    årsaksKode,
+                    mergeFritekst(fritekstFelter)
+                );
+            });
         }
     };
 
-    const setårsakFritekst = (årsaksKode: string) => {
-        finnÅrsakstekst(årsaksKode).then(lesbarÅrsak => {
-            lesbarÅrsak ? endreFritekstFelt('årsak', lesbarÅrsak) : endreFritekstFelt('årsak', '');
-        });
-    };
-
     const setÅrsakstekst = (årsakstekst: string) => {
-        context.endreSkjemaVerdi('årsakstekst', årsakstekst);
+        const fritekstFelter: any = { årsak, yrker, annet };
+        fritekstFelter['årsak'] = årsakstekst;
+        context.endreFritekstOgVerdi('årsakstekst', årsakstekst, mergeFritekst(fritekstFelter));
     };
 
     const { forrigeSide, nesteSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
