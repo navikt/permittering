@@ -74,9 +74,6 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
         if (existerendeFelter.annet) {
             annet = existerendeFelter.annet;
         }
-        if (existerendeFelter.årsak) {
-            annet = existerendeFelter.årsak;
-        }
     }
 
     const lagYrkerTekst = (yrkeskategorier: Yrkeskategori[]): string => {
