@@ -43,8 +43,6 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
 
     useEffect(() => {
         finnÅrsakstekst(context.skjema.årsakskode).then(setLesbarÅrsakskode);
-        console.log('endreFritekstFelt(): ', context.skjema.fritekst);
-        console.log('endreFritekstFelt(): hele skjema ', context.skjema);
     }, [context.skjema.årsakskode]);
 
     const [antallIBedrift, setAntallIBedrift] = useState('');
