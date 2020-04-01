@@ -10,12 +10,9 @@ import { BedriftsVelger } from '../komponenter/Bedriftsvelger/Bedriftsvelger';
 import './HvaSkalDuRapportere.less';
 import Dekorator from '../komponenter/Dekorator/Dekorator';
 import environment from '../../utils/environment';
-import {
-    loggAntallUnderenheter,
-    loggBedriftsInfo,
-    loggSkjemaValg,
-} from '../../utils/funksjonerForAmplitudeLogging';
+import { loggAntallUnderenheter, loggSkjemaValg } from '../../utils/funksjonerForAmplitudeLogging';
 import HvitSideBoks from '../komponenter/HvitSideBoks';
+import infoIkon from './info.svg';
 
 const HvaSkalDuRapportere = () => {
     const history = useHistory();
@@ -95,6 +92,11 @@ const HvaSkalDuRapportere = () => {
                     organisasjoner={organisasjoner}
                     setOrganisasjon={setValgtOrganisasjon}
                 />
+                <div className={'hva-skal-du-rapportere__info-om-virksomhet-juridisk'}>
+                    <img alt="" className={'hva-skal-du-rapportere__infoikon'} src={infoIkon} />
+                    Du kan kun sende skjema på vegne av virksomhet (også kalt underenhet), og ikke
+                    på vegne av juridisk enhet.
+                </div>
                 <Hovedknapp
                     disabled={skjemaType === undefined}
                     className="hva-skal-du-rapportere__knapp"
