@@ -5,7 +5,6 @@ import { Feilmelding, Normaltekst, Systemtittel, Undertittel } from 'nav-fronten
 import Lenke from 'nav-frontend-lenker';
 import Knapp from 'nav-frontend-knapper/lib/knapp';
 import Veilederpanel from 'nav-frontend-veilederpanel';
-import { EtikettFokus } from 'nav-frontend-etiketter';
 import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 import SkjemaContext from '../../SkjemaContext/SkjemaContext';
 import { SkjemaSideProps, useSkjemaSteg } from '../use-skjema-steg';
@@ -26,7 +25,6 @@ import './Oppsummering.less';
 import environment from '../../../utils/environment';
 import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
 import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
-import { Yrkeskategori } from '../../../types/permitteringsskjema';
 
 const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
@@ -40,6 +38,7 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
         ? splittOppFritekst(context.skjema.fritekst)
         : null;
     const [lesbarårsakskode, setLesbarÅrsakskode] = useState<string | undefined>(undefined);
+    const yrker = existerendeFelter && existerendeFelter.yrker ? existerendeFelter.yrker : '';
     const annet = existerendeFelter && existerendeFelter.annet ? existerendeFelter.annet : '';
 
     const [antallIBedrift, setAntallIBedrift] = useState('');
@@ -190,20 +189,9 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                         <div className="oppsummering__boks yrkeskategorier">
                             <div className="tekst">
                                 <Normaltekst className="overskrift">Yrkeskategorier</Normaltekst>
-                                {context.skjema.yrkeskategorier &&
-                                context.skjema.yrkeskategorier.length ? (
-                                    context.skjema.yrkeskategorier.map(
-                                        (yrke: Yrkeskategori, index: number) => {
-                                            const erSisteElement =
-                                                context.skjema.yrkeskategorier.length === index + 1;
-                                            return (
-                                                <>{`${yrke.label}${erSisteElement ? '' : ', '}`}</>
-                                            );
-                                        }
-                                    )
-                                ) : (
-                                    <EtikettFokus>Ikke fylt ut</EtikettFokus>
-                                )}
+                                <Normaltekst>
+                                    <SjekkOmFyltUt verdi={yrker} />
+                                </Normaltekst>
                             </div>
                             <div className="endre-lenke">
                                 <Lenke

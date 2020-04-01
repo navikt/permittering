@@ -55,13 +55,30 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
         }
     }, [context]);
 
+    let årsak = '';
+    let yrker = '';
     let annet = '';
     if (context.skjema.fritekst) {
         const existerendeFelter = splittOppFritekst(context.skjema.fritekst);
+        if (existerendeFelter.yrker) {
+            yrker = existerendeFelter.yrker;
+        }
         if (existerendeFelter.annet) {
             annet = existerendeFelter.annet;
         }
+        if (existerendeFelter.årsak) {
+            annet = existerendeFelter.årsak;
+        }
     }
+
+    const lagYrkerTekst = (yrkeskategorier: Yrkeskategori[]): string => {
+        let yrkertekst = '';
+        yrkeskategorier.map((yrke: Yrkeskategori, index: number) => {
+            const erSisteElement = yrkeskategorier.length === index + 1;
+            return (yrkertekst += `${yrke.label}${erSisteElement ? '' : ', '}`);
+        });
+        return yrkertekst;
+    };
 
     const leggTilYrkeskategori = (nyYrkeskategori: Sokeforslag) => {
         const yrkeskategorierCopy = [...yrkeskategorier];
@@ -71,7 +88,17 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
             styrk08: nyYrkeskategori.styrk08 ? nyYrkeskategori.styrk08 : '',
         };
         yrkeskategorierCopy.push(nyKategori);
-        context.endreSkjemaVerdi('yrkeskategorier', yrkeskategorierCopy);
+        setYrkeskategorier(yrkeskategorierCopy);
+    };
+
+    const setYrkeskategorier = (yrkeskategorier: Yrkeskategori[]) => {
+        const fritekstFelter: any = { årsak, yrker, annet };
+        fritekstFelter['yrker'] = lagYrkerTekst(yrkeskategorier);
+        context.endreFritekstOgVerdi(
+            'yrkeskategorier',
+            yrkeskategorier,
+            mergeFritekst(fritekstFelter)
+        );
     };
 
     const erGyldigNr = (nr: string) => {
@@ -79,10 +106,11 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
     };
 
     const endreFritekstFelt = (key: string, value: string) => {
-        const fritekstFelter: any = { annet };
+        const fritekstFelter: any = { årsak, yrker, annet };
         fritekstFelter[key] = value;
         context.endreSkjemaVerdi('fritekst', mergeFritekst(fritekstFelter));
     };
+
     const setÅrsak = (årsak: string) => {
         if (årsak === 'VELG_ÅRSAK') {
             context.endreSkjemaVerdi('årsakskode', null);
@@ -150,9 +178,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
                     ) : null}
                     <YrkeskategoriVisning
                         yrkeskategorier={yrkeskategorier}
-                        setYrkeskategorier={(yrkeskategorier: Yrkeskategori[]) =>
-                            context.endreSkjemaVerdi('yrkeskategorier', yrkeskategorier)
-                        }
+                        setYrkeskategorier={setYrkeskategorier}
                     />
                 </div>
 
