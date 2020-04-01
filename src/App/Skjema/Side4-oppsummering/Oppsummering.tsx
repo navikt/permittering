@@ -24,7 +24,6 @@ import veilederIkon from './gjenstand.svg';
 import './Oppsummering.less';
 import environment from '../../../utils/environment';
 import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
-import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 
 const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
@@ -37,7 +36,7 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     const existerendeFelter = context.skjema.fritekst
         ? splittOppFritekst(context.skjema.fritekst)
         : null;
-    const [lesbarårsakskode, setLesbarÅrsakskode] = useState<string | undefined>(undefined);
+    const årsak = existerendeFelter && existerendeFelter.årsak ? existerendeFelter.årsak : '';
     const yrker = existerendeFelter && existerendeFelter.yrker ? existerendeFelter.yrker : '';
     const annet = existerendeFelter && existerendeFelter.annet ? existerendeFelter.annet : '';
 
@@ -77,9 +76,6 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
         window.scrollTo(0, 0);
         loggNavarendeSteg('oppsummeringsside');
     }, []);
-    useEffect(() => {
-        finnÅrsakstekst(context.skjema.årsakskode).then(setLesbarÅrsakskode);
-    }, [context.skjema.årsakskode]);
 
     const onSendClickLogging = () => {
         const antallBerorte = context.skjema.antallBerørt ? context.skjema.antallBerørt : 0;
@@ -169,12 +165,7 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                                     {lagTekstBasertPaSkjemaType(context.skjema.type)}
                                 </Normaltekst>
                                 <Normaltekst>
-                                    {context.skjema.årsakskode !== 'ANDRE_ÅRSAKER' && (
-                                        <SjekkOmFyltUt verdi={lesbarårsakskode} />
-                                    )}
-                                    {context.skjema.årsakskode === 'ANDRE_ÅRSAKER' && (
-                                        <SjekkOmFyltUt verdi={context.skjema.årsakstekst} />
-                                    )}
+                                    <SjekkOmFyltUt verdi={årsak} />
                                 </Normaltekst>
                             </div>
                             <div className="endre-lenke">
