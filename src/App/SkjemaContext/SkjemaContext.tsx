@@ -9,6 +9,11 @@ import { Feature, FeatureToggleContext } from '../FeatureToggleProvider';
 type Context = {
     skjema: Permitteringsskjema;
     endreSkjemaVerdi: (felt: keyof Permitteringsskjema, verdi: any) => void;
+    endreFritekstOgVerdi: (
+        felt: keyof Permitteringsskjema,
+        verdi: any,
+        fritekstVerdi: string
+    ) => void;
     lagre: () => void;
     opprett: (data: OpprettSkjema) => Promise<Permitteringsskjema['id']>;
     sendInn: () => void;
@@ -33,6 +38,10 @@ export const SkjemaProvider: FunctionComponent = props => {
         endreSkjemaVerdi: (felt, verdi) => {
             setSkjema({ ...skjema, [felt]: verdi });
         },
+        endreFritekstOgVerdi: (felt, verdi, fritekstVerdi) => {
+            setSkjema({ ...skjema, [felt]: verdi, ['fritekst']: fritekstVerdi });
+        },
+
         lagre: async () => {
             if (tillatFnrInput) {
                 skjema.antallBerørt = skjema.personer ? skjema.personer.length : 0;

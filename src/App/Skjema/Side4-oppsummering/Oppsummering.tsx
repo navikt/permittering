@@ -24,6 +24,7 @@ import veilederIkon from './gjenstand.svg';
 import './Oppsummering.less';
 import environment from '../../../utils/environment';
 import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
+import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 
 const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
@@ -33,12 +34,18 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     const { forrigeSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
     const featureToggleContext = useContext(FeatureToggleContext);
     const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
+    const [lesbarårsakskode, setLesbarÅrsakskode] = useState<string | undefined>(undefined);
     const existerendeFelter = context.skjema.fritekst
         ? splittOppFritekst(context.skjema.fritekst)
         : null;
-    const årsak = existerendeFelter && existerendeFelter.årsak ? existerendeFelter.årsak : '';
     const yrker = existerendeFelter && existerendeFelter.yrker ? existerendeFelter.yrker : '';
     const annet = existerendeFelter && existerendeFelter.annet ? existerendeFelter.annet : '';
+
+    useEffect(() => {
+        finnÅrsakstekst(context.skjema.årsakskode).then(setLesbarÅrsakskode);
+        console.log('endreFritekstFelt(): ', context.skjema.fritekst);
+        console.log('endreFritekstFelt(): hele skjema ', context.skjema);
+    }, [context.skjema.årsakskode]);
 
     const [antallIBedrift, setAntallIBedrift] = useState('');
 
@@ -165,7 +172,12 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                                     {lagTekstBasertPaSkjemaType(context.skjema.type)}
                                 </Normaltekst>
                                 <Normaltekst>
-                                    <SjekkOmFyltUt verdi={årsak} />
+                                    {context.skjema.årsakskode !== 'ANDRE_ÅRSAKER' && (
+                                        <SjekkOmFyltUt verdi={lesbarårsakskode} />
+                                    )}
+                                    {context.skjema.årsakskode === 'ANDRE_ÅRSAKER' && (
+                                        <SjekkOmFyltUt verdi={context.skjema.årsakstekst} />
+                                    )}
                                 </Normaltekst>
                             </div>
                             <div className="endre-lenke">
