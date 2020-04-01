@@ -94,7 +94,7 @@ const HvaSkalDuRapportere = () => {
                 />
                 <div className={'hva-skal-du-rapportere__info-om-virksomhet-juridisk'}>
                     <img alt="" className={'hva-skal-du-rapportere__infoikon'} src={infoIkon} />
-                    Du kan kun sende skjema på vegne av virksomhet (også kallt underenhet), og ikke
+                    Du kan kun sende skjema på vegne av virksomhet (også kalt underenhet), og ikke
                     på vegne av juridisk enhet.
                 </div>
                 <Hovedknapp
