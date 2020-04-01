@@ -21,8 +21,9 @@ import Yrkeskategorivelger, {
 } from '../../komponenter/Yrkeskategorivelger/Yrkeskategorivelger';
 import { Yrkeskategori } from '../../../types/permitteringsskjema';
 import YrkeskategoriVisning from '../../komponenter/Yrkeskategorivelger/YrkeskategoriVisning';
-import './Side2.less';
 import { Permitteringsårsaksvelger } from '../../komponenter/PermitteringsÅrsaksVelger/PermitteringsÅrsaksVelger';
+import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
+import './Side2.less';
 
 const Side2: FunctionComponent<SkjemaSideProps> = () => {
     const history = useHistory();
@@ -50,7 +51,11 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
     }, [context.skjema.sluttDato, context.skjema.ukjentSluttDato]);
 
     useEffect(() => {
-        if (context.skjema.årsakskode !== 'ANDRE_ÅRSAKER' && context.skjema.årsakstekst !== null) {
+        if (
+            context.skjema.årsakskode !== 'ANDRE_ÅRSAKER' &&
+            context.skjema.årsakstekst !== null &&
+            context.skjema.årsakskode !== undefined
+        ) {
             context.endreSkjemaVerdi('årsakstekst', null);
         }
     }, [context]);
@@ -60,6 +65,9 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
     let annet = '';
     if (context.skjema.fritekst) {
         const existerendeFelter = splittOppFritekst(context.skjema.fritekst);
+        if (existerendeFelter.årsak) {
+            årsak = existerendeFelter.årsak;
+        }
         if (existerendeFelter.yrker) {
             yrker = existerendeFelter.yrker;
         }
@@ -111,16 +119,30 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
         context.endreSkjemaVerdi('fritekst', mergeFritekst(fritekstFelter));
     };
 
-    const setÅrsak = (årsak: string) => {
-        if (årsak === 'VELG_ÅRSAK') {
-            context.endreSkjemaVerdi('årsakskode', null);
+    const setÅrsaksKode = (årsaksKode: string) => {
+        const fritekstFelter: any = { årsak, yrker, annet };
+        if (årsaksKode === 'VELG_ÅRSAK') {
+            fritekstFelter['årsak'] = '';
+            context.endreFritekstOgVerdi('årsakskode', null, mergeFritekst(fritekstFelter));
+        } else if (årsaksKode === 'ANDRE_ÅRSAKER') {
+            fritekstFelter['årsak'] = årsaksKode;
+            context.endreSkjemaVerdi('årsakskode', årsaksKode);
         } else {
-            context.endreSkjemaVerdi('årsakskode', årsak);
+            finnÅrsakstekst(årsaksKode).then(lesbarårsak => {
+                fritekstFelter['årsak'] = lesbarårsak;
+                context.endreFritekstOgVerdi(
+                    'årsakskode',
+                    årsaksKode,
+                    mergeFritekst(fritekstFelter)
+                );
+            });
         }
     };
 
     const setÅrsakstekst = (årsakstekst: string) => {
-        context.endreSkjemaVerdi('årsakstekst', årsakstekst);
+        const fritekstFelter: any = { årsak, yrker, annet };
+        fritekstFelter['årsak'] = årsakstekst;
+        context.endreFritekstOgVerdi('årsakstekst', årsakstekst, mergeFritekst(fritekstFelter));
     };
 
     const { forrigeSide, nesteSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
@@ -155,7 +177,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
                     <Permitteringsårsaksvelger
                         label={lagTekstBasertPaSkjemaType(context.skjema.type)}
                         valgtårsak={context.skjema.årsakskode || 'Velg årsak'}
-                        setÅrsak={setÅrsak}
+                        setÅrsak={setÅrsaksKode}
                     />
                 </div>
                 {context.skjema.årsakskode === 'ANDRE_ÅRSAKER' && (
@@ -168,6 +190,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
                         />
                     </div>
                 )}
+
                 <div className="skjema-innhold__side-2-text-area">
                     <Yrkeskategorivelger
                         yrkeskategorier={yrkeskategorier}

@@ -39,7 +39,7 @@ export const SkjemaProvider: FunctionComponent = props => {
             setSkjema({ ...skjema, [felt]: verdi });
         },
         endreFritekstOgVerdi: (felt, verdi, fritekstVerdi) => {
-            setSkjema({ ...skjema, [felt]: verdi, ['fritekst']: fritekstVerdi });
+            setSkjema({ ...skjema, [felt]: verdi, fritekst: fritekstVerdi });
         },
         lagre: async () => {
             if (tillatFnrInput) {
