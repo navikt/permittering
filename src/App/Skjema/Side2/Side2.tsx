@@ -131,7 +131,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
                         />
                     </div>
                 )}
-                <div>
+                <div className="skjema-innhold__side-2-text-area">
                     <Permitteringsårsaksvelger
                         label={lagTekstBasertPaSkjemaType(context.skjema.type)}
                         valgtårsak={context.skjema.årsakskode || 'Velg årsak'}
