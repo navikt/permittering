@@ -3,10 +3,10 @@ import SkjemaContext from '../../SkjemaContext/SkjemaContext';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import { SkjemaSideProps } from '../use-skjema-steg';
 import { stillingstitlerPath } from '../../../paths.json';
-import { Yrkeskategorivelger } from '../../komponenter/Yrkeskategorivelger/Yrkeskategorivelger';
-import YrkeskategoriTabell from './komponenter/YrkeskategoriTabell';
+import YrkeskategoriTabell from '../../komponenter/Yrkeskategorivelger/Yrkeskategorivelger-gammel/YrkeskategoriTabell';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
+import { YrkeskategorivelgerGammel } from '../../komponenter/Yrkeskategorivelger/Yrkeskategorivelger-gammel/Yrkeskategorivelger-gammel';
 
 const Yrkeskategorier: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
@@ -21,7 +21,7 @@ const Yrkeskategorier: FunctionComponent<SkjemaSideProps> = () => {
         <>
             <Dekorator sidetittel={context.skjema.type} />
             <SkjemaRamme>
-                <Yrkeskategorivelger
+                <YrkeskategorivelgerGammel
                     searchPath={stillingstitlerPath}
                     selected={selected}
                     setSelected={setSelected}

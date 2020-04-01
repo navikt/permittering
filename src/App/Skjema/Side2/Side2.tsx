@@ -5,7 +5,7 @@ import { Knapp } from 'nav-frontend-knapper';
 import { Textarea } from 'nav-frontend-skjema';
 import Checkbox from 'nav-frontend-skjema/lib/checkbox';
 import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
-import { Element } from 'nav-frontend-typografi';
+import { Element, Normaltekst } from 'nav-frontend-typografi';
 import Input from 'nav-frontend-skjema/lib/input';
 import SkjemaContext from '../../SkjemaContext/SkjemaContext';
 import { SkjemaSideProps, useSkjemaSteg } from '../use-skjema-steg';
@@ -16,18 +16,26 @@ import Banner from '../../HovedBanner/HovedBanner';
 import { lagTekstBasertPaSkjemaType } from '../Side4-oppsummering/oppsummering-utils';
 import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
-import './Side2.less';
+import Yrkeskategorivelger, {
+    Sokeforslag,
+} from '../../komponenter/Yrkeskategorivelger/Yrkeskategorivelger';
+import { Yrkeskategori } from '../../../types/permitteringsskjema';
+import YrkeskategoriVisning from '../../komponenter/Yrkeskategorivelger/YrkeskategoriVisning';
 import { Permitteringsårsaksvelger } from '../../komponenter/PermitteringsÅrsaksVelger/PermitteringsÅrsaksVelger';
 import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
+import './Side2.less';
 
 const Side2: FunctionComponent<SkjemaSideProps> = () => {
+    const history = useHistory();
+    const featureToggleContext = useContext(FeatureToggleContext);
+    const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
+
     const [datoFra, setDatoFra] = useState(new Date());
     const [datoTil, setDatoTil] = useState(undefined);
     const [feilMeldingAntallBerort, setFeilmeldingAntallBerort] = useState('');
-    const featureToggleContext = useContext(FeatureToggleContext);
-    const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
-    const history = useHistory();
+
     const context = useContext(SkjemaContext);
+    let { yrkeskategorier = [] } = context.skjema;
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -67,6 +75,36 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
             annet = existerendeFelter.annet;
         }
     }
+
+    const lagYrkerTekst = (yrkeskategorier: Yrkeskategori[]): string => {
+        let yrkertekst = '';
+        yrkeskategorier.map((yrke: Yrkeskategori, index: number) => {
+            const erSisteElement = yrkeskategorier.length === index + 1;
+            return (yrkertekst += `${yrke.label}${erSisteElement ? '' : ', '}`);
+        });
+        return yrkertekst;
+    };
+
+    const leggTilYrkeskategori = (nyYrkeskategori: Sokeforslag) => {
+        const yrkeskategorierCopy = [...yrkeskategorier];
+        const nyKategori: Yrkeskategori = {
+            konseptId: parseInt(nyYrkeskategori.key),
+            label: nyYrkeskategori.value,
+            styrk08: nyYrkeskategori.styrk08 ? nyYrkeskategori.styrk08 : '',
+        };
+        yrkeskategorierCopy.push(nyKategori);
+        setYrkeskategorier(yrkeskategorierCopy);
+    };
+
+    const setYrkeskategorier = (yrkeskategorier: Yrkeskategori[]) => {
+        const fritekstFelter: any = { årsak, yrker, annet };
+        fritekstFelter['yrker'] = lagYrkerTekst(yrkeskategorier);
+        context.endreFritekstOgVerdi(
+            'yrkeskategorier',
+            yrkeskategorier,
+            mergeFritekst(fritekstFelter)
+        );
+    };
 
     const erGyldigNr = (nr: string) => {
         return nr.match(/^[0-9]+$/) != null;
@@ -131,6 +169,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
                         />
                     </div>
                 )}
+
                 <div className="skjema-innhold__side-2-text-area">
                     <Permitteringsårsaksvelger
                         label={lagTekstBasertPaSkjemaType(context.skjema.type)}
@@ -150,14 +189,19 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
                 )}
 
                 <div className="skjema-innhold__side-2-text-area">
-                    <Textarea
-                        description="For eksempel kokk, sjåfør eller revisor"
-                        label="Hvilke yrkeskategorier tilhører de berørte?"
-                        value={yrker}
-                        maxLength={1000}
-                        onChange={event => endreFritekstFelt('yrker', event.currentTarget.value)}
+                    <Yrkeskategorivelger
+                        yrkeskategorier={yrkeskategorier}
+                        leggTilYrkeskategori={leggTilYrkeskategori}
+                    />
+                    {yrkeskategorier.length ? (
+                        <Normaltekst className="yrker-valgt__overskrift">Du har valgt:</Normaltekst>
+                    ) : null}
+                    <YrkeskategoriVisning
+                        yrkeskategorier={yrkeskategorier}
+                        setYrkeskategorier={setYrkeskategorier}
                     />
                 </div>
+
                 <Element className="skjema-innhold__side-2-dato-overskrift">
                     For hvilken periode gjelder dette?
                 </Element>
@@ -194,6 +238,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
                         />
                     </div>
                 </div>
+
                 <div className="skjema-innhold__side-2-text-area andre-opplysninger">
                     <Textarea
                         label="Andre relevante opplysninger (frivillig)"
@@ -202,6 +247,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
                         onChange={event => endreFritekstFelt('annet', event.currentTarget.value)}
                     />
                 </div>
+
                 <div className="skjema-innhold__fram-og-tilbake">
                     <Knapp
                         onClick={async () => {

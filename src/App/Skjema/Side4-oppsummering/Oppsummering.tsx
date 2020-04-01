@@ -189,9 +189,7 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
 
                         <div className="oppsummering__boks yrkeskategorier">
                             <div className="tekst">
-                                <Normaltekst className="overskrift">
-                                    Hvilke yrkeskategorier tilhører de berørte?
-                                </Normaltekst>
+                                <Normaltekst className="overskrift">Yrkeskategorier</Normaltekst>
                                 <Normaltekst>
                                     <SjekkOmFyltUt verdi={yrker} />
                                 </Normaltekst>
