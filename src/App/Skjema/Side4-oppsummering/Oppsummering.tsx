@@ -45,20 +45,6 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
         finnÅrsakstekst(context.skjema.årsakskode).then(setLesbarÅrsakskode);
     }, [context.skjema.årsakskode]);
 
-    const [antallIBedrift, setAntallIBedrift] = useState('');
-
-    useEffect(() => {
-        if (environment.MILJO === 'prod-sbs') {
-            const fullBedrift = organisasjoner.filter(
-                org => org.OrganizationNumber === context.skjema.bedriftNr
-            )[0];
-            fullBedrift &&
-                loggBedriftsInfo(fullBedrift).then(antallAnsatte =>
-                    setAntallIBedrift(antallAnsatte)
-                );
-        }
-    }, [organisasjoner, context.skjema.bedriftNr]);
-
     const lagAntallBerorteTekst = () => {
         if (context.skjema.antallBerørt) {
             return context.skjema.antallBerørt === 1 ? ' person' : ' personer';
@@ -81,15 +67,6 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
         window.scrollTo(0, 0);
         loggNavarendeSteg('oppsummeringsside');
     }, []);
-
-    const onSendClickLogging = () => {
-        const antallBerorte = context.skjema.antallBerørt ? context.skjema.antallBerørt : 0;
-        const antallIBedriftInt = parseInt(antallIBedrift);
-        if (antallBerorte > 0 && context.skjema.type && antallIBedriftInt > 0) {
-            loggAntallBerorte(antallBerorte, context.skjema.type);
-            loggProsentAndelPermittert(context.skjema.type, antallIBedriftInt, antallBerorte);
-        }
-    };
 
     return (
         <>
@@ -261,7 +238,6 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                         <Hovedknapp
                             className="skjema-innhold__lagre"
                             onClick={async () => {
-                                onSendClickLogging();
                                 try {
                                     setFeilmelding('');
                                     await context.sendInn();
