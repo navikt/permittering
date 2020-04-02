@@ -8,6 +8,8 @@ import HvitSideBoks from './HvitSideBoks';
 import VerticalSpacer from './VerticalSpacer';
 import AvbrytLagreSlett from './AvbrytLagreSlett/AvbrytLagreSlett';
 import './SkjemaRamme.less';
+import Lenke from 'nav-frontend-lenker';
+import { VenstreChevron } from 'nav-frontend-chevron';
 
 const SkjemaRamme: FunctionComponent = ({ children }) => {
     const history = useHistory();
@@ -35,6 +37,7 @@ const SkjemaRamme: FunctionComponent = ({ children }) => {
                 visLabel
                 autoResponsiv
             />
+
             <HvitSideBoks>{children}</HvitSideBoks>
             <VerticalSpacer rem={1} />
             <AvbrytLagreSlett />
