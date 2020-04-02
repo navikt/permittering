@@ -1,51 +1,16 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import Lenkepanel from 'nav-frontend-lenkepanel/lib';
 import HvitSideBoks from '../../komponenter/HvitSideBoks';
 import KvitteringIkon from './KvitteringIkon';
 import './Kvitteringsside.less';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
-import {
-    loggAntallBerorte,
-    loggBedriftsInfo,
-    loggNavarendeSteg,
-    loggProsentAndelPermittert,
-} from '../../../utils/funksjonerForAmplitudeLogging';
+import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
-import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
-import SkjemaContext from '../../SkjemaContext/SkjemaContext';
-import environment from '../../../utils/environment';
 
 const Kvitteringsside = () => {
-    const context = useContext(SkjemaContext);
-    const { organisasjoner } = useContext(OrganisasjonsListeContext);
     const sidetittel =
         'Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid';
-
-    const loggVedInnsendt = () => {
-        if (environment.MILJO === 'prod-sbs' && context.skjema.bedriftNr) {
-            const fullBedrift = organisasjoner.filter(
-                org => org.OrganizationNumber === context.skjema.bedriftNr
-            )[0];
-            fullBedrift &&
-                loggBedriftsInfo(fullBedrift).then(antallAnsatte => {
-                    const antallBerorte = context.skjema.antallBerørt
-                        ? context.skjema.antallBerørt
-                        : 0;
-                    const antallIBedriftInt = parseInt(antallAnsatte);
-                    if (antallBerorte > 0 && context.skjema.type && antallIBedriftInt > 0) {
-                        loggAntallBerorte(antallBerorte, context.skjema.type);
-                        loggProsentAndelPermittert(
-                            context.skjema.type,
-                            antallIBedriftInt,
-                            antallBerorte
-                        );
-                    }
-                });
-        }
-    };
-
-    loggVedInnsendt();
 
     useEffect(() => {
         window.scrollTo(0, 0);
