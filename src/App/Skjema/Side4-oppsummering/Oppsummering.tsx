@@ -1,14 +1,13 @@
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
+import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { Feilmelding, Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
 import Lenke from 'nav-frontend-lenker';
-import Knapp from 'nav-frontend-knapper/lib/knapp';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 import environment from '../../../utils/environment';
 import SkjemaContext from '../../SkjemaContext/SkjemaContext';
-import { SkjemaSideProps, useSkjemaSteg } from '../use-skjema-steg';
+import { useSkjemaSteg } from '../use-skjema-steg';
 import {
     loggAntallBerorte,
     loggBedriftsInfo,
@@ -18,20 +17,20 @@ import {
 } from '../../../utils/funksjonerForAmplitudeLogging';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import { splittOppFritekst } from '../../../utils/fritekstFunksjoner';
-import Banner from '../../HovedBanner/HovedBanner';
 import { formatterDato, lagTekstBasertPaSkjemaType } from './oppsummering-utils';
 import SjekkOmFyltUt from '../../komponenter/SjekkOmFyltUt/SjekkOmFyltUt';
 import veilederIkon from './gjenstand.svg';
 import './Oppsummering.less';
 import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
+import Dekorator from '../../komponenter/Dekorator/Dekorator';
 
-const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
+const Oppsummering: FunctionComponent = () => {
     const context = useContext(SkjemaContext);
     const history = useHistory();
     const { organisasjoner } = useContext(OrganisasjonsListeContext);
     const [feilmelding, setFeilmelding] = useState('');
-    const { forrigeSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
+    const { steg, forrigeSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
     const featureToggleContext = useContext(FeatureToggleContext);
     const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
     const [lesbarårsakskode, setLesbarÅrsakskode] = useState<string | undefined>(undefined);
@@ -89,11 +88,17 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
             loggProsentAndelPermittert(context.skjema.type, antallIBedriftInt, antallBerorte);
         }
     };
-
+    if (context.skjema.sendtInnTidspunkt) {
+        history.replace('/skjema/kvitteringsside');
+    }
     return (
         <>
-            <Banner sidetittel={context.skjema.type} />
-            <SkjemaRamme>
+            <Dekorator sidetittel={context.skjema.type} />
+            <SkjemaRamme
+                steg={steg}
+                lagre={async () => await context.lagre()}
+                slett={async () => await context.avbryt()}
+            >
                 <section className="oppsummering">
                     <div className="oppsummering__tittel-desktop">
                         <Systemtittel>Er opplysningene riktige?</Systemtittel>

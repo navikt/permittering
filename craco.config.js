@@ -14,20 +14,6 @@ const eslint = {
 };
 
 module.exports = {
-    devServer: {
-        before: app => {
-            app.get('/permittering/redirect-til-login', (req, res) => {
-                const loginUrl =
-                    'http://localhost:8080/permitteringsskjema-api/local/cookie?redirect=http://localhost:3000/permittering';
-                res.redirect(loginUrl);
-            });
-            app.get(`/permittering/static/js/settings.js`, (req, res) =>
-                res.send(`window.appSettings = {
-            MILJO: "local",
-        };`)
-            );
-        },
-    },
     plugins: [{ plugin: CracoLessPlugin }],
     eslint,
 };

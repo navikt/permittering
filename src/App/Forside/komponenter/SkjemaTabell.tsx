@@ -2,7 +2,7 @@ import React from 'react';
 import { Permitteringsskjema } from '../../../types/permitteringsskjema';
 import moment from 'moment';
 import Lenke from 'nav-frontend-lenker';
-import Normaltekst from 'nav-frontend-typografi/lib/normaltekst';
+import { Normaltekst } from 'nav-frontend-typografi';
 
 interface SkjemaTabellProps {
     skjemaer: any;

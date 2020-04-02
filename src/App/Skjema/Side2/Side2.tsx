@@ -8,11 +8,10 @@ import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import Input from 'nav-frontend-skjema/lib/input';
 import SkjemaContext from '../../SkjemaContext/SkjemaContext';
-import { SkjemaSideProps, useSkjemaSteg } from '../use-skjema-steg';
+import { useSkjemaSteg } from '../use-skjema-steg';
 import { mergeFritekst, splittOppFritekst } from '../../../utils/fritekstFunksjoner';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import Datovelger from '../../komponenter/Datovelger/Datovelger';
-import Banner from '../../HovedBanner/HovedBanner';
 import { lagTekstBasertPaSkjemaType } from '../Side4-oppsummering/oppsummering-utils';
 import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
@@ -24,8 +23,9 @@ import YrkeskategoriVisning from '../../komponenter/Yrkeskategorivelger/Yrkeskat
 import { Permitteringsårsaksvelger } from '../../komponenter/PermitteringsÅrsaksVelger/PermitteringsÅrsaksVelger';
 import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 import './Side2.less';
+import Dekorator from '../../komponenter/Dekorator/Dekorator';
 
-const Side2: FunctionComponent<SkjemaSideProps> = () => {
+const Side2: FunctionComponent = () => {
     const history = useHistory();
     const featureToggleContext = useContext(FeatureToggleContext);
     const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
@@ -142,12 +142,21 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
         context.endreFritekstOgVerdi('årsakstekst', årsakstekst, mergeFritekst(fritekstFelter));
     };
 
-    const { forrigeSide, nesteSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
-
+    const { steg, forrigeSide, nesteSide } = useSkjemaSteg(
+        history.location.pathname,
+        context.skjema.id
+    );
+    if (context.skjema.sendtInnTidspunkt) {
+        history.replace('/skjema/kvitteringsside');
+    }
     return (
         <div>
-            <Banner sidetittel={context.skjema.type} />
-            <SkjemaRamme>
+            <Dekorator sidetittel={context.skjema.type} />
+            <SkjemaRamme
+                steg={steg}
+                lagre={async () => await context.lagre()}
+                slett={async () => await context.avbryt()}
+            >
                 <Systemtittel>Generelle opplysninger</Systemtittel>
                 {!tillatFnrInput && (
                     <div className="skjema-innhold__side-2-text-area">

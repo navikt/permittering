@@ -1,9 +1,8 @@
-import React, { useRef, FunctionComponent, useState, useEffect } from 'react';
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 import { Collapse } from 'react-collapse';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
-import Input from 'nav-frontend-skjema/lib/input';
-import { Label } from 'nav-frontend-skjema';
+import { Input, Label } from 'nav-frontend-skjema';
 import { guid } from 'nav-frontend-js-utils';
 import {
     datoValidering,

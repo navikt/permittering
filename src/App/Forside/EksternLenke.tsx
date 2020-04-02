@@ -1,4 +1,5 @@
 import React from 'react';
+
 export const EksternLenke = () => (
     <svg
         width="20px"
@@ -9,12 +10,12 @@ export const EksternLenke = () => (
     >
         <title>Fill-1</title>
         <desc>Created with Sketch.</desc>
-        <g id="⭐️-Mest-oppdaterte" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="⭐️-Mest-oppdaterte" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g
                 id="Nye-innganger"
                 transform="translate(-843.000000, -1229.000000)"
                 fill="#0067C5"
-                fill-rule="nonzero"
+                fillRule="nonzero"
             >
                 <g id="Group-11" transform="translate(161.000000, 1178.000000)">
                     <g id="Group-5">

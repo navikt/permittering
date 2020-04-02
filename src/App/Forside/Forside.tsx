@@ -3,7 +3,7 @@ import { Systemtittel } from 'nav-frontend-typografi';
 
 import { Feature, FeatureToggleContext } from '../FeatureToggleProvider';
 import { Permitteringsskjema } from '../../types/permitteringsskjema';
-import { hentAlle } from '../../api/skjema-api';
+import { hentAlle } from '../../api/permittering-api';
 import SkjemaTabell from './komponenter/SkjemaTabell';
 import HvitSideBoks from '../komponenter/HvitSideBoks';
 import './Forside.less';

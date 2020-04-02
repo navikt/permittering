@@ -3,7 +3,7 @@ import React, { FunctionComponent } from 'react';
 import './oversiktForMobil.less';
 import { Permitteringsskjema } from '../../../types/permitteringsskjema';
 import TidligereInnsendtSkjema from './TidligereInnsendtSkjema/tidligereInnsendtSkjema';
-import Undertittel from 'nav-frontend-typografi/lib/undertittel';
+import { Undertittel } from 'nav-frontend-typografi';
 
 interface Props {
     listeMedSkjema: any;

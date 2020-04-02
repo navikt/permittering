@@ -1,21 +1,20 @@
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
-import Input from 'nav-frontend-skjema/lib/input';
-import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
-import Undertittel from 'nav-frontend-typografi/lib/undertittel';
+import { Systemtittel, Undertittel } from 'nav-frontend-typografi';
+import { Input } from 'nav-frontend-skjema';
+import { Hovedknapp } from 'nav-frontend-knapper';
 import SkjemaContext from '../../SkjemaContext/SkjemaContext';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
-import { SkjemaSideProps, useSkjemaSteg } from '../use-skjema-steg';
-import Banner from '../../HovedBanner/HovedBanner';
-import { erGyldigEpost, erGyldigTelefonNr } from './inputFeltValideringer';
+import { useSkjemaSteg } from '../use-skjema-steg';
+import { erGyldigEpost, erGyldigTelefonNr } from '../../../utils/inputFeltValideringer';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
 import './Side1.less';
+import Dekorator from '../../komponenter/Dekorator/Dekorator';
 
-const Side1: FunctionComponent<SkjemaSideProps> = () => {
+const Side1: FunctionComponent = () => {
     const context = useContext(SkjemaContext);
     const history = useHistory();
-    const { nesteSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
+    const { steg, nesteSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
     const [feilMeldingEpost, setFeilmeldingEpost] = useState('');
     const [feilMeldingTelefonNr, setFeilmeldingTelefonNr] = useState('');
 
@@ -23,11 +22,17 @@ const Side1: FunctionComponent<SkjemaSideProps> = () => {
         window.scrollTo(0, 0);
         loggNavarendeSteg('kontaktinformasjon');
     }, []);
-
+    if (context.skjema.sendtInnTidspunkt) {
+        history.replace('/skjema/kvitteringsside');
+    }
     return (
         <>
-            <Banner sidetittel={context.skjema.type} />
-            <SkjemaRamme>
+            <Dekorator sidetittel={context.skjema.type} />
+            <SkjemaRamme
+                steg={steg}
+                lagre={async () => await context.lagre()}
+                slett={async () => await context.avbryt()}
+            >
                 <Systemtittel>Kontaktinformasjon</Systemtittel>
                 <Undertittel className={'skjema-innhold__side-1-undertittel'}>
                     Informasjon om arbeidsgiver
