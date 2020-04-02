@@ -1,29 +1,14 @@
 import { useContext } from 'react';
 import { Feature, FeatureToggleContext } from '../FeatureToggleProvider';
+import { SkjemaNavigasjon } from '../../types/SkjemaNavigasjon';
 
-export interface SkjemaSideProps {}
-
-export interface SkjemaSteg {
-    aktiv: boolean;
-    index: number;
-    label: string;
-    slug: string;
-}
-
-export type UseSkjemaSteg = {
-    steg: SkjemaSteg[];
-    forrigeSide: string;
-    nesteSide: string;
-};
-
-export const createSkjemaPath = (slug: string, id?: string) => {
+const createSkjemaPath = (slug: string, id?: string) => {
     return ['', 'skjema', slug, id].join('/');
 };
 
-export const useSkjemaSteg = (currentPathName: string, id: string): UseSkjemaSteg => {
+export const useSkjemaSteg = (currentPathName: string, id: string): SkjemaNavigasjon => {
     const featureToggleContext = useContext(FeatureToggleContext);
     const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
-
     const steg = [
         {
             label: 'Kontaktinformasjon',
@@ -57,13 +42,14 @@ export const useSkjemaSteg = (currentPathName: string, id: string): UseSkjemaSte
         .map((item, index) => ({
             ...item,
             index,
+            path: createSkjemaPath(item.slug, id),
             aktiv: currentPathName.includes(item.slug),
         }));
 
     const nesteSide = (() => {
         const aktivSteg = steg.find(e => e.aktiv);
         if (aktivSteg && steg[aktivSteg.index + 1]) {
-            return createSkjemaPath(steg[aktivSteg.index + 1].slug, id);
+            return steg[aktivSteg.index + 1].path;
         } else {
             return '';
         }
@@ -72,7 +58,7 @@ export const useSkjemaSteg = (currentPathName: string, id: string): UseSkjemaSte
     const forrigeSide = (() => {
         const aktivSteg = steg.find(e => e.aktiv);
         if (aktivSteg && steg[aktivSteg.index - 1]) {
-            return createSkjemaPath(steg[aktivSteg.index - 1].slug, id);
+            return steg[aktivSteg.index - 1].path;
         } else {
             return '';
         }

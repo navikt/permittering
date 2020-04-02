@@ -4,8 +4,8 @@ import AttributtVisning from './AttributtVisning/AttributtVisning';
 import './tidligereInnsendtSkjema.less';
 import { Permitteringsskjema } from '../../../../types/permitteringsskjema';
 import Lenkepanel from 'nav-frontend-lenkepanel/lib';
-import Element from 'nav-frontend-typografi/lib/element';
 import moment from 'moment';
+import { Element } from 'nav-frontend-typografi';
 
 const status = (skjema: Permitteringsskjema) => {
     if (skjema.sendtInnTidspunkt) {

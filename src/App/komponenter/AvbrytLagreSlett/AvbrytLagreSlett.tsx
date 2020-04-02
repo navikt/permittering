@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { AvbrytOgLagreSkjema } from './AvbrytOgLagreSkjema/AvbrytOgLagreSkjema';
 import { SlettSkjema } from './SlettSkjema/SlettSkjema';
 import './AvbrytLagreSlett.less';
 
-const AvbrytLagreSlett = () => {
+interface AvbrytLagreSlettProps {
+    lagre: () => Promise<void>;
+    slett: () => Promise<void>;
+}
+
+const AvbrytLagreSlett: FunctionComponent<AvbrytLagreSlettProps> = ({ lagre, slett }) => {
     return (
         <div className="avbryt-slett-knapper">
             <div className="knapper">
-                <AvbrytOgLagreSkjema />
-                <SlettSkjema />
+                <AvbrytOgLagreSkjema lagre={lagre} />
+                <SlettSkjema slett={slett} />
             </div>
         </div>
     );

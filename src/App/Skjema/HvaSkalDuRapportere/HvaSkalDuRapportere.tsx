@@ -1,18 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
 import { RadioPanelGruppe } from 'nav-frontend-skjema';
-import SkjemaContext from '../SkjemaContext/SkjemaContext';
-import { OrganisasjonsListeContext } from '../OrganisasjonslisteProvider';
-import { Permitteringsskjema } from '../../types/permitteringsskjema';
-import { BedriftsVelger } from '../komponenter/Bedriftsvelger/Bedriftsvelger';
+import SkjemaContext from '../../SkjemaContext/SkjemaContext';
+import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
+import { Permitteringsskjema } from '../../../types/permitteringsskjema';
+import { BedriftsVelger } from '../../komponenter/Bedriftsvelger/Bedriftsvelger';
 import './HvaSkalDuRapportere.less';
-import Dekorator from '../komponenter/Dekorator/Dekorator';
-import environment from '../../utils/environment';
-import { loggAntallUnderenheter, loggSkjemaValg } from '../../utils/funksjonerForAmplitudeLogging';
-import HvitSideBoks from '../komponenter/HvitSideBoks';
-import infoIkon from './info.svg';
+import Dekorator from '../../komponenter/Dekorator/Dekorator';
+import environment from '../../../utils/environment';
+import {
+    loggAntallUnderenheter,
+    loggSkjemaValg,
+} from '../../../utils/funksjonerForAmplitudeLogging';
+import HvitSideBoks from '../../komponenter/HvitSideBoks';
+import { Hovedknapp } from 'nav-frontend-knapper';
 
 const HvaSkalDuRapportere = () => {
     const history = useHistory();
@@ -92,11 +94,6 @@ const HvaSkalDuRapportere = () => {
                     organisasjoner={organisasjoner}
                     setOrganisasjon={setValgtOrganisasjon}
                 />
-                <div className={'hva-skal-du-rapportere__info-om-virksomhet-juridisk'}>
-                    <img alt="" className={'hva-skal-du-rapportere__infoikon'} src={infoIkon} />
-                    Du kan kun sende skjema på vegne av virksomhet (også kalt underenhet), og ikke
-                    på vegne av juridisk enhet.
-                </div>
                 <Hovedknapp
                     disabled={skjemaType === undefined}
                     className="hva-skal-du-rapportere__knapp"
