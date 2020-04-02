@@ -9,10 +9,7 @@ import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 import SkjemaContext from '../../SkjemaContext/SkjemaContext';
 import { SkjemaSideProps, useSkjemaSteg } from '../use-skjema-steg';
 import {
-    loggAntallBerorte,
-    loggBedriftsInfo,
     loggNavarendeSteg,
-    loggProsentAndelPermittert,
     loggSkjemaInnsendt,
 } from '../../../utils/funksjonerForAmplitudeLogging';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
@@ -22,13 +19,10 @@ import { formatterDato, lagTekstBasertPaSkjemaType } from './oppsummering-utils'
 import SjekkOmFyltUt from '../../komponenter/SjekkOmFyltUt/SjekkOmFyltUt';
 import veilederIkon from './gjenstand.svg';
 import './Oppsummering.less';
-import environment from '../../../utils/environment';
-import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
 import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 
 const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
-    const { organisasjoner } = useContext(OrganisasjonsListeContext);
     const history = useHistory();
     const [feilmelding, setFeilmelding] = useState('');
     const { forrigeSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
