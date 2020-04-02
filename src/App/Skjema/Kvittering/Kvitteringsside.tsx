@@ -22,7 +22,7 @@ const Kvitteringsside = () => {
     const sidetittel =
         'Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid';
 
-    useEffect(() => {
+    const loggVedInnsendt = () => {
         if (environment.MILJO === 'prod-sbs') {
             const fullBedrift = organisasjoner.filter(
                 org => org.OrganizationNumber === context.skjema.bedriftNr
@@ -43,12 +43,9 @@ const Kvitteringsside = () => {
                     }
                 });
         }
-    }, [
-        organisasjoner,
-        context.skjema.bedriftNr,
-        context.skjema.antallBerørt,
-        context.skjema.type,
-    ]);
+    };
+
+    loggVedInnsendt();
 
     useEffect(() => {
         window.scrollTo(0, 0);
