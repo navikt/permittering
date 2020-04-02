@@ -6,10 +6,14 @@ import Lenke from 'nav-frontend-lenker';
 import Knapp from 'nav-frontend-knapper/lib/knapp';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
+import environment from '../../../utils/environment';
 import SkjemaContext from '../../SkjemaContext/SkjemaContext';
 import { SkjemaSideProps, useSkjemaSteg } from '../use-skjema-steg';
 import {
+    loggAntallBerorte,
+    loggBedriftsInfo,
     loggNavarendeSteg,
+    loggProsentAndelPermittert,
     loggSkjemaInnsendt,
 } from '../../../utils/funksjonerForAmplitudeLogging';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
@@ -20,10 +24,12 @@ import SjekkOmFyltUt from '../../komponenter/SjekkOmFyltUt/SjekkOmFyltUt';
 import veilederIkon from './gjenstand.svg';
 import './Oppsummering.less';
 import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
+import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
 
 const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
     const history = useHistory();
+    const { organisasjoner } = useContext(OrganisasjonsListeContext);
     const [feilmelding, setFeilmelding] = useState('');
     const { forrigeSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
     const featureToggleContext = useContext(FeatureToggleContext);
@@ -34,6 +40,7 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
         : null;
     const yrker = existerendeFelter && existerendeFelter.yrker ? existerendeFelter.yrker : '';
     const annet = existerendeFelter && existerendeFelter.annet ? existerendeFelter.annet : '';
+    const [antallIBedrift, setAntallIBedrift] = useState('');
 
     useEffect(() => {
         finnÅrsakstekst(context.skjema.årsakskode).then(setLesbarÅrsakskode);
@@ -61,6 +68,27 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
         window.scrollTo(0, 0);
         loggNavarendeSteg('oppsummeringsside');
     }, []);
+
+    useEffect(() => {
+        if (environment.MILJO === 'prod-sbs') {
+            const fullBedrift = organisasjoner.filter(
+                org => org.OrganizationNumber === context.skjema.bedriftNr
+            )[0];
+            fullBedrift &&
+                loggBedriftsInfo(fullBedrift).then(antallAnsatte =>
+                    setAntallIBedrift(antallAnsatte)
+                );
+        }
+    }, [organisasjoner, context.skjema.bedriftNr]);
+
+    const onSendClickLogging = () => {
+        const antallBerorte = context.skjema.antallBerørt ? context.skjema.antallBerørt : 0;
+        const antallIBedriftInt = parseInt(antallIBedrift);
+        if (antallBerorte > 0 && context.skjema.type && antallIBedriftInt > 0) {
+            loggAntallBerorte(antallBerorte, context.skjema.type);
+            loggProsentAndelPermittert(context.skjema.type, antallIBedriftInt, antallBerorte);
+        }
+    };
 
     return (
         <>
@@ -236,6 +264,7 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
                                     setFeilmelding('');
                                     await context.sendInn();
                                     history.push('/skjema/kvitteringsside');
+                                    onSendClickLogging();
                                     loggSkjemaInnsendt();
                                 } catch (e) {
                                     if (e.response.status === 400) {
