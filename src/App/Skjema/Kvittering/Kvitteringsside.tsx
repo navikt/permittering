@@ -23,7 +23,7 @@ const Kvitteringsside = () => {
         'Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid';
 
     const loggVedInnsendt = () => {
-        if (environment.MILJO === 'prod-sbs') {
+        if (environment.MILJO === 'prod-sbs' && context.skjema.bedriftNr) {
             const fullBedrift = organisasjoner.filter(
                 org => org.OrganizationNumber === context.skjema.bedriftNr
             )[0];
