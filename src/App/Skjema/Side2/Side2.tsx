@@ -23,6 +23,7 @@ import YrkeskategoriVisning from '../../komponenter/Yrkeskategorivelger/Yrkeskat
 import { Permitteringsårsaksvelger } from '../../komponenter/PermitteringsÅrsaksVelger/PermitteringsÅrsaksVelger';
 import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 import './Side2.less';
+import { BrodsmuleSti } from '../../komponenter/BrodsmuleSti/BrodsmuleSti';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 
 const Side2: FunctionComponent = () => {
@@ -157,6 +158,7 @@ const Side2: FunctionComponent = () => {
                 lagre={async () => await context.lagre()}
                 slett={async () => await context.avbryt()}
             >
+                <BrodsmuleSti />
                 <Systemtittel>Generelle opplysninger</Systemtittel>
                 {!tillatFnrInput && (
                     <div className="skjema-innhold__side-2-text-area">

@@ -7,7 +7,8 @@ import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
 import { Permitteringsskjema } from '../../../types/permitteringsskjema';
 import { BedriftsVelger } from '../../komponenter/Bedriftsvelger/Bedriftsvelger';
 import './HvaSkalDuRapportere.less';
-import Dekorator from '../../komponenter/Dekorator/Dekorator';
+import infoIkon from './info.svg';
+
 import environment from '../../../utils/environment';
 import {
     loggAntallUnderenheter,
@@ -15,6 +16,8 @@ import {
 } from '../../../utils/funksjonerForAmplitudeLogging';
 import HvitSideBoks from '../../komponenter/HvitSideBoks';
 import { Hovedknapp } from 'nav-frontend-knapper';
+import Dekorator from '../../komponenter/Dekorator/Dekorator';
+import { BrodsmuleSti } from '../../komponenter/BrodsmuleSti/BrodsmuleSti';
 
 const HvaSkalDuRapportere = () => {
     const history = useHistory();
@@ -65,6 +68,7 @@ const HvaSkalDuRapportere = () => {
         <>
             <Dekorator sidetittel={sidetittel} />
             <HvitSideBoks classname="hva-skal-du-rapportere">
+                <BrodsmuleSti />
                 <Systemtittel>Hva vil du informere NAV om?</Systemtittel>
                 <RadioPanelGruppe
                     name="samplename"
@@ -94,6 +98,11 @@ const HvaSkalDuRapportere = () => {
                     organisasjoner={organisasjoner}
                     setOrganisasjon={setValgtOrganisasjon}
                 />
+                <div className={'hva-skal-du-rapportere__info-om-virksomhet-juridisk'}>
+                    <img alt="" className={'hva-skal-du-rapportere__infoikon'} src={infoIkon} />
+                    Du kan kun sende skjema på vegne av virksomhet (også kalt underenhet), og ikke
+                    på vegne av juridisk enhet.
+                </div>
                 <Hovedknapp
                     disabled={skjemaType === undefined}
                     className="hva-skal-du-rapportere__knapp"

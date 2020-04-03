@@ -10,6 +10,7 @@ import { Person } from '../../../types/permitteringsskjema';
 import { useSkjemaSteg } from '../use-skjema-steg';
 import './InputAvPersoner.less';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
+import { BrodsmuleSti } from '../../komponenter/BrodsmuleSti/BrodsmuleSti';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 import { selectedRows } from '../../komponenter/Skjema/utils';
 
@@ -105,6 +106,7 @@ const InputAvPersoner: FunctionComponent = () => {
                 lagre={async () => await context.lagre()}
                 slett={async () => await context.avbryt()}
             >
+                <BrodsmuleSti />
                 <div className="input-av-personer__overskrift-og-knapper">
                     <Systemtittel>{lagTekstBasertPaSkjemaType()}</Systemtittel>
                     <div className="input-av-personer__fram-og-tilbake">

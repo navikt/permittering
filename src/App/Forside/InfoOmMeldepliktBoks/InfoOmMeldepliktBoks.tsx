@@ -6,6 +6,7 @@ import { EksternLenke } from '../EksternLenke';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import Lenke from 'nav-frontend-lenker';
 import { useHistory } from 'react-router';
+import { BrodsmuleSti } from '../../komponenter/BrodsmuleSti/BrodsmuleSti';
 
 interface Props {
     visskjema: boolean;
@@ -15,6 +16,7 @@ const InfoOmMeldepliktBoks: FunctionComponent<Props> = props => {
     const history = useHistory();
     return (
         <div className={'forside__info-om-meldeplikt-boks'}>
+            <BrodsmuleSti />
             <div>
                 <img
                     className={'forside__info-om-meldeplikt-boks__ikon'}

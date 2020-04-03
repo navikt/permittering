@@ -10,6 +10,7 @@ import { erGyldigEpost, erGyldigTelefonNr } from '../../../utils/inputFeltValide
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
 import './Side1.less';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
+import { BrodsmuleSti } from '../../komponenter/BrodsmuleSti/BrodsmuleSti';
 
 const Side1: FunctionComponent = () => {
     const context = useContext(SkjemaContext);
@@ -33,6 +34,7 @@ const Side1: FunctionComponent = () => {
                 lagre={async () => await context.lagre()}
                 slett={async () => await context.avbryt()}
             >
+                <BrodsmuleSti />
                 <Systemtittel>Kontaktinformasjon</Systemtittel>
                 <Undertittel className={'skjema-innhold__side-1-undertittel'}>
                     Informasjon om arbeidsgiver
