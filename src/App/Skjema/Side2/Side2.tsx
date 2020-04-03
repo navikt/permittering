@@ -24,6 +24,7 @@ import YrkeskategoriVisning from '../../komponenter/Yrkeskategorivelger/Yrkeskat
 import { Permitteringsårsaksvelger } from '../../komponenter/PermitteringsÅrsaksVelger/PermitteringsÅrsaksVelger';
 import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 import './Side2.less';
+import { BrodsmuleSti } from '../../komponenter/BrodsmuleSti/BrodsmuleSti';
 
 const Side2: FunctionComponent<SkjemaSideProps> = () => {
     const history = useHistory();
@@ -148,6 +149,7 @@ const Side2: FunctionComponent<SkjemaSideProps> = () => {
         <div>
             <Banner sidetittel={context.skjema.type} />
             <SkjemaRamme>
+                <BrodsmuleSti />
                 <Systemtittel>Generelle opplysninger</Systemtittel>
                 {!tillatFnrInput && (
                     <div className="skjema-innhold__side-2-text-area">

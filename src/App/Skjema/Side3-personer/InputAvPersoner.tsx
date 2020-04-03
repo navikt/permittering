@@ -11,6 +11,7 @@ import { SkjemaSideProps, useSkjemaSteg } from '../use-skjema-steg';
 import Banner from '../../HovedBanner/HovedBanner';
 import './InputAvPersoner.less';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
+import { BrodsmuleSti } from '../../komponenter/BrodsmuleSti/BrodsmuleSti';
 
 const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
     const history = useHistory();
@@ -100,6 +101,7 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
         <>
             <Banner sidetittel={context.skjema.type} />
             <SkjemaRamme>
+                <BrodsmuleSti />
                 <div className="input-av-personer__overskrift-og-knapper">
                     <Systemtittel>{lagTekstBasertPaSkjemaType()}</Systemtittel>
                     <div className="input-av-personer__fram-og-tilbake">

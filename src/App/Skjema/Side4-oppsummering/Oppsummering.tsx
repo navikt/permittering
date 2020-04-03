@@ -25,6 +25,7 @@ import veilederIkon from './gjenstand.svg';
 import './Oppsummering.less';
 import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
+import { BrodsmuleSti } from '../../komponenter/BrodsmuleSti/BrodsmuleSti';
 
 const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
@@ -94,6 +95,7 @@ const Oppsummering: FunctionComponent<SkjemaSideProps> = () => {
         <>
             <Banner sidetittel={context.skjema.type} />
             <SkjemaRamme>
+                <BrodsmuleSti />
                 <section className="oppsummering">
                     <div className="oppsummering__tittel-desktop">
                         <Systemtittel>Er opplysningene riktige?</Systemtittel>

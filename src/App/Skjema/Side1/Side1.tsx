@@ -11,6 +11,7 @@ import Banner from '../../HovedBanner/HovedBanner';
 import { erGyldigEpost, erGyldigTelefonNr } from './inputFeltValideringer';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
 import './Side1.less';
+import { BrodsmuleSti } from '../../komponenter/BrodsmuleSti/BrodsmuleSti';
 
 const Side1: FunctionComponent<SkjemaSideProps> = () => {
     const context = useContext(SkjemaContext);
@@ -28,6 +29,7 @@ const Side1: FunctionComponent<SkjemaSideProps> = () => {
         <>
             <Banner sidetittel={context.skjema.type} />
             <SkjemaRamme>
+                <BrodsmuleSti />
                 <Systemtittel>Kontaktinformasjon</Systemtittel>
                 <Undertittel className={'skjema-innhold__side-1-undertittel'}>
                     Informasjon om arbeidsgiver

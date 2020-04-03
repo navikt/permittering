@@ -8,7 +8,7 @@ import { EksternLenke } from '../EksternLenke';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import Lenke from 'nav-frontend-lenker';
 import { useHistory } from 'react-router';
-import { VenstreChevron } from 'nav-frontend-chevron';
+import { BrodsmuleSti } from '../../komponenter/BrodsmuleSti/BrodsmuleSti';
 
 interface Props {
     visskjema: any;
@@ -19,12 +19,7 @@ const InfoOmMeldepliktBoks: FunctionComponent<Props> = props => {
 
     return (
         <div className={'forside__info-om-meldeplikt-boks'}>
-            <Lenke
-                className={'app__brodsmulesti'}
-                href={'https://arbeidsgiver-q.nav.no/min-side-arbeidsgiver/'}
-            >
-                <VenstreChevron stor type={'venstre'} /> Tilbake til Min side – Arbeidsgiver
-            </Lenke>
+            <BrodsmuleSti />
             <div>
                 <img
                     className={'forside__info-om-meldeplikt-boks__ikon'}
