@@ -17,7 +17,6 @@ import {
 import HvitSideBoks from '../../komponenter/HvitSideBoks';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
-import { BrodsmuleSti } from '../../komponenter/BrodsmuleSti/BrodsmuleSti';
 
 const HvaSkalDuRapportere = () => {
     const history = useHistory();
@@ -68,7 +67,6 @@ const HvaSkalDuRapportere = () => {
         <>
             <Dekorator sidetittel={sidetittel} />
             <HvitSideBoks classname="hva-skal-du-rapportere">
-                <BrodsmuleSti />
                 <Systemtittel>Hva vil du informere NAV om?</Systemtittel>
                 <RadioPanelGruppe
                     name="samplename"
