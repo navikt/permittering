@@ -6,11 +6,12 @@ import { Permitteringsskjema } from '../../types/permitteringsskjema';
 import { hentAlle } from '../../api/permittering-api';
 import SkjemaTabell from './komponenter/SkjemaTabell';
 import HvitSideBoks from '../komponenter/HvitSideBoks';
-import './Forside.less';
+
 import Dekorator from '../komponenter/Dekorator/Dekorator';
 import { loggNavarendeSteg } from '../../utils/funksjonerForAmplitudeLogging';
 import OversiktForMobil from './oversiktForMobil/oversiktForMobil';
 import InfoOmMeldepliktBoks from './InfoOmMeldepliktBoks/InfoOmMeldepliktBoks';
+import './Forside.less';
 
 const Forside: FunctionComponent = () => {
     const featureToggleContext = useContext(FeatureToggleContext);

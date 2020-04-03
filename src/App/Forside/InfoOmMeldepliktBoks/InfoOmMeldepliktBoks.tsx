@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import './InfoOmMeldepliktBoks.less';
-import infoIkon from '../info.svg';
 import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import { EksternLenke } from '../EksternLenke';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import Lenke from 'nav-frontend-lenker';
 import { useHistory } from 'react-router';
 import { BrodsmuleSti } from '../../komponenter/BrodsmuleSti/BrodsmuleSti';
+import InfoIkon from './InfoIkon';
 
 interface Props {
     visskjema: boolean;
@@ -15,25 +15,18 @@ interface Props {
 const InfoOmMeldepliktBoks: FunctionComponent<Props> = props => {
     const history = useHistory();
     return (
-        <div className={'forside__info-om-meldeplikt-boks'}>
+        <div className="forside__info-om-meldeplikt-boks">
             <BrodsmuleSti />
-            <div>
-                <img
-                    className={'forside__info-om-meldeplikt-boks__ikon'}
-                    src={infoIkon}
-                    alt=""
-                    aria-hidden="true"
-                />
+            <div className="ikon">
+                <InfoIkon />
             </div>
-            <div className={'forside__info-om-meldeplikt-boks__innhold'}>
+            <div className="innhold">
                 <Systemtittel>Arbeidsgivers meldeplikt til NAV</Systemtittel>
-                <div className={'forside__info-om-meldeplikt-boks__innhold__ingress'}>
-                    <Normaltekst>
-                        Skal du permittere, si opp eller innskrenke arbeidstiden til 10 eller flere
-                        ansatte? Da har du meldeplikt til NAV. Du kan også melde ifra til NAV dersom
-                        det gjelder færre enn 10 ansatte om du ønsker det.
-                    </Normaltekst>
-                </div>
+                <Normaltekst className="ingress">
+                    Skal du permittere, si opp eller innskrenke arbeidstiden til 10 eller flere
+                    ansatte? Da har du meldeplikt til NAV. Du kan også melde ifra til NAV dersom det
+                    gjelder færre enn 10 ansatte om du ønsker det.
+                </Normaltekst>
                 <Element>Dette er bestemt av:</Element>
                 <div>
                     <Lenke href={'https://lovdata.no/lov/2004-12-10-76/§8'}>
@@ -46,7 +39,7 @@ const InfoOmMeldepliktBoks: FunctionComponent<Props> = props => {
                     </Lenke>
                 </div>
                 <br />
-                <Hovedknapp onClick={() => history.push('skjema/start')}>
+                <Hovedknapp className="meld-fra-knapp" onClick={() => history.push('skjema/start')}>
                     Meld fra til NAV
                 </Hovedknapp>
             </div>

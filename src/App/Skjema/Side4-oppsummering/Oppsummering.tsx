@@ -6,7 +6,7 @@ import Lenke from 'nav-frontend-lenker';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 import environment from '../../../utils/environment';
-import SkjemaContext from '../../SkjemaContext/SkjemaContext';
+import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import { useSkjemaSteg } from '../use-skjema-steg';
 import {
     loggAntallBerorte,

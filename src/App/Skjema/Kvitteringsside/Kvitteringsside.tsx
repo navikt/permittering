@@ -3,10 +3,9 @@ import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import Lenkepanel from 'nav-frontend-lenkepanel/lib';
 import HvitSideBoks from '../../komponenter/HvitSideBoks';
 import KvitteringIkon from './KvitteringIkon';
-import './Kvitteringsside.less';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
-import VerticalSpacer from '../../komponenter/VerticalSpacer';
+import './Kvitteringsside.less';
 
 const Kvitteringsside = () => {
     const sidetittel =
@@ -20,7 +19,6 @@ const Kvitteringsside = () => {
     return (
         <>
             <Dekorator sidetittel={sidetittel} />
-            <VerticalSpacer rem={2} />
             <HvitSideBoks classname="kvitteringside">
                 <div className="kvitteringside__ikon">
                     <KvitteringIkon />

@@ -7,7 +7,7 @@ import Checkbox from 'nav-frontend-skjema/lib/checkbox';
 import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import Input from 'nav-frontend-skjema/lib/input';
-import SkjemaContext from '../../SkjemaContext/SkjemaContext';
+import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import { useSkjemaSteg } from '../use-skjema-steg';
 import { mergeFritekst, splittOppFritekst } from '../../../utils/fritekstFunksjoner';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
@@ -150,7 +150,7 @@ const Side2: FunctionComponent = () => {
         history.replace('/skjema/kvitteringsside');
     }
     return (
-        <div>
+        <>
             <Dekorator sidetittel={context.skjema.type} />
             <SkjemaRamme
                 steg={steg}
@@ -277,7 +277,7 @@ const Side2: FunctionComponent = () => {
                     </Hovedknapp>
                 </div>
             </SkjemaRamme>
-        </div>
+        </>
     );
 };
 
