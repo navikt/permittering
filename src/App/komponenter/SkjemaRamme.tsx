@@ -1,35 +1,31 @@
-import React, { FunctionComponent, useContext } from 'react';
-import Stegindikator from 'nav-frontend-stegindikator/lib/stegindikator';
-import { useHistory, useParams } from 'react-router-dom';
+import React, { FunctionComponent } from 'react';
+import { useHistory } from 'react-router-dom';
 import { StegindikatorStegProps } from 'nav-frontend-stegindikator/lib/stegindikator-steg';
-import { createSkjemaPath, useSkjemaSteg } from '../Skjema/use-skjema-steg';
-import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import HvitSideBoks from './HvitSideBoks';
 import VerticalSpacer from './VerticalSpacer';
 import AvbrytLagreSlett from './AvbrytLagreSlett/AvbrytLagreSlett';
 import './SkjemaRamme.less';
+import Stegindikator from 'nav-frontend-stegindikator/lib/stegindikator';
+import { SkjemaSteg } from '../../types/SkjemaNavigasjon';
 
-const SkjemaRamme: FunctionComponent = ({ children }) => {
+interface SkjemaRammeProps {
+    steg: SkjemaSteg[];
+    lagre: () => Promise<void>;
+    slett: () => Promise<void>;
+}
+
+const SkjemaRamme: FunctionComponent<SkjemaRammeProps> = ({ children, steg, lagre, slett }) => {
     const history = useHistory();
-    const context = useContext(SkjemaContext);
-    let { id } = useParams();
-    const { steg } = useSkjemaSteg(history.location.pathname, context.skjema.id);
-
     const skiftSide = (index: number) => {
-        history.push(createSkjemaPath(steg[index].slug, id));
+        history.push(steg[index].path);
     };
-
-    if (context.skjema.sendtInnTidspunkt) {
-        history.replace('/skjema/kvitteringsside');
-    }
-
     return (
         <>
             <VerticalSpacer rem={2} />
             <Stegindikator
                 steg={steg as StegindikatorStegProps[]}
                 onChange={async index => {
-                    await context.lagre();
+                    await lagre();
                     skiftSide(index);
                 }}
                 visLabel
@@ -38,7 +34,7 @@ const SkjemaRamme: FunctionComponent = ({ children }) => {
 
             <HvitSideBoks>{children}</HvitSideBoks>
             <VerticalSpacer rem={1} />
-            <AvbrytLagreSlett />
+            <AvbrytLagreSlett lagre={lagre} slett={slett} />
         </>
     );
 };

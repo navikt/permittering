@@ -1,16 +1,17 @@
-import React from 'react';
-import { useContext, useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import ModalWrapper from 'nav-frontend-modal';
 import Lenke from 'nav-frontend-lenker';
-import SkjemaContext from '../../../SkjemaContext/SkjemaContext';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { Fareknapp, Flatknapp } from 'nav-frontend-knapper';
 import { useHistory } from 'react-router-dom';
 import VerticalSpacer from '../../VerticalSpacer';
 import './SlettSkjema.less';
 
-export const SlettSkjema = () => {
-    const context = useContext(SkjemaContext);
+interface SlettSkjemaProps {
+    slett: () => void;
+}
+
+export const SlettSkjema: FunctionComponent<SlettSkjemaProps> = ({ slett }) => {
     const [isOpen, setOpen] = useState<boolean>(false);
     const history = useHistory();
     return (
@@ -38,10 +39,10 @@ export const SlettSkjema = () => {
                         Hvis du fortsetter vil innholdet i skjemaet bli slettet.
                     </Normaltekst>
                     <VerticalSpacer rem={2} />
-                    <div className="slett-modal__knapper">
+                    <div className="slett-modal-innhold__knapper">
                         <Fareknapp
                             onClick={async () => {
-                                await context.avbryt();
+                                await slett();
                                 history.push('/');
                             }}
                         >

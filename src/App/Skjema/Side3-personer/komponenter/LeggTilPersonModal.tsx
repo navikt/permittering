@@ -3,9 +3,8 @@ import Modal from 'nav-frontend-modal';
 import { Knapp } from 'nav-frontend-knapper';
 import { Normaltekst, Undertittel, Element } from 'nav-frontend-typografi';
 import { Textarea } from 'nav-frontend-skjema';
-// @ts-ignore
-import validator from '@navikt/fnrvalidator';
 import './LeggTilPersonModal.less';
+import { extractFnrFromString } from '../../../../utils/fnrFunksjoner';
 
 interface LeggTilPersonerModalProps {
     modalIsOpen: boolean;
@@ -13,22 +12,6 @@ interface LeggTilPersonerModalProps {
     leggTilPersoner: (nyPersoner: Array<any>) => void;
 }
 
-const extractFnrFromString = (str: string) => {
-    const output = [];
-    const regex = /[+-]?\d+(?:\.\d+)?/g;
-    let match;
-    // eslint-disable-next-line no-cond-assign
-    while ((match = regex.exec(str))) {
-        const result = validator.idnr(match[0]);
-        if (result.status === 'valid') {
-            output.push({
-                fnr: match[0],
-                type: result.type,
-            });
-        }
-    }
-    return output;
-};
 const LeggTilPersonerModal: React.FunctionComponent<LeggTilPersonerModalProps> = ({
     modalIsOpen,
     closeModal,

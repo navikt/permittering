@@ -7,17 +7,21 @@ import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import PersonTabell from './komponenter/PersonTabell';
 import LeggTilPersonerModal from './komponenter/LeggTilPersonModal';
 import { Person } from '../../../types/permitteringsskjema';
-import { SkjemaSideProps, useSkjemaSteg } from '../use-skjema-steg';
-import Banner from '../../HovedBanner/HovedBanner';
+import { useSkjemaSteg } from '../use-skjema-steg';
 import './InputAvPersoner.less';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
 import { BrodsmuleSti } from '../../komponenter/BrodsmuleSti/BrodsmuleSti';
+import Dekorator from '../../komponenter/Dekorator/Dekorator';
+import { selectedRows } from '../../komponenter/Skjema/utils';
 
-const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
+const InputAvPersoner: FunctionComponent = () => {
     const history = useHistory();
     const context = useContext(SkjemaContext);
+    if (context.skjema.sendtInnTidspunkt) {
+        history.replace('/skjema/kvitteringsside');
+    }
     let { personer = [] } = context.skjema;
-
+    const selectedPersons = selectedRows(personer);
     const [modalIsOpen, setModal] = useState(false);
     const closeModal = () => setModal(false);
     const openModal = () => setModal(true);
@@ -54,11 +58,10 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
         context.endreSkjemaVerdi('personer', personerCopy);
     };
 
-    const selectedPersons = () => {
-        return personer.filter(e => e.selected).map(e => e.fnr);
-    };
-
-    const { forrigeSide, nesteSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
+    const { steg, forrigeSide, nesteSide } = useSkjemaSteg(
+        history.location.pathname,
+        context.skjema.id
+    );
 
     const lagTekstBasertPaSkjemaType = () => {
         const type = context.skjema.type;
@@ -90,17 +93,19 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
     };
 
     const lagAntallAnsatteTekst = () => {
-        if (selectedPersons().length) {
-            return `${selectedPersons().length} av ${
-                personer.length
-            } ${sjekkAntallAnsatte()} valgt`;
+        if (selectedPersons.length) {
+            return `${selectedPersons.length} av ${personer.length} ${sjekkAntallAnsatte()} valgt`;
         } else return `${personer.length} ${sjekkAntallAnsatte()} lagt til`;
     };
 
     return (
         <>
-            <Banner sidetittel={context.skjema.type} />
-            <SkjemaRamme>
+            <Dekorator sidetittel={context.skjema.type} />
+            <SkjemaRamme
+                steg={steg}
+                lagre={async () => await context.lagre()}
+                slett={async () => await context.avbryt()}
+            >
                 <BrodsmuleSti />
                 <div className="input-av-personer__overskrift-og-knapper">
                     <Systemtittel>{lagTekstBasertPaSkjemaType()}</Systemtittel>
@@ -134,10 +139,10 @@ const InputAvPersoner: FunctionComponent<SkjemaSideProps> = () => {
                     <div className="slett-knapp">
                         <Ingress className="antall-lagt-til">{lagAntallAnsatteTekst()}</Ingress>
                         <Knapp
-                            disabled={selectedPersons().length === 0}
-                            onClick={() => fjernPersoner(selectedPersons())}
+                            disabled={selectedPersons.length === 0}
+                            onClick={() => fjernPersoner(selectedPersons)}
                         >
-                            Slett fra liste ({selectedPersons().length})
+                            Slett fra liste ({selectedPersons.length})
                         </Knapp>
                     </div>
                 </div>

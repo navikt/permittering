@@ -1,6 +1,6 @@
 import React from 'react';
 import { Ingress, Normaltekst, Sidetittel } from 'nav-frontend-typografi';
-import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
+import { Hovedknapp } from 'nav-frontend-knapper';
 import Lenke from 'nav-frontend-lenker';
 import LoggInnBanner from './LoggInnBanner/LoggInnBanner';
 import { redirectTilLoginPath } from '../../paths.json';

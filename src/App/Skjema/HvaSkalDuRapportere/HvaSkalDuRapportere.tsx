@@ -1,19 +1,23 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
 import { RadioPanelGruppe } from 'nav-frontend-skjema';
-import SkjemaContext from '../SkjemaContext/SkjemaContext';
-import { OrganisasjonsListeContext } from '../OrganisasjonslisteProvider';
-import { Permitteringsskjema } from '../../types/permitteringsskjema';
-import { BedriftsVelger } from '../komponenter/Bedriftsvelger/Bedriftsvelger';
+import SkjemaContext from '../../SkjemaContext/SkjemaContext';
+import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
+import { Permitteringsskjema } from '../../../types/permitteringsskjema';
+import { BedriftsVelger } from '../../komponenter/Bedriftsvelger/Bedriftsvelger';
 import './HvaSkalDuRapportere.less';
-import Dekorator from '../komponenter/Dekorator/Dekorator';
-import environment from '../../utils/environment';
-import { loggAntallUnderenheter, loggSkjemaValg } from '../../utils/funksjonerForAmplitudeLogging';
-import HvitSideBoks from '../komponenter/HvitSideBoks';
 import infoIkon from './info.svg';
-import { BrodsmuleSti } from '../komponenter/BrodsmuleSti/BrodsmuleSti';
+
+import environment from '../../../utils/environment';
+import {
+    loggAntallUnderenheter,
+    loggSkjemaValg,
+} from '../../../utils/funksjonerForAmplitudeLogging';
+import HvitSideBoks from '../../komponenter/HvitSideBoks';
+import { Hovedknapp } from 'nav-frontend-knapper';
+import Dekorator from '../../komponenter/Dekorator/Dekorator';
+import { BrodsmuleSti } from '../../komponenter/BrodsmuleSti/BrodsmuleSti';
 
 const HvaSkalDuRapportere = () => {
     const history = useHistory();

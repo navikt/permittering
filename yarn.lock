@@ -7517,6 +7517,16 @@ nav-frontend-etiketter@^1.0.31:
   resolved "https://registry.yarnpkg.com/nav-frontend-etiketter/-/nav-frontend-etiketter-1.0.31.tgz#26263eae5cce9b608c8430784bca6bbd38c59185"
   integrity sha512-hBO/mvQoAU+RfPEivaE1ennqUDvGl+hl5fg4AQ2U6HzNCb6d8EHz9OEtzlpDvD8uqQa+1kjZy6OeN84K+vrBXg==
 
+nav-frontend-grid-style@^0.2.20:
+  version "0.2.20"
+  resolved "https://registry.yarnpkg.com/nav-frontend-grid-style/-/nav-frontend-grid-style-0.2.20.tgz#d744455a2417a0f26b9498e320140cbd99e7235b"
+  integrity sha512-PY6pXJFscPJlnXgSMiO2zqfWoAEby/SbCmxyc3NXxkejBf4OEbHza/BdNhQCZrr+XK4tB9dLgj5xZJ6AGBqIRw==
+
+nav-frontend-grid@^1.0.27:
+  version "1.0.27"
+  resolved "https://registry.yarnpkg.com/nav-frontend-grid/-/nav-frontend-grid-1.0.27.tgz#68e54b138ccf4c416ad12faa95ae5d3bb4d013ad"
+  integrity sha512-0iMVIYck9k4pPk/Djn5JgH4/XnzPf21rlZlR821aYDTJC9SYKK8e+lnbyY1shgygbmdbWM9Xu/cVpih1rnBjTA==
+
 nav-frontend-js-utils@^1.0.8:
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/nav-frontend-js-utils/-/nav-frontend-js-utils-1.0.8.tgz#1c1ecec8d90b125157097b22b227ef0b53045432"

@@ -1,9 +1,7 @@
-import React from 'react';
-import { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { OpprettSkjema, Permitteringsskjema } from '../../types/permitteringsskjema';
-import { avbryt, hent, lagre, opprett, sendInn } from '../../api/skjema-api';
+import { avbryt, hent, lagre, opprett, sendInn } from '../../api/permittering-api';
 import { useParams } from 'react-router-dom';
-import { useContext } from 'react';
 import { Feature, FeatureToggleContext } from '../FeatureToggleProvider';
 
 type Context = {

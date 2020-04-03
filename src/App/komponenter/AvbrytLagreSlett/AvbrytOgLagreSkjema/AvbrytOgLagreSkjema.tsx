@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import ModalWrapper from 'nav-frontend-modal';
 import Lenke from 'nav-frontend-lenker';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
@@ -8,16 +7,19 @@ import { useHistory } from 'react-router-dom';
 import VerticalSpacer from '../../VerticalSpacer';
 import './AvbrytOgLagreSkjema.less';
 
-export const AvbrytOgLagreSkjema = () => {
+interface AvbrytOgLagreSkjemaProps {
+    lagre: () => void;
+}
+
+export const AvbrytOgLagreSkjema: FunctionComponent<AvbrytOgLagreSkjemaProps> = ({ lagre }) => {
     const [isOpen, setOpen] = useState<boolean>(false);
     const history = useHistory();
-
     return (
         <>
             <Lenke
                 className="lagre-lenke"
                 href="#"
-                onClick={e => {
+                onClick={async e => {
                     e.preventDefault();
                     setOpen(true);
                 }}
@@ -40,7 +42,8 @@ export const AvbrytOgLagreSkjema = () => {
                     <VerticalSpacer rem={2} />
                     <div className="avbryt-modal-innhold__knapper">
                         <Hovedknapp
-                            onClick={() => {
+                            onClick={async () => {
+                                await lagre();
                                 history.push('/');
                             }}
                         >
