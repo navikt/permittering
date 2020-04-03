@@ -24,7 +24,6 @@ import './Oppsummering.less';
 import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
-import { BrodsmuleSti } from '../../komponenter/BrodsmuleSti/BrodsmuleSti';
 
 const Oppsummering: FunctionComponent = () => {
     const context = useContext(SkjemaContext);
@@ -100,7 +99,6 @@ const Oppsummering: FunctionComponent = () => {
                 lagre={async () => await context.lagre()}
                 slett={async () => await context.avbryt()}
             >
-                <BrodsmuleSti />
                 <section className="oppsummering">
                     <div className="oppsummering__tittel-desktop">
                         <Systemtittel>Er opplysningene riktige?</Systemtittel>
