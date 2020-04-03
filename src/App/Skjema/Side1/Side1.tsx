@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Systemtittel, Undertittel } from 'nav-frontend-typografi';
 import { Input } from 'nav-frontend-skjema';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import SkjemaContext from '../../SkjemaContext/SkjemaContext';
+import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import { useSkjemaSteg } from '../use-skjema-steg';
 import { erGyldigEpost, erGyldigTelefonNr } from '../../../utils/inputFeltValideringer';

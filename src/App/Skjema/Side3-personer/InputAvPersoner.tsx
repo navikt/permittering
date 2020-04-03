@@ -2,7 +2,7 @@ import React, { FunctionComponent, useContext, useEffect, useState } from 'react
 import { useHistory } from 'react-router-dom';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import SkjemaContext from '../../SkjemaContext/SkjemaContext';
+import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import PersonTabell from './komponenter/PersonTabell';
 import LeggTilPersonerModal from './komponenter/LeggTilPersonModal';

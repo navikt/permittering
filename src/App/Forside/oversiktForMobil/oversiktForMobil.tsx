@@ -13,6 +13,7 @@ const OversiktForMobil: FunctionComponent<Props> = (props: Props) => {
     const rader = props.listeMedSkjema.map((skjema: Permitteringsskjema) => (
         <TidligereInnsendtSkjema key={skjema.id} tidligereSkjema={skjema} />
     ));
+
     return (
         <div className={'forside__mobilvisning'}>
             <Undertittel className={'forside__mobilvisning__undertittel'}>

@@ -1,11 +1,10 @@
 import { VenstreChevron } from 'nav-frontend-chevron';
-
 import React, { useContext, useEffect, useState } from 'react';
 import Lenke from 'nav-frontend-lenker';
-import './BrodsmuleSti.less';
-import SkjemaContext from '../../SkjemaContext/SkjemaContext';
+import SkjemaContext from '../../Skjema/SkjemaContext/SkjemaContext';
 import environment from '../../../utils/environment';
 import { Permitteringsskjema } from '../../../types/permitteringsskjema';
+import './BrodsmuleSti.less';
 
 export const BrodsmuleSti = () => {
     const context = useContext(SkjemaContext);
@@ -24,8 +23,10 @@ export const BrodsmuleSti = () => {
     };
 
     return (
-        <Lenke className={'app__brodsmulesti'} href={link}>
-            <VenstreChevron type={'venstre'} /> Tilbake til Min side – arbeidsgiver
-        </Lenke>
+        <div className="app__brodsmulesti">
+            <Lenke href={link}>
+                <VenstreChevron type={'venstre'} /> Tilbake til Min side – arbeidsgiver
+            </Lenke>
+        </div>
     );
 };

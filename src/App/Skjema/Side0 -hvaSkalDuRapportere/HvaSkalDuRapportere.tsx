@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import { RadioPanelGruppe } from 'nav-frontend-skjema';
-import SkjemaContext from '../../SkjemaContext/SkjemaContext';
+import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
 import { Permitteringsskjema } from '../../../types/permitteringsskjema';
 import { BedriftsVelger } from '../../komponenter/Bedriftsvelger/Bedriftsvelger';
