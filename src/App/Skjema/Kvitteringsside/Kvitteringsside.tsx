@@ -20,7 +20,6 @@ const Kvitteringsside = () => {
     return (
         <>
             <Dekorator sidetittel={sidetittel} />
-            <VerticalSpacer rem={2} />
             <HvitSideBoks classname="kvitteringside">
                 <div className="kvitteringside__ikon">
                     <KvitteringIkon />
