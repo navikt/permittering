@@ -5,7 +5,6 @@ import HvitSideBoks from '../../komponenter/HvitSideBoks';
 import KvitteringIkon from './KvitteringIkon';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
-import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import './Kvitteringsside.less';
 
 const Kvitteringsside = () => {
