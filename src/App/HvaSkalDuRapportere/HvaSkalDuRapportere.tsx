@@ -13,6 +13,7 @@ import environment from '../../utils/environment';
 import { loggAntallUnderenheter, loggSkjemaValg } from '../../utils/funksjonerForAmplitudeLogging';
 import HvitSideBoks from '../komponenter/HvitSideBoks';
 import infoIkon from './info.svg';
+import { BrodsmuleSti } from '../komponenter/BrodsmuleSti/BrodsmuleSti';
 
 const HvaSkalDuRapportere = () => {
     const history = useHistory();
@@ -63,6 +64,7 @@ const HvaSkalDuRapportere = () => {
         <>
             <Dekorator sidetittel={sidetittel} />
             <HvitSideBoks classname="hva-skal-du-rapportere">
+                <BrodsmuleSti />
                 <Systemtittel>Hva vil du informere NAV om?</Systemtittel>
                 <RadioPanelGruppe
                     name="samplename"
