@@ -17,6 +17,7 @@ import {
 import HvitSideBoks from '../../komponenter/HvitSideBoks';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
+import Lenke from 'nav-frontend-lenker';
 
 const HvaSkalDuRapportere = () => {
     const history = useHistory();
@@ -108,6 +109,9 @@ const HvaSkalDuRapportere = () => {
                 >
                     Gå til skjema
                 </Hovedknapp>
+                <Lenke className={'hva-skal-du-rapportere__avbryt'} href={'/permittering'}>
+                    Avbryt
+                </Lenke>
             </HvitSideBoks>
         </>
     );
