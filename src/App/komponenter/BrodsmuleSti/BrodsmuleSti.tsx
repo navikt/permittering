@@ -16,11 +16,11 @@ export const BrodsmuleSti = () => {
     }, [context.skjema]);
 
     const lagLink = (skjema: Permitteringsskjema) => {
-        const bedriftsnummer = skjema ? skjema.bedriftNr : '';
-        if (environment.MILJO === 'prod-sbs') {
-            return 'https://arbeidsgiver.nav.no/min-side-arbeidsgiver/' + bedriftsnummer;
+        const bedriftsnummer = skjema && skjema.bedriftNr ? skjema.bedriftNr : '';
+        if (environment.MILJO === 'dev-sbs') {
+            return 'https://arbeidsgiver-q.nav.no/min-side-arbeidsgiver/' + bedriftsnummer;
         }
-        return 'https://arbeidsgiver-q.nav.no/min-side-arbeidsgiver/' + bedriftsnummer;
+        return 'https://arbeidsgiver.nav.no/min-side-arbeidsgiver/' + bedriftsnummer;
     };
 
     return (
