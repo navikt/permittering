@@ -11,6 +11,8 @@ interface ArbeidsforholdTabellProps {
     beregninger: Refusjonsberegning[];
 }
 
+const sorterTabell = (rows: Arbeidsforhold[]) => rows.sort((a, b) => (a.fnr > b.fnr ? 1 : -1));
+
 // https://github.com/navikt/eessi-pensjon-ui/blob/master/src/components/TableSorter/TableSorter.tsx
 const ArbeidsforholdTabell: React.FunctionComponent<ArbeidsforholdTabellProps> = ({
     rows,
@@ -46,7 +48,7 @@ const ArbeidsforholdTabell: React.FunctionComponent<ArbeidsforholdTabellProps> =
                 </tr>
             </thead>
             <tbody>
-                {rows.map(row => {
+                {sorterTabell(rows).map(row => {
                     const beregning = beregninger.find(b => b.fnr === row.fnr);
 
                     return (
