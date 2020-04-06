@@ -10,6 +10,7 @@ import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import { useSkjemaSteg } from '../use-skjema-steg';
 import {
     loggAntallBerorte,
+    loggArsak,
     loggBedriftsInfo,
     loggNavarendeSteg,
     loggProsentAndelPermittert,
@@ -81,16 +82,19 @@ const Oppsummering: FunctionComponent = () => {
     }, [organisasjoner, context.skjema.bedriftNr]);
 
     const onSendClickLogging = () => {
+        console.log('on send logging');
         const antallBerorte = context.skjema.antallBerørt ? context.skjema.antallBerørt : 0;
         const antallIBedriftInt = parseInt(antallIBedrift);
         if (antallBerorte > 0 && context.skjema.type && antallIBedriftInt > 0) {
             loggAntallBerorte(antallBerorte, context.skjema.type);
             loggProsentAndelPermittert(context.skjema.type, antallIBedriftInt, antallBerorte);
         }
+        context.skjema.type && lesbarårsakskode && loggArsak(lesbarårsakskode, context.skjema.type);
     };
     if (context.skjema.sendtInnTidspunkt) {
         history.replace('/skjema/kvitteringsside');
     }
+
     return (
         <>
             <Dekorator sidetittel={context.skjema.type} />
