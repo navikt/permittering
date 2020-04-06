@@ -24,9 +24,8 @@ const getDecorator = () =>
                     NAV_SCRIPTS: document.getElementById('scripts')[prop],
                     NAV_STYLES: document.getElementById('styles')[prop],
                     NAV_SKIPLINKS: document.getElementById('skiplinks')[prop],
-                    NAV_HEADING: document.getElementById('header-withmenu')[prop],
-                    NAV_FOOTER: document.getElementById('footer-withmenu')[prop],
-                    NAV_MENU_RESOURCES: document.getElementById('megamenu-resources')[prop],
+                    NAV_HEADING: document.getElementById('header')[prop],
+                    NAV_FOOTER: document.getElementById('footer')[prop],
                 };
                 resolve(data);
             } else {
