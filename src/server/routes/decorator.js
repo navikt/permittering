@@ -1,7 +1,5 @@
 const jsdom = require('jsdom');
 const request = require('request');
-// 'https://appres.nav.no/common-html/v4/navno?header-withmenu=true&styles=true&scripts=true&footer-withmenu=true';
-// 'https://appres-q1.nav.no/common-html/v4/navno?header-withmenu=true&styles=true&scripts=true&footer-withmenu=true';
 
 const { JSDOM } = jsdom;
 url = '';
@@ -25,6 +23,7 @@ const getDecorator = () =>
                 const data = {
                     NAV_SCRIPTS: document.getElementById('scripts')[prop],
                     NAV_STYLES: document.getElementById('styles')[prop],
+                    NAV_SKIPLINKS: document.getElementById('skiplinks')[prop],
                     NAV_HEADING: document.getElementById('header-withmenu')[prop],
                     NAV_FOOTER: document.getElementById('footer-withmenu')[prop],
                     NAV_MENU_RESOURCES: document.getElementById('megamenu-resources')[prop],
