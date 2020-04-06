@@ -23,13 +23,6 @@ export type Arbeidsforhold = {
     beregningsdetaljer: ('SEKS_G' | 'FEILET')[];
 };
 
-// export type Refusjonsberegning = {
-//     fnr: string;
-//     inntektInnhentet: number;
-//     refusjonsbeløp: number;
-//     beregningsdetaljer: ('SEKS_G' | 'FEILET')[];
-// };
-
 export type LeggTilArbeidsforhold = {
     refusjonsskjemaId: string;
     fnr: string[];
