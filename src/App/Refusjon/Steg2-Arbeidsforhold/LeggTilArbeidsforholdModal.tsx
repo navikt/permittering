@@ -5,11 +5,12 @@ import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { Input, Textarea } from 'nav-frontend-skjema';
 import './LeggTilArbeidsforholdModal.less';
 import { extractFnrFromString } from '../../../utils/fnrFunksjoner';
+import { LeggTilArbeidsforhold } from '../../../types/refusjonsskjema';
 
 interface LeggTilPersonerModalProps {
     modalIsOpen: boolean;
     closeModal: () => void;
-    leggTil: (nyPersoner: Array<any>) => void;
+    leggTil: (data: Omit<LeggTilArbeidsforhold, 'refusjonsskjemaId'>) => void;
 }
 
 const LeggTilArbeidsforholdModal: React.FunctionComponent<LeggTilPersonerModalProps> = ({
@@ -74,13 +75,13 @@ const LeggTilArbeidsforholdModal: React.FunctionComponent<LeggTilPersonerModalPr
                     className={'legg-til-person-modal__legg-til-knapp'}
                     disabled={fnrCount === 0}
                     onClick={() => {
-                        const personer = extractFnrFromString(textAreaContent).map(item => ({
-                            ...item,
-                            gradering,
+                        const fnr = extractFnrFromString(textAreaContent).map(object => object.fnr);
+                        leggTil({
+                            fnr,
+                            gradering: parseInt(gradering),
                             periodeStart: '2020-03-01',
                             periodeSlutt: '2020-03-31',
-                        }));
-                        leggTil(personer);
+                        });
                         setTextAreaContent('');
                         setFnrCount(0);
                     }}

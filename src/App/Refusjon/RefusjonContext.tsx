@@ -1,11 +1,10 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { avbryt, hent, hentBeregninger, lagre, opprett, sendInn } from '../../api/refusjon-api';
+import { avbryt, hent, lagre, opprett, sendInn } from '../../api/refusjon-api';
 import { useParams } from 'react-router-dom';
-import { OpprettRefusjon, Refusjonsberegning, Refusjonsskjema } from '../../types/refusjonsskjema';
+import { OpprettRefusjon, Refusjonsskjema } from '../../types/refusjonsskjema';
 
 type ContextType = {
     skjema: Refusjonsskjema;
-    beregninger: Refusjonsberegning[];
     endreSkjemaVerdi: (felt: keyof Refusjonsskjema, verdi: any) => void;
     lagre: () => void;
     opprett: (data: OpprettRefusjon) => Promise<Refusjonsskjema['id']>;
@@ -17,13 +16,11 @@ const RefusjonContext = React.createContext<ContextType>({} as ContextType);
 
 export const RefusjonProvider: FunctionComponent = props => {
     const [skjema, setSkjema] = useState<Refusjonsskjema>({} as Refusjonsskjema);
-    const [beregninger, setBeregninger] = useState<Refusjonsberegning[]>([]);
     const { id } = useParams();
 
     useEffect(() => {
         if (id) {
             hent(id).then(setSkjema);
-            hentBeregninger(id).then(setBeregninger);
         }
     }, [id]);
 
@@ -46,7 +43,6 @@ export const RefusjonProvider: FunctionComponent = props => {
             await avbryt(skjema.id).then(setSkjema);
         },
         skjema,
-        beregninger,
     };
     return (
         <>
