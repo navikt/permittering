@@ -155,10 +155,10 @@ const Oppsummering: FunctionComponent = () => {
                         <div className="oppsummering__boks antall-arbeidstakere">
                             <div className="tekst">
                                 <Normaltekst className="overskrift">Antall berørte:</Normaltekst>
-                                <Normaltekst>
+                                <div>
                                     <SjekkOmFyltUt verdi={context.skjema.antallBerørt} />
                                     {lagAntallBerorteTekst()}
-                                </Normaltekst>
+                                </div>
                             </div>
                             <div className="endre-lenke">
                                 <Lenke href={endreantallberørteLenke}>Endre</Lenke>
@@ -173,14 +173,12 @@ const Oppsummering: FunctionComponent = () => {
                                 <Normaltekst className="overskrift">
                                     {lagTekstBasertPaSkjemaType(context.skjema.type)}
                                 </Normaltekst>
-                                <Normaltekst>
-                                    {context.skjema.årsakskode !== 'ANDRE_ÅRSAKER' && (
-                                        <SjekkOmFyltUt verdi={lesbarårsakskode} />
-                                    )}
-                                    {context.skjema.årsakskode === 'ANDRE_ÅRSAKER' && (
-                                        <SjekkOmFyltUt verdi={context.skjema.årsakstekst} />
-                                    )}
-                                </Normaltekst>
+                                {context.skjema.årsakskode !== 'ANDRE_ÅRSAKER' && (
+                                    <SjekkOmFyltUt verdi={lesbarårsakskode} />
+                                )}
+                                {context.skjema.årsakskode === 'ANDRE_ÅRSAKER' && (
+                                    <SjekkOmFyltUt verdi={context.skjema.årsakstekst} />
+                                )}
                             </div>
                             <div className="endre-lenke">
                                 <Lenke
@@ -194,9 +192,7 @@ const Oppsummering: FunctionComponent = () => {
                         <div className="oppsummering__boks yrkeskategorier">
                             <div className="tekst">
                                 <Normaltekst className="overskrift">Yrkeskategorier</Normaltekst>
-                                <Normaltekst>
-                                    <SjekkOmFyltUt verdi={yrker} />
-                                </Normaltekst>
+                                <SjekkOmFyltUt verdi={yrker} />
                             </div>
                             <div className="endre-lenke">
                                 <Lenke
@@ -213,18 +209,18 @@ const Oppsummering: FunctionComponent = () => {
                                     For hvilken periode gjelder dette?
                                 </Normaltekst>
                                 <div>
-                                    <Normaltekst>
+                                    <div>
                                         <span className="fra-til">Fra:</span>
                                         <SjekkOmFyltUt verdi={fraDato} />
-                                    </Normaltekst>
-                                    <Normaltekst>
+                                    </div>
+                                    <div>
                                         <span className="fra-til">Til:</span>
                                         {context.skjema.ukjentSluttDato ? (
                                             'Vet ikke hvor lenge det vil vare'
                                         ) : (
                                             <SjekkOmFyltUt verdi={tilDato} />
                                         )}
-                                    </Normaltekst>
+                                    </div>
                                 </div>
                             </div>
                             <div className="endre-lenke">

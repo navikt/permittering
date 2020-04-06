@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from 'react';
-import './InfoOmMeldepliktBoks.less';
 import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import { EksternLenke } from '../EksternLenke';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import Lenke from 'nav-frontend-lenker';
 import { useHistory } from 'react-router';
 import { BrodsmuleSti } from '../../komponenter/BrodsmuleSti/BrodsmuleSti';
 import InfoIkon from './InfoIkon';
+import { EksternLenke } from './EksternLenke';
+import './InfoOmMeldepliktBoks.less';
 
 interface Props {
     visskjema: boolean;
@@ -29,16 +29,15 @@ const InfoOmMeldepliktBoks: FunctionComponent<Props> = props => {
                 </Normaltekst>
                 <Element>Dette er bestemt av:</Element>
                 <div>
-                    <Lenke href={'https://lovdata.no/lov/2004-12-10-76/§8'}>
+                    <Lenke href="https://lovdata.no/lov/2004-12-10-76/§8">
                         <span>Arbeidsmarkedsloven §8</span> <EksternLenke />
                     </Lenke>
                 </div>
                 <div>
-                    <Lenke href={'https://lovdata.no/lov/2005-06-17-62/§15-2'}>
+                    <Lenke href="https://lovdata.no/lov/2005-06-17-62/§15-2">
                         <span>Arbeidsmiljøloven §15-2 </span> <EksternLenke />
                     </Lenke>
                 </div>
-                <br />
                 <Hovedknapp className="meld-fra-knapp" onClick={() => history.push('skjema/start')}>
                     Meld fra til NAV
                 </Hovedknapp>

@@ -1,14 +1,16 @@
 const jsdom = require('jsdom');
 const request = require('request');
+// 'https://appres.nav.no/common-html/v4/navno?header-withmenu=true&styles=true&scripts=true&footer-withmenu=true';
+// 'https://appres-q1.nav.no/common-html/v4/navno?header-withmenu=true&styles=true&scripts=true&footer-withmenu=true';
 
 const { JSDOM } = jsdom;
 url = '';
 if (process.env.NAIS_CLUSTER_NAME === 'prod-sbs') {
     url =
-        'https://appres.nav.no/common-html/v4/navno?header-withmenu=true&styles=true&scripts=true&footer-withmenu=true';
+        'https://appres.nav.no/common-html/v4/navno?header=true&styles=true&scripts=true&footer=true&skiplinks=true&megamenu-resources=false';
 } else {
     url =
-        'https://appres-q1.nav.no/common-html/v4/navno?header-withmenu=true&styles=true&scripts=true&footer-withmenu=true';
+        'https://appres-q1.nav.no/common-html/v4/navno?header=true&styles=true&scripts=true&footer=true&skiplinks=true&megamenu-resources=false';
 }
 
 const requestDecorator = callback => request(url, callback);
