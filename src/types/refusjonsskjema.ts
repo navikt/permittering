@@ -18,14 +18,24 @@ export type Arbeidsforhold = {
     gradering?: number;
     periodeSlutt: string;
     periodeStart: string;
-    selected?: boolean;
-};
-
-export type Refusjonsberegning = {
-    fnr: string;
     inntektInnhentet: number;
     refusjonsbeløp: number;
     beregningsdetaljer: ('SEKS_G' | 'FEILET')[];
+};
+
+// export type Refusjonsberegning = {
+//     fnr: string;
+//     inntektInnhentet: number;
+//     refusjonsbeløp: number;
+//     beregningsdetaljer: ('SEKS_G' | 'FEILET')[];
+// };
+
+export type LeggTilArbeidsforhold = {
+    refusjonsskjemaId: string;
+    fnr: string[];
+    gradering: number;
+    periodeStart: string;
+    periodeSlutt: string;
 };
 
 export type OpprettRefusjon = Pick<Refusjonsskjema, 'bedriftNr' | 'type'>;

@@ -2,11 +2,13 @@ import {
     refusjonAvbrytPath,
     refusjonListPath,
     refusjonPath,
-    refusjonsberegningPath,
     refusjonSendInnPath,
+    arbeidsforholdLeggTilPath,
+    arbeidsforholdSlettPath,
+    arbeidsforholdHentPath,
 } from '../paths.json';
 import api from './api-client';
-import { OpprettRefusjon, Refusjonsskjema } from '../types/refusjonsskjema';
+import { LeggTilArbeidsforhold, OpprettRefusjon, Refusjonsskjema } from '../types/refusjonsskjema';
 
 export const hent = async (id: string) => {
     const url = refusjonPath.replace(':id', id);
@@ -14,9 +16,23 @@ export const hent = async (id: string) => {
     return response.data;
 };
 
-export const hentBeregninger = async (id: string) => {
-    const url = refusjonsberegningPath.replace(':id', id);
+export const hentArbeidsforhold = async (id: string, sort: string, size: number, page: number) => {
+    const url = arbeidsforholdHentPath
+        .replace(':id', id)
+        .replace(':sort', sort.toString())
+        .replace(':size', size.toString())
+        .replace(':page', page.toString());
     const response = await api.get(url);
+    return response.data;
+};
+
+export const leggTilArbeidsforhold = async (data: LeggTilArbeidsforhold) => {
+    const response = await api.post(arbeidsforholdLeggTilPath, data);
+    return response.data;
+};
+
+export const slettArbeidsforhold = async (fnrs: string[]) => {
+    const response = await api.post(arbeidsforholdSlettPath, fnrs);
     return response.data;
 };
 
