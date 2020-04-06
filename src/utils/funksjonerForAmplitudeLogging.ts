@@ -230,3 +230,7 @@ export const loggProsentAndelPermittert = (
     }
     amplitude.logEvent(skalLogges);
 };
+
+export const loggArsak = (arsak: string, skjematype: string) => {
+    amplitude.logEvent('#permitteringsskjema ' + skjematype + ' ' + arsak);
+};
