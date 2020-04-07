@@ -1,29 +1,67 @@
-import React, { FunctionComponent, useContext, useState } from 'react';
+import React, { FunctionComponent, useCallback, useContext, useEffect, useState } from 'react';
 import RefusjonContext from '../RefusjonContext';
 import { useHistory } from 'react-router-dom';
 import { useRefusjonSteg } from '../use-refusjon-steg';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
-import { Systemtittel } from 'nav-frontend-typografi';
+import { Ingress, Systemtittel } from 'nav-frontend-typografi';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import LeggTilArbeidsforholdModal from './LeggTilArbeidsforholdModal';
-import { selectedRows } from '../../komponenter/Skjema/utils';
-import { Arbeidsforhold as ArbeidsforholdType } from '../../../types/refusjonsskjema';
+import {
+    Arbeidsforhold as ArbeidsforholdType,
+    LeggTilArbeidsforhold,
+} from '../../../types/refusjonsskjema';
 import ArbeidsforholdTabell from './ArbeidsforholdTabell';
+import {
+    hentArbeidsforhold,
+    leggTilArbeidsforhold,
+    slettArbeidsforhold,
+} from '../../../api/refusjon-api';
+import { Paginering, tomPaginering } from '../../../types/paginering';
+import { useInterval } from '../../../utils/useInterval';
 
 const Arbeidsforhold: FunctionComponent = () => {
     const context = useContext(RefusjonContext);
     const history = useHistory();
-    let { arbeidsforhold = [] } = context.skjema;
-    const selectedPersons = selectedRows(arbeidsforhold);
+    const [arbeidsforhold, setArbeidsforhold] = useState<Paginering<ArbeidsforholdType>>(
+        tomPaginering
+    );
+    const [valgteRader, setValgteRader] = useState<Set<string>>(new Set());
     const { steg } = useRefusjonSteg(history.location.pathname, context.skjema.id);
     const [modalIsOpen, setModal] = useState(false);
     const closeModal = () => setModal(false);
     const openModal = () => setModal(true);
-    const fjernArbeidsforhold = () => {};
-    const leggTilArbeidsforhold = (arbeidsforhold: ArbeidsforholdType[]) => {
-        context.endreSkjemaVerdi('arbeidsforhold', arbeidsforhold);
+
+    const hentOgSettArbeidsforhold = useCallback(
+        () => hentArbeidsforhold(context.skjema.id, 'fnr', 100, 0).then(setArbeidsforhold),
+        [context.skjema.id]
+    );
+
+    const leggTilArbeidsforholdOnClick = (
+        data: Omit<LeggTilArbeidsforhold, 'refusjonsskjemaId'>
+    ) => {
+        leggTilArbeidsforhold({ refusjonsskjemaId: context.skjema.id, ...data }).then(
+            hentOgSettArbeidsforhold
+        );
     };
+
+    const slettValgteArbeidsforhold = () => {
+        slettArbeidsforhold(Array.from(valgteRader)).then(() => {
+            setValgteRader(new Set());
+            hentOgSettArbeidsforhold();
+        });
+    };
+
+    useEffect(() => {
+        if (context.skjema.id) {
+            hentOgSettArbeidsforhold();
+        }
+    }, [context.skjema.id, hentOgSettArbeidsforhold]);
+
+    const harUbehandledeBeregninger = arbeidsforhold.content.some(a => !a.inntektInnhentet);
+    const fetchIntervallArbeidsforhold = harUbehandledeBeregninger ? 2_000 : 60_000;
+    useInterval(hentOgSettArbeidsforhold, fetchIntervallArbeidsforhold);
+
     return (
         <>
             <Dekorator sidetittel={context.skjema.type} />
@@ -36,25 +74,26 @@ const Arbeidsforhold: FunctionComponent = () => {
                 <div className="input-av-personer__knapper-overst">
                     <Hovedknapp onClick={() => openModal()}>Legg til ansatte</Hovedknapp>
                     <div className="slett-knapp">
-                        {/*<Ingress className="antall-lagt-til">{'dummy tekst'}</Ingress>*/}
+                        <Ingress className="antall-lagt-til">
+                            Totalt antall: {arbeidsforhold.totalElements}
+                        </Ingress>
                         <Knapp
-                            disabled={selectedPersons.length === 0}
-                            onClick={fjernArbeidsforhold}
+                            disabled={valgteRader.size === 0}
+                            onClick={slettValgteArbeidsforhold}
                         >
-                            Slett fra liste ({selectedPersons.length})
+                            Slett fra liste ({valgteRader.size})
                         </Knapp>
                     </div>
                 </div>
                 <LeggTilArbeidsforholdModal
                     modalIsOpen={modalIsOpen}
                     closeModal={closeModal}
-                    leggTil={leggTilArbeidsforhold}
+                    leggTil={leggTilArbeidsforholdOnClick}
                 />
-                <Knapp onClick={context.lagre}>Lagre</Knapp>
                 <ArbeidsforholdTabell
-                    rows={context.skjema.arbeidsforhold ?? []}
-                    setRows={() => {}}
-                    beregninger={context.beregninger}
+                    rader={arbeidsforhold.content}
+                    valgteRader={valgteRader}
+                    setValgteRader={setValgteRader}
                 />
             </SkjemaRamme>
         </>

@@ -1,28 +1,48 @@
 import React from 'react';
 import 'nav-frontend-tabell-style';
-import { Arbeidsforhold, Refusjonsberegning } from '../../../types/refusjonsskjema';
+import { Arbeidsforhold } from '../../../types/refusjonsskjema';
 import { getFnrReadableString } from '../../../utils/fnrFunksjoner';
-import CheckAllBox from '../../komponenter/Skjema/CheckAllBox';
-import CheckOneBox from '../../komponenter/Skjema/CheckOneBox';
+import { Checkbox } from 'nav-frontend-skjema';
 
 interface ArbeidsforholdTabellProps {
-    rows: Array<Arbeidsforhold>;
-    setRows: (arbeidsforhold: Arbeidsforhold[]) => void;
-    beregninger: Refusjonsberegning[];
+    rader: Arbeidsforhold[];
+    valgteRader: Set<string>;
+    setValgteRader: (valgteRader: Set<string>) => void;
 }
 
 // https://github.com/navikt/eessi-pensjon-ui/blob/master/src/components/TableSorter/TableSorter.tsx
-const ArbeidsforholdTabell: React.FunctionComponent<ArbeidsforholdTabellProps> = ({
-    rows,
-    beregninger,
-    setRows,
-}) => {
+const ArbeidsforholdTabell: React.FunctionComponent<ArbeidsforholdTabellProps> = props => {
+    const toggleRad = (rad: Arbeidsforhold) => {
+        const nyeValgteRader = new Set(props.valgteRader);
+        if (props.valgteRader.has(rad.fnr)) {
+            nyeValgteRader.delete(rad.fnr);
+        } else {
+            nyeValgteRader.add(rad.fnr);
+        }
+        props.setValgteRader(nyeValgteRader);
+    };
+
     return (
         <table className="input-av-personer__tabell tabell">
             <thead>
                 <tr>
                     <th className="kolonneheader-checkbox">
-                        <CheckAllBox rows={rows} setRows={setRows} />
+                        <Checkbox
+                            checked={
+                                props.rader.length > 0 &&
+                                props.valgteRader.size === props.rader.length
+                            }
+                            onChange={event =>
+                                props.setValgteRader(
+                                    new Set(
+                                        event.currentTarget.checked
+                                            ? props.rader.map(rad => rad.fnr)
+                                            : []
+                                    )
+                                )
+                            }
+                            label={'Velg alle'}
+                        />
                     </th>
                     <th role="columnheader" aria-sort="none">
                         Fnr
@@ -46,21 +66,23 @@ const ArbeidsforholdTabell: React.FunctionComponent<ArbeidsforholdTabellProps> =
                 </tr>
             </thead>
             <tbody>
-                {rows.map(row => {
-                    const beregning = beregninger.find(b => b.fnr === row.fnr);
-
+                {props.rader.map(rad => {
                     return (
-                        <tr key={'row' + row.fnr}>
+                        <tr key={'rad' + rad.fnr}>
                             <td>
-                                <CheckOneBox row={row} rows={rows} setRows={setRows} />
+                                <Checkbox
+                                    label="Velg denne raden"
+                                    checked={props.valgteRader.has(rad.fnr)}
+                                    onChange={() => toggleRad(rad)}
+                                />
                             </td>
-                            <td>{row.fnr}</td>
-                            <td>{getFnrReadableString(row.fnr)}</td>
-                            <td>{row.gradering}</td>
-                            <td>{row.periodeStart + ' - ' + row.periodeSlutt}</td>
-                            <td>{beregning?.inntektInnhentet}</td>
-                            <td>{beregning?.beregningsdetaljer.includes('SEKS_G') && '6G'}</td>
-                            <td>{beregning?.refusjonsbeløp}</td>
+                            <td>{rad.fnr}</td>
+                            <td>{getFnrReadableString(rad.fnr)}</td>
+                            <td>{rad.gradering}</td>
+                            <td>{rad.periodeStart + ' - ' + rad.periodeSlutt}</td>
+                            <td>{rad.inntektInnhentet}</td>
+                            <td>{rad.beregningsdetaljer.includes('SEKS_G') && '6G'}</td>
+                            <td>{rad.refusjonsbeløp}</td>
                         </tr>
                     );
                 })}
