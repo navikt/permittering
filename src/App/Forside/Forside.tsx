@@ -4,7 +4,7 @@ import { Systemtittel } from 'nav-frontend-typografi';
 import { Feature, FeatureToggleContext } from '../FeatureToggleProvider';
 import { Permitteringsskjema } from '../../types/permitteringsskjema';
 import { hentAlle } from '../../api/permittering-api';
-import SkjemaTabell from './komponenter/SkjemaTabell';
+import SkjemaTabell from './SkjemaTabell/SkjemaTabell';
 import HvitSideBoks from '../komponenter/HvitSideBoks';
 
 import Dekorator from '../komponenter/Dekorator/Dekorator';
@@ -29,10 +29,8 @@ const Forside: FunctionComponent = () => {
         <>
             <Dekorator sidetittel={sidetittel} />
             <InfoOmMeldepliktBoks visskjema={visskjema} />
-            <HvitSideBoks classname={'forside__tabell-container'}>
-                <div className="forside__topp">
-                    <Systemtittel>Dine skjema</Systemtittel>
-                </div>
+            <HvitSideBoks classname="forside__tabell-container">
+                <Systemtittel className="forside__topp">Dine skjema</Systemtittel>
                 {skjemaer.length > 0 ? (
                     <SkjemaTabell skjemaer={skjemaer} />
                 ) : (

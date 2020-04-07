@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Innholdstittel } from 'nav-frontend-typografi';
 import './Dekorator.less';
 

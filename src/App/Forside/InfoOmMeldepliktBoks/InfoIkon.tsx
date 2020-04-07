@@ -17,7 +17,7 @@ const InfoIkon = () => {
                     id="c"
                 />
             </defs>
-            <g fill="none" fill-rule="evenodd">
+            <g fill="none" fillRule="evenodd">
                 <g>
                     <mask id="b" fill="#fff">
                         <use xlinkHref="#a" />
