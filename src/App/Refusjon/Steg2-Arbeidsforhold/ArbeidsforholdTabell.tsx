@@ -10,6 +10,15 @@ interface ArbeidsforholdTabellProps {
     setValgteRader: (valgteRader: Set<string>) => void;
 }
 
+const beregningsdetaljerTekst = (beregningsdetaljer: Arbeidsforhold['beregningsdetaljer']) => {
+    const meldinger = {
+        SEKS_G: '6G',
+        FEILET: 'Feilet',
+    };
+
+    return beregningsdetaljer.map(detalj => meldinger[detalj]).join(', ');
+};
+
 // https://github.com/navikt/eessi-pensjon-ui/blob/master/src/components/TableSorter/TableSorter.tsx
 const ArbeidsforholdTabell: React.FunctionComponent<ArbeidsforholdTabellProps> = props => {
     const toggleRad = (rad: Arbeidsforhold) => {
@@ -81,7 +90,7 @@ const ArbeidsforholdTabell: React.FunctionComponent<ArbeidsforholdTabellProps> =
                             <td>{rad.gradering}</td>
                             <td>{rad.periodeStart + ' - ' + rad.periodeSlutt}</td>
                             <td>{rad.inntektInnhentet}</td>
-                            <td>{rad.beregningsdetaljer.includes('SEKS_G') && '6G'}</td>
+                            <td>{beregningsdetaljerTekst(rad.beregningsdetaljer)}</td>
                             <td>{rad.refusjonsbeløp}</td>
                         </tr>
                     );
