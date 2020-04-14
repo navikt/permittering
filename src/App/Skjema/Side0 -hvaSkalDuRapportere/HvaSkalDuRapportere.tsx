@@ -18,6 +18,8 @@ import HvitSideBoks from '../../komponenter/HvitSideBoks';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 import Lenke from 'nav-frontend-lenker';
+import Veilederpanel from 'nav-frontend-veilederpanel';
+import veilederpanelikon from './infoikon.svg';
 
 const HvaSkalDuRapportere = () => {
     const history = useHistory();
@@ -68,6 +70,14 @@ const HvaSkalDuRapportere = () => {
         <>
             <Dekorator sidetittel={sidetittel} />
             <HvitSideBoks classname="hva-skal-du-rapportere">
+                <Veilederpanel
+                    type="plakat"
+                    kompakt
+                    fargetema="info"
+                    svg={<img src={veilederpanelikon} alt="" aria-hidden="true" />}
+                >
+                    <Systemtittel>Før du begynner</Systemtittel>
+                </Veilederpanel>
                 <Systemtittel>Hva vil du informere NAV om?</Systemtittel>
                 <RadioPanelGruppe
                     name="samplename"
@@ -102,6 +112,7 @@ const HvaSkalDuRapportere = () => {
                     Du kan kun sende skjema på vegne av virksomhet (også kalt underenhet), og ikke
                     på vegne av juridisk enhet.
                 </div>
+
                 <Hovedknapp
                     disabled={skjemaType === undefined}
                     className="hva-skal-du-rapportere__knapp"
