@@ -8,6 +8,7 @@ import Side3 from './Side3-personer/InputAvPersoner';
 import Side5 from './Side5-yrker/Yrkeskategorier';
 import Oppsummering from './Side4-oppsummering/Oppsummering';
 import Kvitteirng from './Kvitteringsside/Kvitteringsside';
+import AntallBerorte from './AntallBerorte/InputAvPersoner';
 
 const PermitteringRoutes = () => {
     return (
@@ -24,7 +25,7 @@ const PermitteringRoutes = () => {
             </Route>
             <Route exact path="/skjema/generelle-opplysninger/:id">
                 <SkjemaProvider>
-                    <Side2 />
+                    <AntallBerorte />
                 </SkjemaProvider>
             </Route>
             <Route exact path="/skjema/hvem-rammes/:id">
