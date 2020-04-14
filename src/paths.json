@@ -3,6 +3,7 @@
     "basePath": "/permittering",
     "featurePath": "/permittering/api/feature",
     "hentOrganisasjonerLink": "/permittering/api/organisasjoner",
+    "hentRefusjonOrganisasjonerLink": "/permittering/api/organisasjoner/refusjon",
     "isAlivePath": "/permittering/internal/isAlive",
     "isReadyPath": "/permittering/internal/isReady",
     "redirectTilLoginPath": "/permittering/redirect-til-login",
