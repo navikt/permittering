@@ -5,16 +5,14 @@ import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
 
 import { useSkjemaSteg } from '../use-skjema-steg';
-import './InputAvPersoner.less';
+import './OppgiAntallBerorte.less';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 import Checkbox from 'nav-frontend-skjema/lib/checkbox';
-import Lenke from 'nav-frontend-lenker';
-import 'nav-frontend-tabell-style';
 import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
 import Input from 'nav-frontend-skjema/lib/input';
+import 'nav-frontend-tabell-style';
 import { BedriftsVelger } from '../../komponenter/Bedriftsvelger/Bedriftsvelger';
-import { tomAltinnOrganisasjon } from '../../../types/Organisasjon';
 
 const AntallBerorte: FunctionComponent = () => {
     const { organisasjonstre } = useContext(OrganisasjonsListeContext);
@@ -99,15 +97,9 @@ const AntallBerorte: FunctionComponent = () => {
                                 <th>
                                     <Checkbox label="Velg alle" />
                                 </th>
-                                <th>
-                                    <Lenke href="#">Virksomhet</Lenke>
-                                </th>
-                                <th>
-                                    <Lenke href="#">Bedriftsnummer</Lenke>
-                                </th>
-                                <th>
-                                    <Lenke href="#">Antall berørte</Lenke>
-                                </th>
+                                <th>Virksomhet</th>
+                                <th>Bedriftsnummer</th>
+                                <th>Antall berørte</th>
                             </tr>
                         </thead>
                         <tbody>{rader}</tbody>
