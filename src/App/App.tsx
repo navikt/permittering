@@ -8,8 +8,6 @@ import './App.less';
 import { FeatureToggleProvider } from './FeatureToggleProvider';
 import Forside from './Forside/Forside';
 import LoginBoundary from './LoginBoundary';
-import { OrganisasjonsListeProvider } from './OrganisasjonslisteProvider';
-import { RefusjonOrganisasjonsListeProvider } from './OrganisasjonslisteRefusjonProvider';
 import RefusjonRoutes from './Refusjon/RefusjonRoutes';
 import PermitteringRoutes from './Skjema/PermitteringRoutes';
 
@@ -24,15 +22,11 @@ function App() {
                 <LoginBoundary>
                     <Router basename={basePath}>
                         <FeatureToggleProvider>
-                            <OrganisasjonsListeProvider>
-                                <Route exact path="/">
-                                    <Forside />
-                                </Route>
-                                <PermitteringRoutes />
-                            </OrganisasjonsListeProvider>
-                            <RefusjonOrganisasjonsListeProvider>
-                                <RefusjonRoutes />
-                            </RefusjonOrganisasjonsListeProvider>
+                            <Route exact path="/">
+                                <Forside />
+                            </Route>
+                            <PermitteringRoutes />
+                            <RefusjonRoutes />
                         </FeatureToggleProvider>
                     </Router>
                 </LoginBoundary>
