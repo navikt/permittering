@@ -13,55 +13,27 @@ import Lenke from 'nav-frontend-lenker';
 import 'nav-frontend-tabell-style';
 import Input from 'nav-frontend-skjema/lib/input';
 import { byggOrganisasjonstre } from '../../../utils/byggOrganisasjonsTre';
-import { MOCK_ORGANISASJONER } from '../../../api/organisasjonerFraAltinn';
 import {
     JuridiskEnhetMedUnderEnheterArray,
     Organisasjon,
     tomAltinnOrganisasjon,
 } from '../../../types/Organisasjon';
+import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
 
 const AntallBerorte: FunctionComponent = () => {
+    const { organisasjonstre } = useContext(OrganisasjonsListeContext);
     const history = useHistory();
     const context = useContext(SkjemaContext);
     const [valgtJuridiskEnhet, setValgtJuridiskEnhet] = useState(tomAltinnOrganisasjon);
-    const [organisasjonstre, setOrganisasjonstre] = useState<
-        JuridiskEnhetMedUnderEnheterArray[] | undefined
-    >(undefined);
-    const organisasjoner = MOCK_ORGANISASJONER;
 
     const { steg, forrigeSide, nesteSide } = useSkjemaSteg(
         history.location.pathname,
         context.skjema.id
     );
 
-    useEffect(() => {
-        const byggTre = async (organisasjoner: Organisasjon[]) => {
-            const juridiskEnhetMedUnderEnheterArray: JuridiskEnhetMedUnderEnheterArray[] = await byggOrganisasjonstre(
-                organisasjoner
-            );
-            return juridiskEnhetMedUnderEnheterArray;
-        };
-        if (organisasjoner && organisasjoner.length > 0) {
-            byggTre(organisasjoner.sort((a, b) => a.Name.localeCompare(b.Name))).then(
-                juridiskEnhetMedUnderEnheterArray => {
-                    const organisasjonstre = juridiskEnhetMedUnderEnheterArray;
-                    if (organisasjonstre.length > 0) {
-                        setOrganisasjonstre(organisasjonstre);
-                        setValgtJuridiskEnhet(organisasjonstre[0].JuridiskEnhet);
-                    }
-                }
-            );
-        }
-    }, [organisasjoner]);
-
-    let rader: any = null;
-    if (organisasjonstre && organisasjonstre.length) {
-        const fulltObjekt = organisasjonstre.filter(
-            enhet =>
-                enhet.JuridiskEnhet.OrganizationNumber === valgtJuridiskEnhet.OrganizationNumber
-        );
-
-        rader = fulltObjekt[0].Underenheter.map(org => {
+    let rader: any = [];
+    if (organisasjonstre) {
+        rader = organisasjonstre[0].Underenheter.map(org => {
             return (
                 <tr>
                     <td>

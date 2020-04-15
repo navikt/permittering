@@ -1,7 +1,8 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { Organisasjon } from '../types/Organisasjon';
+import { JuridiskEnhetMedUnderEnheterArray, Organisasjon } from '../types/Organisasjon';
 import { hentOrganisasjonerFraAltinn } from '../api/AltinnApi';
 import IkkeTilgang from './IkkeTilgang/IkkeTilgang';
+import { byggOrganisasjonstre } from '../utils/byggOrganisasjonsTre';
 
 export enum Tilgang {
     LASTER,
@@ -12,6 +13,7 @@ export enum Tilgang {
 export type OrganisajonsContext = {
     organisasjoner: Array<Organisasjon>;
     organisasjonslisteFerdigLastet: Tilgang;
+    organisasjonstre: JuridiskEnhetMedUnderEnheterArray[] | undefined;
 };
 
 const OrganisasjonsListeContext = React.createContext<OrganisajonsContext>(
@@ -24,6 +26,9 @@ export const OrganisasjonsListeProvider: FunctionComponent = props => {
     const [organisasjonslisteFerdigLastet, setOrganisasjonslisteFerdigLastet] = useState(
         Tilgang.LASTER
     );
+    const [organisasjonstre, setOrganisasjonstre] = useState<
+        JuridiskEnhetMedUnderEnheterArray[] | undefined
+    >([]);
 
     useEffect(() => {
         const abortController = new AbortController();
@@ -36,8 +41,10 @@ export const OrganisasjonsListeProvider: FunctionComponent = props => {
                         organisasjon.OrganizationForm === 'AAFY'
                 );
                 setOrganisasjoner(kunBedrifter);
-                if (kunBedrifter.length > 0) setOrganisasjonslisteFerdigLastet(Tilgang.TILGANG);
-                else {
+                if (kunBedrifter.length > 0) {
+                    byggOrganisasjonstre(organisasjonsliste).then(tre => setOrganisasjonstre(tre));
+                    setOrganisasjonslisteFerdigLastet(Tilgang.TILGANG);
+                } else {
                     setOrganisasjonslisteFerdigLastet(Tilgang.IKKE_TILGANG);
                 }
             })
@@ -50,7 +57,9 @@ export const OrganisasjonsListeProvider: FunctionComponent = props => {
     let defaultContext: OrganisajonsContext = {
         organisasjoner,
         organisasjonslisteFerdigLastet,
+        organisasjonstre,
     };
+
     return (
         <>
             {organisasjonslisteFerdigLastet !== Tilgang.LASTER &&
