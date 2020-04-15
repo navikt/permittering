@@ -26,14 +26,12 @@ const AntallBerorte: FunctionComponent = () => {
     const [juridiskEnhetOrgnr, setJuridiskEnhetOrgnr] = useState<JuridiskEnhetMedUnderEnheterArray>(
         { JuridiskEnhet: tomAltinnOrganisasjon, Underenheter: [] }
     );
-    const [rader, setRader] = useState([]);
 
     const { steg } = useSkjemaSteg(history.location.pathname, context.skjema.id);
 
     useEffect(() => {
         if (organisasjonstre && organisasjonstre.length) {
             setJuridiskEnhetOrgnr(organisasjonstre[0]);
-            visInputfelt(true);
         }
     }, [organisasjonstre]);
 
@@ -55,7 +53,6 @@ const AntallBerorte: FunctionComponent = () => {
     };
 
     const visInputfelt = (skjulAlle?: boolean) => {
-        console.log('vis eller skjul kallt');
         aktivStatusForRader.forEach((status, index) => {
             const tilhorendeOrgNr = juridiskEnhetOrgnr.Underenheter[index].OrganizationNumber;
             const inputObjekt = document.getElementById('inputfelt-' + tilhorendeOrgNr);
@@ -100,7 +97,6 @@ const AntallBerorte: FunctionComponent = () => {
     };
     const nyeRader: any = lagRader();
     visInputfelt();
-    console.log('rendres, ', aktivStatusForRader);
 
     useEffect(() => {
         window.scrollTo(0, 0);
