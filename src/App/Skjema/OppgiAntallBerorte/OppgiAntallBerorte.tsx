@@ -13,62 +13,92 @@ import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
 import Input from 'nav-frontend-skjema/lib/input';
 import 'nav-frontend-tabell-style';
 import { BedriftsVelger } from '../../komponenter/Bedriftsvelger/Bedriftsvelger';
+import {
+    JuridiskEnhetMedUnderEnheterArray,
+    tomAltinnOrganisasjon,
+} from '../../../types/Organisasjon';
 
 const AntallBerorte: FunctionComponent = () => {
     const { organisasjonstre } = useContext(OrganisasjonsListeContext);
     const history = useHistory();
     const context = useContext(SkjemaContext);
     const [aktivStatusForRader, setAktivStatusForRader] = useState([]);
-    const [juridiskEnhetOrgnr, setJuridiskEnhetOrgnr] = useState('');
+    const [juridiskEnhetOrgnr, setJuridiskEnhetOrgnr] = useState<JuridiskEnhetMedUnderEnheterArray>(
+        { JuridiskEnhet: tomAltinnOrganisasjon, Underenheter: [] }
+    );
+    const [rader, setRader] = useState([]);
 
     const { steg } = useSkjemaSteg(history.location.pathname, context.skjema.id);
 
     useEffect(() => {
         if (organisasjonstre && organisasjonstre.length) {
-            setJuridiskEnhetOrgnr(organisasjonstre[0].JuridiskEnhet.OrganizationNumber);
+            setJuridiskEnhetOrgnr(organisasjonstre[0]);
         }
     }, [organisasjonstre]);
 
-    useEffect(() => {
+    const skiftJuridiskEnhet = (orgnr: string) => {
         if (organisasjonstre && organisasjonstre.length) {
+            const valgteEnhet = organisasjonstre.filter(
+                org => org.JuridiskEnhet.OrganizationNumber === orgnr
+            )[0];
+            setJuridiskEnhetOrgnr(valgteEnhet);
             let liste: any = [];
             organisasjonstre[0].Underenheter.forEach(org => liste.push(false));
             setAktivStatusForRader(liste);
+            visInputfelt(true);
         }
-    }, [organisasjonstre]);
+    };
 
-    let rader: any = [];
-    if (juridiskEnhetOrgnr.length > 0 && organisasjonstre) {
-        const valgtEnhet = organisasjonstre.filter(
-            org => org.JuridiskEnhet.OrganizationNumber === juridiskEnhetOrgnr
-        );
-        rader = valgtEnhet[0].Underenheter.map((org, index) => {
-            const liste: any = aktivStatusForRader;
-            return (
-                <tr key={org.OrganizationNumber}>
-                    <td>
-                        <Checkbox
-                            label="Velg denne raden"
-                            onChange={() => {
-                                liste[index] = !aktivStatusForRader[index];
-                                console.log(liste);
-                                setAktivStatusForRader(liste);
-                                console.log(aktivStatusForRader);
-                            }}
-                        />
-                    </td>
-                    <td>{org.Name}</td>
-                    <td>{org.OrganizationNumber}</td>
-
-                    {!liste[index] && (
-                        <td>
-                            <Input placeholder={'Fyll inn antall'} />
-                        </td>
-                    )}
-                </tr>
-            );
+    const visInputfelt = (skjulAlle?: boolean) => {
+        aktivStatusForRader.forEach((status, index) => {
+            const inputObjekt = document.getElementById('inputfelt-' + index);
+            if (skjulAlle && inputObjekt) {
+                inputObjekt.style.display = 'none';
+                return;
+            }
+            if (status && inputObjekt) {
+                inputObjekt.style.display = 'initial';
+            } else if (inputObjekt) {
+                inputObjekt.style.display = 'none';
+            }
         });
-    }
+    };
+
+    visInputfelt();
+
+    useEffect(() => {
+        const lagRader = () => {
+            if (juridiskEnhetOrgnr && organisasjonstre) {
+                const rader = juridiskEnhetOrgnr.Underenheter.map((org, index) => {
+                    const liste: any = aktivStatusForRader;
+                    return (
+                        <tr key={org.OrganizationNumber}>
+                            <td>
+                                <Checkbox
+                                    label="Velg denne raden"
+                                    onChange={() => {
+                                        liste[index] = !aktivStatusForRader[index];
+                                        console.log(liste);
+                                        setAktivStatusForRader(liste);
+                                        console.log(aktivStatusForRader);
+                                    }}
+                                />
+                            </td>
+                            <td>{org.Name}</td>
+                            <td>{org.OrganizationNumber}</td>
+                            <td>
+                                <Input placeholder={'Fyll inn antall'} id={'inputfelt-' + index} />
+                            </td>
+                        </tr>
+                    );
+                });
+                return rader;
+            }
+            return;
+        };
+        const nyeRader: any = lagRader();
+        setRader(nyeRader);
+    }, [aktivStatusForRader, juridiskEnhetOrgnr, organisasjonstre]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -86,7 +116,7 @@ const AntallBerorte: FunctionComponent = () => {
                 <div className={'hvem-berores'}>
                     <BedriftsVelger
                         className={'enhetsvelger'}
-                        setOrganisasjon={setJuridiskEnhetOrgnr}
+                        setOrganisasjon={skiftJuridiskEnhet}
                         organisasjoner={
                             organisasjonstre ? organisasjonstre.map(org => org.JuridiskEnhet) : []
                         }
