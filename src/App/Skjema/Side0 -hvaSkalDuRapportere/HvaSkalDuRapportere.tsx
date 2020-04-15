@@ -35,7 +35,7 @@ const HvaSkalDuRapportere = () => {
             bedriftNr: valgtOrganisasjon,
             type: skjemaType!,
         });
-        history.push('/skjema/kontaktinformasjon/' + newId);
+        history.push('/skjema/generelle-opplysninger/' + newId);
     };
     const sidetittel =
         'Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid';
@@ -64,7 +64,7 @@ const HvaSkalDuRapportere = () => {
                 >
                     Gå til skjema
                 </Hovedknapp>
-                <Lenke className={'hva-skal-du-rapportere__avbryt'} href={'/permittering'}>
+                <Lenke className="hva-skal-du-rapportere__avbryt" href={'/permittering'}>
                     Avbryt
                 </Lenke>
             </HvitSideBoks>
