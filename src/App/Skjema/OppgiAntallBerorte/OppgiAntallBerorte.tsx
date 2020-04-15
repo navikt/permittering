@@ -36,24 +36,31 @@ const AntallBerorte: FunctionComponent = () => {
         }
     }, [organisasjonstre]);
 
+    useEffect(() => {
+        if (juridiskEnhetOrgnr.JuridiskEnhet.OrganizationNumber !== '') {
+            let liste: any = [];
+            juridiskEnhetOrgnr.Underenheter.forEach(org => liste.push(false));
+            setAktivStatusForRader(liste);
+            visInputfelt(true);
+        }
+    }, [juridiskEnhetOrgnr]);
+
     const skiftJuridiskEnhet = (orgnr: string) => {
         if (organisasjonstre && organisasjonstre.length) {
             const valgteEnhet = organisasjonstre.filter(
                 org => org.JuridiskEnhet.OrganizationNumber === orgnr
             )[0];
             setJuridiskEnhetOrgnr(valgteEnhet);
-            let liste: any = [];
-            organisasjonstre[0].Underenheter.forEach(org => liste.push(false));
-            setAktivStatusForRader(liste);
-            visInputfelt(true);
         }
     };
 
     const visInputfelt = (skjulAlle?: boolean) => {
         aktivStatusForRader.forEach((status, index) => {
-            const inputObjekt = document.getElementById('inputfelt-' + index);
+            const tilhorendeOrgNr = juridiskEnhetOrgnr.Underenheter[index].OrganizationNumber;
+            const inputObjekt = document.getElementById('inputfelt-' + tilhorendeOrgNr);
             if (skjulAlle && inputObjekt) {
                 inputObjekt.style.display = 'none';
+                console.log('forsoker a skjule alle');
                 return;
             }
             if (status && inputObjekt) {
@@ -63,8 +70,6 @@ const AntallBerorte: FunctionComponent = () => {
             }
         });
     };
-
-    visInputfelt();
 
     useEffect(() => {
         const lagRader = () => {
@@ -78,16 +83,17 @@ const AntallBerorte: FunctionComponent = () => {
                                     label="Velg denne raden"
                                     onChange={() => {
                                         liste[index] = !aktivStatusForRader[index];
-                                        console.log(liste);
                                         setAktivStatusForRader(liste);
-                                        console.log(aktivStatusForRader);
                                     }}
                                 />
                             </td>
                             <td>{org.Name}</td>
                             <td>{org.OrganizationNumber}</td>
                             <td>
-                                <Input placeholder={'Fyll inn antall'} id={'inputfelt-' + index} />
+                                <Input
+                                    placeholder={'Fyll inn antall'}
+                                    id={'inputfelt-' + org.OrganizationNumber}
+                                />
                             </td>
                         </tr>
                     );
@@ -104,6 +110,8 @@ const AntallBerorte: FunctionComponent = () => {
         window.scrollTo(0, 0);
         loggNavarendeSteg('legg-til-personer');
     }, []);
+
+    visInputfelt();
 
     return (
         <>
