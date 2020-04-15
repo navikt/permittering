@@ -33,6 +33,7 @@ const AntallBerorte: FunctionComponent = () => {
     useEffect(() => {
         if (organisasjonstre && organisasjonstre.length) {
             setJuridiskEnhetOrgnr(organisasjonstre[0]);
+            visInputfelt(true);
         }
     }, [organisasjonstre]);
 
@@ -41,7 +42,6 @@ const AntallBerorte: FunctionComponent = () => {
             let liste: any = [];
             juridiskEnhetOrgnr.Underenheter.forEach(org => liste.push(false));
             setAktivStatusForRader(liste);
-            visInputfelt(true);
         }
     }, [juridiskEnhetOrgnr]);
 
@@ -55,14 +55,10 @@ const AntallBerorte: FunctionComponent = () => {
     };
 
     const visInputfelt = (skjulAlle?: boolean) => {
+        console.log('vis eller skjul kallt');
         aktivStatusForRader.forEach((status, index) => {
             const tilhorendeOrgNr = juridiskEnhetOrgnr.Underenheter[index].OrganizationNumber;
             const inputObjekt = document.getElementById('inputfelt-' + tilhorendeOrgNr);
-            if (skjulAlle && inputObjekt) {
-                inputObjekt.style.display = 'none';
-                console.log('forsoker a skjule alle');
-                return;
-            }
             if (status && inputObjekt) {
                 inputObjekt.style.display = 'initial';
             } else if (inputObjekt) {
@@ -71,47 +67,45 @@ const AntallBerorte: FunctionComponent = () => {
         });
     };
 
-    useEffect(() => {
-        const lagRader = () => {
-            if (juridiskEnhetOrgnr && organisasjonstre) {
-                const rader = juridiskEnhetOrgnr.Underenheter.map((org, index) => {
-                    const liste: any = aktivStatusForRader;
-                    return (
-                        <tr key={org.OrganizationNumber}>
-                            <td>
-                                <Checkbox
-                                    label="Velg denne raden"
-                                    onChange={() => {
-                                        liste[index] = !aktivStatusForRader[index];
-                                        setAktivStatusForRader(liste);
-                                    }}
-                                />
-                            </td>
-                            <td>{org.Name}</td>
-                            <td>{org.OrganizationNumber}</td>
-                            <td>
-                                <Input
-                                    placeholder={'Fyll inn antall'}
-                                    id={'inputfelt-' + org.OrganizationNumber}
-                                />
-                            </td>
-                        </tr>
-                    );
-                });
-                return rader;
-            }
-            return;
-        };
-        const nyeRader: any = lagRader();
-        setRader(nyeRader);
-    }, [aktivStatusForRader, juridiskEnhetOrgnr, organisasjonstre]);
+    const lagRader = () => {
+        if (juridiskEnhetOrgnr && organisasjonstre) {
+            const rader = juridiskEnhetOrgnr.Underenheter.map((org, index) => {
+                const liste: any = aktivStatusForRader;
+                return (
+                    <tr key={org.OrganizationNumber}>
+                        <td>
+                            <Checkbox
+                                label="Velg denne raden"
+                                onChange={() => {
+                                    liste[index] = !aktivStatusForRader[index];
+                                    setAktivStatusForRader(liste);
+                                    visInputfelt();
+                                }}
+                            />
+                        </td>
+                        <td>{org.Name}</td>
+                        <td>{org.OrganizationNumber}</td>
+                        <td>
+                            <Input
+                                placeholder={'Fyll inn antall'}
+                                id={'inputfelt-' + org.OrganizationNumber}
+                            />
+                        </td>
+                    </tr>
+                );
+            });
+            return rader;
+        }
+        return;
+    };
+    const nyeRader: any = lagRader();
+    visInputfelt();
+    console.log('rendres, ', aktivStatusForRader);
 
     useEffect(() => {
         window.scrollTo(0, 0);
         loggNavarendeSteg('legg-til-personer');
     }, []);
-
-    visInputfelt();
 
     return (
         <>
@@ -140,7 +134,7 @@ const AntallBerorte: FunctionComponent = () => {
                                 <th>Antall berørte</th>
                             </tr>
                         </thead>
-                        <tbody>{rader}</tbody>
+                        <tbody>{nyeRader}</tbody>
                     </table>
                 </div>
             </SkjemaRamme>
