@@ -1,34 +1,15 @@
 @import '~nav-frontend-core/less/_variabler';
 
 .hva-skal-du-rapportere {
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    align-self: center;
-    margin-top: 3rem;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
 
-    .typo-systemtittel {
-        margin-bottom: 3rem;
+    .typo-normal.bold {
+        font-weight: 600;
     }
 
-    /* .inputPanelGruppe__inner {
-        position: initial;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: space-between;
-
-        .radioPanel {
-            width: 22%;
-        }
-
-        .inputPanel {
-            margin-bottom: 0.5rem;
-        }
+    .skjemavalg-overskrift {
+        margin-bottom: 1.25rem;
     }
-
-     */
 
     &__info-om-virksomhet-juridisk {
         display: flex;
@@ -41,20 +22,8 @@
         margin-bottom: 1rem;
     }
 
-    &__forklaring-boks {
-        margin: 1.5rem 0;
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-
-        .forklaring {
-            width: 30%;
-        }
-    }
-
     &__bedriftsDropdown {
-        margin-top: 2rem;
+        margin: 2rem 0;
     }
 
     &__knapp {
@@ -65,76 +34,5 @@
     &__avbryt {
         align-self: center;
         margin-top: 0.5rem;
-    }
-}
-
-@media (max-width: @screen-md-min) {
-    .hva-skal-du-rapportere {
-        background-color: white;
-        display: flex;
-        flex-direction: column;
-        align-self: center;
-        position: relative;
-
-        .typo-systemtittel {
-            margin-bottom: 3rem;
-        }
-
-        /* .inputPanelGruppe__inner {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            .radioPanel {
-                width: 90%;
-            }
-
-            .inputPanel {
-                margin-bottom: 0.5rem;
-            }
-        } */
-    }
-}
-
-@media (max-width: @screen-sm-min) {
-    .hva-skal-du-rapportere {
-        background-color: white;
-        display: flex;
-        flex-direction: column;
-        align-self: center;
-
-        /* .inputPanelGruppe__inner {
-            .radioPanel {
-                width: 80%;
-            }
-
-            .inputPanel {
-                margin-bottom: 0.5rem;
-            }
-        } */
-
-        &__forklaring-boks {
-            margin: 1.5rem 1rem 0 1rem;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-self: center;
-
-            .forklaring {
-                width: 100%;
-                margin-bottom: 1rem;
-            }
-        }
-
-        &__bedriftsDropdown {
-            margin: 2rem 0 2rem 0;
-        }
-    }
-}
-
-@media (min-width: @screen-md-min) {
-    .hvit-side-boks.hva-skal-du-rapportere {
-        width: 50rem;
     }
 }

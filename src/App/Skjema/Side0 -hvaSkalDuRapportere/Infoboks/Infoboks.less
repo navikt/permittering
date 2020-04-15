@@ -1,0 +1,59 @@
+@import '~nav-frontend-core/less/_variabler';
+
+.hva-skal-du-rapportere {
+    .nav-veilederpanel {
+        margin-bottom: 2rem;
+        padding: 4.25rem 1rem 1rem;
+
+        ul {
+            padding-inline-start: 16px;
+            margin-block-start: 0.5rem;
+            margin-block-end: 2rem;
+        }
+
+        .overskrift-med-ikon {
+            display: flex;
+
+            .infoboks-ikon {
+                display: none;
+                margin-right: 1rem;
+            }
+        }
+
+        .typo-systemtittel {
+            margin-bottom: 2rem;
+        }
+
+        &--info {
+            border: 4px solid @navBlaLighten80;
+        }
+    }
+
+    .nav-veileder__frame svg,
+    .nav-veileder__frame img {
+        height: 100%;
+    }
+}
+
+@media (min-width: @screen-sm-min) {
+    .hva-skal-du-rapportere {
+        .nav-veilederpanel {
+            padding: 4.25rem 2rem 1rem;
+
+            ul {
+                padding-inline-start: 52px;
+            }
+
+            .overskrift-med-ikon {
+                .infoboks-ikon {
+                    display: initial;
+                    margin-right: 1rem;
+                }
+            }
+
+            .typo-systemtittel {
+                margin-bottom: 2.5rem;
+            }
+        }
+    }
+}
