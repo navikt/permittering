@@ -1,8 +1,9 @@
+import { Select } from 'nav-frontend-skjema';
 import React, { FunctionComponent } from 'react';
 import { Organisasjon } from '../../../types/Organisasjon';
-import { Select } from 'nav-frontend-skjema';
 
 interface Props {
+    label: string;
     organisasjoner: Array<Organisasjon>;
     setOrganisasjon: (orgnr: string) => void;
 }
@@ -10,7 +11,7 @@ interface Props {
 export const BedriftsVelger: FunctionComponent<Props> = props => {
     return (
         <Select
-            label="Hvilken virksomhet vil du sende inn skjema for?"
+            label={props.label}
             className={'hva-skal-du-rapportere__bedriftsDropdown'}
             onChange={event => {
                 props.setOrganisasjon(event.target.value);

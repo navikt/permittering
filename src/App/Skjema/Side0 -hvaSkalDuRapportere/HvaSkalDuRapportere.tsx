@@ -1,23 +1,22 @@
+import { Hovedknapp } from 'nav-frontend-knapper';
+import Lenke from 'nav-frontend-lenker';
+import { RadioPanelGruppe } from 'nav-frontend-skjema';
+import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import { RadioPanelGruppe } from 'nav-frontend-skjema';
-import SkjemaContext from '../SkjemaContext/SkjemaContext';
-import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
 import { Permitteringsskjema } from '../../../types/permitteringsskjema';
-import { BedriftsVelger } from '../../komponenter/Bedriftsvelger/Bedriftsvelger';
-import './HvaSkalDuRapportere.less';
-import infoIkon from './info.svg';
-
 import environment from '../../../utils/environment';
 import {
     loggAntallUnderenheter,
     loggSkjemaValg,
 } from '../../../utils/funksjonerForAmplitudeLogging';
-import HvitSideBoks from '../../komponenter/HvitSideBoks';
-import { Hovedknapp } from 'nav-frontend-knapper';
+import { BedriftsVelger } from '../../komponenter/Bedriftsvelger/Bedriftsvelger';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
-import Lenke from 'nav-frontend-lenker';
+import HvitSideBoks from '../../komponenter/HvitSideBoks';
+import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
+import SkjemaContext from '../SkjemaContext/SkjemaContext';
+import './HvaSkalDuRapportere.less';
+import infoIkon from './info.svg';
 
 const HvaSkalDuRapportere = () => {
     const history = useHistory();
@@ -94,6 +93,7 @@ const HvaSkalDuRapportere = () => {
                     </Normaltekst>
                 </div>
                 <BedriftsVelger
+                    label="Hvilken virksomhet vil du sende inn skjema for?"
                     organisasjoner={organisasjoner}
                     setOrganisasjon={setValgtOrganisasjon}
                 />
