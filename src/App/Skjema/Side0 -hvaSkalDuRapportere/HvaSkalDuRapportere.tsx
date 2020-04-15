@@ -1,25 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import { RadioPanelGruppe } from 'nav-frontend-skjema';
+import { Hovedknapp } from 'nav-frontend-knapper';
+import Lenke from 'nav-frontend-lenker';
+import environment from '../../../utils/environment';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
 import { Permitteringsskjema } from '../../../types/permitteringsskjema';
 import { BedriftsVelger } from '../../komponenter/Bedriftsvelger/Bedriftsvelger';
-import './HvaSkalDuRapportere.less';
-import infoIkon from './info.svg';
-
-import environment from '../../../utils/environment';
-import {
-    loggAntallUnderenheter,
-    loggSkjemaValg,
-} from '../../../utils/funksjonerForAmplitudeLogging';
+import { loggAntallUnderenheter } from '../../../utils/funksjonerForAmplitudeLogging';
 import HvitSideBoks from '../../komponenter/HvitSideBoks';
-import { Hovedknapp } from 'nav-frontend-knapper';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
-import Lenke from 'nav-frontend-lenker';
-import Veilederpanel from 'nav-frontend-veilederpanel';
-import veilederpanelikon from './infoikon.svg';
+import Skjemavalg from './Skjemavalg';
+import Infoboks from './Infoboks/Infoboks';
+import infoIkon from './info.svg';
+import './HvaSkalDuRapportere.less';
 
 const HvaSkalDuRapportere = () => {
     const history = useHistory();
@@ -36,79 +30,29 @@ const HvaSkalDuRapportere = () => {
         }
     }, [valgtOrganisasjon, organisasjoner]);
 
-    loggSkjemaValg('hva-skal-du-varsle-om');
-
     const opprettOgNavigerTilSkjema = async () => {
         const newId = await context.opprett({
             bedriftNr: valgtOrganisasjon,
             type: skjemaType!,
         });
-        history.push('/skjema/kontaktinformasjon/' + newId);
+        history.push('/skjema/generelle-opplysninger/' + newId);
     };
     const sidetittel =
         'Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid';
-
-    const radios = [
-        {
-            label: 'Permittering uten lønn',
-            value: 'PERMITTERING_UTEN_LØNN',
-            id: 'permittering',
-        },
-        {
-            label: 'Masseoppsigelser',
-            value: 'MASSEOPPSIGELSE',
-            id: 'masseoppsigelser',
-        },
-        {
-            label: 'Innskrenkning i arbeidstid',
-            value: 'INNSKRENKNING_I_ARBEIDSTID',
-            id: 'innskrenkning',
-        },
-    ];
 
     return (
         <>
             <Dekorator sidetittel={sidetittel} />
             <HvitSideBoks classname="hva-skal-du-rapportere">
-                <Veilederpanel
-                    type="plakat"
-                    kompakt
-                    fargetema="info"
-                    svg={<img src={veilederpanelikon} alt="" aria-hidden="true" />}
-                >
-                    <Systemtittel>Før du begynner</Systemtittel>
-                </Veilederpanel>
-                <Systemtittel>Hva vil du informere NAV om?</Systemtittel>
-                <RadioPanelGruppe
-                    name="samplename"
-                    legend=""
-                    radios={radios}
-                    checked={skjemaType}
-                    onChange={(event, value) => {
-                        setSkjemaType(value);
-                        loggSkjemaValg(value);
-                    }}
-                />
-                <div className="hva-skal-du-rapportere__forklaring-boks">
-                    <Normaltekst className="forklaring">
-                        <b>Permittering uten lønn</b> handler om at arbeidsgiver pålegger
-                        arbeidstaker et midlertidig fritak uten lønn.
-                    </Normaltekst>
-                    <Normaltekst className="forklaring">
-                        <b>Oppsigelse</b> betyr at arbeidsforholdet mellom arbeidsgiver og
-                        arbeidstaker avsluttes.
-                    </Normaltekst>
-                    <Normaltekst className="forklaring">
-                        <b>Innskrenkning i arbeidstid</b> vil si at arbeidstakerens stillingsprosent
-                        blir redusert.
-                    </Normaltekst>
-                </div>
+                <Infoboks />
+                <Skjemavalg skjemaType={skjemaType} setSkjemaType={setSkjemaType} />
+
                 <BedriftsVelger
                     organisasjoner={organisasjoner}
                     setOrganisasjon={setValgtOrganisasjon}
                 />
-                <div className={'hva-skal-du-rapportere__info-om-virksomhet-juridisk'}>
-                    <img alt="" className={'hva-skal-du-rapportere__infoikon'} src={infoIkon} />
+                <div className="hva-skal-du-rapportere__info-om-virksomhet-juridisk">
+                    <img alt="" className="hva-skal-du-rapportere__infoikon" src={infoIkon} />
                     Du kan kun sende skjema på vegne av virksomhet (også kalt underenhet), og ikke
                     på vegne av juridisk enhet.
                 </div>
@@ -120,7 +64,7 @@ const HvaSkalDuRapportere = () => {
                 >
                     Gå til skjema
                 </Hovedknapp>
-                <Lenke className={'hva-skal-du-rapportere__avbryt'} href={'/permittering'}>
+                <Lenke className="hva-skal-du-rapportere__avbryt" href={'/permittering'}>
                     Avbryt
                 </Lenke>
             </HvitSideBoks>
