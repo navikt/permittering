@@ -52,7 +52,8 @@ const Infoboks = () => {
                     ingen krav til å legge ved dokumentasjon på dette i skjemaet.
                 </li>
                 <li>
-                    Du trenger heller ikke legge ved navn på de enkelte ansatte som blir berørt.
+                    Du trenger heller ikke legge ved navn, fødselsnummer eller permitteringsgrad på
+                    de enkelte ansatte som blir berørt.
                 </li>
             </ul>
         </Veilederpanel>
