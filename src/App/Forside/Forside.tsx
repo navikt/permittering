@@ -18,7 +18,7 @@ const Forside: FunctionComponent = () => {
     const visskjema = featureToggleContext[Feature.visskjema];
     const [skjemaer, setSkjemaer] = useState<Permitteringsskjema[]>([]);
     const sidetittel =
-        'Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid';
+        'Skjema til NAV om permitteringer, oppsigelser eller innskrenkning i arbeidstid';
 
     useEffect(() => {
         loggNavarendeSteg('oversikt-tidligere-skjema');

@@ -9,7 +9,7 @@ const LoggInnBanner = () => {
             <div className="logg-inn-banner__container">
                 <div className="logg-inn-banner__tittel-og-tekst">
                     <Sidetittel className="logg-inn-banner__tittel">
-                        Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i
+                        Skjema til NAV om permitteringer, oppsigelser eller innskrenkning i
                         arbeidstid
                     </Sidetittel>
                 </div>

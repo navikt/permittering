@@ -9,7 +9,7 @@ import './Kvitteringsside.less';
 
 const Kvitteringsside = () => {
     const sidetittel =
-        'Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid';
+        'Skjema til NAV om permitteringer, oppsigelser eller innskrenkning i arbeidstid';
 
     useEffect(() => {
         window.scrollTo(0, 0);

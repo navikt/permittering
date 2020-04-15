@@ -38,7 +38,7 @@ const HvaSkalDuRapportere = () => {
         history.push('/skjema/generelle-opplysninger/' + newId);
     };
     const sidetittel =
-        'Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid';
+        'Skjema til NAV om permitteringer, oppsigelser eller innskrenkning i arbeidstid';
 
     return (
         <>
