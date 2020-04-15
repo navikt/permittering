@@ -1,0 +1,57 @@
+@import '../../../../node_modules/nav-frontend-core/less/_variabler';
+
+.input-av-personer {
+    border-bottom: 1px solid @navGra60;
+    padding-bottom: 2rem;
+
+    &__knapper-overst {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        margin-top: 2rem;
+
+        .slett-knapp {
+            display: flex;
+            align-items: center;
+
+            .antall-lagt-til {
+                margin-right: 1.5rem;
+            }
+        }
+    }
+
+    &__overskrift-og-knapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__mini-knapp-neste {
+        margin-left: 0.5rem;
+    }
+
+    &__fram-og-tilbake {
+        display: inline-block;
+    }
+
+    &__tabell {
+        margin-top: 3rem;
+
+        .kolonneheader-checkbox {
+            width: 27px;
+            padding-right: 0;
+        }
+    }
+    &__infotekst {
+        margin-top: 1rem;
+        width: 60%;
+    }
+}
+
+.enhetsvelger {
+    position: relative;
+
+    &__infotekst {
+        position: absolute;
+    }
+}
