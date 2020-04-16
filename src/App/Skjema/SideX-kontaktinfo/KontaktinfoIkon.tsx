@@ -11,8 +11,8 @@ const KontaktinfoIkon = () => {
             xmlns="http://www.w3.org/2000/svg"
         >
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M2.5 0H19V5H2.5C1.11929 5 0 3.88071 0 2.5C0 1.11929 1.11929 0 2.5 0Z"
                 fill="#E7E9E9"
             />
@@ -25,8 +25,8 @@ const KontaktinfoIkon = () => {
                 fill="#E7E9E9"
             />
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M2.5 2C2.224 2 2 2.225 2 2.5C2 2.776 2.224 3 2.5 3H18.5C18.776 3 19 2.776 19 2.5C19 2.225 18.776 2 18.5 2H2.5Z"
                 fill="#C6C2BF"
             />

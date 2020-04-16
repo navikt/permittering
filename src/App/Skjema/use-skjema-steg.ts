@@ -11,6 +11,11 @@ export const useSkjemaSteg = (currentPathName: string, id: string): SkjemaNaviga
     const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
     const steg = [
         {
+            label: 'Antall berørte',
+            aktiv: false,
+            slug: 'antall-berorte',
+        },
+        {
             label: 'Generelle opplysninger',
             aktiv: false,
             slug: 'generelle-opplysninger',

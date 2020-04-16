@@ -22,8 +22,9 @@ import { Yrkeskategori } from '../../../types/permitteringsskjema';
 import YrkeskategoriVisning from '../../komponenter/Yrkeskategorivelger/YrkeskategoriVisning';
 import { Permitteringsårsaksvelger } from '../../komponenter/PermitteringsÅrsaksVelger/PermitteringsÅrsaksVelger';
 import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
-import './Side2.less';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
+import LesMerPanel from '../../komponenter/LesMerPanel/LesMerPanel';
+import './Side2.less';
 
 const Side2: FunctionComponent = () => {
     const history = useHistory();
@@ -149,6 +150,18 @@ const Side2: FunctionComponent = () => {
     if (context.skjema.sendtInnTidspunkt) {
         history.replace('/skjema/kvitteringsside');
     }
+
+    const skjematypetekst = (type: string): string => {
+        if (type === 'MASSEOPPSIGELSE') {
+            return 'si opp ansatte.';
+        } else if (type === 'PERMITTERING_UTEN_LØNN') {
+            return 'permittere ansatte.';
+        } else if (type === 'INNSKRENKNING_I_ARBEIDSTID') {
+            return 'innskrenke arbeidstiden til ansatte.';
+        }
+        return 'Skjema til NAV om permitteringer, oppsigelser eller innskrenkning i arbeidstid';
+    };
+
     return (
         <>
             <Dekorator sidetittel={context.skjema.type} />
@@ -214,6 +227,17 @@ const Side2: FunctionComponent = () => {
                 <Element className="skjema-innhold__side-2-dato-overskrift">
                     For hvilken periode gjelder dette?
                 </Element>
+                <LesMerPanel
+                    åpneLabel="Er det vanskelig å sette eksakt tidsperiode?"
+                    lukkLabel="Lukk"
+                    className="skjema-innhold__side-2-lesmer-periode"
+                >
+                    <Normaltekst>
+                        {`Tidsperioden trenger ikke være 100% nøyaktig. Det er nyttig for NAV å vite omtrent når dere tenker å ${skjematypetekst(
+                            context.skjema.type
+                        )}`}
+                    </Normaltekst>
+                </LesMerPanel>
                 <div className="skjema-innhold__side-2-dato-container">
                     <Datovelger
                         value={context.skjema.startDato}

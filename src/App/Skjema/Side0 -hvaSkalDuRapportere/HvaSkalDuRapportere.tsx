@@ -35,7 +35,7 @@ const HvaSkalDuRapportere = () => {
             bedriftNr: valgtOrganisasjon,
             type: skjemaType!,
         });
-        history.push('/skjema/generelle-opplysninger/' + newId);
+        history.push('/skjema/antall-berorte/' + newId);
     };
     const sidetittel =
         'Skjema til NAV om permitteringer, oppsigelser eller innskrenkning i arbeidstid';
