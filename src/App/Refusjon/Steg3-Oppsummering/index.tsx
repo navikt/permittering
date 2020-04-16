@@ -1,4 +1,6 @@
 import { Column, Container, Row } from 'nav-frontend-grid';
+import { Knapp } from 'nav-frontend-knapper';
+import { Checkbox } from 'nav-frontend-skjema';
 import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -43,19 +45,45 @@ const Oppsummering: FunctionComponent = () => {
                                 </Column>
                                 <Column md="6">5</Column>
                             </Row>
-                            <Row className="">
+                            {/* <Row className="">
                                 <Column md="6">
                                     <Element>Periode for permittering: </Element>
                                 </Column>
                                 <Column md="6">27.02.2020 - 15.06.2020 </Column>
-                            </Row>
+                            </Row> */}
                         </Container>
                     </div>
                 </div>
 
-                <LesMerPanel åpneLabel="Hva menes med dette?" lukkLabel="Lukk">
-                    heheheheheheh
+                <VerticalSpacer rem={2} />
+                <LesMerPanel åpneLabel="Hvordan regner vi ut refusjonsgrunnlaget?" lukkLabel="Lukk">
+                    Vi regner ut refusjonsgrunnlaget ved å gjøre nøye beregninger basert på uttrekk
+                    og kalkulasjoner som har blitt rapportert på grunnlag av lønnsinntekter for det
+                    enkelete individ på ansattnivå hvor vi legger paragraf §2.3 andre ledd, første
+                    bokstav, i økonomiregelementet til grunn for refusjoner tilknyttet de overnevnte
+                    midlene. Disse beløpene vil i sin helehet bli lagt til grunn i gjennomgangen av
+                    beregningen når man legger sammen alle summer som skal refunderes.
                 </LesMerPanel>
+                <VerticalSpacer rem={3} />
+                <Element>
+                    Vi stoler på at du har gitt oss riktige opplysninger, men før du går videre må
+                    du godta følgende:
+                </Element>
+                <VerticalSpacer rem={1} />
+                <Checkbox
+                    label="Jeg forstår at hvis jeg mottar refusjon jeg ikke har rett på vil dette kunne kreves tilbake"
+                    checked={true}
+                />
+                <VerticalSpacer rem={1} />
+                <Checkbox
+                    label="Noe annet de skal forstå/vise at de har forstått"
+                    checked={false}
+                />
+                <VerticalSpacer rem={4} />
+                <div className={cls.element('knappelinje')}>
+                    <Knapp>Tilbake</Knapp>
+                    <Knapp type="hoved">Send inn til godkjenning</Knapp>
+                </div>
             </SkjemaRamme>
         </>
     );
