@@ -75,7 +75,7 @@ const AntallBerorte: FunctionComponent = () => {
             const rader = juridiskEnhetOrgnr.Underenheter.map((org, index) => {
                 const liste: any = aktivStatusForRader;
                 return (
-                    <tr key={org.OrganizationNumber}>
+                    <tr key={org.OrganizationNumber} className={'hvem-berores__tabell-rad'}>
                         <td>
                             <div className={'hvem-berores__kolonne-med-checkbox'}>
                                 <Checkbox
@@ -92,8 +92,9 @@ const AntallBerorte: FunctionComponent = () => {
                             </div>
                         </td>
                         <td>{org.OrganizationNumber}</td>
-                        <td>
+                        <td className={'hvem-berores__tabell-input-kolonne'}>
                             <Input
+                                className={'hvem-berores__tabell-inputfelt'}
                                 placeholder={'Fyll inn antall'}
                                 id={'inputfelt-' + org.OrganizationNumber}
                             />
