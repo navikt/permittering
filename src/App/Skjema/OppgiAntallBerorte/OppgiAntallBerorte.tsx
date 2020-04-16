@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
+import ikon from './antall-berorte-ikon.svg';
 
 import { useSkjemaSteg } from '../use-skjema-steg';
 import './OppgiAntallBerorte.less';
@@ -18,6 +19,8 @@ import {
     tomAltinnOrganisasjon,
 } from '../../../types/Organisasjon';
 import { Element } from 'nav-frontend-typografi';
+import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
+import kalender from '../../komponenter/Datovelger/kalender.svg';
 
 const AntallBerorte: FunctionComponent = () => {
     const { organisasjonstre } = useContext(OrganisasjonsListeContext);
@@ -119,6 +122,11 @@ const AntallBerorte: FunctionComponent = () => {
                 slett={async () => await context.avbryt()}
             >
                 <div className={'hvem-berores'}>
+                    <Systemtittel className={'hvem-berores__systemtittel'}>
+                        {' '}
+                        <img alt={''} src={ikon} />
+                        Antall berørte
+                    </Systemtittel>
                     <BedriftsVelger
                         className={'enhetsvelger'}
                         setOrganisasjon={skiftJuridiskEnhet}
