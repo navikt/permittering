@@ -59,7 +59,7 @@ const Arbeidsforhold: FunctionComponent = () => {
     }, [context.skjema.id, hentOgSettArbeidsforhold]);
 
     const harUbehandledeBeregninger = arbeidsforhold.content.some(
-        a => !a.inntektInnhentet && !a.beregningsdetaljer.some(a => a === 'FEILET')
+        a => !a.inntektInnhentet && !a.beregningsdetaljer.includes('FEILET')
     );
     const fetchIntervallArbeidsforhold = harUbehandledeBeregninger ? 2_000 : 60_000;
     useInterval(hentOgSettArbeidsforhold, fetchIntervallArbeidsforhold);
