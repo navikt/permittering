@@ -6,7 +6,6 @@ import environment from '../../../utils/environment';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
 import { Permitteringsskjema } from '../../../types/permitteringsskjema';
-import { BedriftsVelger } from '../../komponenter/Bedriftsvelger/Bedriftsvelger';
 import { loggAntallUnderenheter } from '../../../utils/funksjonerForAmplitudeLogging';
 import HvitSideBoks from '../../komponenter/HvitSideBoks';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
@@ -46,11 +45,6 @@ const HvaSkalDuRapportere = () => {
             <HvitSideBoks classname="hva-skal-du-rapportere">
                 <Infoboks />
                 <Skjemavalg skjemaType={skjemaType} setSkjemaType={setSkjemaType} />
-
-                <BedriftsVelger
-                    organisasjoner={organisasjoner}
-                    setOrganisasjon={setValgtOrganisasjon}
-                />
                 <div className="hva-skal-du-rapportere__info-om-virksomhet-juridisk">
                     <img alt="" className="hva-skal-du-rapportere__infoikon" src={infoIkon} />
                     Du kan kun sende skjema på vegne av virksomhet (også kalt underenhet), og ikke

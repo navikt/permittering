@@ -8,6 +8,7 @@ import Side5 from './Side5-yrker/Yrkeskategorier';
 import Oppsummering from './Side4-oppsummering/Oppsummering';
 import Kvitteirng from './Kvitteringsside/Kvitteringsside';
 import AntallBerorte from './OppgiAntallBerorte/OppgiAntallBerorte';
+import Side2 from './Side2/Side2';
 
 const PermitteringRoutes = () => {
     return (
