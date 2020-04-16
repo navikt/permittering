@@ -156,7 +156,7 @@ const AntallBerorte: FunctionComponent = () => {
                         <tbody>{nyeRader}</tbody>
                     </table>
                     <div className={'hvem-berores__tabell-totalt-antall'}>
-                        <Element>Totalt antall permitterte</Element>
+                        <Element>Totalt antall berørte</Element>
                         <Element>{totalAntall}</Element>
                     </div>
                 </div>
