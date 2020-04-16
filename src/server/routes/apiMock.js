@@ -80,6 +80,10 @@ module.exports = function(app) {
         res.json(organisasjoner);
     });
 
+    app.get(paths.hentRefusjonOrganisasjonerLink, (req, res) => {
+        res.json(organisasjoner);
+    });
+
     app.get(paths.permitteringsAArsakksodeverk.replace('å', '%C3%A5'), (req, res) => {
         res.json(require('../../fixtures/årsakskoder'));
     });
