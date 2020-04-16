@@ -9,18 +9,15 @@ import { Permitteringsskjema } from '../../../types/permitteringsskjema';
 import { loggAntallUnderenheter } from '../../../utils/funksjonerForAmplitudeLogging';
 import HvitSideBoks from '../../komponenter/HvitSideBoks';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
-import Skjemavalg from './Skjemavalg';
+import Skjemavalg from './Skjemavalg/Skjemavalg';
 import Infoboks from './Infoboks/Infoboks';
-import infoIkon from './info.svg';
 import './HvaSkalDuRapportere.less';
 
 const HvaSkalDuRapportere = () => {
     const history = useHistory();
     const context = useContext(SkjemaContext);
     const { organisasjoner } = useContext(OrganisasjonsListeContext);
-    const [valgtOrganisasjon, setValgtOrganisasjon] = useState(
-        organisasjoner[0].OrganizationNumber
-    );
+    const [valgtOrganisasjon] = useState(organisasjoner[0].OrganizationNumber);
     const [skjemaType, setSkjemaType] = useState<Permitteringsskjema['type'] | undefined>();
 
     useEffect(() => {
@@ -45,12 +42,6 @@ const HvaSkalDuRapportere = () => {
             <HvitSideBoks classname="hva-skal-du-rapportere">
                 <Infoboks />
                 <Skjemavalg skjemaType={skjemaType} setSkjemaType={setSkjemaType} />
-                <div className="hva-skal-du-rapportere__info-om-virksomhet-juridisk">
-                    <img alt="" className="hva-skal-du-rapportere__infoikon" src={infoIkon} />
-                    Du kan kun sende skjema på vegne av virksomhet (også kalt underenhet), og ikke
-                    på vegne av juridisk enhet.
-                </div>
-
                 <Hovedknapp
                     disabled={skjemaType === undefined}
                     className="hva-skal-du-rapportere__knapp"

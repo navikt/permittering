@@ -1,9 +1,9 @@
 import React from 'react';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { RadioPanelGruppe } from 'nav-frontend-skjema';
-import { loggSkjemaValg } from '../../../utils/funksjonerForAmplitudeLogging';
-import { Permitteringsskjema } from '../../../types/permitteringsskjema';
-import './HvaSkalDuRapportere.less';
+import { loggSkjemaValg } from '../../../../utils/funksjonerForAmplitudeLogging';
+import { Permitteringsskjema } from '../../../../types/permitteringsskjema';
+import '../HvaSkalDuRapportere.less';
 
 const radios = [
     {
