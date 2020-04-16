@@ -17,6 +17,7 @@ import {
     JuridiskEnhetMedUnderEnheterArray,
     tomAltinnOrganisasjon,
 } from '../../../types/Organisasjon';
+import { Element } from 'nav-frontend-typografi';
 
 const AntallBerorte: FunctionComponent = () => {
     const { organisasjonstre } = useContext(OrganisasjonsListeContext);
@@ -71,16 +72,20 @@ const AntallBerorte: FunctionComponent = () => {
                 return (
                     <tr key={org.OrganizationNumber}>
                         <td>
-                            <Checkbox
-                                label="Velg denne raden"
-                                onChange={() => {
-                                    liste[index] = !aktivStatusForRader[index];
-                                    setAktivStatusForRader(liste);
-                                    visInputfelt();
-                                }}
-                            />
+                            <div className={'hvem-berores__kolonne-med-checkbox'}>
+                                <Checkbox
+                                    label="Velg denne raden"
+                                    onChange={() => {
+                                        liste[index] = !aktivStatusForRader[index];
+                                        setAktivStatusForRader(liste);
+                                        visInputfelt();
+                                    }}
+                                />
+                                <div className={'hvem-berores__kolonne-med-checkbox-tekst'}>
+                                    {org.Name}
+                                </div>
+                            </div>
                         </td>
-                        <td>{org.Name}</td>
                         <td>{org.OrganizationNumber}</td>
                         <td>
                             <Input
@@ -119,19 +124,30 @@ const AntallBerorte: FunctionComponent = () => {
                             organisasjonstre ? organisasjonstre.map(org => org.JuridiskEnhet) : []
                         }
                     />
+                    <Element className={'hvem-berores__tabell-overtekst'}>
+                        Velg underenhet og skriv inn antall ansatte som berøres{' '}
+                    </Element>
                     <table className="tabell">
                         <thead>
                             <tr>
                                 <th>
-                                    <Checkbox label="Velg alle" />
+                                    <div className={'hvem-berores__kolonne-med-checkbox'}>
+                                        <Checkbox label={'Velg virksomhet'} />
+                                        <div className={'hvem-berores__kolonne-med-checkbox-tekst'}>
+                                            Virksomhet
+                                        </div>
+                                    </div>
                                 </th>
-                                <th>Virksomhet</th>
                                 <th>Bedriftsnummer</th>
                                 <th>Antall berørte</th>
                             </tr>
                         </thead>
                         <tbody>{nyeRader}</tbody>
                     </table>
+                    <tr className={'hvem-berores__tabell-totalt-antall'}>
+                        <td>Totalt antall permitterte </td>
+                        <td />
+                    </tr>
                 </div>
             </SkjemaRamme>
         </>
