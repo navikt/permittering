@@ -20,7 +20,7 @@ import {
 } from '../../../types/Organisasjon';
 import { Element } from 'nav-frontend-typografi';
 import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
-import kalender from '../../komponenter/Datovelger/kalender.svg';
+import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
 
 const AntallBerorte: FunctionComponent = () => {
     const { organisasjonstre } = useContext(OrganisasjonsListeContext);
@@ -31,9 +31,9 @@ const AntallBerorte: FunctionComponent = () => {
         { JuridiskEnhet: tomAltinnOrganisasjon, Underenheter: [] }
     );
 
-    const [totalAntall, setTotalAntall] = useState(8);
+    const totalAntall = 9;
 
-    const { steg } = useSkjemaSteg(history.location.pathname, context.skjema.id);
+    const { steg, nesteSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
 
     useEffect(() => {
         if (organisasjonstre && organisasjonstre.length) {
@@ -140,7 +140,7 @@ const AntallBerorte: FunctionComponent = () => {
                     </Element>
                     <table className="tabell">
                         <thead>
-                            <tr>
+                            <tr className={'hvem-berores__tabell-rad'}>
                                 <th>
                                     <div className={'hvem-berores__kolonne-med-checkbox'}>
                                         <Checkbox label={'Velg virksomhet'} />
@@ -160,6 +160,15 @@ const AntallBerorte: FunctionComponent = () => {
                         <Element>{totalAntall}</Element>
                     </div>
                 </div>
+                <Hovedknapp
+                    className={'hvem-berores__neste-knapp'}
+                    onClick={async () => {
+                        await context.lagre();
+                        history.push(nesteSide);
+                    }}
+                >
+                    Neste
+                </Hovedknapp>
             </SkjemaRamme>
         </>
     );
