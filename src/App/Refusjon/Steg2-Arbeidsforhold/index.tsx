@@ -1,24 +1,24 @@
-import React, { FunctionComponent, useCallback, useContext, useEffect, useState } from 'react';
-import RefusjonContext from '../RefusjonContext';
-import { useHistory } from 'react-router-dom';
-import { useRefusjonSteg } from '../use-refusjon-steg';
-import SkjemaRamme from '../../komponenter/SkjemaRamme';
-import { Ingress, Systemtittel } from 'nav-frontend-typografi';
-import Dekorator from '../../komponenter/Dekorator/Dekorator';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import LeggTilArbeidsforholdModal from './LeggTilArbeidsforholdModal';
-import {
-    Arbeidsforhold as ArbeidsforholdType,
-    LeggTilArbeidsforhold,
-} from '../../../types/refusjonsskjema';
-import ArbeidsforholdTabell from './ArbeidsforholdTabell';
+import { Ingress, Systemtittel } from 'nav-frontend-typografi';
+import React, { FunctionComponent, useCallback, useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
     hentArbeidsforhold,
     leggTilArbeidsforhold,
     slettArbeidsforhold,
 } from '../../../api/refusjon-api';
 import { Paginering, tomPaginering } from '../../../types/paginering';
+import {
+    Arbeidsforhold as ArbeidsforholdType,
+    LeggTilArbeidsforhold,
+} from '../../../types/refusjonsskjema';
 import { useInterval } from '../../../utils/useInterval';
+import Dekorator from '../../komponenter/Dekorator/Dekorator';
+import SkjemaRamme from '../../komponenter/SkjemaRamme';
+import RefusjonContext from '../RefusjonContext';
+import { useRefusjonSteg } from '../use-refusjon-steg';
+import ArbeidsforholdTabell from './ArbeidsforholdTabell';
+import LeggTilArbeidsforholdModal from './LeggTilArbeidsforholdModal';
 
 const Arbeidsforhold: FunctionComponent = () => {
     const context = useContext(RefusjonContext);
@@ -58,7 +58,9 @@ const Arbeidsforhold: FunctionComponent = () => {
         }
     }, [context.skjema.id, hentOgSettArbeidsforhold]);
 
-    const harUbehandledeBeregninger = arbeidsforhold.content.some(a => !a.inntektInnhentet);
+    const harUbehandledeBeregninger = arbeidsforhold.content.some(
+        a => !a.inntektInnhentet && !a.beregningsdetaljer.some(a => a === 'FEILET')
+    );
     const fetchIntervallArbeidsforhold = harUbehandledeBeregninger ? 2_000 : 60_000;
     useInterval(hentOgSettArbeidsforhold, fetchIntervallArbeidsforhold);
 
