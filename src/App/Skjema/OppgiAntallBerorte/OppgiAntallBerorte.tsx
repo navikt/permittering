@@ -28,6 +28,8 @@ const AntallBerorte: FunctionComponent = () => {
         { JuridiskEnhet: tomAltinnOrganisasjon, Underenheter: [] }
     );
 
+    const [totalAntall, setTotalAntall] = useState(8);
+
     const { steg } = useSkjemaSteg(history.location.pathname, context.skjema.id);
 
     useEffect(() => {
@@ -144,10 +146,10 @@ const AntallBerorte: FunctionComponent = () => {
                         </thead>
                         <tbody>{nyeRader}</tbody>
                     </table>
-                    <tr className={'hvem-berores__tabell-totalt-antall'}>
-                        <td>Totalt antall permitterte </td>
-                        <td />
-                    </tr>
+                    <div className={'hvem-berores__tabell-totalt-antall'}>
+                        <Element>Totalt antall permitterte</Element>
+                        <Element>{totalAntall}</Element>
+                    </div>
                 </div>
             </SkjemaRamme>
         </>
