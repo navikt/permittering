@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const uuid = require('uuid');
 const storageClient = require('../StorageMock');
 const organisasjoner = require('../../fixtures/organisasjoner.json');
+const arbeidsforholdMock = require('../../fixtures/arbeidsforholdMock.json');
 const cookieName = 'localhost-idtoken';
 /**
  * Mock for å
@@ -82,6 +83,10 @@ module.exports = function(app) {
 
     app.get(paths.hentRefusjonOrganisasjonerLink, (req, res) => {
         res.json(organisasjoner);
+    });
+
+    app.get(paths.arbeidsforholdLeggTilPath, (req, res) => {
+        res.json(arbeidsforholdMock);
     });
 
     app.get(paths.permitteringsAArsakksodeverk.replace('å', '%C3%A5'), (req, res) => {
