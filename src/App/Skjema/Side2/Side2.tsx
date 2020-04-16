@@ -25,6 +25,7 @@ import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 import LesMerPanel from '../../komponenter/LesMerPanel/LesMerPanel';
 import './Side2.less';
+import Side2Ikon from './Side2Ikon';
 
 const Side2: FunctionComponent = () => {
     const history = useHistory();
@@ -170,7 +171,10 @@ const Side2: FunctionComponent = () => {
                 lagre={async () => await context.lagre()}
                 slett={async () => await context.avbryt()}
             >
-                <Systemtittel>Generelle opplysninger</Systemtittel>
+                <Systemtittel className="skjema-innhold__side-2-tittel">
+                    <Side2Ikon />
+                    Generelle opplysninger
+                </Systemtittel>
                 {!tillatFnrInput && (
                     <div className="skjema-innhold__side-2-text-area">
                         <Input
