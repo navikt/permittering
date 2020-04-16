@@ -17,9 +17,14 @@ const PermitteringRoutes = () => {
                     <Side0 />
                 </SkjemaProvider>
             </Route>
-            <Route exact path="/skjema/generelle-opplysninger/:id">
+            <Route exact path="/skjema/antall-berorte/:id">
                 <SkjemaProvider>
                     <AntallBerorte />
+                </SkjemaProvider>
+            </Route>
+            <Route exact path="/skjema/generelle-opplysninger/:id">
+                <SkjemaProvider>
+                    <Side2 />
                 </SkjemaProvider>
             </Route>
             <Route exact path="/skjema/kontaktinformasjon/:id">
