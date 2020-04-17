@@ -22,18 +22,29 @@ import { Element } from 'nav-frontend-typografi';
 import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
 import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
 
+interface InputfeltState {
+    feilmelding: string;
+    organisasjonsnr: string;
+    skalVises: boolean;
+}
+
 const AntallBerorte: FunctionComponent = () => {
     const { organisasjonstre } = useContext(OrganisasjonsListeContext);
     const history = useHistory();
     const context = useContext(SkjemaContext);
-    const [aktivStatusForRader, setAktivStatusForRader] = useState([]);
+    const [inputfeltStates, setInputfeltStates] = useState([]);
     const [juridiskEnhetOrgnr, setJuridiskEnhetOrgnr] = useState<JuridiskEnhetMedUnderEnheterArray>(
         { JuridiskEnhet: tomAltinnOrganisasjon, Underenheter: [] }
     );
+    const [feilMeldingAntallBerort, setFeilmeldingAntallBerort] = useState('');
 
     const totalAntall = 9;
 
     const { steg, nesteSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
+
+    const erGyldigNr = (nr: string) => {
+        return nr.match(/^[0-9]+$/) != null;
+    };
 
     useEffect(() => {
         if (organisasjonstre && organisasjonstre.length) {
@@ -44,8 +55,15 @@ const AntallBerorte: FunctionComponent = () => {
     useEffect(() => {
         if (juridiskEnhetOrgnr.JuridiskEnhet.OrganizationNumber !== '') {
             let liste: any = [];
-            juridiskEnhetOrgnr.Underenheter.forEach(org => liste.push(false));
-            setAktivStatusForRader(liste);
+            juridiskEnhetOrgnr.Underenheter.forEach(org => {
+                const initialState: InputfeltState = {
+                    feilmelding: '',
+                    organisasjonsnr: org.OrganizationNumber,
+                    skalVises: false,
+                };
+                liste.push(initialState);
+            });
+            setInputfeltStates(liste);
         }
     }, [juridiskEnhetOrgnr]);
 
@@ -59,10 +77,11 @@ const AntallBerorte: FunctionComponent = () => {
     };
 
     const visInputfelt = (skjulAlle?: boolean) => {
-        aktivStatusForRader.forEach((status, index) => {
-            const tilhorendeOrgNr = juridiskEnhetOrgnr.Underenheter[index].OrganizationNumber;
-            const inputObjekt = document.getElementById('inputfelt-' + tilhorendeOrgNr);
-            if (status && inputObjekt) {
+        inputfeltStates.forEach((inputfeltState: InputfeltState) => {
+            const inputObjekt = document.getElementById(
+                'inputfelt-' + inputfeltState.organisasjonsnr
+            );
+            if (inputfeltState.skalVises && inputObjekt) {
                 inputObjekt.style.display = 'initial';
             } else if (inputObjekt) {
                 inputObjekt.style.display = 'none';
@@ -72,8 +91,11 @@ const AntallBerorte: FunctionComponent = () => {
 
     const lagRader = () => {
         if (juridiskEnhetOrgnr && organisasjonstre) {
-            const rader = juridiskEnhetOrgnr.Underenheter.map((org, index) => {
-                const liste: any = aktivStatusForRader;
+            const rader = juridiskEnhetOrgnr.Underenheter.map(org => {
+                const indeksIinputfeltState = inputfeltStates.findIndex(
+                    (state: InputfeltState) => state.organisasjonsnr === org.OrganizationNumber
+                );
+                const stateForRad: InputfeltState = inputfeltStates[indeksIinputfeltState];
                 return (
                     <tr key={org.OrganizationNumber} className={'hvem-berores__tabell-rad'}>
                         <td>
@@ -81,8 +103,11 @@ const AntallBerorte: FunctionComponent = () => {
                                 <Checkbox
                                     label="Velg denne raden"
                                     onChange={() => {
-                                        liste[index] = !aktivStatusForRader[index];
-                                        setAktivStatusForRader(liste);
+                                        const statesKopi: any = inputfeltStates;
+                                        statesKopi[
+                                            indeksIinputfeltState
+                                        ].skalVises = !stateForRad.skalVises;
+                                        setInputfeltStates(statesKopi);
                                         visInputfelt();
                                     }}
                                 />
@@ -97,6 +122,21 @@ const AntallBerorte: FunctionComponent = () => {
                                 className={'hvem-berores__tabell-inputfelt'}
                                 placeholder={'Fyll inn antall'}
                                 id={'inputfelt-' + org.OrganizationNumber}
+                                onBlur={(event: any) => {
+                                    const statesKopi: any = inputfeltStates;
+                                    if (erGyldigNr(event.currentTarget.value)) {
+                                        context.endreSkjemaVerdi(
+                                            'antallBerørt',
+                                            event.currentTarget.value
+                                        );
+                                        statesKopi[indeksIinputfeltState].feilmelding =
+                                            'Fyll inn antall';
+                                    } else {
+                                        statesKopi[indeksIinputfeltState].feilmelding = '';
+                                    }
+                                    setInputfeltStates(statesKopi);
+                                }}
+                                onChange={() => setFeilmeldingAntallBerort('')}
                             />
                         </td>
                     </tr>
@@ -106,6 +146,8 @@ const AntallBerorte: FunctionComponent = () => {
         }
         return;
     };
+
+    console.log();
     const nyeRader: any = lagRader();
     visInputfelt();
 
