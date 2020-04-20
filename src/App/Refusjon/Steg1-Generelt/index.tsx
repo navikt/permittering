@@ -1,15 +1,16 @@
+import { Column, Container, Row } from 'nav-frontend-grid';
+import { Input } from 'nav-frontend-skjema';
+import { Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext } from 'react';
-import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import { useHistory } from 'react-router-dom';
+import Dekorator from '../../komponenter/Dekorator/Dekorator';
+import UndertittelRow from '../../komponenter/Grid/UndertittelRow';
+import InputEpost from '../../komponenter/Skjema/InputEpost';
+import InputTelefon from '../../komponenter/Skjema/InputTelefon';
+import SkjemaRamme from '../../komponenter/SkjemaRamme';
+import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import RefusjonContext from '../RefusjonContext';
 import { useRefusjonSteg } from '../use-refusjon-steg';
-import { Systemtittel } from 'nav-frontend-typografi';
-import { Input } from 'nav-frontend-skjema';
-import { Column, Container, Row } from 'nav-frontend-grid';
-import UndertittelRow from '../../komponenter/Grid/UndertittelRow';
-import InputTelefon from '../../komponenter/Skjema/InputTelefon';
-import InputEpost from '../../komponenter/Skjema/InputEpost';
-import Dekorator from '../../komponenter/Dekorator/Dekorator';
 
 const Generelt: FunctionComponent = () => {
     const context = useContext(RefusjonContext);
@@ -24,8 +25,10 @@ const Generelt: FunctionComponent = () => {
                 slett={async () => await context.avbryt()}
             >
                 <Systemtittel>Kontaktinformasjon</Systemtittel>
+                <VerticalSpacer rem={2} />
                 <Container fluid={true}>
                     <UndertittelRow>Informasjon om arbeidsgiver</UndertittelRow>
+                    <VerticalSpacer rem={0.5} />
                     <Row className="">
                         <Column md="6">
                             <Input
@@ -44,7 +47,9 @@ const Generelt: FunctionComponent = () => {
                             />
                         </Column>
                     </Row>
+                    <VerticalSpacer rem={2} />
                     <UndertittelRow>Kontaktperson i virksomheten</UndertittelRow>
+                    <VerticalSpacer rem={0.5} />
                     <Row className="">
                         <Column md="12">
                             <Input

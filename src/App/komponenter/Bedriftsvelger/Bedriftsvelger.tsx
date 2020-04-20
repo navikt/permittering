@@ -4,6 +4,7 @@ import { Select } from 'nav-frontend-skjema';
 import Normaltekst from 'nav-frontend-typografi/lib/normaltekst';
 
 interface Props {
+    label: string;
     organisasjoner: Array<Organisasjon>;
     setOrganisasjon: (org: string) => void;
     className?: string;

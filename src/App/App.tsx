@@ -1,16 +1,15 @@
-import React, { useEffect } from 'react';
-import './App.less';
-import { basePath } from '../paths.json';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import LoginBoundary from './LoginBoundary';
-import Forside from './Forside/Forside';
-import { OrganisasjonsListeProvider } from './OrganisasjonslisteProvider';
-import { IntlProvider } from 'react-intl';
 import 'moment/locale/nb';
-import { FeatureToggleProvider } from './FeatureToggleProvider';
+import React, { useEffect } from 'react';
+import { IntlProvider } from 'react-intl';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { basePath } from '../paths.json';
 import { brukerLoggetPa } from '../utils/funksjonerForAmplitudeLogging';
-import PermitteringRoutes from './Skjema/PermitteringRoutes';
+import './App.less';
+import { FeatureToggleProvider } from './FeatureToggleProvider';
+import Forside from './Forside/Forside';
+import LoginBoundary from './LoginBoundary';
 import RefusjonRoutes from './Refusjon/RefusjonRoutes';
+import PermitteringRoutes from './Skjema/PermitteringRoutes';
 
 function App() {
     useEffect(() => {
@@ -22,15 +21,13 @@ function App() {
             <div className="app">
                 <LoginBoundary>
                     <Router basename={basePath}>
-                        <OrganisasjonsListeProvider>
-                            <FeatureToggleProvider>
-                                <Route exact path="/">
-                                    <Forside />
-                                </Route>
-                                <PermitteringRoutes />
-                                <RefusjonRoutes />
-                            </FeatureToggleProvider>
-                        </OrganisasjonsListeProvider>
+                        <FeatureToggleProvider>
+                            <Route exact path="/">
+                                <Forside />
+                            </Route>
+                            <PermitteringRoutes />
+                            <RefusjonRoutes />
+                        </FeatureToggleProvider>
                     </Router>
                 </LoginBoundary>
             </div>
