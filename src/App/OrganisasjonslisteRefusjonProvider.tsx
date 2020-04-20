@@ -4,7 +4,12 @@ import { Organisasjon } from '../types/Organisasjon';
 import IkkeTilgang from './IkkeTilgang/IkkeTilgang';
 import { OrganisajonsContext, Tilgang } from './OrganisasjonslisteProvider';
 
-export const RefusjonOrganisasjonsListeContext = React.createContext<OrganisajonsContext>(
+type OrganisajonsContextRefusjon = {
+    organisasjoner: Array<Organisasjon>;
+    organisasjonslisteFerdigLastet: Tilgang;
+};
+
+export const RefusjonOrganisasjonsListeContext = React.createContext<OrganisajonsContextRefusjon>(
     {} as OrganisajonsContext
 );
 
@@ -36,10 +41,11 @@ export const RefusjonOrganisasjonsListeProvider: FunctionComponent = props => {
             });
     }, []);
 
-    let defaultContext: OrganisajonsContext = {
+    let defaultContext: OrganisajonsContextRefusjon = {
         organisasjoner,
         organisasjonslisteFerdigLastet,
     };
+
     return (
         <>
             {organisasjonslisteFerdigLastet !== Tilgang.LASTER &&

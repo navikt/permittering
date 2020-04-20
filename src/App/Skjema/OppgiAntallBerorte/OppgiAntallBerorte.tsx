@@ -21,6 +21,7 @@ import {
 import { Element } from 'nav-frontend-typografi';
 import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
 import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
+import Normaltekst from 'nav-frontend-typografi/lib/normaltekst';
 
 const AntallBerorte: FunctionComponent = () => {
     const { organisasjonstre } = useContext(OrganisasjonsListeContext);
@@ -129,7 +130,15 @@ const AntallBerorte: FunctionComponent = () => {
                         Antall berørte
                     </Systemtittel>
                     <BedriftsVelger
-                        className={'enhetsvelger'}
+                        label={
+                            <>
+                                Hvilken juridisk enhet har underenheter som berøres?
+                                <Normaltekst>
+                                    Du kan kun melde ifra for virksomheter som tilhører den samme
+                                    juridiske enheten
+                                </Normaltekst>
+                            </>
+                        }
                         setOrganisasjon={skiftJuridiskEnhet}
                         organisasjoner={
                             organisasjonstre ? organisasjonstre.map(org => org.JuridiskEnhet) : []
