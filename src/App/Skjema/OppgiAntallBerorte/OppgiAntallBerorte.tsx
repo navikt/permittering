@@ -36,7 +36,6 @@ const AntallBerorte: FunctionComponent = () => {
     const [juridiskEnhetOrgnr, setJuridiskEnhetOrgnr] = useState<JuridiskEnhetMedUnderEnheterArray>(
         { JuridiskEnhet: tomAltinnOrganisasjon, Underenheter: [] }
     );
-    const [feilMeldingAntallBerort, setFeilmeldingAntallBerort] = useState('');
 
     const totalAntall = 9;
 
@@ -76,80 +75,71 @@ const AntallBerorte: FunctionComponent = () => {
         }
     };
 
-    const visInputfelt = (skjulAlle?: boolean) => {
-        inputfeltStates.forEach((inputfeltState: InputfeltState) => {
-            const inputObjekt = document.getElementById(
-                'inputfelt-' + inputfeltState.organisasjonsnr
-            );
-            if (inputfeltState.skalVises && inputObjekt) {
-                inputObjekt.style.display = 'initial';
-            } else if (inputObjekt) {
-                inputObjekt.style.display = 'none';
-            }
-        });
-    };
-
     const lagRader = () => {
         if (juridiskEnhetOrgnr && organisasjonstre) {
-            const rader = juridiskEnhetOrgnr.Underenheter.map(org => {
-                const indeksIinputfeltState = inputfeltStates.findIndex(
+            const nyStatesKopi: any = [...inputfeltStates];
+            return juridiskEnhetOrgnr.Underenheter.map(org => {
+                const indeksIinputfeltState: number = inputfeltStates.findIndex(
                     (state: InputfeltState) => state.organisasjonsnr === org.OrganizationNumber
                 );
                 const stateForRad: InputfeltState = inputfeltStates[indeksIinputfeltState];
-                return (
-                    <tr key={org.OrganizationNumber} className={'hvem-berores__tabell-rad'}>
-                        <td>
-                            <div className={'hvem-berores__kolonne-med-checkbox'}>
-                                <Checkbox
-                                    label="Velg denne raden"
-                                    onChange={() => {
-                                        const statesKopi: any = inputfeltStates;
-                                        statesKopi[
-                                            indeksIinputfeltState
-                                        ].skalVises = !stateForRad.skalVises;
-                                        setInputfeltStates(statesKopi);
-                                        visInputfelt();
-                                    }}
-                                />
-                                <div className={'hvem-berores__kolonne-med-checkbox-tekst'}>
-                                    {org.Name}
+                if (stateForRad) {
+                    return (
+                        <tr key={org.OrganizationNumber} className={'hvem-berores__tabell-rad'}>
+                            <td>
+                                <div className={'hvem-berores__kolonne-med-checkbox'}>
+                                    <Checkbox
+                                        label="Velg denne raden"
+                                        onChange={() => {
+                                            nyStatesKopi[
+                                                indeksIinputfeltState
+                                            ].skalVises = !stateForRad.skalVises;
+                                            setInputfeltStates(nyStatesKopi);
+                                        }}
+                                    />
+                                    <div className={'hvem-berores__kolonne-med-checkbox-tekst'}>
+                                        {org.Name}
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td>{org.OrganizationNumber}</td>
-                        <td className={'hvem-berores__tabell-input-kolonne'}>
-                            <Input
-                                className={'hvem-berores__tabell-inputfelt'}
-                                placeholder={'Fyll inn antall'}
-                                id={'inputfelt-' + org.OrganizationNumber}
-                                onBlur={(event: any) => {
-                                    const statesKopi: any = inputfeltStates;
-                                    if (erGyldigNr(event.currentTarget.value)) {
-                                        context.endreSkjemaVerdi(
-                                            'antallBerørt',
-                                            event.currentTarget.value
-                                        );
-                                        statesKopi[indeksIinputfeltState].feilmelding =
-                                            'Fyll inn antall';
-                                    } else {
-                                        statesKopi[indeksIinputfeltState].feilmelding = '';
-                                    }
-                                    setInputfeltStates(statesKopi);
-                                }}
-                                onChange={() => setFeilmeldingAntallBerort('')}
-                            />
-                        </td>
-                    </tr>
-                );
+                            </td>
+                            <td>{org.OrganizationNumber}</td>
+                            <td className={'hvem-berores__tabell-input-kolonne'}>
+                                {stateForRad.skalVises && (
+                                    <Input
+                                        feil={stateForRad.feilmelding}
+                                        className={'hvem-berores__tabell-inputfelt'}
+                                        placeholder={'Fyll inn antall'}
+                                        id={'inputfelt-' + org.OrganizationNumber}
+                                        onBlur={(event: any) => {
+                                            if (
+                                                !erGyldigNr(event.currentTarget.value) &&
+                                                event.currentTarget.value !== ''
+                                            ) {
+                                                context.endreSkjemaVerdi(
+                                                    'antallBerørt',
+                                                    event.currentTarget.value
+                                                );
+                                                nyStatesKopi[indeksIinputfeltState].feilmelding =
+                                                    'Fyll inn antall';
+                                            } else {
+                                                nyStatesKopi[indeksIinputfeltState].feilmelding =
+                                                    '';
+                                            }
+                                            setInputfeltStates(nyStatesKopi);
+                                        }}
+                                    />
+                                )}
+                            </td>
+                        </tr>
+                    );
+                }
+                return [];
             });
-            return rader;
         }
-        return;
     };
 
     console.log();
     const nyeRader: any = lagRader();
-    visInputfelt();
 
     useEffect(() => {
         window.scrollTo(0, 0);
