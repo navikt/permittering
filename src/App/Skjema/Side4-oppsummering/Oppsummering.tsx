@@ -263,8 +263,11 @@ const Oppsummering: FunctionComponent = () => {
                             Tilbake
                         </Knapp>
                         <Hovedknapp
+                            id="send-inn-hovedknapp"
                             className="skjema-innhold__lagre"
                             onClick={async () => {
+                                const thisKnapp = document.getElementById('send-inn-hovedknapp');
+                                thisKnapp && thisKnapp.setAttribute('disabled', 'disabled');
                                 try {
                                     setFeilmelding('');
                                     await context.sendInn();
