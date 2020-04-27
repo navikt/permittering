@@ -23,11 +23,17 @@ import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
 import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
 import Normaltekst from 'nav-frontend-typografi/lib/normaltekst';
 
+interface InputfeltState {
+    feilmelding: string;
+    organisasjonsnr: string;
+    skalVises: boolean;
+}
+
 const AntallBerorte: FunctionComponent = () => {
     const { organisasjonstre } = useContext(OrganisasjonsListeContext);
     const history = useHistory();
     const context = useContext(SkjemaContext);
-    const [aktivStatusForRader, setAktivStatusForRader] = useState([]);
+    const [inputfeltStates, setInputfeltStates] = useState([]);
     const [juridiskEnhetOrgnr, setJuridiskEnhetOrgnr] = useState<JuridiskEnhetMedUnderEnheterArray>(
         { JuridiskEnhet: tomAltinnOrganisasjon, Underenheter: [] }
     );
@@ -35,6 +41,10 @@ const AntallBerorte: FunctionComponent = () => {
     const totalAntall = 9;
 
     const { steg, nesteSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
+
+    const erGyldigNr = (nr: string) => {
+        return nr.match(/^[0-9]+$/) != null;
+    };
 
     useEffect(() => {
         if (organisasjonstre && organisasjonstre.length) {
@@ -45,8 +55,15 @@ const AntallBerorte: FunctionComponent = () => {
     useEffect(() => {
         if (juridiskEnhetOrgnr.JuridiskEnhet.OrganizationNumber !== '') {
             let liste: any = [];
-            juridiskEnhetOrgnr.Underenheter.forEach(org => liste.push(false));
-            setAktivStatusForRader(liste);
+            juridiskEnhetOrgnr.Underenheter.forEach(org => {
+                const initialState: InputfeltState = {
+                    feilmelding: '',
+                    organisasjonsnr: org.OrganizationNumber,
+                    skalVises: false,
+                };
+                liste.push(initialState);
+            });
+            setInputfeltStates(liste);
         }
     }, [juridiskEnhetOrgnr]);
 
@@ -59,56 +76,71 @@ const AntallBerorte: FunctionComponent = () => {
         }
     };
 
-    const visInputfelt = (skjulAlle?: boolean) => {
-        aktivStatusForRader.forEach((status, index) => {
-            const tilhorendeOrgNr = juridiskEnhetOrgnr.Underenheter[index].OrganizationNumber;
-            const inputObjekt = document.getElementById('inputfelt-' + tilhorendeOrgNr);
-            if (status && inputObjekt) {
-                inputObjekt.style.display = 'initial';
-            } else if (inputObjekt) {
-                inputObjekt.style.display = 'none';
-            }
-        });
-    };
-
     const lagRader = () => {
         if (juridiskEnhetOrgnr && organisasjonstre) {
-            const rader = juridiskEnhetOrgnr.Underenheter.map((org, index) => {
-                const liste: any = aktivStatusForRader;
-                return (
-                    <tr key={org.OrganizationNumber} className={'hvem-berores__tabell-rad'}>
-                        <td>
-                            <div className={'hvem-berores__kolonne-med-checkbox'}>
-                                <Checkbox
-                                    label="Velg denne raden"
-                                    onChange={() => {
-                                        liste[index] = !aktivStatusForRader[index];
-                                        setAktivStatusForRader(liste);
-                                        visInputfelt();
-                                    }}
-                                />
-                                <div className={'hvem-berores__kolonne-med-checkbox-tekst'}>
-                                    {org.Name}
-                                </div>
-                            </div>
-                        </td>
-                        <td>{org.OrganizationNumber}</td>
-                        <td className={'hvem-berores__tabell-input-kolonne'}>
-                            <Input
-                                className={'hvem-berores__tabell-inputfelt'}
-                                placeholder={'Fyll inn antall'}
-                                id={'inputfelt-' + org.OrganizationNumber}
-                            />
-                        </td>
-                    </tr>
+            const nyStatesKopi: any = [...inputfeltStates];
+            return juridiskEnhetOrgnr.Underenheter.map(org => {
+                const indeksIinputfeltState: number = inputfeltStates.findIndex(
+                    (state: InputfeltState) => state.organisasjonsnr === org.OrganizationNumber
                 );
+                const stateForRad: InputfeltState = inputfeltStates[indeksIinputfeltState];
+                if (stateForRad) {
+                    return (
+                        <tr key={org.OrganizationNumber} className={'hvem-berores__tabell-rad'}>
+                            <td>
+                                <div className={'hvem-berores__kolonne-med-checkbox'}>
+                                    <Checkbox
+                                        label="Velg denne raden"
+                                        onChange={() => {
+                                            nyStatesKopi[
+                                                indeksIinputfeltState
+                                            ].skalVises = !stateForRad.skalVises;
+                                            setInputfeltStates(nyStatesKopi);
+                                        }}
+                                    />
+                                    <div className={'hvem-berores__kolonne-med-checkbox-tekst'}>
+                                        {org.Name}
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{org.OrganizationNumber}</td>
+                            <td className={'hvem-berores__tabell-input-kolonne'}>
+                                {stateForRad.skalVises && (
+                                    <Input
+                                        feil={stateForRad.feilmelding}
+                                        className={'hvem-berores__tabell-inputfelt'}
+                                        placeholder={'Fyll inn antall'}
+                                        id={'inputfelt-' + org.OrganizationNumber}
+                                        onBlur={(event: any) => {
+                                            if (
+                                                !erGyldigNr(event.currentTarget.value) &&
+                                                event.currentTarget.value !== ''
+                                            ) {
+                                                context.endreSkjemaVerdi(
+                                                    'antallBerørt',
+                                                    event.currentTarget.value
+                                                );
+                                                nyStatesKopi[indeksIinputfeltState].feilmelding =
+                                                    'Fyll inn antall';
+                                            } else {
+                                                nyStatesKopi[indeksIinputfeltState].feilmelding =
+                                                    '';
+                                            }
+                                            setInputfeltStates(nyStatesKopi);
+                                        }}
+                                    />
+                                )}
+                            </td>
+                        </tr>
+                    );
+                }
+                return [];
             });
-            return rader;
         }
-        return;
     };
+
+    console.log();
     const nyeRader: any = lagRader();
-    visInputfelt();
 
     useEffect(() => {
         window.scrollTo(0, 0);
