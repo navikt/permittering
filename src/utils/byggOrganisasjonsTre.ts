@@ -41,6 +41,7 @@ export async function byggOrganisasjonstre(
         );
     }
     const orgtre = settSammenJuridiskEnhetMedUnderenheter(juridiskeEnheter, underenheter);
+    console.log('orgtre:', orgtre);
     return orgtre.sort((a, b) => a.JuridiskEnhet.Name.localeCompare(b.JuridiskEnhet.Name));
 }
 

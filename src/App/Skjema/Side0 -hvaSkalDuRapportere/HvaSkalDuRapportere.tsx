@@ -1,12 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import Lenke from 'nav-frontend-lenker';
-import environment from '../../../utils/environment';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
-import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
+
 import { Permitteringsskjema } from '../../../types/permitteringsskjema';
-import { loggAntallUnderenheter } from '../../../utils/funksjonerForAmplitudeLogging';
 import HvitSideBoks from '../../komponenter/HvitSideBoks';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 import Skjemavalg from './Skjemavalg/Skjemavalg';
@@ -16,19 +14,12 @@ import './HvaSkalDuRapportere.less';
 const HvaSkalDuRapportere = () => {
     const history = useHistory();
     const context = useContext(SkjemaContext);
-    const { organisasjoner } = useContext(OrganisasjonsListeContext);
-    const [valgtOrganisasjon] = useState(organisasjoner[0].OrganizationNumber);
+    //const { organisasjoner, organisasjonstre } = useContext(OrganisasjonsListeContext);
+    //const [valgtOrganisasjon] = useState<string >(organisasjonstre[0].JuridiskEnhet.OrganizationNumber);
     const [skjemaType, setSkjemaType] = useState<Permitteringsskjema['type'] | undefined>();
-
-    useEffect(() => {
-        if (environment.MILJO === 'prod-sbs') {
-            loggAntallUnderenheter(organisasjoner.length);
-        }
-    }, [valgtOrganisasjon, organisasjoner]);
 
     const opprettOgNavigerTilSkjema = async () => {
         const newId = await context.opprett({
-            bedriftNr: valgtOrganisasjon,
             type: skjemaType!,
         });
         history.push('/skjema/antall-berorte/' + newId);

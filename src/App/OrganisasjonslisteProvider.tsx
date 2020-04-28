@@ -13,7 +13,7 @@ export enum Tilgang {
 export type OrganisajonsContext = {
     organisasjoner: Array<Organisasjon>;
     organisasjonslisteFerdigLastet: Tilgang;
-    organisasjonstre: JuridiskEnhetMedUnderEnheterArray[] | undefined;
+    organisasjonstre: JuridiskEnhetMedUnderEnheterArray[];
 };
 
 const OrganisasjonsListeContext = React.createContext<OrganisajonsContext>(
@@ -26,9 +26,9 @@ export const OrganisasjonsListeProvider: FunctionComponent = props => {
     const [organisasjonslisteFerdigLastet, setOrganisasjonslisteFerdigLastet] = useState(
         Tilgang.LASTER
     );
-    const [organisasjonstre, setOrganisasjonstre] = useState<
-        JuridiskEnhetMedUnderEnheterArray[] | undefined
-    >([]);
+    const [organisasjonstre, setOrganisasjonstre] = useState<JuridiskEnhetMedUnderEnheterArray[]>(
+        []
+    );
 
     useEffect(() => {
         const abortController = new AbortController();
@@ -43,6 +43,7 @@ export const OrganisasjonsListeProvider: FunctionComponent = props => {
                 setOrganisasjoner(kunBedrifter);
                 if (kunBedrifter.length > 0) {
                     byggOrganisasjonstre(organisasjonsliste).then(tre => setOrganisasjonstre(tre));
+
                     setOrganisasjonslisteFerdigLastet(Tilgang.TILGANG);
                 } else {
                     setOrganisasjonslisteFerdigLastet(Tilgang.IKKE_TILGANG);
