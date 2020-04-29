@@ -22,6 +22,9 @@ import { Element } from 'nav-frontend-typografi';
 import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
 import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
 import Normaltekst from 'nav-frontend-typografi/lib/normaltekst';
+import { Sokeforslag } from '../../komponenter/Yrkeskategorivelger/Yrkeskategorivelger';
+import { Bedrift, Yrkeskategori } from '../../../types/permitteringsskjema';
+import { mergeFritekst } from '../../../utils/fritekstFunksjoner';
 
 interface InputfeltState {
     feilmelding: string;
@@ -39,11 +42,37 @@ const AntallBerorte: FunctionComponent = () => {
     );
 
     const totalAntall = 9;
-
+    let { bedrifter = [] } = context.skjema;
     const { steg, nesteSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
 
     const erGyldigNr = (nr: string) => {
         return nr.match(/^[0-9]+$/) != null;
+    };
+
+    const EndreBedrift = (orgnr: string, antall: number, navn: string) => {
+        const bedrifterCopy = [...bedrifter];
+        const nyBedrift: Bedrift = {
+            bedriftsnr: orgnr,
+            antall: antall,
+            navn: navn,
+        };
+        bedrifterCopy.push(nyBedrift);
+        context.endreSkjemaVerdi('bedrifter', bedrifterCopy);
+    };
+    const endreBedrift = (orgnr: string, antall: number, navn: string) => {
+        const nyBedrift: Bedrift = {
+            bedriftsnr: orgnr,
+            antall: antall,
+            navn: navn,
+        };
+        const bedrifterCopy = [...bedrifter];
+        const bedriftSomSkalEndresIndex = bedrifterCopy.findIndex(
+            bedrift => bedrift.bedriftsnr === orgnr
+        );
+        bedriftSomSkalEndresIndex > -1
+            ? (bedrifterCopy[bedriftSomSkalEndresIndex] = nyBedrift)
+            : bedrifterCopy.push(nyBedrift);
+        context.endreSkjemaVerdi('bedrifter', bedrifterCopy);
     };
 
     useEffect(() => {
@@ -116,15 +145,20 @@ const AntallBerorte: FunctionComponent = () => {
                                                 !erGyldigNr(event.currentTarget.value) &&
                                                 event.currentTarget.value !== ''
                                             ) {
-                                                context.endreSkjemaVerdi(
-                                                    'antallBerørt',
-                                                    event.currentTarget.value
-                                                );
                                                 nyStatesKopi[indeksIinputfeltState].feilmelding =
                                                     'Fyll inn antall';
                                             } else {
                                                 nyStatesKopi[indeksIinputfeltState].feilmelding =
                                                     '';
+                                                endreBedrift(
+                                                    org.OrganizationNumber,
+                                                    event.currentTarget.value,
+                                                    org.Name
+                                                );
+                                                /* context.endreSkjemaVerdi(
+                                                    'antallBerørt',
+                                                    event.currentTarget.value);*/
+                                                console.log('skjemacontext', context.skjema);
                                             }
                                             setInputfeltStates(nyStatesKopi);
                                         }}
