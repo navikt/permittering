@@ -77,7 +77,7 @@ const AntallBerorte: FunctionComponent = () => {
         );
         bedriftSomSkalEndresIndex > -1
             ? bedrifterCopy.splice(bedriftSomSkalEndresIndex, 1)
-            : (bedrifterCopy[bedriftSomSkalEndresIndex] = nyBedrift);
+            : bedrifterCopy.push(nyBedrift);
         console.log('bedrifterCopy bedriftSomSkalEndresIndex', bedriftSomSkalEndresIndex);
         console.log('bedrifterCopy bedriftSomSkalEndresIndex', bedriftSomSkalEndresIndex);
         context.endreSkjemaVerdi('bedrifter', bedrifterCopy);
