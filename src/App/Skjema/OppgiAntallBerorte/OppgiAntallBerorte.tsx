@@ -22,14 +22,14 @@ import { Element } from 'nav-frontend-typografi';
 import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
 import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
 import Normaltekst from 'nav-frontend-typografi/lib/normaltekst';
-import { Sokeforslag } from '../../komponenter/Yrkeskategorivelger/Yrkeskategorivelger';
-import { Bedrift, Yrkeskategori } from '../../../types/permitteringsskjema';
-import { mergeFritekst } from '../../../utils/fritekstFunksjoner';
+
+import { Bedrift } from '../../../types/permitteringsskjema';
 
 interface InputfeltState {
     feilmelding: string;
     organisasjonsnr: string;
     skalVises: boolean;
+    antall: number;
 }
 
 const AntallBerorte: FunctionComponent = () => {
@@ -49,16 +49,6 @@ const AntallBerorte: FunctionComponent = () => {
         return nr.match(/^[0-9]+$/) != null;
     };
 
-    const EndreBedrift = (orgnr: string, antall: number, navn: string) => {
-        const bedrifterCopy = [...bedrifter];
-        const nyBedrift: Bedrift = {
-            bedriftsnr: orgnr,
-            antall: antall,
-            navn: navn,
-        };
-        bedrifterCopy.push(nyBedrift);
-        context.endreSkjemaVerdi('bedrifter', bedrifterCopy);
-    };
     const endreBedrift = (orgnr: string, antall: number, navn: string) => {
         const nyBedrift: Bedrift = {
             bedriftsnr: orgnr,
@@ -72,6 +62,24 @@ const AntallBerorte: FunctionComponent = () => {
         bedriftSomSkalEndresIndex > -1
             ? (bedrifterCopy[bedriftSomSkalEndresIndex] = nyBedrift)
             : bedrifterCopy.push(nyBedrift);
+        console.log('bedrifterCopy', bedrifterCopy);
+        context.endreSkjemaVerdi('bedrifter', bedrifterCopy);
+    };
+    const leggTilEllerFjernBedrift = (orgnr: string, navn: string) => {
+        const nyBedrift: Bedrift = {
+            bedriftsnr: orgnr,
+            antall: 0,
+            navn: navn,
+        };
+        const bedrifterCopy = [...bedrifter];
+        const bedriftSomSkalEndresIndex = bedrifterCopy.findIndex(
+            bedrift => bedrift.bedriftsnr === orgnr
+        );
+        bedriftSomSkalEndresIndex > -1
+            ? bedrifterCopy.splice(bedriftSomSkalEndresIndex, 1)
+            : (bedrifterCopy[bedriftSomSkalEndresIndex] = nyBedrift);
+        console.log('bedrifterCopy bedriftSomSkalEndresIndex', bedriftSomSkalEndresIndex);
+        console.log('bedrifterCopy bedriftSomSkalEndresIndex', bedriftSomSkalEndresIndex);
         context.endreSkjemaVerdi('bedrifter', bedrifterCopy);
     };
 
@@ -85,16 +93,23 @@ const AntallBerorte: FunctionComponent = () => {
         if (juridiskEnhetOrgnr.JuridiskEnhet.OrganizationNumber !== '') {
             let liste: any = [];
             juridiskEnhetOrgnr.Underenheter.forEach(org => {
+                const contextbedriftIndex = bedrifter.findIndex(
+                    bedrift => bedrift.bedriftsnr === org.OrganizationNumber
+                );
                 const initialState: InputfeltState = {
                     feilmelding: '',
                     organisasjonsnr: org.OrganizationNumber,
-                    skalVises: false,
+                    skalVises: !!bedrifter[contextbedriftIndex],
+                    antall: bedrifter[contextbedriftIndex]?.antall || 0,
                 };
+
                 liste.push(initialState);
             });
+            console.log('setInitialState', liste);
+            console.log('setInitialStat bedrifter', bedrifter);
             setInputfeltStates(liste);
         }
-    }, [juridiskEnhetOrgnr]);
+    }, [juridiskEnhetOrgnr, bedrifter]);
 
     const skiftJuridiskEnhet = (orgnr: string) => {
         if (organisasjonstre && organisasjonstre.length) {
@@ -113,6 +128,7 @@ const AntallBerorte: FunctionComponent = () => {
                     (state: InputfeltState) => state.organisasjonsnr === org.OrganizationNumber
                 );
                 const stateForRad: InputfeltState = inputfeltStates[indeksIinputfeltState];
+
                 if (stateForRad) {
                     return (
                         <tr key={org.OrganizationNumber} className={'hvem-berores__tabell-rad'}>
@@ -120,11 +136,16 @@ const AntallBerorte: FunctionComponent = () => {
                                 <div className={'hvem-berores__kolonne-med-checkbox'}>
                                     <Checkbox
                                         label="Velg denne raden"
+                                        checked={stateForRad.skalVises}
                                         onChange={() => {
                                             nyStatesKopi[
                                                 indeksIinputfeltState
                                             ].skalVises = !stateForRad.skalVises;
                                             setInputfeltStates(nyStatesKopi);
+                                            leggTilEllerFjernBedrift(
+                                                org.OrganizationNumber,
+                                                org.Name
+                                            );
                                         }}
                                     />
                                     <div className={'hvem-berores__kolonne-med-checkbox-tekst'}>
@@ -136,11 +157,12 @@ const AntallBerorte: FunctionComponent = () => {
                             <td className={'hvem-berores__tabell-input-kolonne'}>
                                 {stateForRad.skalVises && (
                                     <Input
+                                        value={stateForRad.antall}
                                         feil={stateForRad.feilmelding}
                                         className={'hvem-berores__tabell-inputfelt'}
                                         placeholder={'Fyll inn antall'}
                                         id={'inputfelt-' + org.OrganizationNumber}
-                                        onBlur={(event: any) => {
+                                        onChange={(event: any) => {
                                             if (
                                                 !erGyldigNr(event.currentTarget.value) &&
                                                 event.currentTarget.value !== ''
@@ -155,10 +177,6 @@ const AntallBerorte: FunctionComponent = () => {
                                                     event.currentTarget.value,
                                                     org.Name
                                                 );
-                                                /* context.endreSkjemaVerdi(
-                                                    'antallBerørt',
-                                                    event.currentTarget.value);*/
-                                                console.log('skjemacontext', context.skjema);
                                             }
                                             setInputfeltStates(nyStatesKopi);
                                         }}
