@@ -8,7 +8,10 @@ import SkjemaTabell from './SkjemaTabell/SkjemaTabell';
 import HvitSideBoks from '../komponenter/HvitSideBoks';
 
 import Dekorator from '../komponenter/Dekorator/Dekorator';
-import { loggNavarendeSteg } from '../../utils/funksjonerForAmplitudeLogging';
+import {
+    loggAntallPaBegynteSkjema,
+    loggNavarendeSteg,
+} from '../../utils/funksjonerForAmplitudeLogging';
 import OversiktForMobil from './oversiktForMobil/oversiktForMobil';
 import InfoOmMeldepliktBoks from './InfoOmMeldepliktBoks/InfoOmMeldepliktBoks';
 import './Forside.less';
@@ -24,6 +27,15 @@ const Forside: FunctionComponent = () => {
         loggNavarendeSteg('oversikt-tidligere-skjema');
         hentAlle().then(setSkjemaer);
     }, []);
+
+    useEffect(() => {
+        if (skjemaer.length > 0) {
+            const antallPaBegynte = skjemaer.filter(
+                skjema => skjema.sendtInnTidspunkt == null || skjema.sendtInnTidspunkt === ''
+            ).length;
+            antallPaBegynte && loggAntallPaBegynteSkjema(antallPaBegynte);
+        }
+    }, [skjemaer]);
 
     return (
         <>
