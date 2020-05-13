@@ -74,11 +74,7 @@ const VelgBedrift: FunctionComponent = () => {
 
             <HvitSideBoks>
                 <Systemtittel>Velg Bedrift</Systemtittel>
-                <BedriftsVelger
-                    label="Hvilken virksomhet vil du søke om refusjon for?"
-                    organisasjoner={organisasjoner}
-                    setOrganisasjon={setValgtOrganisasjon}
-                />
+
                 <VerticalSpacer rem={2} />
                 <Hovedknapp onClick={opprettOgNavigerTilSkjema}>Gå til refusjonssøknad</Hovedknapp>
             </HvitSideBoks>

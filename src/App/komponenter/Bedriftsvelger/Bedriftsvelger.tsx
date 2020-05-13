@@ -6,12 +6,14 @@ interface Props {
     label: React.ReactNode;
     organisasjoner: Array<Organisasjon>;
     setOrganisasjon: (org: string) => void;
+    value: string | undefined;
 }
 
 export const BedriftsVelger: FunctionComponent<Props> = props => {
     return (
         <div className="enhetsvelger">
             <Select
+                value={props.value}
                 label={props.label}
                 onChange={event => {
                     props.setOrganisasjon(event.target.value);

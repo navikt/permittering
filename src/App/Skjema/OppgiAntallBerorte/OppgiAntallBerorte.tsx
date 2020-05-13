@@ -14,10 +14,6 @@ import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
 import Input from 'nav-frontend-skjema/lib/input';
 import 'nav-frontend-tabell-style';
 import { BedriftsVelger } from '../../komponenter/Bedriftsvelger/Bedriftsvelger';
-import {
-    JuridiskEnhetMedUnderEnheterArray,
-    tomAltinnOrganisasjon,
-} from '../../../types/Organisasjon';
 import { Element } from 'nav-frontend-typografi';
 import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
 import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
@@ -37,9 +33,6 @@ const AntallBerorte: FunctionComponent = () => {
     const history = useHistory();
     const context = useContext(SkjemaContext);
     const [inputfeltStates, setInputfeltStates] = useState([]);
-    const [juridiskEnhetOrgnr, setJuridiskEnhetOrgnr] = useState<JuridiskEnhetMedUnderEnheterArray>(
-        { JuridiskEnhet: tomAltinnOrganisasjon, Underenheter: [] }
-    );
 
     const totalAntall = 9;
     let { bedrifter = [] } = context.skjema;
@@ -84,15 +77,23 @@ const AntallBerorte: FunctionComponent = () => {
     };
 
     useEffect(() => {
-        if (organisasjonstre && organisasjonstre.length) {
-            setJuridiskEnhetOrgnr(organisasjonstre[0]);
+        if (context.skjema.bedriftNr == null) {
+            if (organisasjonstre && organisasjonstre.length) {
+                context.endreSkjemaVerdi(
+                    'bedriftNr',
+                    organisasjonstre[0].JuridiskEnhet.OrganizationNumber
+                );
+            }
         }
-    }, [organisasjonstre]);
+    });
 
     useEffect(() => {
-        if (juridiskEnhetOrgnr.JuridiskEnhet.OrganizationNumber !== '') {
+        if (context.skjema.bedriftNr) {
+            const valgteEnhet = organisasjonstre.filter(
+                org => org.JuridiskEnhet.OrganizationNumber === context.skjema.bedriftNr
+            )[0];
             let liste: any = [];
-            juridiskEnhetOrgnr.Underenheter.forEach(org => {
+            valgteEnhet.Underenheter.forEach(org => {
                 const contextbedriftIndex = bedrifter.findIndex(
                     bedrift => bedrift.bedriftsnr === org.OrganizationNumber
                 );
@@ -109,21 +110,21 @@ const AntallBerorte: FunctionComponent = () => {
             console.log('setInitialStat bedrifter', bedrifter);
             setInputfeltStates(liste);
         }
-    }, [juridiskEnhetOrgnr, bedrifter]);
+    }, [bedrifter, context.skjema.bedriftNr, organisasjonstre]);
 
     const skiftJuridiskEnhet = (orgnr: string) => {
         if (organisasjonstre && organisasjonstre.length) {
-            const valgteEnhet = organisasjonstre.filter(
-                org => org.JuridiskEnhet.OrganizationNumber === orgnr
-            )[0];
-            setJuridiskEnhetOrgnr(valgteEnhet);
+            context.endreJuridiskEnhet(orgnr);
         }
     };
 
     const lagRader = () => {
-        if (juridiskEnhetOrgnr && organisasjonstre) {
+        if (organisasjonstre && context.skjema.bedriftNr) {
             const nyStatesKopi: any = [...inputfeltStates];
-            return juridiskEnhetOrgnr.Underenheter.map(org => {
+            const valgteEnhet = organisasjonstre.filter(
+                org => org.JuridiskEnhet.OrganizationNumber === context.skjema.bedriftNr
+            )[0];
+            return valgteEnhet.Underenheter.map(org => {
                 const indeksIinputfeltState: number = inputfeltStates.findIndex(
                     (state: InputfeltState) => state.organisasjonsnr === org.OrganizationNumber
                 );
@@ -227,6 +228,7 @@ const AntallBerorte: FunctionComponent = () => {
                         organisasjoner={
                             organisasjonstre ? organisasjonstre.map(org => org.JuridiskEnhet) : []
                         }
+                        value={context.skjema.bedriftNr}
                     />
                     <Element className={'hvem-berores__tabell-overtekst'}>
                         Velg underenhet og skriv inn antall ansatte som berøres{' '}

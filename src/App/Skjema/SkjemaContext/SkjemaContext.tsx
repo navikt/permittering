@@ -12,6 +12,7 @@ type Context = {
         verdi: any,
         fritekstVerdi: string
     ) => void;
+    endreJuridiskEnhet: (bedriftNr: string) => void;
     lagre: () => void;
     opprett: (data: OpprettSkjema) => Promise<Permitteringsskjema['id']>;
     sendInn: () => void;
@@ -35,6 +36,9 @@ export const SkjemaProvider: FunctionComponent = props => {
     const context: Context = {
         endreSkjemaVerdi: (felt, verdi) => {
             setSkjema({ ...skjema, [felt]: verdi });
+        },
+        endreJuridiskEnhet: (bedriftNr: string) => {
+            setSkjema({ ...skjema, bedriftNr: bedriftNr, bedrifter: [] });
         },
         endreFritekstOgVerdi: (felt, verdi, fritekstVerdi) => {
             setSkjema({ ...skjema, [felt]: verdi, fritekst: fritekstVerdi });
