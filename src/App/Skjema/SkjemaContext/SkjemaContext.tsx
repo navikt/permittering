@@ -33,6 +33,18 @@ export const SkjemaProvider: FunctionComponent = props => {
         }
     }, [id]);
 
+    useEffect(() => {
+        if (skjema.bedrifter) {
+            var antallBerørtskjema: number = 0;
+            antallBerørtskjema = skjema.bedrifter.reduce(
+                (sum: number, bedrift) => sum + bedrift.antall || 0,
+                0
+            );
+            skjema.antallBerørt = antallBerørtskjema;
+            console.log('antallberørte hook', antallBerørtskjema);
+        }
+    }, [skjema.bedrifter, skjema.antallBerørt]);
+
     const context: Context = {
         endreSkjemaVerdi: (felt, verdi) => {
             setSkjema({ ...skjema, [felt]: verdi });

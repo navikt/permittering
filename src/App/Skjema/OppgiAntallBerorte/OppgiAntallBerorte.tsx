@@ -33,8 +33,6 @@ const AntallBerorte: FunctionComponent = () => {
     const history = useHistory();
     const context = useContext(SkjemaContext);
     const [inputfeltStates, setInputfeltStates] = useState([]);
-
-    const totalAntall = 9;
     let { bedrifter = [] } = context.skjema;
     const { steg, nesteSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
 
@@ -175,7 +173,7 @@ const AntallBerorte: FunctionComponent = () => {
                                                     '';
                                                 endreBedrift(
                                                     org.OrganizationNumber,
-                                                    event.currentTarget.value,
+                                                    parseInt(event.currentTarget.value),
                                                     org.Name
                                                 );
                                             }
@@ -252,7 +250,7 @@ const AntallBerorte: FunctionComponent = () => {
                     </table>
                     <div className={'hvem-berores__tabell-totalt-antall'}>
                         <Element>Totalt antall berørte</Element>
-                        <Element>{totalAntall}</Element>
+                        <Element>{context.skjema.antallBerørt}</Element>
                     </div>
                 </div>
                 <Hovedknapp

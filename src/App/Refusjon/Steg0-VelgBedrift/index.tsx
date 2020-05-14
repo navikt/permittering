@@ -4,7 +4,6 @@ import Veilederpanel from 'nav-frontend-veilederpanel';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import BEMHelper from '../../../utils/bem';
-import { BedriftsVelger } from '../../komponenter/Bedriftsvelger/Bedriftsvelger';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 import HvitSideBoks from '../../komponenter/HvitSideBoks';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
@@ -19,9 +18,7 @@ const VelgBedrift: FunctionComponent = () => {
     const history = useHistory();
     const refusjonContext = useContext(RefusjonContext);
     const { organisasjoner } = useContext(RefusjonOrganisasjonsListeContext);
-    const [valgtOrganisasjon, setValgtOrganisasjon] = useState(
-        organisasjoner[0].OrganizationNumber
-    );
+    const [valgtOrganisasjon] = useState(organisasjoner[0].OrganizationNumber);
 
     const opprettOgNavigerTilSkjema = async () => {
         const newId = await refusjonContext.opprett({

@@ -6,7 +6,6 @@ import { Textarea } from 'nav-frontend-skjema';
 import Checkbox from 'nav-frontend-skjema/lib/checkbox';
 import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
-import Input from 'nav-frontend-skjema/lib/input';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import { useSkjemaSteg } from '../use-skjema-steg';
 import { mergeFritekst, splittOppFritekst } from '../../../utils/fritekstFunksjoner';
@@ -30,11 +29,9 @@ import Side2Ikon from './Side2Ikon';
 const Side2: FunctionComponent = () => {
     const history = useHistory();
     const featureToggleContext = useContext(FeatureToggleContext);
-    const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
 
     const [datoFra, setDatoFra] = useState(new Date());
     const [datoTil, setDatoTil] = useState(undefined);
-    const [feilMeldingAntallBerort, setFeilmeldingAntallBerort] = useState('');
 
     const context = useContext(SkjemaContext);
     let { yrkeskategorier = [] } = context.skjema;
@@ -108,10 +105,6 @@ const Side2: FunctionComponent = () => {
         );
     };
 
-    const erGyldigNr = (nr: string) => {
-        return nr.match(/^[0-9]+$/) != null;
-    };
-
     const endreFritekstFelt = (key: string, value: string) => {
         const fritekstFelter: any = { årsak, yrker, annet };
         fritekstFelter[key] = value;
@@ -175,26 +168,6 @@ const Side2: FunctionComponent = () => {
                     <Side2Ikon />
                     Generelle opplysninger
                 </Systemtittel>
-                {!tillatFnrInput && (
-                    <div className="skjema-innhold__side-2-text-area">
-                        <Input
-                            label="Hvor mange ansatte blir berørt?"
-                            defaultValue={context.skjema.antallBerørt}
-                            bredde="XS"
-                            feil={feilMeldingAntallBerort}
-                            onBlur={(event: any) => {
-                                if (erGyldigNr(event.currentTarget.value)) {
-                                    context.endreSkjemaVerdi(
-                                        'antallBerørt',
-                                        event.currentTarget.value
-                                    );
-                                    setFeilmeldingAntallBerort('');
-                                } else setFeilmeldingAntallBerort('Vennligst oppgi et tall');
-                            }}
-                            onChange={() => setFeilmeldingAntallBerort('')}
-                        />
-                    </div>
-                )}
 
                 <div className="skjema-innhold__side-2-text-area">
                     <Permitteringsårsaksvelger
