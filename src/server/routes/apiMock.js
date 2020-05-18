@@ -41,9 +41,7 @@ module.exports = function(app) {
         const userId = req.cookies[cookieName];
         const inputData = req.body;
         const id = uuid.v1();
-        const org = organisasjoner.find(org => req.body.bedriftNr === org.OrganizationNumber);
-        const bedriftNavn = org.Name;
-        const skjema = storageClient.putObject(id, { ...inputData, id, bedriftNavn, userId });
+        const skjema = storageClient.putObject(id, { ...inputData, id, userId });
         res.status(201).json(skjema);
     });
     /**
