@@ -92,7 +92,7 @@ const Oppsummering: FunctionComponent = () => {
         context.skjema.type && lesbarårsakskode && loggArsak(lesbarårsakskode, context.skjema.type);
     };
     if (context.skjema.sendtInnTidspunkt) {
-        history.replace('/skjema/kvitteringsside');
+        history.replace('/skjema/kvitteringsside/' + context.skjema.id);
     }
 
     return (
@@ -120,13 +120,32 @@ const Oppsummering: FunctionComponent = () => {
                             <table className="tabell">
                                 <tbody>
                                     <tr>
-                                        <th>Bedrift:</th>
-                                        <td>{context.skjema.bedriftNavn}</td>
+                                        <th>Berørte virksomheter:</th>
+                                        <th>Antall berørte ansatte:</th>
                                     </tr>
-                                    <tr>
-                                        <th>Bedriftsnummer:</th>
-                                        <td>{context.skjema.bedriftNr}</td>
-                                    </tr>
+                                    {context.skjema.bedrifter?.map(org => {
+                                        return (
+                                            <tr>
+                                                <td>
+                                                    {org.navn}({org.bedriftsnr})
+                                                </td>{' '}
+                                                <td>{org.antall}</td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                            <div className="endre-lenke">
+                                <Lenke
+                                    href={`/permittering/skjema/antall-berorte/${context.skjema.id}`}
+                                >
+                                    Endre
+                                </Lenke>
+                            </div>
+                        </div>
+                        <div className="oppsummering__boks kontaktinfo">
+                            <table className="tabell">
+                                <tbody>
                                     <tr>
                                         <th>Kontaktperson:</th>
                                         <td>
@@ -268,7 +287,7 @@ const Oppsummering: FunctionComponent = () => {
                                 try {
                                     setFeilmelding('');
                                     await context.sendInn();
-                                    history.push('/skjema/kvitteringsside');
+                                    history.push('/skjema/kvitteringsside/' + context.skjema.id);
                                     onSendClickLogging();
                                     loggSkjemaInnsendt();
                                 } catch (e) {

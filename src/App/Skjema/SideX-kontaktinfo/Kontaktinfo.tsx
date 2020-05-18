@@ -27,7 +27,7 @@ const Kontaktinfo: FunctionComponent = () => {
         loggNavarendeSteg('kontaktinformasjon');
     }, []);
     if (context.skjema.sendtInnTidspunkt) {
-        history.replace('/skjema/kvitteringsside');
+        history.replace('/skjema/kvitteringsside/' + context.skjema.id);
     }
     return (
         <>

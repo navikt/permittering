@@ -17,7 +17,7 @@ const InputAvPersoner: FunctionComponent = () => {
     const history = useHistory();
     const context = useContext(SkjemaContext);
     if (context.skjema.sendtInnTidspunkt) {
-        history.replace('/skjema/kvitteringsside');
+        history.replace('/skjema/kvitteringsside/' + context.skjema.id);
     }
     let { personer = [] } = context.skjema;
     const selectedPersons = selectedRows(personer);

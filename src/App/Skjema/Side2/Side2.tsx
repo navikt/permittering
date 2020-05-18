@@ -142,7 +142,7 @@ const Side2: FunctionComponent = () => {
         context.skjema.id
     );
     if (context.skjema.sendtInnTidspunkt) {
-        history.replace('/skjema/kvitteringsside');
+        history.replace('/skjema/kvitteringsside/' + context.skjema.id);
     }
 
     const skjematypetekst = (type: string): string => {
