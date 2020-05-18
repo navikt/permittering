@@ -51,8 +51,11 @@ const PermitteringRoutes = () => {
                             <Oppsummering />
                         </SkjemaProvider>
                     </Route>
+
                     <Route exact path="/skjema/kvitteringsside/:id">
-                        <Kvitteirng />
+                        <SkjemaProvider>
+                            <Kvitteirng />
+                        </SkjemaProvider>
                     </Route>
                 </OrganisasjonsListeProvider>
             </Route>

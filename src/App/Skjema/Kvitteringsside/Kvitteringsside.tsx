@@ -1,13 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Feilmelding, Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
+import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
 import Lenkepanel from 'nav-frontend-lenkepanel/lib';
 import HvitSideBoks from '../../komponenter/HvitSideBoks';
 import KvitteringIkon from './KvitteringIkon';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
-import {
-    loggNavarendeSteg,
-    loggSkjemaInnsendt,
-} from '../../../utils/funksjonerForAmplitudeLogging';
+import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
 import './Kvitteringsside.less';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import veilederIkon from '../Side4-oppsummering/gjenstand.svg';
@@ -17,7 +14,6 @@ import {
     formatterDato,
     lagTekstBasertPaSkjemaType,
 } from '../Side4-oppsummering/oppsummering-utils';
-import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 import { splittOppFritekst } from '../../../utils/fritekstFunksjoner';
@@ -26,6 +22,7 @@ const Kvitteringsside = () => {
     const context = useContext(SkjemaContext);
 
     useEffect(() => {
+        console.log();
         finnÅrsakstekst(context.skjema.årsakskode).then(setLesbarÅrsakskode);
     }, [context.skjema.årsakskode]);
     const existerendeFelter = context.skjema.fritekst
