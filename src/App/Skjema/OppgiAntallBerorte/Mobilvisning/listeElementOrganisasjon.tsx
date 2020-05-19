@@ -1,21 +1,21 @@
 import React, { FunctionComponent } from 'react';
 
-import './oversiktForMobil.less';
+//import './oversiktForMobil.less';
 import { erGyldigNr, InputfeltState } from '../OppgiAntallBerorte';
 import Checkbox from 'nav-frontend-skjema/lib/checkbox';
 import { Organisasjon } from '../../../../types/Organisasjon';
 import Input from 'nav-frontend-skjema/lib/input';
 
 interface Props {
-    checked: boolean;
     setInputfeltStates: (states: InputfeltState[]) => void;
     inputFeltStatesKopi: InputfeltState[];
     leggTilEllerFjernBedrift: (orgnr: string, navn: string) => void;
     organisasjon: Organisasjon;
     endreBedrift: (orgnr: string, antall: number, navn: string) => void;
+    key: string;
 }
 
-const OversiktForMobil: FunctionComponent<Props> = (props: Props) => {
+const MobilInputfelt: FunctionComponent<Props> = (props: Props) => {
     const indeksIinputfeltState: number = props.inputFeltStatesKopi.findIndex(
         (state: InputfeltState) => state.organisasjonsnr === props.organisasjon.OrganizationNumber
     );
@@ -26,9 +26,11 @@ const OversiktForMobil: FunctionComponent<Props> = (props: Props) => {
         <div className={'forside__mobilvisning'}>
             <Checkbox
                 label="Velg denne raden"
-                checked={props.checked}
+                checked={gjeldendeState.skalVises}
                 onChange={() => {
-                    props.inputFeltStatesKopi[indeksIinputfeltState].skalVises = !props.checked;
+                    props.inputFeltStatesKopi[
+                        indeksIinputfeltState
+                    ].skalVises = !gjeldendeState.skalVises;
                     props.setInputfeltStates(props.inputFeltStatesKopi);
                     props.leggTilEllerFjernBedrift(
                         props.organisasjon.OrganizationNumber,
@@ -64,4 +66,4 @@ const OversiktForMobil: FunctionComponent<Props> = (props: Props) => {
     );
 };
 
-export default OversiktForMobil;
+export default MobilInputfelt;

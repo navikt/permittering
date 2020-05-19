@@ -21,6 +21,7 @@ import Normaltekst from 'nav-frontend-typografi/lib/normaltekst';
 
 import { Bedrift } from '../../../types/permitteringsskjema';
 import { Organisasjon } from '../../../types/Organisasjon';
+import MobilvisningAntallBerorte from './Mobilvisning/MobilVisning';
 
 export interface InputfeltState {
     feilmelding: string;
@@ -130,12 +131,13 @@ const AntallBerorte: FunctionComponent = () => {
         }
     };
 
+    const valgteEnhet = organisasjonstre.filter(
+        org => org.JuridiskEnhet.OrganizationNumber === context.skjema.bedriftNr
+    )[0];
+
     const lagRader = () => {
         if (organisasjonstre && context.skjema.bedriftNr) {
             const nyStatesKopi: any = [...inputfeltStates];
-            const valgteEnhet = organisasjonstre.filter(
-                org => org.JuridiskEnhet.OrganizationNumber === context.skjema.bedriftNr
-            )[0];
             return valgteEnhet.Underenheter.map(org => {
                 const indeksIinputfeltState: number = inputfeltStates.findIndex(
                     (state: InputfeltState) => state.organisasjonsnr === org.OrganizationNumber
@@ -262,6 +264,15 @@ const AntallBerorte: FunctionComponent = () => {
                         </thead>
                         <tbody>{nyeRader}</tbody>
                     </table>
+                    {valgteEnhet && inputfeltStates.length > 0 && (
+                        <MobilvisningAntallBerorte
+                            setInputfeltStates={setInputfeltStates}
+                            listeMedOrganisasjoner={valgteEnhet.Underenheter}
+                            endreBedrift={endreBedrift}
+                            leggTilEllerFjernBedrift={leggTilEllerFjernBedrift}
+                            inputfeltStates={inputfeltStates}
+                        />
+                    )}
                     <div className={'hvem-berores__tabell-totalt-antall'}>
                         <Element>Totalt antall berørte</Element>
                         <Element>{context.skjema.antallBerørt}</Element>
