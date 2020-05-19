@@ -46,15 +46,21 @@ const Kvitteringsside = () => {
         ? formatterDato(new Date(context.skjema.sluttDato))
         : '';
 
+    const sendtInnDato = context.skjema.sendtInnTidspunkt
+        ? formatterDato(new Date(context.skjema.sendtInnTidspunkt))
+        : '';
+
     return (
         <>
             <Dekorator sidetittel={sidetittel} />
-            <HvitSideBoks classname="kvitteringside">
+            <HvitSideBoks classname={'kvitteringside-container'}>
                 <div className="kvitteringside__tekst">
-                    <Systemtittel>{sidetittel}</Systemtittel>
                     <section className="kvitteringside">
                         <div className="kvitteringside__tittel-desktop">
-                            <Systemtittel>Er opplysningene riktige?</Systemtittel>
+                            <Systemtittel className="kvitteringside__systemtittel">
+                                {sidetittel}
+                            </Systemtittel>
+                            <Undertittel>{'Skjema sendt inn ' + sendtInnDato}</Undertittel>
                         </div>
                         <Veilederpanel
                             type="plakat"
@@ -63,7 +69,7 @@ const Kvitteringsside = () => {
                             svg={<KvitteringIkon />}
                         >
                             <Undertittel className="kvitteringside__tittel-mobil">
-                                Oppsummering
+                                {sidetittel}
                             </Undertittel>
                             <div className="kvitteringside__boks kontaktinfo">
                                 <table className="tabell">
@@ -84,13 +90,6 @@ const Kvitteringsside = () => {
                                         })}
                                     </tbody>
                                 </table>
-                                <div className="endre-lenke">
-                                    <Lenke
-                                        href={`/permittering/skjema/antall-berorte/${context.skjema.id}`}
-                                    >
-                                        Endre
-                                    </Lenke>
-                                </div>
                             </div>
                             <div className="kvitteringside__boks kontaktinfo">
                                 <table className="tabell">
@@ -117,13 +116,6 @@ const Kvitteringsside = () => {
                                         </tr>
                                     </tbody>
                                 </table>
-                                <div className="endre-lenke">
-                                    <Lenke
-                                        href={`/permittering/skjema/kontaktinformasjon/${context.skjema.id}`}
-                                    >
-                                        Endre
-                                    </Lenke>
-                                </div>
                             </div>
 
                             <div className="oppsummering__boks aarsak">
@@ -141,13 +133,6 @@ const Kvitteringsside = () => {
                                         <SjekkOmFyltUt verdi={context.skjema.årsakstekst} />
                                     )}
                                 </div>
-                                <div className="endre-lenke">
-                                    <Lenke
-                                        href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
-                                    >
-                                        Endre
-                                    </Lenke>
-                                </div>
                             </div>
 
                             <div className="kvitteringside__boks yrkeskategorier">
@@ -156,13 +141,6 @@ const Kvitteringsside = () => {
                                         Yrkeskategorier
                                     </Normaltekst>
                                     <SjekkOmFyltUt verdi={yrker} />
-                                </div>
-                                <div className="endre-lenke">
-                                    <Lenke
-                                        href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
-                                    >
-                                        Endre
-                                    </Lenke>
                                 </div>
                             </div>
 
@@ -186,13 +164,6 @@ const Kvitteringsside = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="endre-lenke">
-                                    <Lenke
-                                        href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
-                                    >
-                                        Endre
-                                    </Lenke>
-                                </div>
                             </div>
 
                             <div className="kvitteringside__boks andre-opplysninger">
@@ -201,13 +172,6 @@ const Kvitteringsside = () => {
                                         Andre relevante opplysninger
                                     </Normaltekst>
                                     <Normaltekst>{annet}</Normaltekst>
-                                </div>
-                                <div className="endre-lenke">
-                                    <Lenke
-                                        href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
-                                    >
-                                        Endre
-                                    </Lenke>
                                 </div>
                             </div>
                         </Veilederpanel>

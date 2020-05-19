@@ -96,18 +96,27 @@
         padding: 0;
     }
 
-    .nav-veilederpanel--info {
+    .nav-veilederpanel--suksess {
         border: 0;
     }
 }
 
 @media (min-width: @screen-sm) {
+    .kvitteringside-container {
+        margin-bottom: 2rem;
+    }
+
     .kvitteringside {
         &__tittel-desktop {
             display: flex;
+            flex-direction: column;
             width: 100%;
             justify-content: center;
             padding-bottom: 2rem;
+        }
+
+        &__systemtittel {
+            margin-bottom: 1.5rem;
         }
 
         &__tittel-mobil {
@@ -147,8 +156,8 @@
                 padding-bottom: 1rem;
             }
 
-            &--info {
-                border: 2px solid @navDypBlaLighten60;
+            &--suksess {
+                border: 2px solid @navGronnLighten60;
             }
 
             &--kompakt.nav-veilederpanel--plakat {
