@@ -15,19 +15,19 @@ const status = (skjema: Permitteringsskjema) => {
     }
 };
 
-const SkjemaTabell: React.FunctionComponent<SkjemaTabellProps> = ({ skjemaer }) => {
-    const lagTekstBasertPaSkjemaType = (type: Permitteringsskjema['type']) => {
-        switch (type) {
-            case 'MASSEOPPSIGELSE':
-                return 'Masseoppsigelse';
-            case 'PERMITTERING_UTEN_LØNN':
-                return 'Permittering uten lønn';
-            case 'INNSKRENKNING_I_ARBEIDSTID':
-                return 'Innskrenkning i arbeidstid';
-        }
-        return 'Ukjent';
-    };
+export const finnTittelBasertPaSkjemaType = (type: Permitteringsskjema['type']) => {
+    switch (type) {
+        case 'MASSEOPPSIGELSE':
+            return 'Masseoppsigelse';
+        case 'PERMITTERING_UTEN_LØNN':
+            return 'Permittering uten lønn';
+        case 'INNSKRENKNING_I_ARBEIDSTID':
+            return 'Innskrenkning i arbeidstid';
+    }
+    return 'Ukjent';
+};
 
+const SkjemaTabell: React.FunctionComponent<SkjemaTabellProps> = ({ skjemaer }) => {
     return (
         <div>
             <table className="skjema__tabell tabell">
@@ -55,7 +55,7 @@ const SkjemaTabell: React.FunctionComponent<SkjemaTabellProps> = ({ skjemaer }) 
                         .map((skjema: Permitteringsskjema) => {
                             return (
                                 <tr key={skjema.id}>
-                                    <td>{lagTekstBasertPaSkjemaType(skjema.type)}</td>
+                                    <td>{finnTittelBasertPaSkjemaType(skjema.type)}</td>
                                     <td>
                                         {skjema.sendtInnTidspunkt &&
                                             moment(skjema.sendtInnTidspunkt).format('L')}
