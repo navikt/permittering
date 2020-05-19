@@ -12,7 +12,6 @@ import { mergeFritekst, splittOppFritekst } from '../../../utils/fritekstFunksjo
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import Datovelger from '../../komponenter/Datovelger/Datovelger';
 import { lagTekstBasertPaSkjemaType } from '../Side4-oppsummering/oppsummering-utils';
-import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
 import Yrkeskategorivelger, {
     Sokeforslag,
@@ -28,7 +27,6 @@ import Side2Ikon from './Side2Ikon';
 
 const Side2: FunctionComponent = () => {
     const history = useHistory();
-    const featureToggleContext = useContext(FeatureToggleContext);
 
     const [datoFra, setDatoFra] = useState(new Date());
     const [datoTil, setDatoTil] = useState(undefined);
