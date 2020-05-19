@@ -22,12 +22,16 @@ import Normaltekst from 'nav-frontend-typografi/lib/normaltekst';
 import { Bedrift } from '../../../types/permitteringsskjema';
 import { Organisasjon } from '../../../types/Organisasjon';
 
-interface InputfeltState {
+export interface InputfeltState {
     feilmelding: string;
     organisasjonsnr: string;
     skalVises: boolean;
     antall: number;
 }
+
+export const erGyldigNr = (nr: string) => {
+    return nr.match(/^[0-9]+$/) != null;
+};
 
 const AntallBerorte: FunctionComponent = () => {
     const { organisasjonstre } = useContext(OrganisasjonsListeContext);
@@ -36,10 +40,6 @@ const AntallBerorte: FunctionComponent = () => {
     const [inputfeltStates, setInputfeltStates] = useState([]);
     let { bedrifter = [] } = context.skjema;
     const { steg, nesteSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
-
-    const erGyldigNr = (nr: string) => {
-        return nr.match(/^[0-9]+$/) != null;
-    };
 
     const endreBedrift = (orgnr: string, antall: number, navn: string) => {
         const nyBedrift: Bedrift = {
