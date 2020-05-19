@@ -17,6 +17,7 @@ import {
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 import { splittOppFritekst } from '../../../utils/fritekstFunksjoner';
+import { finnTittelBasertPaSkjemaType } from '../../Forside/SkjemaTabell/SkjemaTabell';
 
 const Kvitteringsside = () => {
     const context = useContext(SkjemaContext);
@@ -31,8 +32,7 @@ const Kvitteringsside = () => {
     const yrker = existerendeFelter && existerendeFelter.yrker ? existerendeFelter.yrker : '';
     const annet = existerendeFelter && existerendeFelter.annet ? existerendeFelter.annet : '';
 
-    const sidetittel =
-        'Skjema til NAV om permitteringer, oppsigelser eller innskrenkning i arbeidstid';
+    const sidetittel = finnTittelBasertPaSkjemaType(context.skjema.type);
     const [lesbarårsakskode, setLesbarÅrsakskode] = useState<string | undefined>(undefined);
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -50,25 +50,22 @@ const Kvitteringsside = () => {
         <>
             <Dekorator sidetittel={sidetittel} />
             <HvitSideBoks classname="kvitteringside">
-                <div className="kvitteringside__ikon">
-                    <KvitteringIkon />
-                </div>
                 <div className="kvitteringside__tekst">
-                    <Systemtittel>Skjema er sendt til NAV</Systemtittel>
-                    <section className="oppsummering">
-                        <div className="oppsummering__tittel-desktop">
+                    <Systemtittel>{sidetittel}</Systemtittel>
+                    <section className="kvitteringside">
+                        <div className="kvitteringside__tittel-desktop">
                             <Systemtittel>Er opplysningene riktige?</Systemtittel>
                         </div>
                         <Veilederpanel
                             type="plakat"
                             kompakt
-                            fargetema="info"
-                            svg={<img src={veilederIkon} alt="" aria-hidden="true" />}
+                            fargetema="suksess"
+                            svg={<KvitteringIkon />}
                         >
-                            <Undertittel className="oppsummering__tittel-mobil">
+                            <Undertittel className="kvitteringside__tittel-mobil">
                                 Oppsummering
                             </Undertittel>
-                            <div className="oppsummering__boks kontaktinfo">
+                            <div className="kvitteringside__boks kontaktinfo">
                                 <table className="tabell">
                                     <tbody>
                                         <tr>
@@ -95,7 +92,7 @@ const Kvitteringsside = () => {
                                     </Lenke>
                                 </div>
                             </div>
-                            <div className="oppsummering__boks kontaktinfo">
+                            <div className="kvitteringside__boks kontaktinfo">
                                 <table className="tabell">
                                     <tbody>
                                         <tr>
@@ -130,7 +127,7 @@ const Kvitteringsside = () => {
                             </div>
 
                             <div className="oppsummering__boks aarsak">
-                                <Undertittel className="oppsummering__tittel-mobil">
+                                <Undertittel className="kvitteringside__tittel-mobil">
                                     Generelle opplysninger
                                 </Undertittel>
                                 <div className="tekst">
@@ -153,7 +150,7 @@ const Kvitteringsside = () => {
                                 </div>
                             </div>
 
-                            <div className="oppsummering__boks yrkeskategorier">
+                            <div className="kvitteringside__boks yrkeskategorier">
                                 <div className="tekst">
                                     <Normaltekst className="overskrift">
                                         Yrkeskategorier
@@ -169,7 +166,7 @@ const Kvitteringsside = () => {
                                 </div>
                             </div>
 
-                            <div className="oppsummering__boks varighet">
+                            <div className="kvitteringside__boks varighet">
                                 <div className="tekst">
                                     <Normaltekst className="overskrift">
                                         For hvilken periode gjelder dette?
@@ -198,7 +195,7 @@ const Kvitteringsside = () => {
                                 </div>
                             </div>
 
-                            <div className="oppsummering__boks andre-opplysninger">
+                            <div className="kvitteringside__boks andre-opplysninger">
                                 <div className="tekst">
                                     <Normaltekst className="overskrift">
                                         Andre relevante opplysninger
