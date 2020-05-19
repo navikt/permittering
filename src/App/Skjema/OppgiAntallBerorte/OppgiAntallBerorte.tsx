@@ -20,6 +20,7 @@ import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
 import Normaltekst from 'nav-frontend-typografi/lib/normaltekst';
 
 import { Bedrift } from '../../../types/permitteringsskjema';
+import { Organisasjon } from '../../../types/Organisasjon';
 
 interface InputfeltState {
     feilmelding: string;
@@ -70,45 +71,58 @@ const AntallBerorte: FunctionComponent = () => {
             ? bedrifterCopy.splice(bedriftSomSkalEndresIndex, 1)
             : bedrifterCopy.push(nyBedrift);
         console.log('bedrifterCopy bedriftSomSkalEndresIndex', bedriftSomSkalEndresIndex);
-        console.log('bedrifterCopy bedriftSomSkalEndresIndex', bedriftSomSkalEndresIndex);
+        console.log('bedrifterCopy bedrifterCopy', bedrifterCopy);
         context.endreSkjemaVerdi('bedrifter', bedrifterCopy);
     };
 
     useEffect(() => {
+        console.log('inithook');
         if (context.skjema.bedriftNr == null) {
+            console.log('inithook context.skjema.bedriftNr=nullo');
             if (organisasjonstre && organisasjonstre.length) {
+                console.log('inithook organisasjonstre && organisasjonstre.length');
                 context.endreSkjemaVerdi(
                     'bedriftNr',
                     organisasjonstre[0].JuridiskEnhet.OrganizationNumber
                 );
+                console.log('context.skjema.bedriftNr', context.skjema.bedriftNr);
             }
         }
     });
 
     useEffect(() => {
+        const lagInputFeltState = (org: Organisasjon): InputfeltState => {
+            if (context.skjema.bedrifter) {
+                const contextbedriftIndex = context.skjema.bedrifter.findIndex(
+                    bedrift => bedrift.bedriftsnr === org.OrganizationNumber
+                );
+                return {
+                    feilmelding: '',
+                    organisasjonsnr: org.OrganizationNumber,
+                    skalVises: !!context.skjema.bedrifter[contextbedriftIndex],
+                    antall: context.skjema.bedrifter[contextbedriftIndex]?.antall || 0,
+                };
+            } else
+                return {
+                    feilmelding: '',
+                    organisasjonsnr: org.OrganizationNumber,
+                    skalVises: false,
+                    antall: 0,
+                };
+        };
         if (context.skjema.bedriftNr) {
             const valgteEnhet = organisasjonstre.filter(
                 org => org.JuridiskEnhet.OrganizationNumber === context.skjema.bedriftNr
             )[0];
             let liste: any = [];
             valgteEnhet.Underenheter.forEach(org => {
-                const contextbedriftIndex = bedrifter.findIndex(
-                    bedrift => bedrift.bedriftsnr === org.OrganizationNumber
-                );
-                const initialState: InputfeltState = {
-                    feilmelding: '',
-                    organisasjonsnr: org.OrganizationNumber,
-                    skalVises: !!bedrifter[contextbedriftIndex],
-                    antall: bedrifter[contextbedriftIndex]?.antall || 0,
-                };
-
+                const initialState: InputfeltState = lagInputFeltState(org);
                 liste.push(initialState);
             });
-            console.log('setInitialState', liste);
-            console.log('setInitialStat bedrifter', bedrifter);
+            console.log('setInitialState context.skjema.bedriftNr, organisasjonstre', liste);
             setInputfeltStates(liste);
         }
-    }, [bedrifter, context.skjema.bedriftNr, organisasjonstre]);
+    }, [context.skjema.bedrifter, context.skjema.bedriftNr, organisasjonstre]);
 
     const skiftJuridiskEnhet = (orgnr: string) => {
         if (organisasjonstre && organisasjonstre.length) {
