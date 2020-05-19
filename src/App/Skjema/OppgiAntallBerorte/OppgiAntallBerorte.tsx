@@ -247,7 +247,7 @@ const AntallBerorte: FunctionComponent = () => {
                     <Element className={'hvem-berores__tabell-overtekst'}>
                         Velg underenhet og skriv inn antall ansatte som berøres{' '}
                     </Element>
-                    <table className="tabell">
+                    <table className="tabell hvem-berores-tabell">
                         <thead>
                             <tr className={'hvem-berores__tabell-rad'}>
                                 <th>
@@ -271,6 +271,7 @@ const AntallBerorte: FunctionComponent = () => {
                             endreBedrift={endreBedrift}
                             leggTilEllerFjernBedrift={leggTilEllerFjernBedrift}
                             inputfeltStates={inputfeltStates}
+                            className={'hvem-berores__mobilvisning'}
                         />
                     )}
                     <div className={'hvem-berores__tabell-totalt-antall'}>

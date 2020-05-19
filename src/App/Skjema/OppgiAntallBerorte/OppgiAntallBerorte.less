@@ -8,6 +8,10 @@
         justify-content: space-between;
     }
 
+    &__mobilvisning {
+        display: none;
+    }
+
     &__tabell-overtekst {
         border-bottom: 1px solid @navGra80;
         margin-top: 2.5rem;
@@ -44,6 +48,18 @@
         display: flex;
         place-self: flex-end;
         margin-top: 3rem;
+    }
+}
+
+@media (max-width: @screen-sm) {
+    .hvem-berores-tabell {
+        display: none;
+    }
+
+    .hvem-berores {
+        &__mobilvisning {
+            display: initial;
+        }
     }
 }
 

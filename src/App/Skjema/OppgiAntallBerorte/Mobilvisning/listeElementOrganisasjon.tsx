@@ -38,30 +38,32 @@ const MobilInputfelt: FunctionComponent<Props> = (props: Props) => {
                     );
                 }}
             />
-            <Input
-                value={gjeldendeState.antall}
-                feil={gjeldendeState.feilmelding}
-                className={'hvem-berores__tabell-inputfelt'}
-                placeholder={'Fyll inn antall'}
-                id={'inputfelt-' + props.organisasjon.OrganizationNumber}
-                onChange={(event: any) => {
-                    if (
-                        !erGyldigNr(event.currentTarget.value) &&
-                        event.currentTarget.value !== ''
-                    ) {
-                        props.inputFeltStatesKopi[indeksIinputfeltState].feilmelding =
-                            'Fyll inn antall';
-                    } else {
-                        props.inputFeltStatesKopi[indeksIinputfeltState].feilmelding = '';
-                        props.endreBedrift(
-                            props.organisasjon.OrganizationNumber,
-                            parseInt(event.currentTarget.value),
-                            props.organisasjon.Name
-                        );
-                    }
-                    props.setInputfeltStates(props.inputFeltStatesKopi);
-                }}
-            />
+            {gjeldendeState.skalVises && (
+                <Input
+                    value={gjeldendeState.antall}
+                    feil={gjeldendeState.feilmelding}
+                    className={'hvem-berores__tabell-inputfelt'}
+                    placeholder={'Fyll inn antall'}
+                    id={'inputfelt-' + props.organisasjon.OrganizationNumber}
+                    onChange={(event: any) => {
+                        if (
+                            !erGyldigNr(event.currentTarget.value) &&
+                            event.currentTarget.value !== ''
+                        ) {
+                            props.inputFeltStatesKopi[indeksIinputfeltState].feilmelding =
+                                'Fyll inn antall';
+                        } else {
+                            props.inputFeltStatesKopi[indeksIinputfeltState].feilmelding = '';
+                            props.endreBedrift(
+                                props.organisasjon.OrganizationNumber,
+                                parseInt(event.currentTarget.value),
+                                props.organisasjon.Name
+                            );
+                        }
+                        props.setInputfeltStates(props.inputFeltStatesKopi);
+                    }}
+                />
+            )}
         </div>
     );
 };

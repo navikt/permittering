@@ -10,6 +10,7 @@ interface Props {
     setInputfeltStates: (states: any) => void;
     inputfeltStates: InputfeltState[];
     leggTilEllerFjernBedrift: (orgnr: string, navn: string) => void;
+    className?: string;
 }
 
 const MobilvisningAntallBerorte: FunctionComponent<Props> = (props: Props) => {
@@ -26,7 +27,7 @@ const MobilvisningAntallBerorte: FunctionComponent<Props> = (props: Props) => {
         />
     ));
 
-    return <div className={'forside__mobilvisning'}>{rader}</div>;
+    return <div className={props.className}>{rader}</div>;
 };
 
 export default MobilvisningAntallBerorte;
