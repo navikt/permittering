@@ -2,16 +2,14 @@
 
 .mobilInputfelt {
     border-bottom: 1px solid @navGra80;
-    padding: 1.5rem 0 2rem 2rem;
+    padding: 1.5rem 0 1.5rem 2rem;
+    min-height: 8rem;
 
     &__rad {
         display: flex;
+        flex-direction: column;
         width: 100%;
-        margin-bottom: 1rem;
-    }
-
-    &__organisasjon {
-        text-overflow: ellipsis;
+        margin-bottom: 0.5rem;
     }
 
     &__checkboks {
@@ -19,8 +17,15 @@
         left: -2rem;
     }
 
+    &__checkbokslabel {
+        margin-left: 0.5rem;
+    }
+
     &__verdi {
-        position: absolute;
-        left: 50%;
+        margin-left: 0.5rem;
+    }
+
+    &__inputfelt {
+        width: 8rem;
     }
 }

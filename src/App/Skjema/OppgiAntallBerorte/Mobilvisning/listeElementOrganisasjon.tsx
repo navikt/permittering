@@ -27,7 +27,9 @@ const MobilInputfelt: FunctionComponent<Props> = (props: Props) => {
         <div className={'mobilInputfelt'}>
             <div className={'mobilInputfelt__rad'}>
                 <Checkbox
-                    label={<Element>Virksomhet</Element>}
+                    label={
+                        <Element className={'mobilInputfelt__checkbokslabel'}>Virksomhet</Element>
+                    }
                     checked={gjeldendeState.skalVises}
                     className={'mobilInputfelt__checkboks'}
                     onChange={() => {
@@ -44,20 +46,17 @@ const MobilInputfelt: FunctionComponent<Props> = (props: Props) => {
                 <Normaltekst className={'mobilInputfelt__verdi mobilInputfelt__organisasjon'}>
                     {props.organisasjon.Name}
                 </Normaltekst>
-            </div>
-            <div className={'mobilInputfelt__rad'}>
-                <Element>Bed.nr</Element>
                 <Normaltekst className={'mobilInputfelt__verdi'}>
                     {props.organisasjon.OrganizationNumber}
                 </Normaltekst>
             </div>
             <div className={'mobilInputfelt__rad'}>
-                <Element>Antall berørte</Element>
+                <Element className={'mobilInputfelt__verdi'}>Antall berørte</Element>
                 {gjeldendeState.skalVises && (
                     <Input
                         value={gjeldendeState.antall}
                         feil={gjeldendeState.feilmelding}
-                        className={'mobilInputfelt__verdi'}
+                        className={'mobilInputfelt__verdi mobilInputfelt__inputfelt'}
                         placeholder={'Fyll inn antall'}
                         id={'inputfelt-' + props.organisasjon.OrganizationNumber}
                         onChange={(event: any) => {
