@@ -7,8 +7,6 @@ import Dekorator from '../../komponenter/Dekorator/Dekorator';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
 import './Kvitteringsside.less';
 import Veilederpanel from 'nav-frontend-veilederpanel';
-import veilederIkon from '../Side4-oppsummering/gjenstand.svg';
-import Lenke from 'nav-frontend-lenker';
 import SjekkOmFyltUt from '../../komponenter/SjekkOmFyltUt/SjekkOmFyltUt';
 import {
     formatterDato,
@@ -18,9 +16,35 @@ import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 import { splittOppFritekst } from '../../../utils/fritekstFunksjoner';
 import { finnTittelBasertPaSkjemaType } from '../../Forside/SkjemaTabell/SkjemaTabell';
+import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
+import { tomAltinnOrganisasjon } from '../../../types/Organisasjon';
 
 const Kvitteringsside = () => {
     const context = useContext(SkjemaContext);
+    const { organisasjoner } = useContext(OrganisasjonsListeContext);
+    const [organisasjonInfoGammeltSkjema, setOrganisasjonInfoGammeltSkjema] = useState([
+        '',
+        '',
+        '',
+    ]);
+
+    useEffect(() => {
+        if (context.skjema.bedrifter?.length === 0) {
+            if (context.skjema.bedriftNr) {
+                const fullBedrift = organisasjoner.filter(
+                    org => org.OrganizationNumber === context.skjema.bedriftNr
+                )[0];
+                if (fullBedrift) {
+                    // @ts-ignore
+                    setOrganisasjonInfoGammeltSkjema([
+                        fullBedrift.OrganizationNumber,
+                        fullBedrift.Name,
+                        context.skjema.antallBerørt.toString(),
+                    ]);
+                }
+            }
+        }
+    });
 
     useEffect(() => {
         console.log();
@@ -78,6 +102,16 @@ const Kvitteringsside = () => {
                                             <th>Berørte virksomheter:</th>
                                             <th>Antall berørte ansatte:</th>
                                         </tr>
+                                        {context.skjema.bedrifter === null &&
+                                            organisasjonInfoGammeltSkjema[0].length > 0 && (
+                                                <tr>
+                                                    <td>
+                                                        {organisasjonInfoGammeltSkjema[1]}(
+                                                        {organisasjonInfoGammeltSkjema[0]})
+                                                    </td>{' '}
+                                                    <td>{organisasjonInfoGammeltSkjema[2]}</td>
+                                                </tr>
+                                            )}
                                         {context.skjema.bedrifter?.map(org => {
                                             return (
                                                 <tr>
