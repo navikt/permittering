@@ -34,7 +34,7 @@ const Kvitteringsside = () => {
                 const fullBedrift = organisasjoner.filter(
                     org => org.OrganizationNumber === context.skjema.bedriftNr
                 )[0];
-                if (fullBedrift) {
+                if (fullBedrift && context.skjema.antallBerørt) {
                     // @ts-ignore
                     setOrganisasjonInfoGammeltSkjema([
                         fullBedrift.OrganizationNumber,

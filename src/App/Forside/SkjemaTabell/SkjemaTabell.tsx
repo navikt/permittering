@@ -65,8 +65,7 @@ const SkjemaTabell: React.FunctionComponent<SkjemaTabellProps> = ({ skjemaer }) 
                                     <td>
                                         <Lenke
                                             href={
-                                                '/permittering/skjema/kontaktinformasjon/' +
-                                                skjema.id
+                                                '/permittering/skjema/kvitteringsside/' + skjema.id
                                             }
                                         >
                                             Gå til
