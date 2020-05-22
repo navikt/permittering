@@ -2,6 +2,7 @@ import React from 'react';
 import { Permitteringsskjema } from '../../../types/permitteringsskjema';
 import moment from 'moment';
 import Lenke from 'nav-frontend-lenker';
+import { loggTrykketPaTidligereSkjema } from '../../../utils/funksjonerForAmplitudeLogging';
 
 interface SkjemaTabellProps {
     skjemaer: any;
@@ -64,6 +65,9 @@ const SkjemaTabell: React.FunctionComponent<SkjemaTabellProps> = ({ skjemaer }) 
                                     <td>{status(skjema)}</td>
                                     <td>
                                         <Lenke
+                                            onClick={() =>
+                                                loggTrykketPaTidligereSkjema(status(skjema))
+                                            }
                                             href={
                                                 '/permittering/skjema/kvitteringsside/' + skjema.id
                                             }

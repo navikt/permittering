@@ -26,12 +26,20 @@ export const loggSkjemaValg = (type: string) => {
     amplitude.logEvent(skalLogges);
 };
 
+export const loggAntallPaBegynteSkjema = (antall: number) => {
+    amplitude.logEvent('#permitteringsskjema-  bruker har ' + antall + ' påbegynte skjema');
+};
+
 export const loggNavarendeSteg = (steg: string) => {
     amplitude.logEvent('#permitteringsskjema-' + steg);
 };
 
 export const loggSkjemaInnsendt = () => {
     amplitude.logEvent('#permitteringsskjema-oppsumeringsside send-inn-trykket-på');
+};
+
+export const loggTrykketPaTidligereSkjema = (type: string) => {
+    amplitude.logEvent('#permitteringsskjema- trykket pa tidligere' + type + ' skjema');
 };
 
 export const loggBedriftsInfo = async (organisasjon: Organisasjon): Promise<string> => {
