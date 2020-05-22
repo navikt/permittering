@@ -34,7 +34,7 @@ export const SkjemaProvider: FunctionComponent = props => {
     }, [id]);
 
     useEffect(() => {
-        if (skjema.bedrifter) {
+        if (skjema.bedrifter && skjema.bedrifter.length > 0) {
             var antallBerørtskjema: number = 0;
             antallBerørtskjema = skjema.bedrifter.reduce(
                 (sum: number, bedrift) => sum + bedrift.antall || 0,

@@ -16,44 +16,14 @@ import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 import { splittOppFritekst } from '../../../utils/fritekstFunksjoner';
 import { finnTittelBasertPaSkjemaType } from '../../Forside/SkjemaTabell/SkjemaTabell';
-import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
 
 const Kvitteringsside = () => {
     const context = useContext(SkjemaContext);
-    const { organisasjoner } = useContext(OrganisasjonsListeContext);
-    const [organisasjonInfoGammeltSkjema, setOrganisasjonInfoGammeltSkjema] = useState([
-        '',
-        '',
-        '',
-    ]);
 
     useEffect(() => {
-        if (context.skjema.bedrifter?.length === 0) {
-            if (context.skjema.bedriftNr) {
-                const fullBedrift = organisasjoner.filter(
-                    org => org.OrganizationNumber === context.skjema.bedriftNr
-                )[0];
-                if (fullBedrift && context.skjema.antallBerørt) {
-                    // @ts-ignore
-                    setOrganisasjonInfoGammeltSkjema([
-                        fullBedrift.OrganizationNumber,
-                        fullBedrift.Name,
-                        context.skjema.antallBerørt.toString(),
-                    ]);
-                }
-            }
-        }
-    }, [
-        context.skjema.bedrifter,
-        context.skjema.bedriftNr,
-        context.skjema.antallBerørt,
-        organisasjoner,
-    ]);
-
-    useEffect(() => {
-        console.log();
         finnÅrsakstekst(context.skjema.årsakskode).then(setLesbarÅrsakskode);
     }, [context.skjema.årsakskode]);
+
     const existerendeFelter = context.skjema.fritekst
         ? splittOppFritekst(context.skjema.fritekst)
         : null;
@@ -106,14 +76,14 @@ const Kvitteringsside = () => {
                                             <th>Berørte virksomheter:</th>
                                             <th>Antall berørte ansatte:</th>
                                         </tr>
-                                        {context.skjema.bedrifter === null &&
-                                            organisasjonInfoGammeltSkjema[0].length > 0 && (
+                                        {context.skjema.bedrifter !== undefined &&
+                                            context.skjema.bedrifter.length <= 0 && (
                                                 <tr>
                                                     <td>
-                                                        {organisasjonInfoGammeltSkjema[1]}(
-                                                        {organisasjonInfoGammeltSkjema[0]})
+                                                        {context.skjema.bedriftNavn}(
+                                                        {context.skjema.bedriftNr})
                                                     </td>{' '}
-                                                    <td>{organisasjonInfoGammeltSkjema[2]}</td>
+                                                    <td>{context.skjema.antallBerørt}</td>
                                                 </tr>
                                             )}
                                         {context.skjema.bedrifter?.map(org => {
