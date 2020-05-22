@@ -4,7 +4,6 @@ import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { Feilmelding, Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
 import Lenke from 'nav-frontend-lenker';
 import Veilederpanel from 'nav-frontend-veilederpanel';
-import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 import environment from '../../../utils/environment';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import { useSkjemaSteg } from '../use-skjema-steg';
@@ -32,8 +31,6 @@ const Oppsummering: FunctionComponent = () => {
     const { organisasjoner } = useContext(OrganisasjonsListeContext);
     const [feilmelding, setFeilmelding] = useState('');
     const { steg, forrigeSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
-    const featureToggleContext = useContext(FeatureToggleContext);
-    const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
     const [lesbarårsakskode, setLesbarÅrsakskode] = useState<string | undefined>(undefined);
     const existerendeFelter = context.skjema.fritekst
         ? splittOppFritekst(context.skjema.fritekst)
@@ -46,23 +43,12 @@ const Oppsummering: FunctionComponent = () => {
         finnÅrsakstekst(context.skjema.årsakskode).then(setLesbarÅrsakskode);
     }, [context.skjema.årsakskode]);
 
-    const lagAntallBerorteTekst = () => {
-        if (context.skjema.antallBerørt) {
-            return context.skjema.antallBerørt === 1 ? ' person' : ' personer';
-        }
-        return;
-    };
-
     const fraDato = context.skjema.startDato
         ? formatterDato(new Date(context.skjema.startDato))
         : '';
     const tilDato = context.skjema.sluttDato
         ? formatterDato(new Date(context.skjema.sluttDato))
         : '';
-
-    const endreantallberørteLenke = tillatFnrInput
-        ? `/permittering/skjema/hvem-rammes/${context.skjema.id}`
-        : `/permittering/skjema/generelle-opplysninger/${context.skjema.id}`;
 
     useEffect(() => {
         window.scrollTo(0, 0);

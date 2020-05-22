@@ -17,7 +17,6 @@ import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 import { splittOppFritekst } from '../../../utils/fritekstFunksjoner';
 import { finnTittelBasertPaSkjemaType } from '../../Forside/SkjemaTabell/SkjemaTabell';
 import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
-import { tomAltinnOrganisasjon } from '../../../types/Organisasjon';
 
 const Kvitteringsside = () => {
     const context = useContext(SkjemaContext);
@@ -44,7 +43,12 @@ const Kvitteringsside = () => {
                 }
             }
         }
-    });
+    }, [
+        context.skjema.bedrifter,
+        context.skjema.bedriftNr,
+        context.skjema.antallBerørt,
+        organisasjoner,
+    ]);
 
     useEffect(() => {
         console.log();
