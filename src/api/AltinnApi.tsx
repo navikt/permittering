@@ -11,6 +11,15 @@ export async function hentOrganisasjonerFraAltinn(signal: any): Promise<Organisa
     }
 }
 
+export async function sjekkInnlogget(signal: any): Promise<boolean> {
+    let respons = await fetch(hentOrganisasjonerLink, { signal: signal });
+    if (respons.ok) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 export async function hentRefusjonOrganisasjonerFraAltinn(signal: any): Promise<Organisasjon[]> {
     let respons = await fetch(hentRefusjonOrganisasjonerLink, { signal: signal });
     if (respons.ok) {
