@@ -4,9 +4,11 @@ const request = require('request');
 const { JSDOM } = jsdom;
 url = '';
 if (process.env.NAIS_CLUSTER_NAME === 'prod-sbs') {
-    url = 'https://www.nav.no/dekoratoren/?context=arbeidsgiver';
+    url =
+        'https://www.nav.no/dekoratoren/?context=arbeidsgiver?breadcrumbs=[{"url":"https://arbeidsgiver.nav.no/permittering","title":"Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid"}]';
 } else {
-    url = 'https://www-q1.nav.no/dekoratoren/?context=arbeidsgiver';
+    url =
+        'https://www-q1.nav.no/dekoratoren/?context=arbeidsgiver?breadcrumbs=[{"url":"https://arbeidsgiver-q.nav.no/permittering","title":"Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid"}]';
 }
 
 const requestDecorator = callback => request(url, callback);
