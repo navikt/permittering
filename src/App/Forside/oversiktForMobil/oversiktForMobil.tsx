@@ -1,9 +1,8 @@
 import React, { FunctionComponent } from 'react';
-
-import './oversiktForMobil.less';
+import { Ingress, Undertittel } from 'nav-frontend-typografi';
 import { Permitteringsskjema } from '../../../types/permitteringsskjema';
 import TidligereInnsendtSkjema from './TidligereInnsendtSkjema/tidligereInnsendtSkjema';
-import { Undertittel } from 'nav-frontend-typografi';
+import './oversiktForMobil.less';
 
 interface Props {
     listeMedSkjema: any;
@@ -15,17 +14,17 @@ const OversiktForMobil: FunctionComponent<Props> = (props: Props) => {
     ));
 
     return (
-        <div className={'forside__mobilvisning'}>
-            <Undertittel className={'forside__mobilvisning__undertittel'}>
-                {' '}
-                Dine skjema{' '}
-            </Undertittel>
-            {props.listeMedSkjema.length === 0 && (
-                <Undertittel className={'forside__mobilvisning__undertittel'}>
+        <div className="forside__mobilvisning">
+            <Undertittel className="forside__mobilvisning__undertittel">Dine skjema</Undertittel>
+            {props.listeMedSkjema ? (
+                <ul className="forside__mobilvisning__ul" aria-label="Dine skjema">
+                    {rader}
+                </ul>
+            ) : (
+                <Ingress className="forside__mobilvisning__undertittel">
                     <i>Ingen skjemaer</i>
-                </Undertittel>
+                </Ingress>
             )}
-            <ul className={'forside__mobilvisning__ul'}>{rader}</ul>
         </div>
     );
 };

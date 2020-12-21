@@ -8,8 +8,9 @@ const InfoIkon = () => {
             viewBox="0 0 100 100"
             xmlns="http://www.w3.org/2000/svg"
             xmlnsXlink="http://www.w3.org/1999/xlink"
+            focusable="false"
         >
-            <title>Informasjonstavle</title>
+            <title></title>
             <defs>
                 <circle id="a" cx="50" cy="50" r="50" />
                 <path

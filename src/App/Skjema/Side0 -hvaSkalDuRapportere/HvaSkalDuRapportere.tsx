@@ -70,7 +70,7 @@ const HvaSkalDuRapportere = () => {
                 <Systemtittel>Hva vil du informere NAV om?</Systemtittel>
                 <RadioPanelGruppe
                     name="samplename"
-                    legend=""
+                    legend="Hva vil du informere NAV om?"
                     radios={radios}
                     checked={skjemaType}
                     onChange={(event, value) => {
@@ -97,11 +97,11 @@ const HvaSkalDuRapportere = () => {
                     organisasjoner={organisasjoner}
                     setOrganisasjon={setValgtOrganisasjon}
                 />
-                <div className={'hva-skal-du-rapportere__info-om-virksomhet-juridisk'}>
-                    <img alt="" className={'hva-skal-du-rapportere__infoikon'} src={infoIkon} />
+                <Normaltekst className="hva-skal-du-rapportere__info-om-virksomhet-juridisk">
+                    <img alt="" className="hva-skal-du-rapportere__infoikon" src={infoIkon} />
                     Du kan kun sende skjema på vegne av virksomhet (også kalt underenhet), og ikke
                     på vegne av juridisk enhet.
-                </div>
+                </Normaltekst>
                 <Hovedknapp
                     disabled={skjemaType === undefined}
                     className="hva-skal-du-rapportere__knapp"
@@ -109,7 +109,7 @@ const HvaSkalDuRapportere = () => {
                 >
                     Gå til skjema
                 </Hovedknapp>
-                <Lenke className={'hva-skal-du-rapportere__avbryt'} href={'/permittering'}>
+                <Lenke className="hva-skal-du-rapportere__avbryt" href="/permittering">
                     Avbryt
                 </Lenke>
             </HvitSideBoks>
