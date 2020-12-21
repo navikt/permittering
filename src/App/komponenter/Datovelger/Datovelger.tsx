@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
-import { Collapse } from 'react-collapse';
+// import { Collapse } from 'react-collapse';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import { Input, Label } from 'nav-frontend-skjema';
@@ -16,8 +16,13 @@ import {
 import kalender from './kalender.svg';
 import './Datovelger.less';
 
+export enum Felttype {
+    FRA = 'Fra:',
+    TIL = 'Til:',
+}
+
 interface Props {
-    overtekst: string;
+    overtekst: Felttype;
     value?: string;
     onChange: (event: any) => void;
     disabled?: boolean;
@@ -89,14 +94,16 @@ const Datovelger: FunctionComponent<Props> = props => {
     return (
         <div ref={datepickernode} className={'datofelt'}>
             <Label htmlFor={datovelgerId}>{props.overtekst}</Label>
-            <div className={'datofelt__input-container'}>
+            <div className="datofelt__input-container">
                 <Input
                     feil={feilmelding}
                     disabled={props.disabled}
                     id={datovelgerId}
-                    aria-label="Skriv startdato:"
+                    aria-label={`Skriv ${
+                        props.overtekst === Felttype.FRA ? 'startdato' : 'sluttdato'
+                    }`}
                     value={tekstIInputfeltet()}
-                    className={'datofelt__input'}
+                    className="datofelt__input"
                     onChange={event => {
                         setEditing(true);
                         setTempDate(event.currentTarget.value);
@@ -107,25 +114,33 @@ const Datovelger: FunctionComponent<Props> = props => {
                 />
                 <button
                     disabled={props.disabled}
-                    className={'datofelt__knapp'}
+                    className="datofelt__knapp"
                     onClick={() => setErApen(!erApen)}
+                    aria-label={`Velg ${
+                        props.overtekst === Felttype.FRA ? 'startdato' : 'sluttdato'
+                    } - Trykk enter for å ${erApen ? 'lukke' : 'åpne'} datovelgeren.`}
+                    aria-pressed={erApen}
+                    aria-haspopup="true"
+                    aria-controls="datovelger"
+                    aria-expanded={erApen}
                 >
-                    <img alt={''} src={kalender} />
+                    <img alt="" src={kalender} />
                 </button>
             </div>
-            <Collapse isOpened={erApen}>
-                <DayPicker
-                    className={'datofelt__collapse'}
-                    selectedDays={selectedDate}
-                    month={selectedDate}
-                    firstDayOfWeek={1}
-                    onDayClick={day => onDatoClick(day)}
-                    months={MONTHS['no']}
-                    weekdaysLong={WEEKDAYS_LONG['no']}
-                    weekdaysShort={WEEKDAYS_SHORT['no']}
-                    labels={LABELS['no']}
-                />
-            </Collapse>
+            {erApen && (
+                <div id="datovelger">
+                    <DayPicker
+                        selectedDays={selectedDate}
+                        month={selectedDate}
+                        firstDayOfWeek={1}
+                        onDayClick={day => onDatoClick(day)}
+                        months={MONTHS['no']}
+                        weekdaysLong={WEEKDAYS_LONG['no']}
+                        weekdaysShort={WEEKDAYS_SHORT['no']}
+                        labels={LABELS['no']}
+                    />
+                </div>
+            )}
         </div>
     );
 };
