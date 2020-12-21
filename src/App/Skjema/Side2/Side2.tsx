@@ -11,7 +11,7 @@ import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import { useSkjemaSteg } from '../use-skjema-steg';
 import { mergeFritekst, splittOppFritekst } from '../../../utils/fritekstFunksjoner';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
-import Datovelger from '../../komponenter/Datovelger/Datovelger';
+import Datovelger, { Felttype } from '../../komponenter/Datovelger/Datovelger';
 import { lagTekstBasertPaSkjemaType } from '../Side4-oppsummering/oppsummering-utils';
 import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
@@ -222,7 +222,7 @@ const Side2: FunctionComponent = () => {
                             setDatoFra(event.currentTarget.value);
                         }}
                         skalVareFoer={datoTil}
-                        overtekst="Fra:"
+                        overtekst={Felttype.FRA}
                     />
                     <div className="skjema-innhold__dato-velger-til">
                         <Datovelger
@@ -232,7 +232,7 @@ const Side2: FunctionComponent = () => {
                                 setDatoTil(event.currentTarget.value);
                             }}
                             disabled={context.skjema.ukjentSluttDato}
-                            overtekst="Til:"
+                            overtekst={Felttype.TIL}
                             skalVareEtter={datoFra}
                         />
                         <Checkbox

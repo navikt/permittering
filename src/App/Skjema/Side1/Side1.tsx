@@ -34,7 +34,7 @@ const Side1: FunctionComponent = () => {
                 slett={async () => await context.avbryt()}
             >
                 <Systemtittel>Kontaktinformasjon</Systemtittel>
-                <Undertittel className={'skjema-innhold__side-1-undertittel'}>
+                <Undertittel className={'skjema-innhold__side-1-undertittel'} tag="h3">
                     Informasjon om arbeidsgiver
                 </Undertittel>
 
@@ -52,7 +52,7 @@ const Side1: FunctionComponent = () => {
                         disabled
                     />
                 </div>
-                <Undertittel className={'skjema-innhold__side-1-undertittel'}>
+                <Undertittel className={'skjema-innhold__side-1-undertittel'} tag="h3">
                     Kontaktperson i virksomheten
                 </Undertittel>
                 <Input
