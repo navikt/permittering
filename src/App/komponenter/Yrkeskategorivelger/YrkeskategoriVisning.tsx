@@ -12,26 +12,27 @@ export const YrkeskategoriVisning = ({
     setYrkeskategorier,
 }: YrkeskategoriVisningProps) => {
     return (
-        <div className="yrker-valgt">
-            {yrkeskategorier.map((kategori: any, index: number) => {
-                return (
-                    <div className="yrke" key={kategori.konseptId}>
-                        <div>{kategori.label}</div>
-                        <div
-                            role="button"
-                            className="slett"
-                            aria-label="Slett yrkeskategori"
-                            onClick={() => {
-                                const yrkeskategorierCopy = [...yrkeskategorier];
-                                yrkeskategorierCopy.splice(index, 1);
-                                setYrkeskategorier(yrkeskategorierCopy);
-                            }}
-                        >
-                            <SlettIkon />
-                        </div>
-                    </div>
-                );
-            })}
+        <div>
+            <ul className="yrker-valgt" aria-label="Valgte yrkeskaegorier">
+                {yrkeskategorier.map((kategori: any, index: number) => {
+                    return (
+                        <li className="yrke" key={kategori.konseptId}>
+                            <div>{kategori.label}</div>
+                            <button
+                                className="slett"
+                                aria-label={`${kategori.label} Trykk enter for å slette yrkeskategori `}
+                                onClick={() => {
+                                    const yrkeskategorierCopy = [...yrkeskategorier];
+                                    yrkeskategorierCopy.splice(index, 1);
+                                    setYrkeskategorier(yrkeskategorierCopy);
+                                }}
+                            >
+                                <SlettIkon />
+                            </button>
+                        </li>
+                    );
+                })}
+            </ul>
         </div>
     );
 };

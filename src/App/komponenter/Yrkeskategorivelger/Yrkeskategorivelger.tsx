@@ -64,7 +64,7 @@ const Yrkeskategorivelger: FunctionComponent<YrkeskategorivelgerProps> = ({
                 }}
                 id="yrkeskategori-input"
                 placeholder="Skriv inn og velg fra listen"
-                ariaLabel="yrkeskategori-label"
+                ariaLabel="Hvilke yrkeskategorier tilhører de berørte?"
                 name="yrkeskategori"
                 aria-describedby="autocomplete-input-description"
                 onSelect={(valgtYrke: Sokeforslag) => {
