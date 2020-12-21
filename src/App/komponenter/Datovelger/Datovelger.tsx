@@ -1,5 +1,4 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
-// import { Collapse } from 'react-collapse';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import { Input, Label } from 'nav-frontend-skjema';

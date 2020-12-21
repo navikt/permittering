@@ -228,7 +228,7 @@ const Oppsummering: FunctionComponent = () => {
                             <div className="endre-lenke">
                                 <Lenke
                                     href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
-                                    ariaLabel="Gå tilbake for å endre generelle opplysninger"
+                                    ariaLabel="Gå tilbake for å endre årsak"
                                 >
                                     Endre
                                 </Lenke>
@@ -273,7 +273,7 @@ const Oppsummering: FunctionComponent = () => {
                             <div className="endre-lenke">
                                 <Lenke
                                     href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
-                                    ariaLabel="Gå tilbake for å Endre periode"
+                                    ariaLabel="Gå tilbake for å endre periode"
                                 >
                                     Endre
                                 </Lenke>
