@@ -120,14 +120,14 @@ const Datovelger: FunctionComponent<Props> = props => {
                     } - Trykk enter for å ${erApen ? 'lukke' : 'åpne'} datovelgeren.`}
                     aria-pressed={erApen}
                     aria-haspopup="true"
-                    aria-controls="datovelger"
+                    aria-controls={`datovelger-${props.overtekst}`}
                     aria-expanded={erApen}
                 >
                     <img alt="" src={kalender} />
                 </button>
             </div>
-            {erApen && (
-                <div id="datovelger">
+            <div id={`datovelger-${props.overtekst}`}>
+                {erApen && (
                     <DayPicker
                         selectedDays={selectedDate}
                         month={selectedDate}
@@ -138,8 +138,8 @@ const Datovelger: FunctionComponent<Props> = props => {
                         weekdaysShort={WEEKDAYS_SHORT['no']}
                         labels={LABELS['no']}
                     />
-                </div>
-            )}
+                )}
+            </div>
         </div>
     );
 };

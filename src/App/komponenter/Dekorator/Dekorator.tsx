@@ -13,14 +13,14 @@ const lagBannerTittel = (type: string): string => {
     return 'Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid';
 };
 const Dekorator: React.FunctionComponent<any> = props => (
-    <nav className="dekorator">
-        <div className="dekorator__inner">
+    <div className="banner">
+        <div className="banner__inner">
             <Innholdstittel className="dekorator__tittel">
                 {props.sidetittel ? lagBannerTittel(props.sidetittel) : '\u00a0'}
             </Innholdstittel>
             {props.children}
         </div>
-    </nav>
+    </div>
 );
 
 export default Dekorator;

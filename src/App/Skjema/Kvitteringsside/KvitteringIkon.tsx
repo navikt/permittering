@@ -8,8 +8,11 @@ const KvitteringIkon = () => {
             viewBox="0 0 100 100"
             xmlns="http://www.w3.org/2000/svg"
             xmlnsXlink="http://www.w3.org/1999/xlink"
+            focusable="false"
+            role="img"
+            aria-labelledby="sendt-ikon-tittel"
         >
-            <title>Melding er sendt</title>
+            <title id="sendt-ikon-tittel">Melding er sendt</title>
             <defs>
                 <circle id="a" cx="50" cy="50" r="50" />
             </defs>
