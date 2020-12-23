@@ -24,7 +24,7 @@ export const SkjemaProvider: FunctionComponent = props => {
     const [skjema, setSkjema] = useState<Permitteringsskjema>({} as Permitteringsskjema);
     const { id } = useParams();
     const featureToggleContext = useContext(FeatureToggleContext);
-    const visskjema = featureToggleContext[Feature.visskjema];
+    // const visskjema = featureToggleContext[Feature.visskjema];
     const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
     useEffect(() => {
         if (id) {
@@ -63,9 +63,7 @@ export const SkjemaProvider: FunctionComponent = props => {
     };
     return (
         <>
-            {visskjema && (
-                <SkjemaContext.Provider value={context}>{props.children}</SkjemaContext.Provider>
-            )}
+            <SkjemaContext.Provider value={context}>{props.children}</SkjemaContext.Provider>
         </>
     );
 };
