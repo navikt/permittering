@@ -13,9 +13,9 @@ const lagBannerTittel = (type: string): string => {
     return 'Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid';
 };
 const Dekorator: React.FunctionComponent<any> = props => (
-    <div className="dekorator">
-        <div className="dekorator__inner">
-            <Innholdstittel className="dekorator__tittel">
+    <div className="banner">
+        <div className="banner__inner">
+            <Innholdstittel className="banner__tittel">
                 {props.sidetittel ? lagBannerTittel(props.sidetittel) : '\u00a0'}
             </Innholdstittel>
             {props.children}
