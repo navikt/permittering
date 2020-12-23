@@ -7892,15 +7892,15 @@ nav-frontend-paneler-style@^0.3.31:
   resolved "https://registry.yarnpkg.com/nav-frontend-paneler-style/-/nav-frontend-paneler-style-0.3.31.tgz#93736a36c70a84f4a55aa94239a9177e07951d33"
   integrity sha512-UEay8N4N8xrauV1DztFCBmybpAEV2mb/kDgyyast4TuBVSDr8LsYyR5x437Thi1VPowqjSfjB3tTobMeeMy4qA==
 
-nav-frontend-skjema-style@^2.0.4:
-  version "2.0.23"
-  resolved "https://registry.yarnpkg.com/nav-frontend-skjema-style/-/nav-frontend-skjema-style-2.0.23.tgz#11e357a5379787d58ef0bf538ab029646862694d"
-  integrity sha512-OPADPvNP9tElahXSnlLPoKUBJr0BUOZr71rukxDGbLwXu+NNsf8b7mgRsDzLYuavqtC8BiFLmtsUv9/cD/d2Uw==
+nav-frontend-skjema-style@^2.0.24:
+  version "2.0.24"
+  resolved "https://registry.yarnpkg.com/nav-frontend-skjema-style/-/nav-frontend-skjema-style-2.0.24.tgz#ca5d1b52f916b4869f92dc99200419a45bf2fdf5"
+  integrity sha512-fIr1Cr6f+BzouOLK/L0kc5vAQB9lxCKjt3O3+jDPL3ksXx/j2ac1xnTp0FEOKSmLML6JC8bAXd17hUWwMkYGCQ==
 
-nav-frontend-skjema@^2.0.12:
-  version "2.0.19"
-  resolved "https://registry.yarnpkg.com/nav-frontend-skjema/-/nav-frontend-skjema-2.0.19.tgz#0365e0c6b42eae04493a61f9b7dd8314d77a60c6"
-  integrity sha512-KisPjaMz6K1bmGF50zq5Qe2c5U6WcrcdnNa4jDgzqtPlZYXGcIVoMbhDhG/Ul4IHJly35/6qtkgDNS4wDEtm4w==
+nav-frontend-skjema@^3.0.39:
+  version "3.0.39"
+  resolved "https://registry.yarnpkg.com/nav-frontend-skjema/-/nav-frontend-skjema-3.0.39.tgz#17fc822d2bb658d0f3f7a24c338498b78de9f37e"
+  integrity sha512-yblmM+0BZuk2i7bwunHvyPEfbfEMmpCn5F1ATiHMCUI2FWyo4eFDQG4mjTzvrI15tFXnn2cK0x1Z7MszWa9U0w==
 
 nav-frontend-stegindikator-style@^1.0.41:
   version "1.0.41"
