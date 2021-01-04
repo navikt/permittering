@@ -31,7 +31,7 @@ const SkjemaTabell: React.FunctionComponent<SkjemaTabellProps> = ({ skjemaer }) 
 
     return (
         <div>
-            <table className="skjema__tabell tabell">
+            <table className="skjema__tabell tabell" aria-label="Dine skjema">
                 <thead>
                     <tr>
                         <th role="columnheader" aria-sort="none">
@@ -47,7 +47,9 @@ const SkjemaTabell: React.FunctionComponent<SkjemaTabellProps> = ({ skjemaer }) 
                         <th role="columnheader" aria-sort="none">
                             Status
                         </th>
-                        <th role="columnheader" aria-sort="none"></th>
+                        <th role="columnheader" aria-sort="none">
+                            Lenke til skjema
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -73,7 +75,7 @@ const SkjemaTabell: React.FunctionComponent<SkjemaTabellProps> = ({ skjemaer }) 
                                                 skjema.id
                                             }
                                         >
-                                            Gå til
+                                            Gå til skjema
                                         </Lenke>
                                     </td>
                                 </tr>

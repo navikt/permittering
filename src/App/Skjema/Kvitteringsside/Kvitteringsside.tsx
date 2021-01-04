@@ -29,20 +29,27 @@ const Kvitteringsside = () => {
                         Skjemaet er sendt til NAV i kommunen eller fylket virksomheten din tilhører.
                     </Normaltekst>
                 </div>
-                <Lenkepanel
-                    href="https://arbeidsgiver.nav.no/min-side-arbeidsgiver/"
-                    border
-                    tittelProps="normaltekst"
-                >
-                    Gå til Min side – arbeidsgiver
-                </Lenkepanel>
-                <Lenkepanel
-                    href="https://www.nav.no/no/bedrift/innhold-til-bedrift-forside/nyheter/permitteringer-som-folge-av-koronaviruset"
-                    border
-                    tittelProps="normaltekst"
-                >
-                    Informasjon om permitteringer til arbeidsgivere i forbindelse med koronaviruset
-                </Lenkepanel>
+                <ul aria-label="Lenker">
+                    <li>
+                        <Lenkepanel
+                            href="https://arbeidsgiver.nav.no/min-side-arbeidsgiver/"
+                            border
+                            tittelProps="normaltekst"
+                        >
+                            Gå til Min side – arbeidsgiver
+                        </Lenkepanel>
+                    </li>
+                    <li>
+                        <Lenkepanel
+                            href="https://www.nav.no/no/bedrift/innhold-til-bedrift-forside/nyheter/permitteringer-som-folge-av-koronaviruset"
+                            border
+                            tittelProps="normaltekst"
+                        >
+                            Informasjon om permitteringer til arbeidsgivere i forbindelse med
+                            koronaviruset
+                        </Lenkepanel>
+                    </li>
+                </ul>
             </HvitSideBoks>
         </>
     );

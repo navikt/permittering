@@ -1,11 +1,10 @@
 import React, { FunctionComponent } from 'react';
-
-import AttributtVisning from './AttributtVisning/AttributtVisning';
-import './tidligereInnsendtSkjema.less';
-import { Permitteringsskjema } from '../../../../types/permitteringsskjema';
-import Lenkepanel from 'nav-frontend-lenkepanel/lib';
 import moment from 'moment';
+import Lenkepanel from 'nav-frontend-lenkepanel/lib';
 import { Element } from 'nav-frontend-typografi';
+import AttributtVisning from './AttributtVisning/AttributtVisning';
+import { Permitteringsskjema } from '../../../../types/permitteringsskjema';
+import './tidligereInnsendtSkjema.less';
 
 const status = (skjema: Permitteringsskjema) => {
     if (skjema.sendtInnTidspunkt) {
@@ -35,32 +34,30 @@ const TidligereInnsendtSkjema: FunctionComponent<Props> = props => {
     };
 
     return (
-        <li className="tidligere-skjema">
-            <ul className="tidligere-skjema__liste">
-                <Lenkepanel
-                    tittelProps={'normaltekst'}
-                    href={'/permittering/skjema/kontaktinformasjon/' + props.tidligereSkjema.id}
-                >
-                    <Element className={'tidligere-skjema__overskrift-kort'}>
-                        {lagTekstBasertPaSkjemaType(props.tidligereSkjema.type)}
-                    </Element>
-                    <AttributtVisning
-                        attributt="Dato sendt inn"
-                        attributtVerdi={
-                            props.tidligereSkjema.sendtInnTidspunkt &&
-                            moment(props.tidligereSkjema.sendtInnTidspunkt).format('L')
-                        }
-                    />
-                    <AttributtVisning
-                        attributt="Bedriftsnummer"
-                        attributtVerdi={props.tidligereSkjema.bedriftNr}
-                    />
-                    <AttributtVisning
-                        attributt="Status"
-                        attributtVerdi={status(props.tidligereSkjema)}
-                    />
-                </Lenkepanel>
-            </ul>
+        <li className="tidligere-skjema__liste">
+            <Lenkepanel
+                tittelProps="normaltekst"
+                href={'/permittering/skjema/kontaktinformasjon/' + props.tidligereSkjema.id}
+            >
+                <Element className="tidligere-skjema__overskrift-kort">
+                    {lagTekstBasertPaSkjemaType(props.tidligereSkjema.type)}
+                </Element>
+                <AttributtVisning
+                    attributt="Dato sendt inn"
+                    attributtVerdi={
+                        props.tidligereSkjema.sendtInnTidspunkt &&
+                        moment(props.tidligereSkjema.sendtInnTidspunkt).format('L')
+                    }
+                />
+                <AttributtVisning
+                    attributt="Bedriftsnummer"
+                    attributtVerdi={props.tidligereSkjema.bedriftNr}
+                />
+                <AttributtVisning
+                    attributt="Status"
+                    attributtVerdi={status(props.tidligereSkjema)}
+                />
+            </Lenkepanel>
         </li>
     );
 };

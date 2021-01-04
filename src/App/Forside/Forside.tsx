@@ -1,12 +1,10 @@
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { Systemtittel } from 'nav-frontend-typografi';
-
 import { Feature, FeatureToggleContext } from '../FeatureToggleProvider';
 import { Permitteringsskjema } from '../../types/permitteringsskjema';
 import { hentAlle } from '../../api/permittering-api';
 import SkjemaTabell from './SkjemaTabell/SkjemaTabell';
 import HvitSideBoks from '../komponenter/HvitSideBoks';
-
 import Dekorator from '../komponenter/Dekorator/Dekorator';
 import {
     loggAntallPaBegynteSkjema,

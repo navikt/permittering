@@ -27,17 +27,21 @@ const InfoOmMeldepliktBoks: FunctionComponent<Props> = props => {
                     ansatte? Da har du meldeplikt til NAV. Du kan også melde ifra til NAV dersom det
                     gjelder færre enn 10 ansatte om du ønsker det.
                 </Normaltekst>
+
                 <Element>Dette er bestemt av:</Element>
-                <div>
-                    <Lenke href="https://lovdata.no/lov/2004-12-10-76/§8">
-                        <span>Arbeidsmarkedsloven §8</span> <EksternLenke />
-                    </Lenke>
-                </div>
-                <div>
-                    <Lenke href="https://lovdata.no/lov/2005-06-17-62/§15-2">
-                        <span>Arbeidsmiljøloven §15-2 </span> <EksternLenke />
-                    </Lenke>
-                </div>
+                <ul>
+                    <li>
+                        <Lenke href="https://lovdata.no/lov/2004-12-10-76/§8">
+                            <span>Arbeidsmarkedsloven §8</span> <EksternLenke />
+                        </Lenke>
+                    </li>
+                    <li>
+                        <Lenke href="https://lovdata.no/lov/2005-06-17-62/§15-2">
+                            <span>Arbeidsmiljøloven §15-2 </span> <EksternLenke />
+                        </Lenke>
+                    </li>
+                </ul>
+
                 <Hovedknapp className="meld-fra-knapp" onClick={() => history.push('skjema/start')}>
                     Meld fra til NAV
                 </Hovedknapp>

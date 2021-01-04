@@ -1,7 +1,7 @@
 const jsdom = require('jsdom');
 const request = require('request');
-
 const { JSDOM } = jsdom;
+
 url = '';
 if (process.env.NAIS_CLUSTER_NAME === 'prod-sbs') {
     url = 'https://www.nav.no/dekoratoren/?context=arbeidsgiver';
@@ -21,10 +21,8 @@ const getDecorator = () =>
                 const data = {
                     NAV_SCRIPTS: document.getElementById('scripts')[prop],
                     NAV_STYLES: document.getElementById('styles')[prop],
-                    NAV_SKIPLINKS: document.getElementById('skiplinks')[prop],
                     NAV_HEADING: document.getElementById('header-withmenu')[prop],
                     NAV_FOOTER: document.getElementById('footer-withmenu')[prop],
-                    NAV_MENU_RESOURCES: document.getElementById('megamenu-resources')[prop],
                 };
                 resolve(data);
             } else {

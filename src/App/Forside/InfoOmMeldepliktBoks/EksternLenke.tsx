@@ -7,8 +7,9 @@ export const EksternLenke = () => (
         viewBox="0 0 20 20"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
+        focusable="false"
     >
-        <title>Fill-1</title>
+        <title>Ekstern lenke</title>
         <desc>Created with Sketch.</desc>
         <g id="⭐️-Mest-oppdaterte" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g

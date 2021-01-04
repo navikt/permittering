@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import { EtikettFokus } from 'nav-frontend-etiketter';
 
 const SjekkOmFyltUt: FunctionComponent<{ verdi: string | number | undefined }> = ({ verdi }) => {

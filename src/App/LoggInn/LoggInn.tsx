@@ -1,5 +1,5 @@
 import React from 'react';
-import { Ingress, Normaltekst, Sidetittel } from 'nav-frontend-typografi';
+import { Ingress, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import Lenke from 'nav-frontend-lenker';
 import LoggInnBanner from './LoggInnBanner/LoggInnBanner';
@@ -16,9 +16,11 @@ const LoggInn = () => {
         <div className="innloggingsside">
             <LoggInnBanner />
             <div className="innloggingsside__innhold">
-                <img src={skjema} className="innloggingsside__circle" alt="bilde av håndtrykk" />
+                <img src={skjema} className="innloggingsside__circle" alt="" />
 
-                <Sidetittel className="innloggingsside__sidetittel">Meld fra til NAV</Sidetittel>
+                <Innholdstittel className="innloggingsside__sidetittel" tag="h2">
+                    Meld fra til NAV
+                </Innholdstittel>
                 <Ingress className="innloggingsside__ingress">
                     Arbeidsgivers meldeplikt til NAV ved masseoppsigelser, permittering uten lønn og
                     innskrenkning i arbeidstid.

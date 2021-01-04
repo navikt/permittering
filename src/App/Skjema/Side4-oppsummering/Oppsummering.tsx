@@ -30,7 +30,8 @@ const Oppsummering: FunctionComponent = () => {
     const context = useContext(SkjemaContext);
     const history = useHistory();
     const { organisasjoner } = useContext(OrganisasjonsListeContext);
-    const [feilmelding, setFeilmelding] = useState('');
+    const [visFeilmelding, setVisFeilmelding] = useState<boolean>(false);
+    const [manglendeFelter, setManglendeFelter] = useState<string[]>([]);
     const { steg, forrigeSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
     const featureToggleContext = useContext(FeatureToggleContext);
     const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
@@ -95,6 +96,40 @@ const Oppsummering: FunctionComponent = () => {
         history.replace('/skjema/kvitteringsside');
     }
 
+    const sjekkMangler = () => {
+        let mangler: string[] = [];
+
+        if (!context.skjema.kontaktNavn) {
+            mangler.push('Navn på kontakperson er ikke fylt ut');
+        }
+        if (!context.skjema.kontaktTlf) {
+            mangler.push('Telefonnummer er ikke fylt ut');
+        }
+        if (!context.skjema.kontaktEpost) {
+            mangler.push('E-post er ikke fylt ut');
+        }
+        if (!context.skjema.antallBerørt) {
+            mangler.push('Antall berørte er ikke fylt ut');
+        }
+        if (context.skjema.årsakskode !== 'ANDRE_ÅRSAKER') {
+            if (!lesbarårsakskode) {
+                mangler.push('Årsak er ikke fylt ut');
+            }
+        }
+        if (context.skjema.årsakskode === 'ANDRE_ÅRSAKER') {
+            if (!context.skjema.årsakstekst) {
+                mangler.push('Årsak er ikke fylt ut');
+            }
+        }
+        if (!yrker) {
+            mangler.push('Yrkeskategorier er ikke fylt ut');
+        }
+        if (!fraDato) {
+            mangler.push('Startdato er ikke fylt ut');
+        }
+        return mangler;
+    };
+
     return (
         <>
             <Dekorator sidetittel={context.skjema.type} />
@@ -150,6 +185,7 @@ const Oppsummering: FunctionComponent = () => {
                             <div className="endre-lenke">
                                 <Lenke
                                     href={`/permittering/skjema/kontaktinformasjon/${context.skjema.id}`}
+                                    ariaLabel="Gå tilbake for å endre kontaktinformasjon"
                                 >
                                     Endre
                                 </Lenke>
@@ -165,7 +201,12 @@ const Oppsummering: FunctionComponent = () => {
                                 </div>
                             </div>
                             <div className="endre-lenke">
-                                <Lenke href={endreantallberørteLenke}>Endre</Lenke>
+                                <Lenke
+                                    href={endreantallberørteLenke}
+                                    ariaLabel="Gå tilbake for å endre antall berørte personer"
+                                >
+                                    Endre
+                                </Lenke>
                             </div>
                         </div>
 
@@ -187,6 +228,7 @@ const Oppsummering: FunctionComponent = () => {
                             <div className="endre-lenke">
                                 <Lenke
                                     href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
+                                    ariaLabel="Gå tilbake for å endre årsak"
                                 >
                                     Endre
                                 </Lenke>
@@ -201,6 +243,7 @@ const Oppsummering: FunctionComponent = () => {
                             <div className="endre-lenke">
                                 <Lenke
                                     href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
+                                    ariaLabel="Gå tilbake for å endre yrkeskategorier"
                                 >
                                     Endre
                                 </Lenke>
@@ -230,6 +273,7 @@ const Oppsummering: FunctionComponent = () => {
                             <div className="endre-lenke">
                                 <Lenke
                                     href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
+                                    ariaLabel="Gå tilbake for å endre periode"
                                 >
                                     Endre
                                 </Lenke>
@@ -246,6 +290,7 @@ const Oppsummering: FunctionComponent = () => {
                             <div className="endre-lenke">
                                 <Lenke
                                     href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
+                                    ariaLabel="Gå tilbake for å endre andre relevante opplysninger"
                                 >
                                     Endre
                                 </Lenke>
@@ -269,14 +314,17 @@ const Oppsummering: FunctionComponent = () => {
                                 const thisKnapp = document.getElementById('send-inn-hovedknapp');
                                 thisKnapp && thisKnapp.setAttribute('disabled', 'disabled');
                                 try {
-                                    setFeilmelding('');
+                                    setVisFeilmelding(false);
+                                    setManglendeFelter([]);
                                     await context.sendInn();
                                     history.push('/skjema/kvitteringsside');
                                     onSendClickLogging();
                                     loggSkjemaInnsendt();
                                 } catch (e) {
                                     if (e.response.status === 400) {
-                                        setFeilmelding('Du må fylle ut alle feltene');
+                                        setVisFeilmelding(true);
+                                        const mangler = sjekkMangler();
+                                        setManglendeFelter(mangler);
                                     }
                                 }
                             }}
@@ -284,11 +332,20 @@ const Oppsummering: FunctionComponent = () => {
                             Send til NAV
                         </Hovedknapp>
                     </div>
-                    {feilmelding && (
-                        <div className="feilmelding-send-inn">
-                            <Feilmelding>{feilmelding}</Feilmelding>
-                        </div>
-                    )}
+                    <div aria-live="polite">
+                        {visFeilmelding && (
+                            <div className="feilmelding-send-inn">
+                                <Feilmelding className="feilmelding-send-inn__tekst">
+                                    Du må fylle ut alle feltene.
+                                    <ul>
+                                        {manglendeFelter.map(felt => {
+                                            return <li>{felt}</li>;
+                                        })}
+                                    </ul>
+                                </Feilmelding>
+                            </div>
+                        )}
+                    </div>
                 </section>
             </SkjemaRamme>
         </>

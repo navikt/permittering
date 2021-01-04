@@ -9,16 +9,22 @@
         display: flex;
     }
 
-    .ReactCollapse--collapse {
+    .DayPicker {
         position: absolute;
         top: 6rem;
         left: 0;
         z-index: 999;
         background-color: @white;
+        border: 1px solid @navGra60;
     }
 
-    .ReactCollapse--content {
-        border: 1px solid @navGra60;
+    .DayPicker-Weekday,
+    .DayPicker-NavButton {
+        color: @navDypBlaDarken20;
+    }
+
+    .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+        background-color: @navBla;
     }
 
     &__input {
