@@ -1,0 +1,30 @@
+apiVersion: 'nais.io/v1alpha1'
+kind: 'Application'
+metadata:
+  name: permittering
+  namespace: default
+  labels:
+    team: arbeidsgiver
+spec:
+  image: {{image}}
+  team: arbeidsgiver
+  port: 3000
+  ingresses:
+    - https://arbeidsgiver-q.nav.no/permittering
+  liveness:
+    path: /permittering/internal/isAlive
+    initialDelay: 20
+  readiness:
+    path: /permittering/internal/isReady
+    initialDelay: 20
+  vault:
+    enabled: true
+  webproxy: true
+  env:
+    - name: NODE_EXTRA_CA_CERTS
+      value: /etc/ssl/ca-bundle.pem
+    - name: APIGW_URL
+      value: https://api-gw-q1.oera.no
+    - name: LOGIN_URL
+      value: https://loginservice-q.nav.no/login?redirect=https://arbeidsgiver-q.nav.no/permittering
+
