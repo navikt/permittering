@@ -10,7 +10,7 @@ const lagBannerTittel = (type: string): string => {
     } else if (type === 'INNSKRENKNING_I_ARBEIDSTID') {
         return 'Innskrenke arbeidstiden til ansatte';
     }
-    return 'Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid';
+    return 'Test';
 };
 const Dekorator: React.FunctionComponent<any> = props => (
     <div className="banner">
