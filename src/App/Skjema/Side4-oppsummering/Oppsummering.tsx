@@ -92,9 +92,6 @@ const Oppsummering: FunctionComponent = () => {
         }
         context.skjema.type && lesbarårsakskode && loggArsak(lesbarårsakskode, context.skjema.type);
     };
-    if (context.skjema.sendtInnTidspunkt) {
-        history.replace('/skjema/kvitteringsside');
-    }
 
     const sjekkMangler = () => {
         let mangler: string[] = [];
