@@ -43,6 +43,9 @@ const Oppsummering: FunctionComponent = () => {
     const annet = existerendeFelter && existerendeFelter.annet ? existerendeFelter.annet : '';
     const [antallIBedrift, setAntallIBedrift] = useState('');
 
+    const skjemaErInnsendt = context.skjema.sendtInnTidspunkt!;
+    const sideTittel = skjemaErInnsendt ? 'Oppsummering' : 'Er opplysningene riktige?';
+
     useEffect(() => {
         finnÅrsakstekst(context.skjema.årsakskode).then(setLesbarÅrsakskode);
     }, [context.skjema.årsakskode]);
@@ -92,9 +95,6 @@ const Oppsummering: FunctionComponent = () => {
         }
         context.skjema.type && lesbarårsakskode && loggArsak(lesbarårsakskode, context.skjema.type);
     };
-    if (context.skjema.sendtInnTidspunkt) {
-        history.replace('/skjema/kvitteringsside');
-    }
 
     const sjekkMangler = () => {
         let mangler: string[] = [];
@@ -129,7 +129,6 @@ const Oppsummering: FunctionComponent = () => {
         }
         return mangler;
     };
-
     return (
         <>
             <Dekorator sidetittel={context.skjema.type} />
@@ -140,7 +139,7 @@ const Oppsummering: FunctionComponent = () => {
             >
                 <section className="oppsummering">
                     <div className="oppsummering__tittel-desktop">
-                        <Systemtittel>Er opplysningene riktige?</Systemtittel>
+                        <Systemtittel>{sideTittel}</Systemtittel>
                     </div>
                     <Veilederpanel
                         type="plakat"
@@ -182,14 +181,16 @@ const Oppsummering: FunctionComponent = () => {
                                     </tr>
                                 </tbody>
                             </table>
-                            <div className="endre-lenke">
-                                <Lenke
-                                    href={`/permittering/skjema/kontaktinformasjon/${context.skjema.id}`}
-                                    ariaLabel="Gå tilbake for å endre kontaktinformasjon"
-                                >
-                                    Endre
-                                </Lenke>
-                            </div>
+                            {!skjemaErInnsendt && (
+                                <div className="endre-lenke">
+                                    <Lenke
+                                        href={`/permittering/skjema/kontaktinformasjon/${context.skjema.id}`}
+                                        ariaLabel="Gå tilbake for å endre kontaktinformasjon"
+                                    >
+                                        Endre
+                                    </Lenke>
+                                </div>
+                            )}
                         </div>
 
                         <div className="oppsummering__boks antall-arbeidstakere">
@@ -200,14 +201,16 @@ const Oppsummering: FunctionComponent = () => {
                                     {lagAntallBerorteTekst()}
                                 </div>
                             </div>
-                            <div className="endre-lenke">
-                                <Lenke
-                                    href={endreantallberørteLenke}
-                                    ariaLabel="Gå tilbake for å endre antall berørte personer"
-                                >
-                                    Endre
-                                </Lenke>
-                            </div>
+                            {!skjemaErInnsendt && (
+                                <div className="endre-lenke">
+                                    <Lenke
+                                        href={endreantallberørteLenke}
+                                        ariaLabel="Gå tilbake for å endre antall berørte personer"
+                                    >
+                                        Endre
+                                    </Lenke>
+                                </div>
+                            )}
                         </div>
 
                         <div className="oppsummering__boks aarsak">
@@ -225,14 +228,16 @@ const Oppsummering: FunctionComponent = () => {
                                     <SjekkOmFyltUt verdi={context.skjema.årsakstekst} />
                                 )}
                             </div>
-                            <div className="endre-lenke">
-                                <Lenke
-                                    href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
-                                    ariaLabel="Gå tilbake for å endre årsak"
-                                >
-                                    Endre
-                                </Lenke>
-                            </div>
+                            {!skjemaErInnsendt && (
+                                <div className="endre-lenke">
+                                    <Lenke
+                                        href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
+                                        ariaLabel="Gå tilbake for å endre årsak"
+                                    >
+                                        Endre
+                                    </Lenke>
+                                </div>
+                            )}
                         </div>
 
                         <div className="oppsummering__boks yrkeskategorier">
@@ -240,14 +245,16 @@ const Oppsummering: FunctionComponent = () => {
                                 <Normaltekst className="overskrift">Yrkeskategorier</Normaltekst>
                                 <SjekkOmFyltUt verdi={yrker} />
                             </div>
-                            <div className="endre-lenke">
-                                <Lenke
-                                    href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
-                                    ariaLabel="Gå tilbake for å endre yrkeskategorier"
-                                >
-                                    Endre
-                                </Lenke>
-                            </div>
+                            {!skjemaErInnsendt && (
+                                <div className="endre-lenke">
+                                    <Lenke
+                                        href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
+                                        ariaLabel="Gå tilbake for å endre yrkeskategorier"
+                                    >
+                                        Endre
+                                    </Lenke>
+                                </div>
+                            )}
                         </div>
 
                         <div className="oppsummering__boks varighet">
@@ -270,14 +277,16 @@ const Oppsummering: FunctionComponent = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="endre-lenke">
-                                <Lenke
-                                    href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
-                                    ariaLabel="Gå tilbake for å endre periode"
-                                >
-                                    Endre
-                                </Lenke>
-                            </div>
+                            {!skjemaErInnsendt && (
+                                <div className="endre-lenke">
+                                    <Lenke
+                                        href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
+                                        ariaLabel="Gå tilbake for å endre periode"
+                                    >
+                                        Endre
+                                    </Lenke>
+                                </div>
+                            )}
                         </div>
 
                         <div className="oppsummering__boks andre-opplysninger">
@@ -287,14 +296,16 @@ const Oppsummering: FunctionComponent = () => {
                                 </Normaltekst>
                                 <Normaltekst>{annet}</Normaltekst>
                             </div>
-                            <div className="endre-lenke">
-                                <Lenke
-                                    href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
-                                    ariaLabel="Gå tilbake for å endre andre relevante opplysninger"
-                                >
-                                    Endre
-                                </Lenke>
-                            </div>
+                            {!skjemaErInnsendt && (
+                                <div className="endre-lenke">
+                                    <Lenke
+                                        href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
+                                        ariaLabel="Gå tilbake for å endre andre relevante opplysninger"
+                                    >
+                                        Endre
+                                    </Lenke>
+                                </div>
+                            )}
                         </div>
                     </Veilederpanel>
 
@@ -307,30 +318,34 @@ const Oppsummering: FunctionComponent = () => {
                         >
                             Tilbake
                         </Knapp>
-                        <Hovedknapp
-                            id="send-inn-hovedknapp"
-                            className="skjema-innhold__lagre"
-                            onClick={async () => {
-                                const thisKnapp = document.getElementById('send-inn-hovedknapp');
-                                thisKnapp && thisKnapp.setAttribute('disabled', 'disabled');
-                                try {
-                                    setVisFeilmelding(false);
-                                    setManglendeFelter([]);
-                                    await context.sendInn();
-                                    history.push('/skjema/kvitteringsside');
-                                    onSendClickLogging();
-                                    loggSkjemaInnsendt();
-                                } catch (e) {
-                                    if (e.response.status === 400) {
-                                        setVisFeilmelding(true);
-                                        const mangler = sjekkMangler();
-                                        setManglendeFelter(mangler);
+                        {!skjemaErInnsendt && (
+                            <Hovedknapp
+                                id="send-inn-hovedknapp"
+                                className="skjema-innhold__lagre"
+                                onClick={async () => {
+                                    const thisKnapp = document.getElementById(
+                                        'send-inn-hovedknapp'
+                                    );
+                                    thisKnapp && thisKnapp.setAttribute('disabled', 'disabled');
+                                    try {
+                                        setVisFeilmelding(false);
+                                        setManglendeFelter([]);
+                                        await context.sendInn();
+                                        history.push('/skjema/kvitteringsside');
+                                        onSendClickLogging();
+                                        loggSkjemaInnsendt();
+                                    } catch (e) {
+                                        if (e.response.status === 400) {
+                                            setVisFeilmelding(true);
+                                            const mangler = sjekkMangler();
+                                            setManglendeFelter(mangler);
+                                        }
                                     }
-                                }
-                            }}
-                        >
-                            Send til NAV
-                        </Hovedknapp>
+                                }}
+                            >
+                                Send til NAV
+                            </Hovedknapp>
+                        )}
                     </div>
                     <div aria-live="polite">
                         {visFeilmelding && (

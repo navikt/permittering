@@ -22,9 +22,7 @@ const Side1: FunctionComponent = () => {
         window.scrollTo(0, 0);
         loggNavarendeSteg('kontaktinformasjon');
     }, []);
-    if (context.skjema.sendtInnTidspunkt) {
-        history.replace('/skjema/kvitteringsside');
-    }
+
     return (
         <>
             <Dekorator sidetittel={context.skjema.type} />
