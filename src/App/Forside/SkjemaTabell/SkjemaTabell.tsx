@@ -29,6 +29,13 @@ const SkjemaTabell: React.FunctionComponent<SkjemaTabellProps> = ({ skjemaer }) 
         return 'Ukjent';
     };
 
+    const redirectLenkeTilTidligereSkjema = (skjema: Permitteringsskjema) => {
+        if (status(skjema) === 'Påbegynt') {
+            return '/permittering/skjema/kontaktinformasjon/' + skjema.id;
+        }
+        return '/permittering/skjema/oppsummering/' + skjema.id;
+    };
+
     return (
         <div>
             <table className="skjema__tabell tabell" aria-label="Dine skjema">
@@ -70,10 +77,7 @@ const SkjemaTabell: React.FunctionComponent<SkjemaTabellProps> = ({ skjemaer }) 
                                             onClick={() =>
                                                 loggTrykketPaTidligereSkjema(status(skjema))
                                             }
-                                            href={
-                                                '/permittering/skjema/kontaktinformasjon/' +
-                                                skjema.id
-                                            }
+                                            href={redirectLenkeTilTidligereSkjema(skjema)}
                                         >
                                             Gå til skjema
                                         </Lenke>

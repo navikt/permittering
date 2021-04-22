@@ -146,9 +146,7 @@ const Side2: FunctionComponent = () => {
         history.location.pathname,
         context.skjema.id
     );
-    if (context.skjema.sendtInnTidspunkt) {
-        history.replace('/skjema/kvitteringsside');
-    }
+
     return (
         <>
             <Dekorator sidetittel={context.skjema.type} />
