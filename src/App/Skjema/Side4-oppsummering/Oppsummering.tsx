@@ -308,17 +308,17 @@ const Oppsummering: FunctionComponent = () => {
                             )}
                         </div>
                     </Veilederpanel>
+                    {!skjemaErInnsendt && (
+                        <div className="skjema-innhold__fram-og-tilbake">
+                            <Knapp
+                                onClick={async () => {
+                                    await context.lagre();
+                                    history.push(forrigeSide);
+                                }}
+                            >
+                                Tilbake
+                            </Knapp>
 
-                    <div className="skjema-innhold__fram-og-tilbake">
-                        <Knapp
-                            onClick={async () => {
-                                await context.lagre();
-                                history.push(forrigeSide);
-                            }}
-                        >
-                            Tilbake
-                        </Knapp>
-                        {!skjemaErInnsendt && (
                             <Hovedknapp
                                 id="send-inn-hovedknapp"
                                 className="skjema-innhold__lagre"
@@ -345,8 +345,8 @@ const Oppsummering: FunctionComponent = () => {
                             >
                                 Send til NAV
                             </Hovedknapp>
-                        )}
-                    </div>
+                        </div>
+                    )}
                     <div aria-live="polite">
                         {visFeilmelding && (
                             <div className="feilmelding-send-inn">
