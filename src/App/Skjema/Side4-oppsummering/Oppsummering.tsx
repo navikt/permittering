@@ -25,6 +25,7 @@ import './Oppsummering.less';
 import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
+import { status } from '../../Forside/SkjemaTabell/SkjemaTabell';
 
 const Oppsummering: FunctionComponent = () => {
     const context = useContext(SkjemaContext);
@@ -43,7 +44,7 @@ const Oppsummering: FunctionComponent = () => {
     const annet = existerendeFelter && existerendeFelter.annet ? existerendeFelter.annet : '';
     const [antallIBedrift, setAntallIBedrift] = useState('');
 
-    const skjemaErInnsendt = context.skjema.sendtInnTidspunkt!;
+    const skjemaErInnsendt = status(context.skjema) === 'Sendt inn';
     const sideTittel = skjemaErInnsendt ? 'Oppsummering' : 'Er opplysningene riktige?';
 
     useEffect(() => {
