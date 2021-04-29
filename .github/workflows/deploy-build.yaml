@@ -37,9 +37,24 @@ jobs:
           echo ${IMAGE}
           docker push ${IMAGE}
 
+  deploy-to-dev-gcp:
+    name: Deploy to dev-gcp
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/ny-bygg-og-deploy'
+    needs: compile-test-and-build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-gcp
+          VAR: version=${{ env.IMAGE }}
+          RESOURCE: nais/dev-gcp.yaml
+          PRINT_PAYLOAD: true
+
   deploy-to-dev:
     name: Deploy to dev-sbs
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/endre-deploy'
+    if: github.ref == 'refs/heads/master'
     needs: compile-test-and-build
     runs-on: ubuntu-20.04
     steps:
