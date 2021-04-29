@@ -33,7 +33,10 @@ const SkjemaTabell: React.FunctionComponent<SkjemaTabellProps> = ({ skjemaer }) 
         if (status(skjema) === 'Sendt inn') {
             return '/permittering/skjema/oppsummering/' + skjema.id;
         }
-        return '/permittering/skjema/kontaktinformasjon/' + skjema.id;
+        if (status(skjema) === 'Påbegynt') {
+            return '/permittering/skjema/kontaktinformasjon/' + skjema.id;
+        }
+        return '#';
     };
 
     return (

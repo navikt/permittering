@@ -71,8 +71,9 @@ const Oppsummering: FunctionComponent = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        loggNavarendeSteg('oppsummeringsside');
-    }, []);
+        const steg = skjemaErInnsendt ? 'oppsumeringsside innsendt' : 'oppsummeringsside';
+        loggNavarendeSteg(steg);
+    }, [steg]);
 
     useEffect(() => {
         if (environment.MILJO === 'prod-sbs') {
