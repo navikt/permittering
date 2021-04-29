@@ -3,7 +3,6 @@ import { Ingress, Undertittel } from 'nav-frontend-typografi';
 import { Permitteringsskjema } from '../../../types/permitteringsskjema';
 import TidligereInnsendtSkjema from './TidligereInnsendtSkjema/tidligereInnsendtSkjema';
 import './oversiktForMobil.less';
-import { status } from '../SkjemaTabell/SkjemaTabell';
 
 interface Props {
     listeMedSkjema: any;
