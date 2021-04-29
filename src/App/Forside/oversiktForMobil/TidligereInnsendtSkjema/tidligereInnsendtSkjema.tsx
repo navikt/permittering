@@ -33,11 +33,21 @@ const TidligereInnsendtSkjema: FunctionComponent<Props> = props => {
         return 'Ukjent';
     };
 
+    const redirectLenkeTilTidligereSkjema = (skjema: Permitteringsskjema) => {
+        if (status(skjema) === 'Sendt inn') {
+            return '/permittering/skjema/oppsummering/' + skjema.id;
+        }
+        if (status(skjema) === 'Påbegynt') {
+            return '/permittering/skjema/kontaktinformasjon/' + skjema.id;
+        }
+        return '#';
+    };
+
     return (
         <li className="tidligere-skjema__liste">
             <Lenkepanel
                 tittelProps="normaltekst"
-                href={'/permittering/skjema/kontaktinformasjon/' + props.tidligereSkjema.id}
+                href={redirectLenkeTilTidligereSkjema(props.tidligereSkjema)}
             >
                 <Element className="tidligere-skjema__overskrift-kort">
                     {lagTekstBasertPaSkjemaType(props.tidligereSkjema.type)}

@@ -8,7 +8,7 @@ interface SkjemaTabellProps {
     skjemaer: any;
 }
 
-const status = (skjema: Permitteringsskjema) => {
+export const status = (skjema: Permitteringsskjema) => {
     if (skjema.sendtInnTidspunkt) {
         return 'Sendt inn';
     } else {
@@ -30,10 +30,13 @@ const SkjemaTabell: React.FunctionComponent<SkjemaTabellProps> = ({ skjemaer }) 
     };
 
     const redirectLenkeTilTidligereSkjema = (skjema: Permitteringsskjema) => {
+        if (status(skjema) === 'Sendt inn') {
+            return '/permittering/skjema/oppsummering/' + skjema.id;
+        }
         if (status(skjema) === 'Påbegynt') {
             return '/permittering/skjema/kontaktinformasjon/' + skjema.id;
         }
-        return '/permittering/skjema/oppsummering/' + skjema.id;
+        return '#';
     };
 
     return (
