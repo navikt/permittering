@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
@@ -10,9 +10,11 @@ import {
     lagTekstBasertPaSkjemaType,
 } from '../Side4-oppsummering/oppsummering-utils';
 import { lagAntallBerorteTekst } from '../Side4-oppsummering/Oppsummering';
+import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 
 const OppsummeringKvittering: FunctionComponent = () => {
     const context = useContext(SkjemaContext);
+    const [lesbarÅrsakskode, setLesbarÅrsakskode] = useState<string | undefined>(undefined);
 
     const existerendeFelter = context.skjema.fritekst
         ? splittOppFritekst(context.skjema.fritekst)
@@ -27,9 +29,9 @@ const OppsummeringKvittering: FunctionComponent = () => {
         ? formatterDato(new Date(context.skjema.sluttDato))
         : '';
 
-    console.log(context.skjema, 'skjema');
-
-    console.log(context.skjema.bedriftNavn, 'bedriftsnavn');
+    useEffect(() => {
+        finnÅrsakstekst(context.skjema.årsakskode).then(setLesbarÅrsakskode);
+    }, [context.skjema.årsakskode]);
 
     return (
         <>
@@ -80,15 +82,14 @@ const OppsummeringKvittering: FunctionComponent = () => {
                         <Undertittel className="oppsummering__tittel-mobil">
                             Generelle opplysninger
                         </Undertittel>
-                        <div className="tekst">
-                            <Normaltekst className="overskrift">
-                                {lagTekstBasertPaSkjemaType(context.skjema.type)}
-                            </Normaltekst>
-                            {context.skjema.årsakskode !== 'ANDRE_ÅRSAKER' &&
-                                context.skjema.årsakskode}
-                            {context.skjema.årsakskode === 'ANDRE_ÅRSAKER' &&
-                                context.skjema.årsakstekst}
-                        </div>
+                        <Normaltekst className="overskrift">
+                            {lagTekstBasertPaSkjemaType(context.skjema.type)}
+                        </Normaltekst>
+                        {lesbarÅrsakskode &&
+                            context.skjema.årsakskode !== 'ANDRE_ÅRSAKER' &&
+                            lesbarÅrsakskode}
+                        {context.skjema.årsakskode === 'ANDRE_ÅRSAKER' &&
+                            context.skjema.årsakstekst}
                     </div>
 
                     <div className="oppsummering__boks yrkeskategorier">
