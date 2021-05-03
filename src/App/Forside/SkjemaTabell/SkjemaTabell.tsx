@@ -31,7 +31,7 @@ const SkjemaTabell: React.FunctionComponent<SkjemaTabellProps> = ({ skjemaer }) 
 
     const redirectLenkeTilTidligereSkjema = (skjema: Permitteringsskjema) => {
         if (status(skjema) === 'Sendt inn') {
-            return '/permittering/skjema/kvitteringsside' + skjema.id;
+            return '/permittering/skjema/kvitteringsside/' + skjema.id;
         }
         if (status(skjema) === 'Påbegynt') {
             return '/permittering/skjema/kontaktinformasjon/' + skjema.id;
