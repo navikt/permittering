@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import Lenkepanel from 'nav-frontend-lenkepanel/lib';
 import HvitSideBoks from '../../komponenter/HvitSideBoks';
-import KvitteringIkon from './KvitteringIkon';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
 import './Kvitteringsside.less';
+import OppsummeringKvittering from './OppsummeringKvittering';
 
 const Kvitteringsside = () => {
     const sidetittel =
@@ -20,14 +19,8 @@ const Kvitteringsside = () => {
         <>
             <Dekorator sidetittel={sidetittel} />
             <HvitSideBoks classname="kvitteringside">
-                <div className="kvitteringside__ikon">
-                    <KvitteringIkon />
-                </div>
                 <div className="kvitteringside__tekst">
-                    <Systemtittel>Skjema er sendt til NAV</Systemtittel>
-                    <Normaltekst className="kvitteringside-ingress">
-                        Skjemaet er sendt til NAV i kommunen eller fylket virksomheten din tilhører.
-                    </Normaltekst>
+                    <OppsummeringKvittering />
                 </div>
                 <ul aria-label="Lenker">
                     <li>
