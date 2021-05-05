@@ -10,7 +10,7 @@ const { BACKEND_BASEURL, BACKEND_API_PATH } = require('../konstanter');
 
 const app = express.Router();
 
-const getConfiguredRouter = (tokenXClient, html) => {
+const getConfiguredRouter = (tokenXClient, tokenXIssuer, html) => {
     app.get(
         paths.redirectTilLoginPath,
         passport.authenticate('idPortenOIDC', {
@@ -56,7 +56,7 @@ const getConfiguredRouter = (tokenXClient, html) => {
             },
             proxyReqOptDecorator: (options, req) => {
                 return new Promise((resolve, reject) => {
-                    exchangeToken(tokenXClient, req).then(
+                    exchangeToken(tokenXClient, tokenXIssuer, req).then(
                         access_token => {
                             options.headers.Authorization = `Bearer ${access_token}`;
                             resolve(options);

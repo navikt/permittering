@@ -25,6 +25,7 @@ app.set('view engine', 'mustache');
 app.set('views', buildPath);
 
 let idPortenIssuer = null;
+let tokenXIssuer = null;
 
 const getConfiguredIDportenClient = async () => {
     const issuer = await Issuer.discover(IDPORTEN_WELL_KNOWN_URL);
@@ -46,6 +47,7 @@ const getConfiguredIDportenClient = async () => {
 const getConfiguredTokenXClient = async () => {
     const issuer = await Issuer.discover(TOKEN_X_WELL_KNOWN_URL);
     console.log(`Discovered issuer ${issuer.issuer}`);
+    tokenXIssuer = issuer.issuer;
     return new issuer.Client(
         {
             client_id: TOKEN_X_CLIENT_ID,
@@ -127,7 +129,7 @@ const startServer = async html => {
     passport.use('idPortenOIDC', strategy(idPortenClient));
 
     console.log('start regular server');
-    const router = getConfiguredRouter(tokenXClient, html);
+    const router = getConfiguredRouter(tokenXClient, tokenXIssuer, html);
     app.use('/', router);
     app.listen(port, () => {
         console.log('Server listening on port', port);
