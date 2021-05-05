@@ -14,8 +14,7 @@ const LoginBoundary: FunctionComponent = props => {
     const [innlogget, setInnlogget] = useState(Tilgang.LASTER);
 
     const localLogin = () => {
-        console.log('lokal logging kallt', document.cookie.includes('localhost-idtoken'));
-        if (document.cookie.includes('localhost-idtoken')) {
+        if (document.cookie.includes('permittering-token')) {
             setInnlogget(Tilgang.TILGANG);
         } else {
             setInnlogget(Tilgang.IKKE_TILGANG);

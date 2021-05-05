@@ -20,6 +20,5 @@
     "skjemaPath": "/permittering/api/skjema/:id",
     "skjemaSendInnPath": "/permittering/api/skjema/:id/send-inn",
     "stillingstitlerPath": "/stillingstitler/search",
-    "veilarbstepupPath": "/permittering/veilarbstepup/status",
     "permitteringsAArsakksodeverk": "/permittering/api/kodeverk/årsakskoder"
 }
