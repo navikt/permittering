@@ -33,7 +33,6 @@ const getConfiguredIDportenClient = async () => {
             redirect_uris: [IDPORTEN_REDIRECT_URI],
             token_endpoint_auth_method: 'private_key_jwt',
             token_endpoint_auth_signing_alg: 'RS256',
-            aud: 'https://oidc-ver2.difi.no/idporten-oidc-provider/',
         },
         {
             keys: [IDPORTEN_CLIENT_JWK],
@@ -88,6 +87,11 @@ const strategy = client => {
             response_types: ['code'],
             response_mode: 'query',
             scope: `openid profile`,
+        },
+        extras: {
+            clientAssertionPayload: {
+                aud: 'https://oidc-ver2.difi.no/idporten-oidc-provider/',
+            },
         },
         passReqToCallback: false,
         usePKCE: 'S256',
