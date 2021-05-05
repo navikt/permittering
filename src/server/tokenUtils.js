@@ -1,7 +1,7 @@
 const { TokenSet } = require('openid-client');
 const session = require('express-session');
 const BACKEND_CLIENT_ID = 'BACKEND_CLIENT_ID';
-const { FRONTEND_BASE_URL } = require('../server/konstanter');
+const { FRONTEND_BASE_URL } = require('./konstanter');
 
 const getTokenSetsFromSession = req => {
     if (req && req.user) {

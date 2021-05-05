@@ -20,8 +20,6 @@ const {
     TOKEN_X_CLIENT_ID,
     TOKEN_X_PRIVATE_JWK,
 } = require('./konstanter');
-const { start } = require('repl');
-const { render } = require('@testing-library/react');
 app.engine('html', mustacheExpress());
 app.set('view engine', 'mustache');
 app.set('views', buildPath);
