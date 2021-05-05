@@ -33,6 +33,7 @@ const getConfiguredIDportenClient = async () => {
             redirect_uris: [IDPORTEN_REDIRECT_URI],
             token_endpoint_auth_method: 'private_key_jwt',
             token_endpoint_auth_signing_alg: 'RS256',
+            aud: 'https://oidc-ver2.difi.no/idporten-oidc-provider/',
         },
         {
             keys: [IDPORTEN_CLIENT_JWK],
