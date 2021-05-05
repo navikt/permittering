@@ -17,7 +17,7 @@ import './Forside.less';
 const Forside: FunctionComponent = () => {
     const featureToggleContext = useContext(FeatureToggleContext);
     const visskjema = featureToggleContext[Feature.visskjema];
-    const [skjemaer, setSkjemaer] = useState<Permitteringsskjema[]>([]);
+    const [skjemaer, setSkjemaer] = useState<Permitteringsskjema[] | undefined>(undefined);
     const sidetittel =
         'Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid';
 
@@ -27,7 +27,7 @@ const Forside: FunctionComponent = () => {
     }, []);
 
     useEffect(() => {
-        if (skjemaer.length > 0) {
+        if (skjemaer && skjemaer.length > 0) {
             const antallPaBegynte = skjemaer.filter(
                 skjema => skjema.sendtInnTidspunkt == null || skjema.sendtInnTidspunkt === ''
             ).length;
@@ -39,17 +39,21 @@ const Forside: FunctionComponent = () => {
         <>
             <Dekorator sidetittel={sidetittel} />
             <InfoOmMeldepliktBoks visskjema={visskjema} />
-            <HvitSideBoks classname="forside__tabell-container">
-                <Systemtittel className="forside__topp">Dine skjema</Systemtittel>
-                {skjemaer.length > 0 ? (
-                    <SkjemaTabell skjemaer={skjemaer} />
-                ) : (
-                    <p>
-                        <i>Ingen skjemaer</i>
-                    </p>
-                )}
-            </HvitSideBoks>
-            <OversiktForMobil listeMedSkjema={skjemaer} />
+            {skjemaer && (
+                <>
+                    <HvitSideBoks classname="forside__tabell-container">
+                        <Systemtittel className="forside__topp">Dine skjema</Systemtittel>
+                        {skjemaer.length > 0 ? (
+                            <SkjemaTabell skjemaer={skjemaer} />
+                        ) : (
+                            <p>
+                                <i>Ingen skjemaer</i>
+                            </p>
+                        )}
+                    </HvitSideBoks>
+                    <OversiktForMobil listeMedSkjema={skjemaer} />
+                </>
+            )}
         </>
     );
 };

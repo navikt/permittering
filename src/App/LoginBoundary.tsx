@@ -14,7 +14,6 @@ const LoginBoundary: FunctionComponent = props => {
     const [innlogget, setInnlogget] = useState(Tilgang.LASTER);
 
     const localLogin = () => {
-        console.log('lokal logging kallt', document.cookie.includes('localhost-idtoken'));
         if (document.cookie.includes('localhost-idtoken')) {
             setInnlogget(Tilgang.TILGANG);
         } else {
@@ -24,21 +23,19 @@ const LoginBoundary: FunctionComponent = props => {
 
     useEffect(() => {
         setInnlogget(Tilgang.LASTER);
-        const getLoginStatus = async () => {
-            if (environment.MILJO === 'prod-sbs' || environment.MILJO === 'dev-sbs') {
-                const abortController = new AbortController();
-                const signal = abortController.signal;
-                let innlogget = sjekkInnlogget(signal);
+        if (environment.MILJO === 'prod-sbs' || environment.MILJO === 'dev-sbs') {
+            const abortController = new AbortController();
+            sjekkInnlogget(abortController.signal).then(innlogget => {
                 if (innlogget) {
                     setInnlogget(Tilgang.TILGANG);
                 } else {
                     setInnlogget(Tilgang.IKKE_TILGANG);
                 }
-            } else {
-                localLogin();
-            }
-        };
-        getLoginStatus();
+            });
+            return () => abortController.abort();
+        } else {
+            localLogin();
+        }
     }, []);
 
     if (innlogget === Tilgang.TILGANG) {

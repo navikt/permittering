@@ -3284,10 +3284,10 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-classnames@^2.2.6:
-  version "2.2.6"
-  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
-  integrity sha512-JR/iSQOSt+LQIWwrwEzJ9uk0xfN3mTVYMwt1Ir5mUcSN6pU+V4zQFFaJsclJbPuAUQH+yfWef6tm7l1quW3C8Q==
+classnames@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.3.1.tgz#dfcfa3891e306ec1dad105d0e88f4417b8535e8e"
+  integrity sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==
 
 clean-css@^4.2.3:
   version "4.2.3"
@@ -7830,6 +7830,11 @@ nav-frontend-grid@^1.0.44:
   resolved "https://registry.yarnpkg.com/nav-frontend-grid/-/nav-frontend-grid-1.0.44.tgz#b5fc02f452afb9aed02b27fb77a03eea8aa51997"
   integrity sha512-trCNkI8Wv/k4J1Tj7uSHLJutjehkagM4BpNXvcJ8OjQYQgTVHOftL5VYwiAZE/j06Jyj/srhEiN7E+36YwkLWw==
 
+nav-frontend-ikoner-assets@^2.0.10:
+  version "2.0.10"
+  resolved "https://registry.yarnpkg.com/nav-frontend-ikoner-assets/-/nav-frontend-ikoner-assets-2.0.10.tgz#8525d171ce81c9444f904374057cd77d98bae82d"
+  integrity sha512-n/2qIk29rRkR8OZwZBnSIWRKdC25t/8lAhZXEvFZrqmjAC+U4xHHj5+VlCoN5O5VIzq4xtck1Flwj7mJehAj7g==
+
 nav-frontend-js-utils@^1.0.15:
   version "1.0.15"
   resolved "https://registry.yarnpkg.com/nav-frontend-js-utils/-/nav-frontend-js-utils-1.0.15.tgz#d5dc090ad6194f595175048a2717615eba8aed53"
@@ -7901,6 +7906,16 @@ nav-frontend-skjema@^3.0.39:
   version "3.0.39"
   resolved "https://registry.yarnpkg.com/nav-frontend-skjema/-/nav-frontend-skjema-3.0.39.tgz#17fc822d2bb658d0f3f7a24c338498b78de9f37e"
   integrity sha512-yblmM+0BZuk2i7bwunHvyPEfbfEMmpCn5F1ATiHMCUI2FWyo4eFDQG4mjTzvrI15tFXnn2cK0x1Z7MszWa9U0w==
+
+nav-frontend-spinner-style@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/nav-frontend-spinner-style/-/nav-frontend-spinner-style-1.0.2.tgz#af58a3f7cf043122c0aa87b32ba4dc119cdf2baa"
+  integrity sha512-7zHnZdV2vF5kAOq0KCVBBpU2g6eI8rilmFx88oTTRTVPwKjCGcbYW6BzFUSN9rGuuI6AxiWQRu5mnxRPNZW9BA==
+
+nav-frontend-spinner@^2.0.16:
+  version "2.0.16"
+  resolved "https://registry.yarnpkg.com/nav-frontend-spinner/-/nav-frontend-spinner-2.0.16.tgz#71dad64ec5730f336309db63d79765c576105eb7"
+  integrity sha512-En0IMZI5oFzf7rTtmKYOYWKGUn+GbiwdzEuXwdTYa1UGAVVl9FZcxTStt08upgdsmoH8bwkulB7B3zWXoMDsOA==
 
 nav-frontend-stegindikator-style@^1.0.41:
   version "1.0.41"
@@ -9853,14 +9868,13 @@ react-scripts@3.4.0:
   optionalDependencies:
     fsevents "2.1.2"
 
-react@^16.13.1:
-  version "16.14.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.14.0.tgz#94d776ddd0aaa37da3eda8fc5b6b18a4c9a3114d"
-  integrity sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g==
+react@^17.0.2:
+  version "17.0.2"
+  resolved "https://registry.yarnpkg.com/react/-/react-17.0.2.tgz#d0b5cc516d29eb3eee383f75b62864cfb6800037"
+  integrity sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
-    prop-types "^15.6.2"
 
 read-pkg-up@^2.0.0:
   version "2.0.0"

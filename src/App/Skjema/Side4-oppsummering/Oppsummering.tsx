@@ -136,8 +136,6 @@ const Oppsummering: FunctionComponent = () => {
         return mangler;
     };
 
-    console.log(context.skjema, 'oppsummering');
-
     return (
         <>
             <Dekorator sidetittel={context.skjema.type} />
