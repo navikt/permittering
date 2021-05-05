@@ -6,7 +6,7 @@ const createEnvSettingsFile = require('../envSettings.js');
 const { exchangeToken, ensureAuthenticated } = require('../tokenUtils');
 const path = require('path');
 const buildPath = path.join(__dirname, '../../../build');
-const { FRONTEND_API_PATH, BACKEND_BASEURL, BACKEND_API_PATH } = require('../konstanter');
+const { BACKEND_BASEURL, BACKEND_API_PATH } = require('../konstanter');
 
 const app = express.Router();
 
@@ -58,7 +58,6 @@ const getConfiguredRouter = (tokenXClient, html) => {
                 return new Promise((resolve, reject) => {
                     exchangeToken(tokenXClient, req).then(
                         access_token => {
-                            console.log('got new token', access_token);
                             options.headers.Authorization = `Bearer ${access_token}`;
                             resolve(options);
                         },

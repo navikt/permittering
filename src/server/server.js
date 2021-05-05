@@ -24,9 +24,12 @@ app.engine('html', mustacheExpress());
 app.set('view engine', 'mustache');
 app.set('views', buildPath);
 
+let idPortenIssuer = null;
+
 const getConfiguredIDportenClient = async () => {
     const issuer = await Issuer.discover(IDPORTEN_WELL_KNOWN_URL);
     console.log(`Discovered issuer ${issuer.issuer}`);
+    idPortenIssuer = issuer.issuer;
     return new issuer.Client(
         {
             client_id: IDPORTEN_CLIENT_ID,
@@ -69,6 +72,7 @@ const sessionOptions = {
 };
 
 const strategy = client => {
+    console.log('creating strategy with client', client);
     const verify = (tokenSet, done) => {
         if (tokenSet.expired()) {
             return done(null, false);
@@ -90,7 +94,7 @@ const strategy = client => {
         },
         extras: {
             clientAssertionPayload: {
-                aud: 'https://oidc-ver2.difi.no/idporten-oidc-provider/',
+                aud: idPortenIssuer,
             },
         },
         passReqToCallback: false,
@@ -136,10 +140,10 @@ const startServer = async html => {
  * @param app
  * @param p
  */
-renderApp().then(html => {
-    startServer(html);
-});
-/*
+// renderApp().then(html => {
+//     startServer(html);
+// });
+
 getDecorator()
     .then(renderApp, error => {
         console.error('Kunne ikke hente dekoratør ', error);
@@ -149,4 +153,3 @@ getDecorator()
         console.error('Kunne ikke rendre app ', error);
         process.exit(1);
     });
-*/
