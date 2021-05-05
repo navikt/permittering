@@ -86,7 +86,7 @@ const strategy = client => {
         params: {
             response_types: ['code'],
             response_mode: 'query',
-            scope: `openid ${IDPORTEN_CLIENT_ID}/.default`,
+            scope: `openid profile`,
         },
         passReqToCallback: false,
         usePKCE: 'S256',
