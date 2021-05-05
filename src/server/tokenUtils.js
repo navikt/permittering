@@ -51,7 +51,6 @@ const exchangeToken = (tokenXClient, tokenXIssuer, req) => {
                         client_assertion_type:
                             'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
                         subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
-                        requested_token_use: 'on_behalf_of',
                         audience: 'dev-gcp:arbeidsgiver:permitteringsskjema-api',
                         subject_token: req.user.tokenSets['self'].access_token,
                     },

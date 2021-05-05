@@ -47,7 +47,7 @@ const getConfiguredIDportenClient = async () => {
 const getConfiguredTokenXClient = async () => {
     const issuer = await Issuer.discover(TOKEN_X_WELL_KNOWN_URL);
     console.log(`Discovered issuer ${issuer.issuer}`);
-    tokenXIssuer = issuer.issuer;
+    tokenXIssuer = issuer.token_endpoint;
     return new issuer.Client(
         {
             client_id: TOKEN_X_CLIENT_ID,
