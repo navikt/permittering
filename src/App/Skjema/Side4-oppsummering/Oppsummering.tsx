@@ -1,7 +1,13 @@
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { Feilmelding, Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
+import {
+    Feilmelding,
+    Normaltekst,
+    Systemtittel,
+    Undertittel,
+    Element,
+} from 'nav-frontend-typografi';
 import Lenke from 'nav-frontend-lenker';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
@@ -26,6 +32,7 @@ import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 import { status } from '../../Forside/SkjemaTabell/SkjemaTabell';
+import AlertStripe from 'nav-frontend-alertstriper';
 
 export const lagAntallBerorteTekst = (antallBerorte?: number) => {
     if (antallBerorte) {
@@ -38,8 +45,13 @@ const Oppsummering: FunctionComponent = () => {
     const context = useContext(SkjemaContext);
     const history = useHistory();
     const { organisasjoner } = useContext(OrganisasjonsListeContext);
-    const [visFeilmelding, setVisFeilmelding] = useState<boolean>(false);
+
+    const [feilVedInnsending, setFeilVedInnsending] = useState(false);
+    const [visFeilmeldingMangledeFelter, setVisFeilmeldingManglendeFelter] = useState<boolean>(
+        false
+    );
     const [manglendeFelter, setManglendeFelter] = useState<string[]>([]);
+
     const { steg, forrigeSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
     const featureToggleContext = useContext(FeatureToggleContext);
     const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
@@ -322,17 +334,21 @@ const Oppsummering: FunctionComponent = () => {
                                 const thisKnapp = document.getElementById('send-inn-hovedknapp');
                                 thisKnapp && thisKnapp.setAttribute('disabled', 'disabled');
                                 try {
-                                    setVisFeilmelding(false);
+                                    setVisFeilmeldingManglendeFelter(false);
                                     setManglendeFelter([]);
                                     await context.sendInn();
                                     history.push('/skjema/kvitteringsside/' + context.skjema.id);
                                     onSendClickLogging();
                                     loggSkjemaInnsendt();
+                                    setFeilVedInnsending(false);
                                 } catch (e) {
                                     if (e.response.status === 400) {
-                                        setVisFeilmelding(true);
+                                        setVisFeilmeldingManglendeFelter(true);
                                         const mangler = sjekkMangler();
                                         setManglendeFelter(mangler);
+                                    } else {
+                                        setFeilVedInnsending(true);
+                                        thisKnapp && thisKnapp.removeAttribute('disabled');
                                     }
                                 }
                             }}
@@ -340,20 +356,32 @@ const Oppsummering: FunctionComponent = () => {
                             Send til NAV
                         </Hovedknapp>
                     </div>
-                    <div aria-live="polite">
-                        {visFeilmelding && (
-                            <div className="feilmelding-send-inn">
-                                <Feilmelding className="feilmelding-send-inn__tekst">
-                                    Du må fylle ut alle feltene.
-                                    <ul>
-                                        {manglendeFelter.map(felt => {
-                                            return <li>{felt}</li>;
-                                        })}
-                                    </ul>
-                                </Feilmelding>
-                            </div>
-                        )}
-                    </div>
+                    {feilVedInnsending && (
+                        <AlertStripe
+                            type={'feil'}
+                            aria-live="polite"
+                            className="oppsummering__alertstripe"
+                        >
+                            <Element>Noe gikk galt!</Element>
+                            <Normaltekst>Prøv å sende inn skjemaet på nytt.</Normaltekst>
+                        </AlertStripe>
+                    )}
+                    {visFeilmeldingMangledeFelter && (
+                        <AlertStripe
+                            type="feil"
+                            className="oppsummering__alertstripe feilmelding-send-inn__tekst"
+                            aria-live="polite"
+                        >
+                            <Normaltekst>
+                                Du må fylle ut alle feltene.
+                                <ul>
+                                    {manglendeFelter.map(felt => {
+                                        return <li>{felt}</li>;
+                                    })}
+                                </ul>
+                            </Normaltekst>
+                        </AlertStripe>
+                    )}
                 </section>
             </SkjemaRamme>
         </>
