@@ -1,13 +1,7 @@
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import {
-    Feilmelding,
-    Normaltekst,
-    Systemtittel,
-    Undertittel,
-    Element,
-} from 'nav-frontend-typografi';
+import { Normaltekst, Systemtittel, Undertittel, Element } from 'nav-frontend-typografi';
 import Lenke from 'nav-frontend-lenker';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
