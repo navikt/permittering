@@ -41,6 +41,8 @@ const TOKEN_X_PRIVATE_JWK = JSON.parse(process.env.TOKEN_X_PRIVATE_JWK || testJw
 const PERMITTERING_SESSION_SECRET = process.env.PERMITTERING_SESSION_SECRET || 'secret';
 const PERMITTERING_SESSION_NAME = process.env.PERMITTERING_SESSION_NAME || 'permittering-session';
 
+const API_AUDIENCE = process.env.API_AUDIENCE || 'tokenx';
+
 module.exports = {
     IDPORTEN_WELL_KNOWN_URL,
     IDPORTEN_CLIENT_ID,

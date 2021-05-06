@@ -40,3 +40,5 @@ spec:
       value: https://api-gw-q1.oera.no
     - name: LOGIN_URL
       value: https://loginservice.dev.nav.no/login?redirect=https://permitteringsskjema.dev.nav.no/permittering
+    - name: API_AUDIENCE
+      value: dev-fss:arbeidsgiver:permitteringsskjema-api
