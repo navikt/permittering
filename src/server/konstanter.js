@@ -44,6 +44,7 @@ const PERMITTERING_SESSION_NAME = process.env.PERMITTERING_SESSION_NAME || 'perm
 const API_AUDIENCE = process.env.API_AUDIENCE || 'tokenx';
 
 module.exports = {
+    API_AUDIENCE,
     IDPORTEN_WELL_KNOWN_URL,
     IDPORTEN_CLIENT_ID,
     IDPORTEN_CLIENT_JWK,
