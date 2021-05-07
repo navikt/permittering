@@ -54,7 +54,7 @@ jobs:
 
   deploy-to-dev:
     name: Deploy to dev-sbs
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/handter-loading'
     needs: compile-test-and-build
     runs-on: ubuntu-20.04
     steps:

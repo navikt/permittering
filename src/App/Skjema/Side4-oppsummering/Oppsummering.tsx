@@ -25,6 +25,14 @@ import './Oppsummering.less';
 import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
+import { status } from '../../Forside/SkjemaTabell/SkjemaTabell';
+
+export const lagAntallBerorteTekst = (antallBerorte?: number) => {
+    if (antallBerorte) {
+        return antallBerorte === 1 ? ' person' : ' personer';
+    }
+    return;
+};
 
 const Oppsummering: FunctionComponent = () => {
     const context = useContext(SkjemaContext);
@@ -43,19 +51,9 @@ const Oppsummering: FunctionComponent = () => {
     const annet = existerendeFelter && existerendeFelter.annet ? existerendeFelter.annet : '';
     const [antallIBedrift, setAntallIBedrift] = useState('');
 
-    const skjemaErInnsendt = context.skjema.sendtInnTidspunkt!;
-    const sideTittel = skjemaErInnsendt ? 'Oppsummering' : 'Er opplysningene riktige?';
-
     useEffect(() => {
         finnÅrsakstekst(context.skjema.årsakskode).then(setLesbarÅrsakskode);
     }, [context.skjema.årsakskode]);
-
-    const lagAntallBerorteTekst = () => {
-        if (context.skjema.antallBerørt) {
-            return context.skjema.antallBerørt === 1 ? ' person' : ' personer';
-        }
-        return;
-    };
 
     const fraDato = context.skjema.startDato
         ? formatterDato(new Date(context.skjema.startDato))
@@ -70,8 +68,12 @@ const Oppsummering: FunctionComponent = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        loggNavarendeSteg('oppsummeringsside');
-    }, []);
+        const steg =
+            status(context.skjema) === 'Sendt inn'
+                ? 'oppsumeringsside innsendt'
+                : 'oppsummeringsside';
+        loggNavarendeSteg(steg);
+    }, [context.skjema]);
 
     useEffect(() => {
         if (environment.MILJO === 'prod-sbs') {
@@ -95,6 +97,10 @@ const Oppsummering: FunctionComponent = () => {
         }
         context.skjema.type && lesbarårsakskode && loggArsak(lesbarårsakskode, context.skjema.type);
     };
+
+    if (context.skjema.sendtInnTidspunkt) {
+        history.replace('/skjema/kvitteringsside/' + context.skjema.id);
+    }
 
     const sjekkMangler = () => {
         let mangler: string[] = [];
@@ -129,6 +135,7 @@ const Oppsummering: FunctionComponent = () => {
         }
         return mangler;
     };
+
     return (
         <>
             <Dekorator sidetittel={context.skjema.type} />
@@ -139,7 +146,7 @@ const Oppsummering: FunctionComponent = () => {
             >
                 <section className="oppsummering">
                     <div className="oppsummering__tittel-desktop">
-                        <Systemtittel>{sideTittel}</Systemtittel>
+                        <Systemtittel>{'Er opplysningene riktige?'}</Systemtittel>
                     </div>
                     <Veilederpanel
                         type="plakat"
@@ -181,16 +188,14 @@ const Oppsummering: FunctionComponent = () => {
                                     </tr>
                                 </tbody>
                             </table>
-                            {!skjemaErInnsendt && (
-                                <div className="endre-lenke">
-                                    <Lenke
-                                        href={`/permittering/skjema/kontaktinformasjon/${context.skjema.id}`}
-                                        ariaLabel="Gå tilbake for å endre kontaktinformasjon"
-                                    >
-                                        Endre
-                                    </Lenke>
-                                </div>
-                            )}
+                            <div className="endre-lenke">
+                                <Lenke
+                                    href={`/permittering/skjema/kontaktinformasjon/${context.skjema.id}`}
+                                    ariaLabel="Gå tilbake for å endre kontaktinformasjon"
+                                >
+                                    Endre
+                                </Lenke>
+                            </div>
                         </div>
 
                         <div className="oppsummering__boks antall-arbeidstakere">
@@ -198,19 +203,17 @@ const Oppsummering: FunctionComponent = () => {
                                 <Normaltekst className="overskrift">Antall berørte:</Normaltekst>
                                 <div>
                                     <SjekkOmFyltUt verdi={context.skjema.antallBerørt} />
-                                    {lagAntallBerorteTekst()}
+                                    {lagAntallBerorteTekst(context.skjema.antallBerørt)}
                                 </div>
                             </div>
-                            {!skjemaErInnsendt && (
-                                <div className="endre-lenke">
-                                    <Lenke
-                                        href={endreantallberørteLenke}
-                                        ariaLabel="Gå tilbake for å endre antall berørte personer"
-                                    >
-                                        Endre
-                                    </Lenke>
-                                </div>
-                            )}
+                            <div className="endre-lenke">
+                                <Lenke
+                                    href={endreantallberørteLenke}
+                                    ariaLabel="Gå tilbake for å endre antall berørte personer"
+                                >
+                                    Endre
+                                </Lenke>
+                            </div>
                         </div>
 
                         <div className="oppsummering__boks aarsak">
@@ -228,16 +231,15 @@ const Oppsummering: FunctionComponent = () => {
                                     <SjekkOmFyltUt verdi={context.skjema.årsakstekst} />
                                 )}
                             </div>
-                            {!skjemaErInnsendt && (
-                                <div className="endre-lenke">
-                                    <Lenke
-                                        href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
-                                        ariaLabel="Gå tilbake for å endre årsak"
-                                    >
-                                        Endre
-                                    </Lenke>
-                                </div>
-                            )}
+
+                            <div className="endre-lenke">
+                                <Lenke
+                                    href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
+                                    ariaLabel="Gå tilbake for å endre årsak"
+                                >
+                                    Endre
+                                </Lenke>
+                            </div>
                         </div>
 
                         <div className="oppsummering__boks yrkeskategorier">
@@ -245,16 +247,14 @@ const Oppsummering: FunctionComponent = () => {
                                 <Normaltekst className="overskrift">Yrkeskategorier</Normaltekst>
                                 <SjekkOmFyltUt verdi={yrker} />
                             </div>
-                            {!skjemaErInnsendt && (
-                                <div className="endre-lenke">
-                                    <Lenke
-                                        href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
-                                        ariaLabel="Gå tilbake for å endre yrkeskategorier"
-                                    >
-                                        Endre
-                                    </Lenke>
-                                </div>
-                            )}
+                            <div className="endre-lenke">
+                                <Lenke
+                                    href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
+                                    ariaLabel="Gå tilbake for å endre yrkeskategorier"
+                                >
+                                    Endre
+                                </Lenke>
+                            </div>
                         </div>
 
                         <div className="oppsummering__boks varighet">
@@ -277,16 +277,15 @@ const Oppsummering: FunctionComponent = () => {
                                     </div>
                                 </div>
                             </div>
-                            {!skjemaErInnsendt && (
-                                <div className="endre-lenke">
-                                    <Lenke
-                                        href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
-                                        ariaLabel="Gå tilbake for å endre periode"
-                                    >
-                                        Endre
-                                    </Lenke>
-                                </div>
-                            )}
+
+                            <div className="endre-lenke">
+                                <Lenke
+                                    href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
+                                    ariaLabel="Gå tilbake for å endre periode"
+                                >
+                                    Endre
+                                </Lenke>
+                            </div>
                         </div>
 
                         <div className="oppsummering__boks andre-opplysninger">
@@ -296,57 +295,51 @@ const Oppsummering: FunctionComponent = () => {
                                 </Normaltekst>
                                 <Normaltekst>{annet}</Normaltekst>
                             </div>
-                            {!skjemaErInnsendt && (
-                                <div className="endre-lenke">
-                                    <Lenke
-                                        href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
-                                        ariaLabel="Gå tilbake for å endre andre relevante opplysninger"
-                                    >
-                                        Endre
-                                    </Lenke>
-                                </div>
-                            )}
+                            <div className="endre-lenke">
+                                <Lenke
+                                    href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
+                                    ariaLabel="Gå tilbake for å endre andre relevante opplysninger"
+                                >
+                                    Endre
+                                </Lenke>
+                            </div>
                         </div>
                     </Veilederpanel>
-                    {!skjemaErInnsendt && (
-                        <div className="skjema-innhold__fram-og-tilbake">
-                            <Knapp
-                                onClick={async () => {
-                                    await context.lagre();
-                                    history.push(forrigeSide);
-                                }}
-                            >
-                                Tilbake
-                            </Knapp>
+                    <div className="skjema-innhold__fram-og-tilbake">
+                        <Knapp
+                            onClick={async () => {
+                                await context.lagre();
+                                history.push(forrigeSide);
+                            }}
+                        >
+                            Tilbake
+                        </Knapp>
 
-                            <Hovedknapp
-                                id="send-inn-hovedknapp"
-                                className="skjema-innhold__lagre"
-                                onClick={async () => {
-                                    const thisKnapp = document.getElementById(
-                                        'send-inn-hovedknapp'
-                                    );
-                                    thisKnapp && thisKnapp.setAttribute('disabled', 'disabled');
-                                    try {
-                                        setVisFeilmelding(false);
-                                        setManglendeFelter([]);
-                                        await context.sendInn();
-                                        history.push('/skjema/kvitteringsside');
-                                        onSendClickLogging();
-                                        loggSkjemaInnsendt();
-                                    } catch (e) {
-                                        if (e.response.status === 400) {
-                                            setVisFeilmelding(true);
-                                            const mangler = sjekkMangler();
-                                            setManglendeFelter(mangler);
-                                        }
+                        <Hovedknapp
+                            id="send-inn-hovedknapp"
+                            className="skjema-innhold__lagre"
+                            onClick={async () => {
+                                const thisKnapp = document.getElementById('send-inn-hovedknapp');
+                                thisKnapp && thisKnapp.setAttribute('disabled', 'disabled');
+                                try {
+                                    setVisFeilmelding(false);
+                                    setManglendeFelter([]);
+                                    await context.sendInn();
+                                    history.push('/skjema/kvitteringsside/' + context.skjema.id);
+                                    onSendClickLogging();
+                                    loggSkjemaInnsendt();
+                                } catch (e) {
+                                    if (e.response.status === 400) {
+                                        setVisFeilmelding(true);
+                                        const mangler = sjekkMangler();
+                                        setManglendeFelter(mangler);
                                     }
-                                }}
-                            >
-                                Send til NAV
-                            </Hovedknapp>
-                        </div>
-                    )}
+                                }
+                            }}
+                        >
+                            Send til NAV
+                        </Hovedknapp>
+                    </div>
                     <div aria-live="polite">
                         {visFeilmelding && (
                             <div className="feilmelding-send-inn">

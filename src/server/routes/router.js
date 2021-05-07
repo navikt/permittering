@@ -24,6 +24,7 @@ const getConfiguredRouter = (tokenXClient, tokenXIssuer, html) => {
         passport.authenticate('idPortenOIDC', { failureRedirect: paths.basePath }),
         (req, res) => {
             // Ref nais example app that sets id_token in a non http only session
+            // flaakjahsdf localhost-idtoken
             res.cookie('permittering-token', `${req.user.tokenSets.self.id_token}`, {
                 secure: false,
                 sameSite: 'lax',
