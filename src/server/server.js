@@ -93,6 +93,7 @@ const strategy = client => {
             response_types: ['code'],
             response_mode: 'query',
             scope: `openid profile`,
+            resource: 'https://nav.no',
         },
         extras: {
             clientAssertionPayload: {
