@@ -45,6 +45,8 @@ const exchangeToken = (tokenXClient, tokenXIssuer, req) => {
             };
             console.log('additionalClaims', additionalClaims);
             console.log('api audience', API_AUDIENCE);
+            console.log('idporten token sets', req.user.tokenSets['self']);
+            console.log('subject token', req.user.tokenSets['self'].access_token);
             tokenXClient
                 .grant(
                     {
