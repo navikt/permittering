@@ -43,6 +43,8 @@ const exchangeToken = (tokenXClient, tokenXIssuer, req) => {
                     aud: [tokenXIssuer],
                 },
             };
+            console.log('additionalClaims', additionalClaims);
+            console.log('api audience', API_AUDIENCE);
             tokenXClient
                 .grant(
                     {
