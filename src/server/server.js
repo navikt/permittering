@@ -109,7 +109,7 @@ const strategy = client => {
 
 const renderApp = decoratorFragments =>
     new Promise((resolve, reject) => {
-        app.render('index.html', (err, html) => {
+        app.render('index.html', decoratorFragments, (err, html) => {
             if (err) {
                 reject(err);
             } else {

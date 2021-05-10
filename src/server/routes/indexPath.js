@@ -8,7 +8,4 @@ module.exports = (app, html) => {
     app.get('/', (req, res) => {
         res.redirect(301, paths.basePath);
     });
-    app.get(`${paths.basePath}/*`, (req, res) => {
-        res.send(html);
-    });
 };
