@@ -18,7 +18,7 @@ import {
 } from '../../../utils/funksjonerForAmplitudeLogging';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import { splittOppFritekst } from '../../../utils/fritekstFunksjoner';
-import { formatterDato, lagTekstBasertPaSkjemaType } from './oppsummering-utils';
+import { lagTekstBasertPaSkjemaType } from './oppsummering-utils';
 import SjekkOmFyltUt from '../../komponenter/SjekkOmFyltUt/SjekkOmFyltUt';
 import veilederIkon from './gjenstand.svg';
 import './Oppsummering.less';
@@ -61,12 +61,8 @@ const Oppsummering: FunctionComponent = () => {
         finnÅrsakstekst(context.skjema.årsakskode).then(setLesbarÅrsakskode);
     }, [context.skjema.årsakskode]);
 
-    const fraDato = context.skjema.startDato
-        ? formatterDato(new Date(context.skjema.startDato))
-        : '';
-    const tilDato = context.skjema.sluttDato
-        ? formatterDato(new Date(context.skjema.sluttDato))
-        : '';
+    const fraDato = context.skjema.startDato ? context.skjema.startDato : '';
+    const tilDato = context.skjema.sluttDato ? context.skjema.sluttDato : '';
 
     const endreantallberørteLenke = tillatFnrInput
         ? `/permittering/skjema/hvem-rammes/${context.skjema.id}`

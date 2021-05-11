@@ -20,6 +20,7 @@
         "classnames": "^2.3.1",
         "cookie-parser": "^1.4.5",
         "craco-less": "^1.16.0",
+        "dayjs": "^1.10.4",
         "express": "^4.17.1",
         "http-proxy-middleware": "^0.21.0",
         "lodash.throttle": "^4.1.1",

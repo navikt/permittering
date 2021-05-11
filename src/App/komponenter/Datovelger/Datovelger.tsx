@@ -1,108 +1,133 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
+import { UnmountClosed } from 'react-collapse';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import { Input, Label } from 'nav-frontend-skjema';
 import { guid } from 'nav-frontend-js-utils';
 import {
     datoValidering,
+    formaterDato,
     LABELS,
     MONTHS,
-    skrivOmDato,
-    skrivOmDatoStreng,
     WEEKDAYS_LONG,
     WEEKDAYS_SHORT,
-} from './datofunksjoner';
+} from './datovelger-utils';
 import kalender from './kalender.svg';
 import './Datovelger.less';
-
-export enum Felttype {
-    FRA = 'Fra:',
-    TIL = 'Til:',
-}
+import dayjs, { Dayjs } from 'dayjs';
 
 interface Props {
-    overtekst: Felttype;
-    value?: string;
-    onChange: (event: any) => void;
+    overtekst: string;
+    value?: Dayjs;
+    onChange: (event: { currentTarget: { value: Dayjs } }) => void;
     disabled?: boolean;
-    skalVareEtter?: Date;
-    skalVareFoer?: Date;
+    skalVareEtter?: Dayjs;
+    skalVareFoer?: Dayjs;
+    className?: string;
+    tjenesteBestemtFeilmelding?: string;
 }
 
+const customParseFormat = require('dayjs/plugin/customParseFormat');
+dayjs.extend(customParseFormat);
+
 const Datovelger: FunctionComponent<Props> = props => {
+    const dagensDato = dayjs();
     const datepickernode = useRef<HTMLDivElement>(null);
+    const knappRef = useRef<HTMLButtonElement>(null);
     const [erApen, setErApen] = useState(false);
     const [editing, setEditing] = useState(false);
-    const selectedDate = new Date(props.value || new Date());
-    const [tempDate, setTempDate] = useState(skrivOmDato(selectedDate));
+    const selectedDate: Dayjs = props.value || dagensDato;
+    const [tempDate, setTempDate] = useState(formaterDato(selectedDate));
     const [feilmelding, setFeilMelding] = useState('');
 
     const datovelgerId = guid();
 
     const tekstIInputfeltet = () => {
-        if (props.value) {
-            return editing ? tempDate : skrivOmDato(selectedDate);
-        } else {
-            return 'dd/mm/yyyy';
+        if (!editing && !props.value) {
+            return 'dd.mm.yyyy';
         }
+        return editing ? tempDate : formaterDato(selectedDate);
     };
 
-    const onDatoClick = (day: Date) => {
-        const feilmelding = datoValidering(day, props.skalVareEtter, props.skalVareFoer);
-        if (feilmelding !== '') {
-            setFeilMelding(feilmelding);
+    const velgDato = (date: Dayjs) => {
+        props.onChange({
+            currentTarget: {
+                value: date,
+            },
+        });
+        const nyFeilmelding = datoValidering(date, props.skalVareEtter, props.skalVareFoer);
+        if (nyFeilmelding !== '') {
+            setFeilMelding(nyFeilmelding);
         } else {
-            props.onChange({
-                currentTarget: {
-                    value: day,
-                },
-            });
             setFeilMelding('');
         }
         setErApen(false);
+        knappRef?.current?.focus();
     };
 
     const inputOnBlur = (event: any) => {
         setEditing(false);
-        const newDato = skrivOmDatoStreng(event.currentTarget.value);
-        if (newDato) {
-            onDatoClick(newDato);
-        } else {
-            setFeilMelding('dd/mm/yyyy');
+        const newDato = dayjs(event.currentTarget.value, 'DD.MM.YYYY');
+        console.log(event.currentTarget.value, 'ny dato: skal vare rett formatert', newDato);
+        if (newDato.isValid()) {
+            velgDato(newDato);
+        } else if (tekstIInputfeltet() !== 'dd.mm.yyyy') {
+            setFeilMelding('dd.mm.yyyy');
             setErApen(false);
         }
     };
 
-    const handleOutsideClick: { (event: MouseEvent): void } = (e: MouseEvent) => {
-        const node = datepickernode.current;
-        // @ts-ignore
-        if (node && node.contains(e.target as HTMLElement)) {
-            return;
+    useEffect(() => {
+        const verdi = props.skalVareFoer ? props.skalVareFoer : props.skalVareEtter;
+        if (verdi) {
+            setFeilMelding(datoValidering(verdi, props.skalVareEtter, props.skalVareFoer));
         }
-        setErApen(false);
-    };
+    }, [props.skalVareEtter, props.skalVareFoer]);
 
     useEffect(() => {
-        document.addEventListener('click', handleOutsideClick, false);
+        if (props.tjenesteBestemtFeilmelding?.length) {
+            setFeilMelding(props.tjenesteBestemtFeilmelding);
+        }
+        if (props.disabled) {
+            setFeilMelding('');
+        }
+    }, [props.tjenesteBestemtFeilmelding, props.disabled]);
 
-        return () => {
-            window.removeEventListener('click', handleOutsideClick, false);
+    useEffect(() => {
+        if (erApen) {
+            setFeilMelding('');
+        }
+    }, [erApen]);
+
+    useEffect(() => {
+        const handleOutsideClick = (e: MouseEvent) => {
+            const node = datepickernode.current;
+            // @ts-ignore
+            if (node && node.contains(e.target as HTMLElement)) {
+                return;
+            }
+            if (erApen) {
+                setErApen(false);
+                knappRef?.current?.focus();
+            }
         };
-    }, []);
+        document.addEventListener('click', handleOutsideClick, false);
+        return () => {
+            document.removeEventListener('click', handleOutsideClick, false);
+        };
+    }, [erApen, setErApen]);
 
     return (
-        <div ref={datepickernode} className={'datofelt'}>
+        <div ref={datepickernode} className={'datofelt ' + props.className}>
             <Label htmlFor={datovelgerId}>{props.overtekst}</Label>
-            <div className="datofelt__input-container">
+            <div className={'datofelt__input-container'}>
                 <Input
                     feil={feilmelding}
                     disabled={props.disabled}
                     id={datovelgerId}
-                    aria-label={`Skriv ${
-                        props.overtekst === Felttype.FRA ? 'startdato' : 'sluttdato'
-                    }`}
+                    aria-label="Skriv startdato:"
                     value={tekstIInputfeltet()}
-                    className="datofelt__input"
+                    className={'datofelt__input'}
                     onChange={event => {
                         setEditing(true);
                         setTempDate(event.currentTarget.value);
@@ -112,34 +137,38 @@ const Datovelger: FunctionComponent<Props> = props => {
                     }}
                 />
                 <button
+                    aria-label={'Velg' + props.overtekst + ' dato'}
                     disabled={props.disabled}
-                    className="datofelt__knapp"
+                    className={'datofelt__knapp'}
                     onClick={() => setErApen(!erApen)}
-                    aria-label={`Velg ${
-                        props.overtekst === Felttype.FRA ? 'startdato' : 'sluttdato'
-                    } - Trykk enter for å ${erApen ? 'lukke' : 'åpne'} datovelgeren.`}
-                    aria-pressed={erApen}
-                    aria-haspopup="true"
-                    aria-controls={`datovelger-${props.overtekst}`}
-                    aria-expanded={erApen}
+                    ref={knappRef}
                 >
-                    <img alt="" src={kalender} />
+                    <img alt={''} src={kalender} />
                 </button>
             </div>
-            <div id={`datovelger-${props.overtekst}`}>
-                {erApen && (
-                    <DayPicker
-                        selectedDays={selectedDate}
-                        month={selectedDate}
-                        firstDayOfWeek={1}
-                        onDayClick={day => onDatoClick(day)}
-                        months={MONTHS['no']}
-                        weekdaysLong={WEEKDAYS_LONG['no']}
-                        weekdaysShort={WEEKDAYS_SHORT['no']}
-                        labels={LABELS['no']}
-                    />
-                )}
-            </div>
+            <UnmountClosed isOpened={erApen}>
+                <DayPicker
+                    onKeyDown={e => {
+                        if (e.key === 'Escape') {
+                            setErApen(false);
+                        }
+                    }}
+                    className={'datofelt__collapse'}
+                    selectedDays={selectedDate.toDate()}
+                    month={selectedDate.toDate()}
+                    firstDayOfWeek={1}
+                    onDayKeyDown={(date, modifiers, e) => {
+                        if (e.key === 'Tab') {
+                            setErApen(!erApen);
+                        }
+                    }}
+                    onDayClick={(day: Date) => velgDato(dayjs(day))}
+                    months={MONTHS['no']}
+                    weekdaysLong={WEEKDAYS_LONG['no']}
+                    weekdaysShort={WEEKDAYS_SHORT['no']}
+                    labels={LABELS['no']}
+                />
+            </UnmountClosed>
         </div>
     );
 };

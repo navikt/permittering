@@ -11,7 +11,7 @@ import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import { useSkjemaSteg } from '../use-skjema-steg';
 import { mergeFritekst, splittOppFritekst } from '../../../utils/fritekstFunksjoner';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
-import Datovelger, { Felttype } from '../../komponenter/Datovelger/Datovelger';
+import Datovelger from '../../komponenter/Datovelger/Datovelger';
 import { lagTekstBasertPaSkjemaType } from '../Side4-oppsummering/oppsummering-utils';
 import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
@@ -24,14 +24,16 @@ import { Permitteringsårsaksvelger } from '../../komponenter/PermitteringsÅrsa
 import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 import './Side2.less';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
+import dayjs, { Dayjs } from 'dayjs';
+import { formaterDato } from '../../komponenter/Datovelger/datovelger-utils';
 
 const Side2: FunctionComponent = () => {
     const history = useHistory();
     const featureToggleContext = useContext(FeatureToggleContext);
     const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
 
-    const [datoFra, setDatoFra] = useState(new Date());
-    const [datoTil, setDatoTil] = useState(undefined);
+    const [datoFra, setDatoFra] = useState(dayjs());
+    const [datoTil, setDatoTil] = useState<Dayjs | undefined>(undefined);
     const [feilMeldingAntallBerort, setFeilmeldingAntallBerort] = useState('');
 
     const context = useContext(SkjemaContext);
@@ -214,26 +216,37 @@ const Side2: FunctionComponent = () => {
                 </Element>
                 <div className="skjema-innhold__side-2-dato-container">
                     <Datovelger
-                        value={context.skjema.startDato}
+                        value={datoFra}
                         onChange={event => {
-                            context.endreSkjemaVerdi('startDato', event.currentTarget.value);
-                            setDatoFra(event.currentTarget.value);
+                            context.endreSkjemaVerdi(
+                                'startDato',
+                                formaterDato(event.currentTarget.value)
+                            );
+                            setDatoFra(
+                                dayjs(formaterDato(event.currentTarget.value), 'DD.MM.YYYY')
+                            );
                         }}
                         skalVareFoer={datoTil}
-                        overtekst={Felttype.FRA}
+                        overtekst={'Fra'}
                     />
                     <div className="skjema-innhold__dato-velger-til">
                         <Datovelger
-                            value={context.skjema.sluttDato}
+                            value={datoTil}
                             onChange={event => {
-                                context.endreSkjemaVerdi('sluttDato', event.currentTarget.value);
-                                setDatoTil(event.currentTarget.value);
+                                context.endreSkjemaVerdi(
+                                    'sluttDato',
+                                    formaterDato(event.currentTarget.value)
+                                );
+                                setDatoTil(
+                                    dayjs(formaterDato(event.currentTarget.value), 'DD.MM.YYYY')
+                                );
                             }}
                             disabled={context.skjema.ukjentSluttDato}
-                            overtekst={Felttype.TIL}
+                            overtekst={'Til'}
                             skalVareEtter={datoFra}
                         />
                         <Checkbox
+                            className="skjema-innhold__dato-velger-til-checkboks"
                             label="Vet ikke hvor lenge det vil vare"
                             checked={context.skjema.ukjentSluttDato}
                             onChange={() =>
