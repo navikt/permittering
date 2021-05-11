@@ -27,7 +27,7 @@ const ensureAuthenticated = async (req, res, next) => {
         next();
     } else {
         session.redirectTo = req.originalUrl;
-        res.redirect(`${FRONTEND_BASE_URL}/login`);
+        res.redirect(`${FRONTEND_BASE_URL}`);
     }
 };
 
@@ -43,6 +43,9 @@ const exchangeToken = (tokenXClient, tokenXIssuer, req) => {
                     aud: [tokenXIssuer],
                 },
             };
+            if (!req.user) {
+                reject('Ikke pålogget');
+            }
             tokenXClient
                 .grant(
                     {
