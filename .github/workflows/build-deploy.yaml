@@ -46,7 +46,7 @@ jobs:
       - uses: actions/checkout@v1
       - uses: nais/deploy/actions/deploy@v1
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          APIKEY: ${{ secrets.NAIS_DEPLOY_KEY_TEAM }}
           CLUSTER: dev-gcp
           VAR: version=${{ env.IMAGE }}
           RESOURCE: nais/dev-gcp.yaml,nais/redis.yaml
@@ -61,7 +61,7 @@ jobs:
       - uses: actions/checkout@v1
       - uses: nais/deploy/actions/deploy@v1
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          APIKEY: ${{ secrets.NAIS_DEPLOY_KEY_TEAM }}
           CLUSTER: dev-sbs
           VAR: version=${{ env.IMAGE }}
           RESOURCE: nais/dev-sbs.yaml
@@ -76,7 +76,7 @@ jobs:
       - uses: actions/checkout@v1
       - uses: nais/deploy/actions/deploy@v1
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          APIKEY: ${{ secrets.NAIS_DEPLOY_KEY_TEAM }}
           CLUSTER: prod-sbs
           VAR: version=${{ env.IMAGE }}
           RESOURCE: nais/prod-sbs.yaml
