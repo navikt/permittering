@@ -1,6 +1,6 @@
 FROM navikt/node-express:12.2.0
 WORKDIR /app
-RUN yarn add passport openid-client express-http-proxy express-session mustache-express jsdom promise
+RUN yarn add passport openid-client express-http-proxy express-session mustache-express jsdom promise redis connect-redis
 
 COPY build/ build/
 COPY src/server/ src/server/
