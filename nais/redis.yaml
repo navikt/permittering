@@ -3,11 +3,11 @@ apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
   labels:
-    team: arbeidsgiver
+    team: permittering-og-nedbemanning
   name: permittering-redis
-  namespace: arbeidsgiver
+  namespace: permittering-og-nedbemanning
 spec:
-  image: bitnami/redis:5.0.9
+  image: bitnami/redis:6.0.13
   port: 6379
   replicas:
     min: 1
@@ -27,4 +27,4 @@ spec:
       rules:
         - application: permittering
   envFrom:
-    - secret: redis-password
+    - secret: permittering-redis-secrets

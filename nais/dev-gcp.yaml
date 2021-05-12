@@ -2,9 +2,9 @@ apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
   name: permittering
-  namespace: arbeidsgiver
+  namespace: permittering-og-nedbemanning
   labels:
-    team: arbeidsgiver
+    team: permittering-og-nedbemanning
 spec:
   image: {{ version }}
   team: arbeidsgiver
@@ -28,11 +28,13 @@ spec:
     redirectPath: /oauth2/callback
     postLogoutRedirectURIs:
       - https://permitteringsskjema.dev.nav.no/permittering
-
   accessPolicy:
     outbound:
       external:
         - host: dekoratoren.dev.nav.no
+  envFrom:
+    - secret: permittering-redis-secrets
+    - secret: permittering-secrets
   env:
     - name: NODE_EXTRA_CA_CERTS
       value: /etc/ssl/ca-bundle.pem

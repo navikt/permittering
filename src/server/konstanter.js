@@ -43,6 +43,10 @@ const PERMITTERING_SESSION_NAME = process.env.PERMITTERING_SESSION_NAME || 'perm
 
 const API_AUDIENCE = process.env.API_AUDIENCE || 'tokenx';
 
+const REDIS_HOST = process.env.REDIS_HOST;
+const REDIS_PASSWORD = process.env.REDIS_PASSWORD;
+const REDIS_PORT = process.env.REDIS_PORT;
+
 module.exports = {
     API_AUDIENCE,
     IDPORTEN_WELL_KNOWN_URL,
@@ -58,4 +62,7 @@ module.exports = {
     FRONTEND_BASE_URL,
     BACKEND_API_PATH,
     BACKEND_BASEURL,
+    REDIS_HOST,
+    REDIS_PASSWORD,
+    REDIS_PORT,
 };

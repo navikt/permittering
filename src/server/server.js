@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const passport = require('passport');
 const session = require('express-session');
+const redis = require('redis');
+const RedisStore = require('connect-redis');
 const { Issuer, Strategy } = require('openid-client');
 const mustacheExpress = require('mustache-express');
 const getDecorator = require('./routes/decorator');
@@ -19,6 +21,9 @@ const {
     TOKEN_X_WELL_KNOWN_URL,
     TOKEN_X_CLIENT_ID,
     TOKEN_X_PRIVATE_JWK,
+    REDIS_HOST,
+    REDIS_PASSWORD,
+    REDIS_PORT,
 } = require('./konstanter');
 app.engine('html', mustacheExpress());
 app.set('view engine', 'mustache');
@@ -58,6 +63,22 @@ const getConfiguredTokenXClient = async () => {
             keys: [TOKEN_X_PRIVATE_JWK],
         }
     );
+};
+
+const setupRedis = () => {
+    const store = RedisStore(session);
+    const client = redis.createClient({
+        host: REDIS_HOST,
+        password: REDIS_PASSWORD,
+        port: REDIS_PORT,
+    });
+    client.unref();
+    client.on('debug', console.log);
+
+    return new store({
+        client: client,
+        disableTouch: true,
+    });
 };
 
 const sessionOptions = {
@@ -119,6 +140,10 @@ const renderApp = decoratorFragments =>
     });
 
 const startServer = async html => {
+    if (process.env.NODE_ENV !== 'development') {
+        sessionOptions.cookie.secure = true;
+        sessionOptions.store = setupRedis();
+    }
     app.use(session(sessionOptions));
     const idPortenClient = await getConfiguredIDportenClient();
     const tokenXClient = await getConfiguredTokenXClient();
@@ -143,10 +168,6 @@ const startServer = async html => {
  * @param app
  * @param p
  */
-// renderApp().then(html => {
-//     startServer(html);
-// });
-
 getDecorator()
     .then(renderApp, error => {
         console.error('Kunne ikke hente dekoratør ', error);

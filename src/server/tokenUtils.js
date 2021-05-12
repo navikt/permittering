@@ -60,6 +60,7 @@ const exchangeToken = (tokenXClient, tokenXIssuer, req) => {
                 )
                 .then(tokenSet => {
                     req.user.tokenSets[BACKEND_CLIENT_ID] = tokenSet;
+                    console.log('got new exchanged token', tokenSet);
                     resolve(tokenSet.access_token);
                 })
                 .catch(err => {

@@ -5,7 +5,7 @@ module.exports = app => {
     app.get(
         paths.redirectTilLoginPath,
         passport.authenticate('idPortenOIDC', {
-            successRedirect: `/success`,
+            successRedirect: `/permittering`,
             failureRedirect: `/permittering`,
         })
     );
