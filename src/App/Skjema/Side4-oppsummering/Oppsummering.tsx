@@ -27,6 +27,9 @@ import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 import { status } from '../../Forside/SkjemaTabell/SkjemaTabell';
 import AlertStripe from 'nav-frontend-alertstriper';
+import dayjs from 'dayjs';
+const customParseFormat = require('dayjs/plugin/customParseFormat');
+dayjs.extend(customParseFormat);
 
 export const lagAntallBerorteTekst = (antallBerorte?: number) => {
     if (antallBerorte) {
@@ -60,6 +63,26 @@ const Oppsummering: FunctionComponent = () => {
     useEffect(() => {
         finnÅrsakstekst(context.skjema.årsakskode).then(setLesbarÅrsakskode);
     }, [context.skjema.årsakskode]);
+
+    const erGyldigDatoInput = (): boolean => {
+        console.log('blir denne kallt');
+        if (context.skjema.ukjentSluttDato) {
+            console.log('condition 2: ', context.skjema.startDato, context.skjema.ukjentSluttDato);
+            return context.skjema.startDato !== '' && context.skjema.ukjentSluttDato === true;
+        }
+        if (context.skjema.sluttDato && context.skjema.startDato) {
+            console.log(
+                'condition: ',
+                dayjs(context.skjema.sluttDato, 'DD.MM.YYYY').isAfter(
+                    dayjs(context.skjema.startDato, 'DD.MM.YYYY')
+                )
+            );
+            return dayjs(context.skjema.sluttDato, 'DD.MM.YYYY').isAfter(
+                dayjs(context.skjema.startDato, 'DD.MM.YYYY')
+            );
+        }
+        return false;
+    };
 
     const fraDato = context.skjema.startDato ? context.skjema.startDato : '';
     const tilDato = context.skjema.sluttDato ? context.skjema.sluttDato : '';
@@ -132,8 +155,8 @@ const Oppsummering: FunctionComponent = () => {
         if (!yrker) {
             mangler.push('Yrkeskategorier er ikke fylt ut');
         }
-        if (!fraDato) {
-            mangler.push('Startdato er ikke fylt ut');
+        if (!erGyldigDatoInput()) {
+            mangler.push('Ugyldig datoformat');
         }
         return mangler;
     };
@@ -267,14 +290,20 @@ const Oppsummering: FunctionComponent = () => {
                                 <div>
                                     <div>
                                         <span className="fra-til">Fra:</span>
-                                        <SjekkOmFyltUt verdi={fraDato} />
+                                        <SjekkOmFyltUt
+                                            ugyldigInput={!erGyldigDatoInput()}
+                                            verdi={fraDato}
+                                        />
                                     </div>
                                     <div>
                                         <span className="fra-til">Til:</span>
                                         {context.skjema.ukjentSluttDato ? (
                                             'Vet ikke hvor lenge det vil vare'
                                         ) : (
-                                            <SjekkOmFyltUt verdi={tilDato} />
+                                            <SjekkOmFyltUt
+                                                ugyldigInput={!erGyldigDatoInput()}
+                                                verdi={tilDato}
+                                            />
                                         )}
                                     </div>
                                 </div>
@@ -323,6 +352,12 @@ const Oppsummering: FunctionComponent = () => {
                             onClick={async () => {
                                 const thisKnapp = document.getElementById('send-inn-hovedknapp');
                                 thisKnapp && thisKnapp.setAttribute('disabled', 'disabled');
+                                const mangler = sjekkMangler();
+                                setManglendeFelter(mangler);
+                                if (mangler.length > 0) {
+                                    setVisFeilmeldingManglendeFelter(true);
+                                    return;
+                                }
                                 try {
                                     setVisFeilmeldingManglendeFelter(false);
                                     setManglendeFelter([]);
@@ -334,11 +369,9 @@ const Oppsummering: FunctionComponent = () => {
                                 } catch (e) {
                                     if (e.response.status === 400) {
                                         setVisFeilmeldingManglendeFelter(true);
-                                        const mangler = sjekkMangler();
-                                        setManglendeFelter(mangler);
                                     } else {
                                         setFeilVedInnsending(true);
-                                        thisKnapp && thisKnapp.removeAttribute('disabled');
+                                        thisKnapp?.removeAttribute('disabled');
                                     }
                                 }
                             }}
