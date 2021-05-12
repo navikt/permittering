@@ -65,18 +65,10 @@ const Oppsummering: FunctionComponent = () => {
     }, [context.skjema.årsakskode]);
 
     const erGyldigDatoInput = (): boolean => {
-        console.log('blir denne kallt');
         if (context.skjema.ukjentSluttDato) {
-            console.log('condition 2: ', context.skjema.startDato, context.skjema.ukjentSluttDato);
-            return context.skjema.startDato !== '' && context.skjema.ukjentSluttDato === true;
+            return context.skjema.startDato !== '' && context.skjema.ukjentSluttDato;
         }
         if (context.skjema.sluttDato && context.skjema.startDato) {
-            console.log(
-                'condition: ',
-                dayjs(context.skjema.sluttDato, 'DD.MM.YYYY').isAfter(
-                    dayjs(context.skjema.startDato, 'DD.MM.YYYY')
-                )
-            );
             return dayjs(context.skjema.sluttDato, 'DD.MM.YYYY').isAfter(
                 dayjs(context.skjema.startDato, 'DD.MM.YYYY')
             );
@@ -113,7 +105,6 @@ const Oppsummering: FunctionComponent = () => {
     }, [organisasjoner, context.skjema.bedriftNr]);
 
     const onSendClickLogging = () => {
-        console.log('on send logging');
         const antallBerorte = context.skjema.antallBerørt ? context.skjema.antallBerørt : 0;
         const antallIBedriftInt = parseInt(antallIBedrift);
         if (antallBerorte > 0 && context.skjema.type && antallIBedriftInt > 0) {

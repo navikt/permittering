@@ -26,23 +26,40 @@ import './Side2.less';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 import dayjs, { Dayjs } from 'dayjs';
 import { formaterDato } from '../../komponenter/Datovelger/datovelger-utils';
+const customParseFormat = require('dayjs/plugin/customParseFormat');
+dayjs.extend(customParseFormat);
 
 const Side2: FunctionComponent = () => {
     const history = useHistory();
     const featureToggleContext = useContext(FeatureToggleContext);
     const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
+    const context = useContext(SkjemaContext);
 
-    const [datoFra, setDatoFra] = useState(dayjs());
-    const [datoTil, setDatoTil] = useState<Dayjs | undefined>(undefined);
+    const [datoFra, setDatoFra] = useState<Dayjs | undefined>(
+        dayjs(context.skjema.startDato, 'DD.MM.YYYY')
+    );
+    const [datoTil, setDatoTil] = useState<Dayjs | undefined>(
+        dayjs(context.skjema.sluttDato, 'DD.MM.YYYY')
+    );
     const [feilMeldingAntallBerort, setFeilmeldingAntallBerort] = useState('');
 
-    const context = useContext(SkjemaContext);
     let { yrkeskategorier = [] } = context.skjema;
 
     useEffect(() => {
         window.scrollTo(0, 0);
         loggNavarendeSteg('generelle-opplysninger');
     }, []);
+
+    useEffect(() => {
+        const datoFra = dayjs(context.skjema.startDato, 'DD.MM.YYYY');
+        const datoTil = dayjs(context.skjema.sluttDato, 'DD.MM.YYYY');
+        if (datoFra.isValid()) {
+            setDatoFra(datoFra);
+        }
+        if (datoTil.isValid()) {
+            setDatoTil(datoTil);
+        }
+    }, [context.skjema.sluttDato, context.skjema.startDato, context.skjema.ukjentSluttDato]);
 
     useEffect(() => {
         if (context.skjema.ukjentSluttDato) {

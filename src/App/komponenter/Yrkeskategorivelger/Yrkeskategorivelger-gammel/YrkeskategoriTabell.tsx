@@ -48,7 +48,6 @@ const YrkeskategoriTabell: React.FunctionComponent<any> = ({ selected, setSelect
                                 <SlettKnapp
                                     ariaLabel={'slette'}
                                     onClick={() => {
-                                        console.log('sletter', kategori.key);
                                         const selectedCopy = [...selected];
                                         selectedCopy.splice(index, 1);
                                         setSelected(selectedCopy);

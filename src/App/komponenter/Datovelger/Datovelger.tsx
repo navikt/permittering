@@ -68,7 +68,6 @@ const Datovelger: FunctionComponent<Props> = props => {
     const inputOnBlur = (event: any) => {
         setEditing(false);
         const newDato = dayjs(event.currentTarget.value, 'DD.MM.YYYY');
-        console.log(event.currentTarget.value, 'ny dato: skal vare rett formatert', newDato);
         if (newDato.isValid()) {
             velgDato(newDato);
         } else if (tekstIInputfeltet() !== 'dd.mm.yyyy') {
