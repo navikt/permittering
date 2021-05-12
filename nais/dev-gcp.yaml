@@ -49,4 +49,4 @@ spec:
     - name: BACKEND_API_PATH
       value: /permitteringsskjema-api
     - name: REDIS_HOST
-      value: permittering.permittering-og-nedbemanning.svc.cluster.local
+      value: permittering-redis.permittering-og-nedbemanning.svc.cluster.local
