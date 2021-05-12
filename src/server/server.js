@@ -74,7 +74,7 @@ const setupRedis = () => {
     });
     client.unref();
     client.on('debug', console.log);
-
+    console.log('setting up redis');
     return new store({
         client: client,
         disableTouch: true,
@@ -141,9 +141,10 @@ const renderApp = decoratorFragments =>
 
 const startServer = async html => {
     if (process.env.NODE_ENV !== 'development') {
-        sessionOptions.cookie.secure = true;
+        // sessionOptions.cookie.secure = true;
         sessionOptions.store = setupRedis();
     }
+    // console.log("sessionOptions", sessionOptions);
     app.use(session(sessionOptions));
     const idPortenClient = await getConfiguredIDportenClient();
     const tokenXClient = await getConfiguredTokenXClient();
