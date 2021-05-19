@@ -77,13 +77,6 @@ const Datovelger: FunctionComponent<Props> = props => {
     };
 
     useEffect(() => {
-        const verdi = props.skalVareFoer ? props.skalVareFoer : props.skalVareEtter;
-        if (verdi) {
-            setFeilMelding(datoValidering(verdi, props.skalVareEtter, props.skalVareFoer));
-        }
-    }, [props.skalVareEtter, props.skalVareFoer]);
-
-    useEffect(() => {
         if (props.tjenesteBestemtFeilmelding?.length) {
             setFeilMelding(props.tjenesteBestemtFeilmelding);
         }

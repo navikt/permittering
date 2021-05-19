@@ -35,12 +35,15 @@ const Side2: FunctionComponent = () => {
     const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
     const context = useContext(SkjemaContext);
 
-    const [datoFra, setDatoFra] = useState<Dayjs | undefined>(
-        dayjs(context.skjema.startDato, 'DD.MM.YYYY')
-    );
-    const [datoTil, setDatoTil] = useState<Dayjs | undefined>(
-        dayjs(context.skjema.sluttDato, 'DD.MM.YYYY')
-    );
+    const startDato = dayjs(context.skjema.startDato, 'DD.MM.YYYY').isValid()
+        ? dayjs(context.skjema.startDato, 'DD.MM.YYYY')
+        : undefined;
+    const sluttDato = dayjs(context.skjema.sluttDato, 'DD.MM.YYYY').isValid()
+        ? dayjs(context.skjema.sluttDato, 'DD.MM.YYYY')
+        : undefined;
+
+    const [datoFra, setDatoFra] = useState<Dayjs | undefined>(startDato);
+    const [datoTil, setDatoTil] = useState<Dayjs | undefined>(sluttDato);
     const [feilMeldingAntallBerort, setFeilmeldingAntallBerort] = useState('');
 
     let { yrkeskategorier = [] } = context.skjema;
