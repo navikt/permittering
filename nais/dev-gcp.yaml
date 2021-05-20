@@ -45,7 +45,7 @@ spec:
     - name: LOGIN_URL
       value: https://loginservice.dev.nav.no/login?redirect=https://permitteringsskjema.dev.nav.no/permittering
     - name: API_AUDIENCE
-      value: dev-fss:default:permitteringsskjema-api
+      value: dev-fss:permittering-og-nedbemanning:permitteringsskjema-api
     - name: BACKEND_BASEURL
       value: https://arbeidsgiver-permitteringsskjema-api.dev-fss-pub.nais.io
     - name: BACKEND_API_PATH
