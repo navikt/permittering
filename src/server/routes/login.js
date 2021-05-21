@@ -1,7 +1,8 @@
 const paths = require('../../paths');
 const passport = require('passport');
+const { IDPORTEN_POST_LOGOUT_REDIRECT_URI } = require('../konstanter');
 
-module.exports = app => {
+module.exports = (app, idPortenEndSession) => {
     app.get(
         paths.redirectTilLoginPath,
         passport.authenticate('idPortenOIDC', {
@@ -24,4 +25,24 @@ module.exports = app => {
             res.redirect('/permittering');
         }
     );
+
+    app.get(paths.logoutPath, function(req, res) {
+        console.log('Logging out and redirecting back to', IDPORTEN_POST_LOGOUT_REDIRECT_URI);
+        console.log('end session url', idPortenEndSession);
+        req.session.destroy();
+        req.logout();
+        res.cookie('permittering-token', {
+            expires: Date.now(),
+        });
+        if (idPortenEndSession) {
+            console.log(
+                `${idPortenEndSession}?post_logout_redirect_uri=${IDPORTEN_POST_LOGOUT_REDIRECT_URI}&id_token_hint=${req.user.tokenSets.self.id_token}`
+            );
+            res.redirect(
+                `${idPortenEndSession}?post_logout_redirect_uri=${IDPORTEN_POST_LOGOUT_REDIRECT_URI}&id_token_hint=${req.user.tokenSets.self.id_token}`
+            );
+        } else {
+            res.redirect(IDPORTEN_POST_LOGOUT_REDIRECT_URI);
+        }
+    });
 };

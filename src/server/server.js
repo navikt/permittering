@@ -31,11 +31,13 @@ app.set('views', buildPath);
 
 let idPortenIssuer = null;
 let tokenXIssuer = null;
+let idPortenEndSession = null;
 
 const getConfiguredIDportenClient = async () => {
     const issuer = await Issuer.discover(IDPORTEN_WELL_KNOWN_URL);
     console.log(`Discovered issuer ${issuer.issuer}`);
     idPortenIssuer = issuer.issuer;
+    idPortenEndSession = issuer.end_session_endpoint;
     return new issuer.Client(
         {
             client_id: IDPORTEN_CLIENT_ID,
@@ -156,7 +158,7 @@ const startServer = async html => {
     passport.use('idPortenOIDC', strategy(idPortenClient));
 
     console.log('start regular server');
-    const router = getConfiguredRouter(tokenXClient, tokenXIssuer, html);
+    const router = getConfiguredRouter(tokenXClient, tokenXIssuer, idPortenEndSession, html);
     app.use('/', router);
     app.listen(port, () => {
         console.log('Server listening on port', port);

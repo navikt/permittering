@@ -31,6 +31,8 @@ const testJwk = JSON.stringify({
 const IDPORTEN_CLIENT_JWK = JSON.parse(process.env.IDPORTEN_CLIENT_JWK || testJwk);
 const IDPORTEN_REDIRECT_URI =
     process.env.IDPORTEN_REDIRECT_URI || 'http://localhost:3000/permittering/oauth2/callback';
+const IDPORTEN_POST_LOGOUT_REDIRECT_URI =
+    process.env.IDPORTEN_POST_LOGOUT_REDIRECT_URI || 'http://localhost:3000/permittering/';
 
 const TOKEN_X_WELL_KNOWN_URL =
     process.env.TOKEN_X_WELL_KNOWN_URL ||
@@ -53,6 +55,7 @@ module.exports = {
     IDPORTEN_CLIENT_ID,
     IDPORTEN_CLIENT_JWK,
     IDPORTEN_REDIRECT_URI,
+    IDPORTEN_POST_LOGOUT_REDIRECT_URI,
     TOKEN_X_WELL_KNOWN_URL,
     TOKEN_X_CLIENT_ID,
     TOKEN_X_PRIVATE_JWK,

@@ -8,8 +8,8 @@ const apiProxy = require('./apiProxy');
 
 const app = express.Router();
 
-const getConfiguredRouter = (tokenXClient, tokenXIssuer, html) => {
-    loginRoutes(app);
+const getConfiguredRouter = (tokenXClient, tokenXIssuer, idPortenEndSession, html) => {
+    loginRoutes(app, idPortenEndSession);
     internalRoutes(app);
     settingsJs(app);
     indexRoute(app);

@@ -7,6 +7,7 @@
     "isAlivePath": "/permittering/internal/isAlive",
     "isReadyPath": "/permittering/internal/isReady",
     "redirectTilLoginPath": "/permittering/redirect-til-login",
+    "logoutPath": "/permittering/logout",
     "refusjonAvbrytPath": "/permittering/api/refusjon/:id/avbryt",
     "refusjonListPath": "/permittering/api/refusjon",
     "refusjonPath": "/permittering/api/refusjon/:id",
