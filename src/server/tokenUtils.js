@@ -26,8 +26,11 @@ const ensureAuthenticated = async (req, res, next) => {
     if (req.isAuthenticated() && hasValidAccessToken(req)) {
         next();
     } else {
-        session.redirectTo = req.originalUrl;
-        res.redirect(`${FRONTEND_BASE_URL}`);
+        req.session.destroy();
+        res.cookie('permittering-token', {
+            expires: Date.now(),
+        });
+        res.sendStatus(401);
     }
 };
 
@@ -60,7 +63,7 @@ const exchangeToken = (tokenXClient, tokenXIssuer, req) => {
                 )
                 .then(tokenSet => {
                     req.user.tokenSets[BACKEND_CLIENT_ID] = tokenSet;
-                    console.log('got new exchanged token', tokenSet);
+                    // console.log("Ny access token til backend", tokenSet.access_token);
                     resolve(tokenSet.access_token);
                 })
                 .catch(err => {

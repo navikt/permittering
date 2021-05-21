@@ -7,6 +7,7 @@ module.exports = app => {
         paths.apiPath,
         proxy(`${BACKEND_BASEURL}`, {
             proxyReqPathResolver: req => {
+                console.log('resolver proxy path', req.url);
                 return `${BACKEND_API_PATH}${req.url}`;
             },
         })
