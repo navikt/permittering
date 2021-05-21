@@ -29,6 +29,7 @@ module.exports = (app, idPortenEndSession) => {
     app.get(paths.logoutPath, function(req, res) {
         console.log('Logging out and redirecting back to', IDPORTEN_POST_LOGOUT_REDIRECT_URI);
         console.log('end session url', idPortenEndSession);
+        const idToken = req.user.tokenSets ? req.user.tokenSets.self.id_token : '';
         req.session.destroy();
         req.logout();
         res.cookie('permittering-token', {
@@ -36,10 +37,10 @@ module.exports = (app, idPortenEndSession) => {
         });
         if (idPortenEndSession) {
             console.log(
-                `${idPortenEndSession}?post_logout_redirect_uri=${IDPORTEN_POST_LOGOUT_REDIRECT_URI}&id_token_hint=${req.user.tokenSets.self.id_token}`
+                `${idPortenEndSession}?post_logout_redirect_uri=${IDPORTEN_POST_LOGOUT_REDIRECT_URI}&id_token_hint=${idToken}`
             );
             res.redirect(
-                `${idPortenEndSession}?post_logout_redirect_uri=${IDPORTEN_POST_LOGOUT_REDIRECT_URI}&id_token_hint=${req.user.tokenSets.self.id_token}`
+                `${idPortenEndSession}?post_logout_redirect_uri=${IDPORTEN_POST_LOGOUT_REDIRECT_URI}&id_token_hint=${idToken}`
             );
         } else {
             res.redirect(IDPORTEN_POST_LOGOUT_REDIRECT_URI);
