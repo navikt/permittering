@@ -17,20 +17,17 @@ module.exports = (app, idPortenEndSession) => {
         '/permittering/oauth2/callback',
         passport.authenticate('idPortenOIDC', { failureRedirect: paths.basePath }),
         (req, res) => {
-            // Ref nais example app that sets id_token in a non http only session
-            // flaakjahsdf localhost-idtoken
             res.cookie('permittering-token', `${req.user.tokenSets.self.id_token}`, {
                 secure: false,
                 sameSite: 'lax',
                 maxAge: 3600 * 1000,
             });
-            res.redirect(successRedirect);
+            // res.redirect(successRedirect);
+            res.redirect('/permittering');
         }
     );
 
     app.get(paths.logoutPath, function(req, res) {
-        console.log('Logging out and redirecting back to', IDPORTEN_POST_LOGOUT_REDIRECT_URI);
-        console.log('end session url', idPortenEndSession);
         const idToken = req.user.tokenSets ? req.user.tokenSets.self.id_token : '';
         req.session.destroy();
         req.logout();
@@ -38,9 +35,6 @@ module.exports = (app, idPortenEndSession) => {
             expires: Date.now(),
         });
         if (idPortenEndSession) {
-            console.log(
-                `${idPortenEndSession}?post_logout_redirect_uri=${IDPORTEN_POST_LOGOUT_REDIRECT_URI}&id_token_hint=${idToken}`
-            );
             res.redirect(
                 `${idPortenEndSession}?post_logout_redirect_uri=${IDPORTEN_POST_LOGOUT_REDIRECT_URI}&id_token_hint=${idToken}`
             );
