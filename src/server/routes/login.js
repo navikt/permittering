@@ -24,7 +24,7 @@ module.exports = (app, idPortenEndSession) => {
                 sameSite: 'lax',
                 maxAge: 3600 * 1000,
             });
-            res.redirect('/permittering');
+            res.redirect(successRedirect);
         }
     );
 
