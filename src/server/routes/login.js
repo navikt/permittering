@@ -1,13 +1,15 @@
 const paths = require('../../paths');
 const passport = require('passport');
-const { IDPORTEN_POST_LOGOUT_REDIRECT_URI } = require('../konstanter');
+const { IDPORTEN_POST_LOGOUT_REDIRECT_URI, LOGIN_URL } = require('../konstanter');
+
+const successRedirect = LOGIN_URL ? `${LOGIN_URL}` : '/permittering';
 
 module.exports = (app, idPortenEndSession) => {
     app.get(
         paths.redirectTilLoginPath,
         passport.authenticate('idPortenOIDC', {
-            successRedirect: `/permittering`,
-            failureRedirect: `/permittering`,
+            successRedirect: successRedirect,
+            failureRedirect: '/permittering',
         })
     );
 

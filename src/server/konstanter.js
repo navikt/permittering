@@ -40,6 +40,8 @@ const TOKEN_X_WELL_KNOWN_URL =
 const TOKEN_X_CLIENT_ID = process.env.TOKEN_X_CLIENT_ID || 'tokenx-client-id';
 const TOKEN_X_PRIVATE_JWK = JSON.parse(process.env.TOKEN_X_PRIVATE_JWK || testJwk);
 
+const LOGIN_URL = process.env.LOGIN_URL;
+
 const PERMITTERING_SESSION_SECRET = process.env.PERMITTERING_SESSION_SECRET || 'secret';
 const PERMITTERING_SESSION_NAME = process.env.PERMITTERING_SESSION_NAME || 'permittering-session';
 
@@ -59,6 +61,7 @@ module.exports = {
     TOKEN_X_WELL_KNOWN_URL,
     TOKEN_X_CLIENT_ID,
     TOKEN_X_PRIVATE_JWK,
+    LOGIN_URL,
     PERMITTERING_SESSION_SECRET,
     PERMITTERING_SESSION_NAME,
     FRONTEND_API_PATH,
