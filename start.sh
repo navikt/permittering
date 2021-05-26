@@ -11,4 +11,4 @@ then
     done
 fi
 
-exec NODE_ENV=production node src/server/server.js
+exec env NODE_ENV=production node src/server/server.js
