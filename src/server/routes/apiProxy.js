@@ -2,9 +2,8 @@ const paths = require('../../paths');
 const proxy = require('express-http-proxy');
 const { BACKEND_BASEURL, BACKEND_API_PATH } = require('../konstanter');
 const { exchangeToken, ensureAuthenticated } = require('../tokenUtils');
-const { resolve } = require('path');
 
-module.exports = (app, tokenXClient, tokenXIssuer) => {
+const apiProxy = (app, tokenXClient, tokenXIssuer) => {
     app.use(
         paths.apiPath,
         ensureAuthenticated,
@@ -26,3 +25,5 @@ module.exports = (app, tokenXClient, tokenXIssuer) => {
         })
     );
 };
+
+module.exports = apiProxy;

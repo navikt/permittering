@@ -4,7 +4,7 @@ const { IDPORTEN_POST_LOGOUT_REDIRECT_URI, LOGIN_URL } = require('../konstanter'
 
 const successRedirect = LOGIN_URL ? `${LOGIN_URL}` : '/permittering';
 
-module.exports = (app, idPortenEndSession) => {
+const loginRoutes = (app, idPortenEndSession) => {
     app.get(
         paths.redirectTilLoginPath,
         passport.authenticate('idPortenOIDC', {
@@ -42,3 +42,5 @@ module.exports = (app, idPortenEndSession) => {
         }
     });
 };
+
+module.exports = loginRoutes;
