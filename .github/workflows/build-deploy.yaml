@@ -54,7 +54,7 @@ jobs:
 
   deploy-to-prod-gcp:
     name: Deploy to prod-gcp
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/ny-bygg-og-deploy'
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:
