@@ -52,9 +52,24 @@ jobs:
           RESOURCE: nais/dev-gcp.yaml,nais/redis.yaml
           PRINT_PAYLOAD: true
 
+  deploy-to-prod-gcp:
+    name: Deploy to prod-gcp
+    if: github.ref == 'refs/heads/master'
+    needs: compile-test-and-build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_KEY_TEAM }}
+          CLUSTER: prod-gcp
+          VAR: version=${{ env.IMAGE }}
+          RESOURCE: nais/prod-gcp.yaml,nais/redis.yaml
+          PRINT_PAYLOAD: true
+
   deploy-to-dev:
     name: Deploy to dev-sbs
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/feilmelding-om-innsending-mislykkes'
+    if: github.ref == 'refs/heads/master'
     needs: compile-test-and-build
     runs-on: ubuntu-20.04
     steps:
