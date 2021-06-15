@@ -1,7 +1,7 @@
 const { TokenSet } = require('openid-client');
-const session = require('express-session');
-const BACKEND_CLIENT_ID = 'BACKEND_CLIENT_ID';
-const { API_AUDIENCE, FRONTEND_BASE_URL } = require('./konstanter');
+const TOKENX_TOKEN_SET_KEY = 'TOKENX_TOKEN_SET_KEY';
+const IDPORTEN_TOKEN_SET_KEY = 'IDPORTEN_TOKEN_SET_KEY';
+const { API_AUDIENCE } = require('./konstanter');
 
 const getTokenSetsFromSession = req => {
     if (req && req.user) {
@@ -10,7 +10,7 @@ const getTokenSetsFromSession = req => {
     return null;
 };
 
-const hasValidAccessToken = (req, key = 'self') => {
+const hasValidAccessToken = (req, key) => {
     const tokenSets = getTokenSetsFromSession(req);
     if (!tokenSets) {
         return false;
@@ -23,7 +23,7 @@ const hasValidAccessToken = (req, key = 'self') => {
 };
 
 const ensureAuthenticated = async (req, res, next) => {
-    if (req.isAuthenticated() && hasValidAccessToken(req)) {
+    if (req.isAuthenticated() && hasValidAccessToken(req, IDPORTEN_TOKEN_SET_KEY)) {
         next();
     } else {
         req.session.destroy();
@@ -36,9 +36,9 @@ const ensureAuthenticated = async (req, res, next) => {
 
 const exchangeToken = (tokenXClient, tokenXIssuer, req) => {
     return new Promise((resolve, reject) => {
-        if (hasValidAccessToken(req, BACKEND_CLIENT_ID)) {
+        if (hasValidAccessToken(req, TOKENX_TOKEN_SET_KEY)) {
             const tokenSets = getTokenSetsFromSession(req);
-            resolve(tokenSets[BACKEND_CLIENT_ID].access_token);
+            resolve(tokenSets[TOKENX_TOKEN_SET_KEY].access_token);
         } else {
             const additionalClaims = {
                 clientAssertionPayload: {
@@ -57,13 +57,12 @@ const exchangeToken = (tokenXClient, tokenXIssuer, req) => {
                             'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
                         subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
                         audience: API_AUDIENCE,
-                        subject_token: req.user.tokenSets['self'].access_token,
+                        subject_token: req.user.tokenSets[IDPORTEN_TOKEN_SET_KEY].access_token,
                     },
                     additionalClaims
                 )
                 .then(tokenSet => {
-                    req.user.tokenSets[BACKEND_CLIENT_ID] = tokenSet;
-                    // console.log("Ny access token til backend", tokenSet.access_token);
+                    req.user.tokenSets[TOKENX_TOKEN_SET_KEY] = tokenSet;
                     resolve(tokenSet.access_token);
                 })
                 .catch(err => {
