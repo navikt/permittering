@@ -66,33 +66,3 @@ jobs:
           VAR: version=${{ env.IMAGE }}
           RESOURCE: nais/prod-gcp.yaml,nais/redis.yaml
           PRINT_PAYLOAD: true
-
-  deploy-to-dev:
-    name: Deploy to dev-sbs
-    if: github.ref == 'refs/heads/master'
-    needs: compile-test-and-build
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v1
-      - uses: nais/deploy/actions/deploy@v1
-        env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_KEY_TEAM }}
-          CLUSTER: dev-sbs
-          VAR: version=${{ env.IMAGE }}
-          RESOURCE: nais/dev-sbs.yaml
-          PRINT_PAYLOAD: true
-
-  deploy-to-prod:
-    name: Deploy to prod-sbs
-    if: github.ref == 'refs/heads/master'
-    needs: compile-test-and-build
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v1
-      - uses: nais/deploy/actions/deploy@v1
-        env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_KEY_TEAM }}
-          CLUSTER: prod-sbs
-          VAR: version=${{ env.IMAGE }}
-          RESOURCE: nais/prod-sbs.yaml
-          PRINT_PAYLOAD: true
