@@ -1,7 +1,6 @@
 import React from 'react';
 import { FunctionComponent, useEffect, useState } from 'react';
 import LoggInn from './LoggInn/LoggInn';
-import environment from '../utils/environment';
 import { sjekkInnlogget } from '../api/AltinnApi';
 
 export enum Tilgang {
@@ -13,29 +12,17 @@ export enum Tilgang {
 const LoginBoundary: FunctionComponent = props => {
     const [innlogget, setInnlogget] = useState(Tilgang.LASTER);
 
-    const localLogin = () => {
-        if (document.cookie.includes('localhost-idtoken')) {
-            setInnlogget(Tilgang.TILGANG);
-        } else {
-            setInnlogget(Tilgang.IKKE_TILGANG);
-        }
-    };
-
     useEffect(() => {
         setInnlogget(Tilgang.LASTER);
-        if (environment.MILJO === 'prod-sbs' || environment.MILJO === 'dev-sbs') {
-            const abortController = new AbortController();
-            sjekkInnlogget(abortController.signal).then(innlogget => {
-                if (innlogget) {
-                    setInnlogget(Tilgang.TILGANG);
-                } else {
-                    setInnlogget(Tilgang.IKKE_TILGANG);
-                }
-            });
-            return () => abortController.abort();
-        } else {
-            localLogin();
-        }
+        const abortController = new AbortController();
+        sjekkInnlogget(abortController.signal).then(innlogget => {
+            if (innlogget) {
+                setInnlogget(Tilgang.TILGANG);
+            } else {
+                setInnlogget(Tilgang.IKKE_TILGANG);
+            }
+        });
+        return () => abortController.abort();
     }, []);
 
     if (innlogget === Tilgang.TILGANG) {

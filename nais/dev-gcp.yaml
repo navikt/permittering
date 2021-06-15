@@ -1,0 +1,56 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: permittering
+  namespace: permittering-og-nedbemanning
+  labels:
+    team: permittering-og-nedbemanning
+spec:
+  image: {{ version }}
+  team: arbeidsgiver
+  port: 3000
+  ingresses:
+    - https://permitteringsskjema.dev.nav.no/permittering
+  liveness:
+    path: /permittering/internal/isAlive
+    initialDelay: 20
+  readiness:
+    path: /permittering/internal/isAlive
+    initialDelay: 20
+  replicas:
+    min: 2
+    max: 2
+  tokenx:
+    enabled: true
+  idporten:
+    enabled: true
+    clientUri: https://permitteringsskjema.dev.nav.no/permittering
+    redirectPath: /oauth2/callback
+    postLogoutRedirectURIs:
+      - https://permitteringsskjema.dev.nav.no/permittering
+  accessPolicy:
+    outbound:
+      rules:
+        - application: permittering-redis
+      external:
+        - host: dekoratoren.dev.nav.no
+  envFrom:
+    - secret: permittering-redis-secrets
+    - secret: permittering-secrets
+  env:
+    - name: NODE_EXTRA_CA_CERTS
+      value: /etc/ssl/ca-bundle.pem
+    - name: APIGW_URL
+      value: https://api-gw-q1.oera.no
+    - name: LOGIN_URL
+      value: https://loginservice.dev.nav.no/login?redirect=https://permitteringsskjema.dev.nav.no/permittering
+    - name: API_AUDIENCE
+      value: dev-fss:permittering-og-nedbemanning:permitteringsskjema-api
+    - name: BACKEND_BASEURL
+      value: https://arbeidsgiver-permitteringsskjema-api.dev-fss-pub.nais.io
+    - name: BACKEND_API_PATH
+      value: /permitteringsskjema-api
+    - name: REDIS_HOST
+      value: permittering-redis.permittering-og-nedbemanning.svc.cluster.local
+    - name: IDPORTEN_POST_LOGOUT_REDIRECT_URI
+      value: https://permitteringsskjema.dev.nav.no/permittering

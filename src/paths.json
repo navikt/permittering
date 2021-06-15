@@ -7,6 +7,7 @@
     "isAlivePath": "/permittering/internal/isAlive",
     "isReadyPath": "/permittering/internal/isReady",
     "redirectTilLoginPath": "/permittering/redirect-til-login",
+    "logoutPath": "/permittering/logout",
     "refusjonAvbrytPath": "/permittering/api/refusjon/:id/avbryt",
     "refusjonListPath": "/permittering/api/refusjon",
     "refusjonPath": "/permittering/api/refusjon/:id",
@@ -19,7 +20,6 @@
     "skjemaListPath": "/permittering/api/skjema",
     "skjemaPath": "/permittering/api/skjema/:id",
     "skjemaSendInnPath": "/permittering/api/skjema/:id/send-inn",
-    "stillingstitlerPath": "/stillingstitler/search",
-    "veilarbstepupPath": "/permittering/veilarbstepup/status",
+    "stillingstitlerPath": "https://arbeidsgiver.nav.no/stillingstitler/search",
     "permitteringsAArsakksodeverk": "/permittering/api/kodeverk/årsakskoder"
 }

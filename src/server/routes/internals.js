@@ -1,5 +1,8 @@
-const paths = require("../../paths");
-module.exports = app => {
-  app.get(paths.isAlivePath, (req, res) => res.sendStatus(200));
-  app.get(paths.isReadyPath, (req, res) => res.sendStatus(200));
+const paths = require('../../paths');
+
+const internalRoutes = app => {
+    app.get(paths.isAlivePath, (req, res) => res.sendStatus(200));
+    app.get(paths.isReadyPath, (req, res) => res.sendStatus(200));
 };
+
+module.exports = internalRoutes;
