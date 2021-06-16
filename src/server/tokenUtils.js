@@ -63,6 +63,7 @@ const exchangeToken = (tokenXClient, tokenXIssuer, req) => {
                 )
                 .then(tokenSet => {
                     req.user.tokenSets[TOKENX_TOKEN_SET_KEY] = tokenSet;
+                    console.log('Got token from tokenX');
                     resolve(tokenSet.access_token);
                 })
                 .catch(err => {
