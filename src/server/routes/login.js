@@ -17,17 +17,23 @@ const loginRoutes = (app, idPortenEndSession) => {
         '/permittering/oauth2/callback',
         passport.authenticate('idPortenOIDC', { failureRedirect: paths.basePath }),
         (req, res) => {
-            res.cookie('permittering-token', `${req.user.tokenSets.self.id_token}`, {
-                secure: false,
-                sameSite: 'lax',
-                maxAge: 3600 * 1000,
-            });
+            res.cookie(
+                'permittering-token',
+                `${req.user.tokenSets.IDPORTEN_TOKEN_SET_KEY.id_token}`,
+                {
+                    secure: false,
+                    sameSite: 'lax',
+                    maxAge: 3600 * 1000,
+                }
+            );
             res.redirect(successRedirect);
         }
     );
 
     app.get(paths.logoutPath, function(req, res) {
-        const idToken = req.user.tokenSets ? req.user.tokenSets.self.id_token : '';
+        const idToken = req.user.tokenSets
+            ? req.user.tokenSets.IDPORTEN_TOKEN_SET_KEY.id_token
+            : '';
         req.session.destroy();
         req.logout();
         res.cookie('permittering-token', {
