@@ -32,6 +32,9 @@ spec:
     outbound:
       rules:
         - application: permittering-redis
+        - application: permitteringsskjema-api
+          namespace: permittering-og-nedbemanning
+          cluster: dev-fss
       external:
         - host: dekoratoren.dev.nav.no
   envFrom:
