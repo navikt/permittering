@@ -26,6 +26,7 @@ const ensureAuthenticated = async (req, res, next) => {
     if (req.isAuthenticated() && hasValidAccessToken(req, IDPORTEN_TOKEN_SET_KEY)) {
         next();
     } else {
+        console.log('Ikke pålogget, sender 401');
         req.session.destroy();
         res.cookie('permittering-token', {
             expires: Date.now(),
@@ -49,6 +50,7 @@ const exchangeToken = (tokenXClient, tokenXIssuer, req) => {
             if (!req.user) {
                 reject('Ikke pålogget');
             }
+            console.log('Lager grant for ny token fra tokendings');
             tokenXClient
                 .grant(
                     {

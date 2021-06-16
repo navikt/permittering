@@ -12,6 +12,7 @@ const apiProxy = (app, tokenXClient, tokenXIssuer) => {
                 return `${BACKEND_API_PATH}${req.url}`;
             },
             proxyReqOptDecorator: (options, req) => {
+                console.log('Proxy for api request');
                 return new Promise((resolve, reject) => {
                     exchangeToken(tokenXClient, tokenXIssuer, req).then(
                         access_token => {
