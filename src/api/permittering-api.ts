@@ -1,6 +1,21 @@
 import { OpprettSkjema, Permitteringsskjema } from '../types/permitteringsskjema';
-import { skjemaAvbrytPath, skjemaListPath, skjemaPath, skjemaSendInnPath } from '../paths.json';
+import {
+    sjekkInnloggetLink,
+    skjemaAvbrytPath,
+    skjemaListPath,
+    skjemaPath,
+    skjemaSendInnPath,
+} from '../paths.json';
 import api from './api-client';
+
+export async function sjekkInnlogget(signal: any): Promise<boolean> {
+    let respons = await fetch(sjekkInnloggetLink, { signal: signal });
+    if (respons.ok) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 export const hent = async (id: string) => {
     const url = skjemaPath.replace(':id', id);
