@@ -102,7 +102,7 @@ const strategy = client => {
         }
         const user = {
             tokenSets: {
-                self: tokenSet,
+                IDPORTEN_TOKEN_SET_KEY: tokenSet,
             },
             claims: tokenSet.claims(),
         };
