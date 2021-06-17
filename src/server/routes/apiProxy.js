@@ -1,21 +1,30 @@
-const proxy = require("http-proxy-middleware");
-const paths = require("../../paths");
+const paths = require('../../paths');
+const proxy = require('express-http-proxy');
+const { BACKEND_BASEURL, BACKEND_API_PATH } = require('../konstanter');
+const { exchangeToken, ensureAuthenticated } = require('../tokenUtils');
 
-const pathRewrite = {};
-pathRewrite["^" + paths.apiPath] = "/permitteringsskjema-api";
-module.exports = function(app) {
-  const proxyConfig = {
-    changeOrigin: true,
-    target: process.env.APIGW_URL || "http://localhost:8080",
-    pathRewrite,
-    xfwd: true
-  };
-
-  if (process.env.APIGW_HEADER) {
-    proxyConfig.headers = {
-      "x-nav-apiKey": process.env.APIGW_HEADER
-    };
-  }
-
-  app.use(paths.apiPath, proxy(proxyConfig));
+const apiProxy = (app, tokenXClient, tokenXIssuer) => {
+    app.use(
+        paths.apiPath,
+        ensureAuthenticated,
+        proxy(`${BACKEND_BASEURL}`, {
+            proxyReqPathResolver: req => {
+                return `${BACKEND_API_PATH}${req.url}`;
+            },
+            proxyReqOptDecorator: (options, req) => {
+                console.log('Proxy for api request');
+                return new Promise((resolve, reject) => {
+                    exchangeToken(tokenXClient, tokenXIssuer, req).then(
+                        access_token => {
+                            options.headers.Authorization = `Bearer ${access_token}`;
+                            resolve(options);
+                        },
+                        error => reject(error)
+                    );
+                });
+            },
+        })
+    );
 };
+
+module.exports = apiProxy;

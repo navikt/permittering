@@ -3,7 +3,7 @@ const request = require('request');
 const { JSDOM } = jsdom;
 
 url = '';
-if (process.env.NAIS_CLUSTER_NAME === 'prod-sbs') {
+if (process.env.NAIS_CLUSTER_NAME === 'prod-gcp') {
     url = 'https://www.nav.no/dekoratoren/?context=arbeidsgiver';
 } else {
     url = 'https://www-q1.nav.no/dekoratoren/?context=arbeidsgiver';

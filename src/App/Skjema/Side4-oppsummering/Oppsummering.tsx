@@ -93,7 +93,7 @@ const Oppsummering: FunctionComponent = () => {
     }, [context.skjema]);
 
     useEffect(() => {
-        if (environment.MILJO === 'prod-sbs') {
+        if (environment.MILJO === 'prod-gcp') {
             const fullBedrift = organisasjoner.filter(
                 org => org.OrganizationNumber === context.skjema.bedriftNr
             )[0];
