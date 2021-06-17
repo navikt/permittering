@@ -22,6 +22,9 @@ export const isFnrWoman = (fnr: string) => {
 
 export const getFnrReadableString = (fnr: string) => {
     const result = validator.idnr(fnr);
+    if (result.status !== 'valid') {
+        return 'Ugyldig fødselsnummer';
+    }
     return (
         (isFnrWoman(fnr) ? 'Kvinne' : 'Mann') +
         ', ' +
