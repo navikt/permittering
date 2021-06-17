@@ -4,7 +4,6 @@ const cookieParser = require('cookie-parser');
 const uuid = require('uuid');
 const storageClient = require('../StorageMock');
 const organisasjoner = require('../../fixtures/organisasjoner.json');
-const arbeidsforholdMock = require('../../fixtures/arbeidsforholdMock.json');
 const cookieName = 'localhost-idtoken';
 /**
  * Mock for å
@@ -23,7 +22,7 @@ module.exports = function (app) {
     /**
      * Gir deg alle skjemaer innlogget bruker har tilgang til
      */
-    app.get([paths.skjemaListPath, paths.refusjonListPath], (req, res) => {
+    app.get(paths.skjemaListPath, (req, res) => {
         const userId = req.cookies[cookieName];
         const list = storageClient.listObjects();
         const filteredList = list.filter((o) => o.userId === userId);
@@ -37,7 +36,7 @@ module.exports = function (app) {
     /**
      * Oppretter nytt skjema
      */
-    app.post([paths.skjemaListPath, paths.refusjonListPath], (req, res) => {
+    app.post(paths.skjemaListPath, (req, res) => {
         const userId = req.cookies[cookieName];
         const inputData = req.body;
         const id = uuid.v1();
@@ -49,7 +48,7 @@ module.exports = function (app) {
     /**
      * Gir deg ett skjema
      */
-    app.get([paths.skjemaPath, paths.refusjonPath], (req, res) => {
+    app.get(paths.skjemaPath, (req, res) => {
         const skjema = storageClient.getObject(req.params.id);
         if (skjema) {
             res.json(skjema);
@@ -64,7 +63,7 @@ module.exports = function (app) {
     /**
      * Oppdaterer ett skjema
      */
-    app.put([paths.skjemaPath, paths.refusjonPath], (req, res) => {
+    app.put(paths.skjemaPath, (req, res) => {
         const skjema = storageClient.putObject(req.params.id, req.body);
         res.json(skjema);
     });
@@ -79,14 +78,6 @@ module.exports = function (app) {
 
     app.get(paths.hentOrganisasjonerPath, (req, res) => {
         res.json(organisasjoner);
-    });
-
-    app.get(paths.hentRefusjonOrganisasjonerPath, (req, res) => {
-        res.json(organisasjoner);
-    });
-
-    app.get(paths.arbeidsforholdLeggTilPath, (req, res) => {
-        res.json(arbeidsforholdMock);
     });
 
     app.get(paths.permitteringsAArsakksodeverk.replace('å', '%C3%A5'), (req, res) => {
