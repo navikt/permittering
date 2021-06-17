@@ -2,6 +2,7 @@ import React, { FunctionComponent, useEffect, useState } from 'react';
 import { avbryt, hent, lagre, opprett, sendInn } from '../../api/refusjon-api';
 import { useParams } from 'react-router-dom';
 import { OpprettRefusjon, Refusjonsskjema } from '../../types/refusjonsskjema';
+import { RouteParams } from '../Skjema/PermitteringRoutes';
 
 type ContextType = {
     skjema: Refusjonsskjema;
@@ -14,9 +15,9 @@ type ContextType = {
 
 const RefusjonContext = React.createContext<ContextType>({} as ContextType);
 
-export const RefusjonProvider: FunctionComponent = props => {
+export const RefusjonProvider: FunctionComponent = (props) => {
     const [skjema, setSkjema] = useState<Refusjonsskjema>({} as Refusjonsskjema);
-    const { id } = useParams();
+    const { id } = useParams<RouteParams>();
 
     useEffect(() => {
         if (id) {
