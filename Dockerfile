@@ -1,5 +1,4 @@
-FROM navikt/node-express:12.2.0
-WORKDIR /app
+FROM navikt/node-express:14
 
 COPY build/ build/
 COPY src/server/ src/server/
