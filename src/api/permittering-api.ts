@@ -1,6 +1,6 @@
 import { OpprettSkjema, Permitteringsskjema } from '../types/permitteringsskjema';
 import {
-    sjekkInnloggetLink,
+    sjekkInnloggetPath,
     skjemaAvbrytPath,
     skjemaListPath,
     skjemaPath,
@@ -9,7 +9,7 @@ import {
 import api from './api-client';
 
 export async function sjekkInnlogget(signal: any): Promise<boolean> {
-    let respons = await fetch(sjekkInnloggetLink, { signal: signal });
+    let respons = await fetch(sjekkInnloggetPath, { signal: signal });
     if (respons.ok) {
         return true;
     } else {

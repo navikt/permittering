@@ -81,7 +81,7 @@ module.exports = function(app) {
         res.json(organisasjoner);
     });
 
-    app.get(paths.hentRefusjonOrganisasjonerLink, (req, res) => {
+    app.get(paths.hentRefusjonOrganisasjonerPath, (req, res) => {
         res.json(organisasjoner);
     });
 
