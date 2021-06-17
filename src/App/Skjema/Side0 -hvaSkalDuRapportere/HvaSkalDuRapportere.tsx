@@ -28,7 +28,7 @@ const HvaSkalDuRapportere = () => {
     const [skjemaType, setSkjemaType] = useState<Permitteringsskjema['type'] | undefined>();
 
     useEffect(() => {
-        if (environment.MILJO === 'prod-sbs') {
+        if (environment.MILJO === 'prod-gcp') {
             loggAntallUnderenheter(organisasjoner.length);
         }
     }, [valgtOrganisasjon, organisasjoner]);
