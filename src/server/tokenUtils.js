@@ -26,7 +26,6 @@ const ensureAuthenticated = async (req, res, next) => {
     if (req.isAuthenticated() && hasValidAccessToken(req, IDPORTEN_TOKEN_SET_KEY)) {
         next();
     } else {
-        console.log('Ikke pålogget, sender 401');
         req.session.destroy();
         res.cookie('permittering-token', {
             expires: Date.now(),
@@ -65,7 +64,6 @@ const exchangeToken = (tokenXClient, tokenXIssuer, req) => {
                 )
                 .then(tokenSet => {
                     req.user.tokenSets[TOKENX_TOKEN_SET_KEY] = tokenSet;
-                    console.log('Got token from tokenX');
                     resolve(tokenSet.access_token);
                 })
                 .catch(err => {
