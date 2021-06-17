@@ -1,9 +1,9 @@
-import { hentOrganisasjonerLink, hentRefusjonOrganisasjonerLink } from '../paths.json';
+import { hentOrganisasjonerPath, hentRefusjonOrganisasjonerPath } from '../paths.json';
 import { Organisasjon } from '../types/Organisasjon';
 import { FetchError } from './api-utils';
 
 export async function hentOrganisasjonerFraAltinn(signal: any): Promise<Organisasjon[]> {
-    let respons = await fetch(hentOrganisasjonerLink, { signal: signal });
+    let respons = await fetch(hentOrganisasjonerPath, { signal: signal });
     if (respons.ok) {
         return await respons.json();
     } else {
@@ -11,17 +11,8 @@ export async function hentOrganisasjonerFraAltinn(signal: any): Promise<Organisa
     }
 }
 
-export async function sjekkInnlogget(signal: any): Promise<boolean> {
-    let respons = await fetch(hentOrganisasjonerLink, { signal: signal });
-    if (respons.ok) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
 export async function hentRefusjonOrganisasjonerFraAltinn(signal: any): Promise<Organisasjon[]> {
-    let respons = await fetch(hentRefusjonOrganisasjonerLink, { signal: signal });
+    let respons = await fetch(hentRefusjonOrganisasjonerPath, { signal: signal });
     if (respons.ok) {
         return await respons.json();
     } else {

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { OpprettSkjema, Permitteringsskjema } from '../../../types/permitteringsskjema';
 import { avbryt, hent, lagre, opprett, sendInn } from '../../../api/permittering-api';
 import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
+import { RouteParams } from '../PermitteringRoutes';
 
 type Context = {
     skjema: Permitteringsskjema;
@@ -22,7 +23,7 @@ const SkjemaContext = React.createContext<Context>({} as Context);
 
 export const SkjemaProvider: FunctionComponent = props => {
     const [skjema, setSkjema] = useState<Permitteringsskjema>({} as Permitteringsskjema);
-    const { id } = useParams();
+    const { id } = useParams<RouteParams>();
     const featureToggleContext = useContext(FeatureToggleContext);
     const visskjema = featureToggleContext[Feature.visskjema];
     const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];

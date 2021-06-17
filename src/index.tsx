@@ -11,6 +11,7 @@ Sentry({
     dsn: 'https://7a256b46169e4a9e9d7de25bbbec86b6@sentry.gc.nav.no/23',
     release: process.env.GIT_COMMIT_HASH || 'unknown',
     environment: window.location.hostname,
+    autoSessionTracking: false,
 });
 
 ReactDOM.render(<App />, document.getElementById('root'));

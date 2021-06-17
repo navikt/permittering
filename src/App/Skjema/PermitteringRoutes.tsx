@@ -10,6 +10,10 @@ import Oppsummering from './Side4-oppsummering/Oppsummering';
 import Side5 from './Side5-yrker/Yrkeskategorier';
 import { SkjemaProvider } from './SkjemaContext/SkjemaContext';
 
+export interface RouteParams {
+    id: string;
+}
+
 const PermitteringRoutes = () => {
     return (
         <>
