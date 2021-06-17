@@ -15,7 +15,7 @@ type ContextType = {
 
 const RefusjonContext = React.createContext<ContextType>({} as ContextType);
 
-export const RefusjonProvider: FunctionComponent = (props) => {
+export const RefusjonProvider: FunctionComponent = props => {
     const [skjema, setSkjema] = useState<Refusjonsskjema>({} as Refusjonsskjema);
     const { id } = useParams<RouteParams>();
 

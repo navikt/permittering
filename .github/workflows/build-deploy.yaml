@@ -23,6 +23,10 @@ jobs:
       - name: Install dependencies
         run: |
           yarn install --frozen-lockfile
+      - name: Install node server dependencies
+        working-directory: ./src/server
+        run: |
+          yarn install --frozen-lockfile
       - name: Run tests
         run: yarn test
       - name: Build application
@@ -39,7 +43,7 @@ jobs:
 
   deploy-to-dev-gcp:
     name: Deploy to dev-gcp
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/ny-innlogging'
+    if: github.ref == 'refs/heads/master'
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:
@@ -54,7 +58,7 @@ jobs:
 
   deploy-to-prod-gcp:
     name: Deploy to prod-gcp
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/ny-bygg-og-deploy'
+    if: github.ref == 'refs/heads/master'
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:

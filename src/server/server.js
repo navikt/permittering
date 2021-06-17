@@ -143,6 +143,7 @@ const startServer = async html => {
     if (process.env.NODE_ENV === 'production') {
         // sessionOptions.cookie.secure = true;
         sessionOptions.store = setupRedis();
+        console.log('Redis ok');
     }
     app.use(session(sessionOptions));
     const idPortenClient = await getConfiguredIDportenClient();
