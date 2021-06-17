@@ -1,5 +1,6 @@
 FROM navikt/node-express:14
 
+WORKDIR /app
 COPY build/ build/
 COPY src/server/ src/server/
 COPY src/paths.json src/paths.json
