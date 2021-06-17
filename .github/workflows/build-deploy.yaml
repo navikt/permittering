@@ -39,7 +39,7 @@ jobs:
 
   deploy-to-dev-gcp:
     name: Deploy to dev-gcp
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/oppgrader-avhengigheter-juni-2021'
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/ny-innlogging'
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:

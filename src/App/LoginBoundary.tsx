@@ -1,7 +1,7 @@
 import React from 'react';
 import { FunctionComponent, useEffect, useState } from 'react';
 import LoggInn from './LoggInn/LoggInn';
-import { sjekkInnlogget } from '../api/AltinnApi';
+import { sjekkInnlogget } from '../api/permittering-api';
 
 export enum Tilgang {
     LASTER,
