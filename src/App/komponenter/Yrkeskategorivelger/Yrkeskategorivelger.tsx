@@ -19,7 +19,7 @@ const getUpdatedSuggestions = async (path: string, q: string) => {
 
     data.forEach((kategori: Yrkeskategori) => {
         suggestions.push({
-            key: kategori.konseptId.toString(),
+            key: `${kategori.konseptId}-${kategori.label}`,
             value: kategori.label,
             styrk08: kategori.styrk08,
         });

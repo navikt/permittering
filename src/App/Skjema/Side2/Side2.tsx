@@ -125,7 +125,7 @@ const Side2: FunctionComponent = () => {
             fritekstFelter['årsak'] = årsaksKode;
             context.endreSkjemaVerdi('årsakskode', årsaksKode);
         } else {
-            finnÅrsakstekst(årsaksKode).then(lesbarårsak => {
+            finnÅrsakstekst(årsaksKode).then((lesbarårsak) => {
                 fritekstFelter['årsak'] = lesbarårsak;
                 context.endreFritekstOgVerdi(
                     'årsakskode',
@@ -190,7 +190,7 @@ const Side2: FunctionComponent = () => {
                             label={'Beskriv hva du mener med andre årsaker'}
                             value={context.skjema.årsakstekst || ''}
                             maxLength={1000}
-                            onChange={event => setÅrsakstekst(event.currentTarget.value)}
+                            onChange={(event) => setÅrsakstekst(event.currentTarget.value)}
                         />
                     </div>
                 )}
@@ -215,7 +215,7 @@ const Side2: FunctionComponent = () => {
                 <div className="skjema-innhold__side-2-dato-container">
                     <Datovelger
                         value={context.skjema.startDato}
-                        onChange={event => {
+                        onChange={(event) => {
                             context.endreSkjemaVerdi('startDato', event.currentTarget.value);
                             setDatoFra(event.currentTarget.value);
                         }}
@@ -225,7 +225,7 @@ const Side2: FunctionComponent = () => {
                     <div className="skjema-innhold__dato-velger-til">
                         <Datovelger
                             value={context.skjema.sluttDato}
-                            onChange={event => {
+                            onChange={(event) => {
                                 context.endreSkjemaVerdi('sluttDato', event.currentTarget.value);
                                 setDatoTil(event.currentTarget.value);
                             }}
@@ -235,7 +235,7 @@ const Side2: FunctionComponent = () => {
                         />
                         <Checkbox
                             label="Vet ikke hvor lenge det vil vare"
-                            checked={context.skjema.ukjentSluttDato}
+                            checked={!!context.skjema.ukjentSluttDato}
                             onChange={() =>
                                 context.endreSkjemaVerdi(
                                     'ukjentSluttDato',
@@ -251,7 +251,7 @@ const Side2: FunctionComponent = () => {
                         label="Andre relevante opplysninger (frivillig)"
                         value={annet}
                         maxLength={1000}
-                        onChange={event => endreFritekstFelt('annet', event.currentTarget.value)}
+                        onChange={(event) => endreFritekstFelt('annet', event.currentTarget.value)}
                     />
                 </div>
 

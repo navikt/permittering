@@ -41,9 +41,8 @@ const Oppsummering: FunctionComponent = () => {
     const { organisasjoner } = useContext(OrganisasjonsListeContext);
 
     const [feilVedInnsending, setFeilVedInnsending] = useState(false);
-    const [visFeilmeldingMangledeFelter, setVisFeilmeldingManglendeFelter] = useState<boolean>(
-        false
-    );
+    const [visFeilmeldingMangledeFelter, setVisFeilmeldingManglendeFelter] =
+        useState<boolean>(false);
     const [manglendeFelter, setManglendeFelter] = useState<string[]>([]);
 
     const { steg, forrigeSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
@@ -84,17 +83,16 @@ const Oppsummering: FunctionComponent = () => {
     useEffect(() => {
         if (environment.MILJO === 'prod-gcp') {
             const fullBedrift = organisasjoner.filter(
-                org => org.OrganizationNumber === context.skjema.bedriftNr
+                (org) => org.OrganizationNumber === context.skjema.bedriftNr
             )[0];
             fullBedrift &&
-                loggBedriftsInfo(fullBedrift).then(antallAnsatte =>
+                loggBedriftsInfo(fullBedrift).then((antallAnsatte) =>
                     setAntallIBedrift(antallAnsatte)
                 );
         }
     }, [organisasjoner, context.skjema.bedriftNr]);
 
     const onSendClickLogging = () => {
-        console.log('on send logging');
         const antallBerorte = context.skjema.antallBerørt ? context.skjema.antallBerørt : 0;
         const antallIBedriftInt = parseInt(antallIBedrift);
         if (antallBerorte > 0 && context.skjema.type && antallIBedriftInt > 0) {
@@ -369,7 +367,7 @@ const Oppsummering: FunctionComponent = () => {
                             <Normaltekst>
                                 Du må fylle ut alle feltene.
                                 <ul>
-                                    {manglendeFelter.map(felt => {
+                                    {manglendeFelter.map((felt) => {
                                         return <li>{felt}</li>;
                                     })}
                                 </ul>
