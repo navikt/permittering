@@ -9,7 +9,7 @@ if (process.env.NAIS_CLUSTER_NAME === 'prod-gcp') {
     url = 'https://www-q1.nav.no/dekoratoren/?context=arbeidsgiver';
 }
 
-const requestDecorator = callback => request(url, callback);
+const requestDecorator = (callback) => request(url, callback);
 
 const getDecorator = () =>
     new Promise((resolve, reject) => {

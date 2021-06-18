@@ -32,14 +32,14 @@ const InputAvPersoner: FunctionComponent = () => {
 
     const leggTilPersoner = (nyePersoner: Array<any>) => {
         const personerCopy = [...personer];
-        nyePersoner.forEach(person => {
+        nyePersoner.forEach((person) => {
             const newPerson = {
                 fnr: person.fnr,
                 grad: 1,
                 kommentar: 'oppdatert',
                 selected: false,
             };
-            let foundIndex = personerCopy.findIndex(e => e.fnr === person.fnr);
+            let foundIndex = personerCopy.findIndex((e) => e.fnr === person.fnr);
             foundIndex > -1
                 ? personerCopy.splice(foundIndex, 1, newPerson)
                 : personerCopy.push(newPerson);
@@ -50,8 +50,8 @@ const InputAvPersoner: FunctionComponent = () => {
 
     const fjernPersoner = (fnumbers: Array<string>) => {
         const personerCopy = [...personer];
-        fnumbers.forEach(fnr => {
-            let foundIndex = personerCopy.findIndex(e => e.fnr === fnr);
+        fnumbers.forEach((fnr) => {
+            let foundIndex = personerCopy.findIndex((e) => e.fnr === fnr);
             personerCopy.splice(foundIndex, 1);
         });
         context.endreSkjemaVerdi('personer', personerCopy);

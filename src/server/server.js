@@ -95,7 +95,7 @@ const sessionOptions = {
     unset: 'destroy',
 };
 
-const strategy = client => {
+const strategy = (client) => {
     const verify = (tokenSet, done) => {
         if (tokenSet.expired()) {
             return done(null, false);
@@ -128,7 +128,7 @@ const strategy = client => {
     return new Strategy(options, verify);
 };
 
-const renderApp = decoratorFragments =>
+const renderApp = (decoratorFragments) =>
     new Promise((resolve, reject) => {
         app.render('index.html', decoratorFragments, (err, html) => {
             if (err) {
@@ -139,7 +139,7 @@ const renderApp = decoratorFragments =>
         });
     });
 
-const startServer = async html => {
+const startServer = async (html) => {
     if (process.env.NODE_ENV === 'production') {
         // sessionOptions.cookie.secure = true;
         sessionOptions.store = setupRedis();
@@ -170,11 +170,11 @@ const startServer = async html => {
  * @param p
  */
 getDecorator()
-    .then(renderApp, error => {
+    .then(renderApp, (error) => {
         console.error('Kunne ikke hente dekoratør ', error);
         process.exit(1);
     })
-    .then(startServer, error => {
+    .then(startServer, (error) => {
         console.error('Kunne ikke rendre app ', error);
         process.exit(1);
     });

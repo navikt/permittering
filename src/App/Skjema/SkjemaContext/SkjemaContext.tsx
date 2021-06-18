@@ -21,7 +21,7 @@ type Context = {
 
 const SkjemaContext = React.createContext<Context>({} as Context);
 
-export const SkjemaProvider: FunctionComponent = props => {
+export const SkjemaProvider: FunctionComponent = (props) => {
     const [skjema, setSkjema] = useState<Permitteringsskjema>({} as Permitteringsskjema);
     const { id } = useParams<RouteParams>();
     const featureToggleContext = useContext(FeatureToggleContext);

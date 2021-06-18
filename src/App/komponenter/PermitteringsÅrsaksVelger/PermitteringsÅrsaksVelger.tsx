@@ -8,7 +8,7 @@ interface Props {
     label: string;
 }
 
-export const Permitteringsårsaksvelger: FunctionComponent<Props> = props => {
+export const Permitteringsårsaksvelger: FunctionComponent<Props> = (props) => {
     const [årsakskoder, setAArsakskoder] = useState({});
 
     useEffect(() => {
@@ -18,7 +18,7 @@ export const Permitteringsårsaksvelger: FunctionComponent<Props> = props => {
     return (
         <Select
             label={props.label}
-            onChange={event => {
+            onChange={(event) => {
                 props.setÅrsak(event.target.value);
             }}
             defaultValue={'Velg en årsak'}
@@ -27,7 +27,7 @@ export const Permitteringsårsaksvelger: FunctionComponent<Props> = props => {
             <option key={'VELG_ÅRSAK'} value={'VELG_ÅRSAK'}>
                 {'Velg årsak'}
             </option>
-            {Object.entries<string>(årsakskoder).map(årsakskode => {
+            {Object.entries<string>(årsakskoder).map((årsakskode) => {
                 return (
                     <option key={årsakskode[0]} value={årsakskode[0]}>
                         {årsakskode[1]}

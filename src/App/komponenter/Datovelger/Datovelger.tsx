@@ -29,7 +29,7 @@ interface Props {
     skalVareFoer?: Date;
 }
 
-const Datovelger: FunctionComponent<Props> = props => {
+const Datovelger: FunctionComponent<Props> = (props) => {
     const datepickernode = useRef<HTMLDivElement>(null);
     const [erApen, setErApen] = useState(false);
     const [editing, setEditing] = useState(false);
@@ -103,11 +103,11 @@ const Datovelger: FunctionComponent<Props> = props => {
                     }`}
                     value={tekstIInputfeltet()}
                     className="datofelt__input"
-                    onChange={event => {
+                    onChange={(event) => {
                         setEditing(true);
                         setTempDate(event.currentTarget.value);
                     }}
-                    onBlur={event => {
+                    onBlur={(event) => {
                         inputOnBlur(event);
                     }}
                 />
@@ -132,7 +132,7 @@ const Datovelger: FunctionComponent<Props> = props => {
                         selectedDays={selectedDate}
                         month={selectedDate}
                         firstDayOfWeek={1}
-                        onDayClick={day => onDatoClick(day)}
+                        onDayClick={(day) => onDatoClick(day)}
                         months={MONTHS['no']}
                         weekdaysLong={WEEKDAYS_LONG['no']}
                         weekdaysShort={WEEKDAYS_SHORT['no']}

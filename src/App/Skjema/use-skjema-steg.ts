@@ -31,7 +31,7 @@ export const useSkjemaSteg = (currentPathName: string, id: string): SkjemaNaviga
             slug: 'oppsummering',
         },
     ]
-        .filter(item => {
+        .filter((item) => {
             if (!tillatFnrInput) {
                 if (item.slug === 'hvem-rammes') {
                     return false;
@@ -47,7 +47,7 @@ export const useSkjemaSteg = (currentPathName: string, id: string): SkjemaNaviga
         }));
 
     const nesteSide = (() => {
-        const aktivSteg = steg.find(e => e.aktiv);
+        const aktivSteg = steg.find((e) => e.aktiv);
         if (aktivSteg && steg[aktivSteg.index + 1]) {
             return steg[aktivSteg.index + 1].path;
         } else {
@@ -56,7 +56,7 @@ export const useSkjemaSteg = (currentPathName: string, id: string): SkjemaNaviga
     })();
 
     const forrigeSide = (() => {
-        const aktivSteg = steg.find(e => e.aktiv);
+        const aktivSteg = steg.find((e) => e.aktiv);
         if (aktivSteg && steg[aktivSteg.index - 1]) {
             return steg[aktivSteg.index - 1].path;
         } else {
