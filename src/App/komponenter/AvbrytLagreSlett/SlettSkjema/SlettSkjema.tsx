@@ -19,7 +19,7 @@ export const SlettSkjema: FunctionComponent<SlettSkjemaProps> = ({ slett }) => {
             <Lenke
                 href="#"
                 role="button"
-                onClick={e => {
+                onClick={(e) => {
                     e.preventDefault();
                     setOpen(true);
                 }}

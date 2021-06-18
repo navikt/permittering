@@ -20,7 +20,7 @@ interface Props {
     key: string;
 }
 
-const TidligereInnsendtSkjema: FunctionComponent<Props> = props => {
+const TidligereInnsendtSkjema: FunctionComponent<Props> = (props) => {
     const lagTekstBasertPaSkjemaType = (type: Permitteringsskjema['type']) => {
         switch (type) {
             case 'MASSEOPPSIGELSE':

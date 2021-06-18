@@ -13,7 +13,7 @@ const SlettKnapp: React.FunctionComponent<SlettKnappProps> = ({ onClick, ariaLab
         type="button"
         className="slettKnapp"
         aria-label={ariaLabel}
-        onClick={e => {
+        onClick={(e) => {
             e.stopPropagation();
             onClick();
         }}

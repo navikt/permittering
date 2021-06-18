@@ -30,13 +30,12 @@ interface Props {
 const customParseFormat = require('dayjs/plugin/customParseFormat');
 dayjs.extend(customParseFormat);
 
-const Datovelger: FunctionComponent<Props> = props => {
-    const dagensDato = dayjs();
+const Datovelger: FunctionComponent<Props> = (props) => {
     const datepickernode = useRef<HTMLDivElement>(null);
     const knappRef = useRef<HTMLButtonElement>(null);
     const [erApen, setErApen] = useState(false);
     const [editing, setEditing] = useState(false);
-    const selectedDate: Dayjs = props.value || dagensDato;
+    const selectedDate: Dayjs = props.value || dayjs();
     const [tempDate, setTempDate] = useState(formaterDato(selectedDate));
     const [feilmelding, setFeilMelding] = useState('');
 
@@ -119,12 +118,12 @@ const Datovelger: FunctionComponent<Props> = props => {
                     id={datovelgerId}
                     aria-label="Skriv startdato:"
                     value={tekstIInputfeltet()}
-                    className={'datofelt__input'}
-                    onChange={event => {
+                    className="datofelt__input"
+                    onChange={(event) => {
                         setEditing(true);
                         setTempDate(event.currentTarget.value);
                     }}
-                    onBlur={event => {
+                    onBlur={(event) => {
                         inputOnBlur(event);
                     }}
                 />
@@ -140,7 +139,7 @@ const Datovelger: FunctionComponent<Props> = props => {
             </div>
             <UnmountClosed isOpened={erApen}>
                 <DayPicker
-                    onKeyDown={e => {
+                    onKeyDown={(e) => {
                         if (e.key === 'Escape') {
                             setErApen(false);
                         }

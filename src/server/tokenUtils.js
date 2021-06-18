@@ -3,7 +3,7 @@ const TOKENX_TOKEN_SET_KEY = 'TOKENX_TOKEN_SET_KEY';
 const IDPORTEN_TOKEN_SET_KEY = 'IDPORTEN_TOKEN_SET_KEY';
 const { API_AUDIENCE } = require('./konstanter');
 
-const getTokenSetsFromSession = req => {
+const getTokenSetsFromSession = (req) => {
     if (req && req.user) {
         return req.user.tokenSets;
     }
@@ -26,7 +26,6 @@ const ensureAuthenticated = async (req, res, next) => {
     if (req.isAuthenticated() && hasValidAccessToken(req, IDPORTEN_TOKEN_SET_KEY)) {
         next();
     } else {
-        console.log('Ikke pålogget, sender 401');
         req.session.destroy();
         res.cookie('permittering-token', {
             expires: Date.now(),
@@ -63,12 +62,11 @@ const exchangeToken = (tokenXClient, tokenXIssuer, req) => {
                     },
                     additionalClaims
                 )
-                .then(tokenSet => {
+                .then((tokenSet) => {
                     req.user.tokenSets[TOKENX_TOKEN_SET_KEY] = tokenSet;
-                    console.log('Got token from tokenX');
                     resolve(tokenSet.access_token);
                 })
-                .catch(err => {
+                .catch((err) => {
                     console.error(err);
                     reject(err);
                 });

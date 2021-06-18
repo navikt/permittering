@@ -4,7 +4,7 @@ export const splittOppFritekst = (fritekst: string) => {
         fritekst = '\n' + fritekst;
     }
     const blokker = fritekst.split('\n###');
-    blokker.forEach(blokk => {
+    blokker.forEach((blokk) => {
         if (blokk.length > 0) {
             const blokkLines = blokk.split('\n');
             const headLine = blokkLines.shift();
@@ -18,7 +18,7 @@ export const splittOppFritekst = (fritekst: string) => {
 };
 export const mergeFritekst = (felter: any) => {
     const fritekst: string[] = [];
-    Object.keys(felter).forEach(key => {
+    Object.keys(felter).forEach((key) => {
         let headline = '\n### ' + storForbokstav(key).trim();
         let body = felter[key].trimStart();
         fritekst.push(headline + '\n' + body);

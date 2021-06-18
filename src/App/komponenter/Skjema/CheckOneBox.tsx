@@ -9,10 +9,10 @@ export interface CheckOneBoxProps extends Partial<CheckboxProps> {
     label?: string;
 }
 
-const CheckOneBox: React.FunctionComponent<CheckOneBoxProps> = props => {
+const CheckOneBox: React.FunctionComponent<CheckOneBoxProps> = (props) => {
     const { row, rows, setRows, label, onChange, checked, ...other } = props;
     const onCheckClicked = (changedKey: string) => {
-        const newItems = rows.map(item => ({
+        const newItems = rows.map((item) => ({
             ...item,
             selected: changedKey === item.fnr ? !item.selected : item.selected,
         }));

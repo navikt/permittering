@@ -24,7 +24,7 @@ const SkjemaRamme: FunctionComponent<SkjemaRammeProps> = ({ children, steg, lagr
             <VerticalSpacer rem={2} />
             <Stegindikator
                 steg={steg as StegindikatorStegProps[]}
-                onChange={async index => {
+                onChange={async (index) => {
                     await lagre();
                     skiftSide(index);
                 }}

@@ -28,7 +28,7 @@ const PersonTabell: React.FunctionComponent<PersonTabellProps> = ({ personer, se
                 </tr>
             </thead>
             <tbody>
-                {personer.map(person => {
+                {personer.map((person) => {
                     return (
                         <tr key={'row' + person.fnr}>
                             <td>

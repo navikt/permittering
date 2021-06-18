@@ -9,7 +9,7 @@ const stillingstitlerMock = require('./server/routes/stillingstitlerMock');
  * Dette er configen som `craco start` bruker...
  * @param app
  */
-module.exports = function(app) {
+module.exports = function (app) {
     internalRoutes(app);
     mockLoginRoutes(app);
     featureToggles(app);

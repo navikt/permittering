@@ -5,7 +5,7 @@ interface Props {
     classname?: string;
 }
 
-const HvitSideBoks: React.FunctionComponent<Props> = props => (
+const HvitSideBoks: React.FunctionComponent<Props> = (props) => (
     <div className={`hvit-side-boks ${props.classname ? props.classname : ''}`}>
         {props.children}
     </div>

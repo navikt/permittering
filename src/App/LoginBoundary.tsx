@@ -9,13 +9,13 @@ export enum Tilgang {
     TILGANG,
 }
 
-const LoginBoundary: FunctionComponent = props => {
+const LoginBoundary: FunctionComponent = (props) => {
     const [innlogget, setInnlogget] = useState(Tilgang.LASTER);
 
     useEffect(() => {
         setInnlogget(Tilgang.LASTER);
         const abortController = new AbortController();
-        sjekkInnlogget(abortController.signal).then(innlogget => {
+        sjekkInnlogget(abortController.signal).then((innlogget) => {
             if (innlogget) {
                 setInnlogget(Tilgang.TILGANG);
             } else {

@@ -44,9 +44,8 @@ const Oppsummering: FunctionComponent = () => {
     const { organisasjoner } = useContext(OrganisasjonsListeContext);
 
     const [feilVedInnsending, setFeilVedInnsending] = useState(false);
-    const [visFeilmeldingMangledeFelter, setVisFeilmeldingManglendeFelter] = useState<boolean>(
-        false
-    );
+    const [visFeilmeldingMangledeFelter, setVisFeilmeldingManglendeFelter] =
+        useState<boolean>(false);
     const [manglendeFelter, setManglendeFelter] = useState<string[]>([]);
 
     const { steg, forrigeSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
@@ -95,10 +94,10 @@ const Oppsummering: FunctionComponent = () => {
     useEffect(() => {
         if (environment.MILJO === 'prod-gcp') {
             const fullBedrift = organisasjoner.filter(
-                org => org.OrganizationNumber === context.skjema.bedriftNr
+                (org) => org.OrganizationNumber === context.skjema.bedriftNr
             )[0];
             fullBedrift &&
-                loggBedriftsInfo(fullBedrift).then(antallAnsatte =>
+                loggBedriftsInfo(fullBedrift).then((antallAnsatte) =>
                     setAntallIBedrift(antallAnsatte)
                 );
         }
@@ -389,7 +388,7 @@ const Oppsummering: FunctionComponent = () => {
                             <Normaltekst>
                                 Du må fylle ut alle feltene.
                                 <ul>
-                                    {manglendeFelter.map(felt => {
+                                    {manglendeFelter.map((felt) => {
                                         return <li>{felt}</li>;
                                     })}
                                 </ul>
