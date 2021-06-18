@@ -235,7 +235,7 @@ const Side2: FunctionComponent = () => {
                         />
                         <Checkbox
                             label="Vet ikke hvor lenge det vil vare"
-                            checked={context.skjema.ukjentSluttDato}
+                            checked={!!context.skjema.ukjentSluttDato}
                             onChange={() =>
                                 context.endreSkjemaVerdi(
                                     'ukjentSluttDato',

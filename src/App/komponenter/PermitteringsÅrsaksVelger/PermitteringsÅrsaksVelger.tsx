@@ -21,7 +21,6 @@ export const Permitteringsårsaksvelger: FunctionComponent<Props> = (props) => {
             onChange={(event) => {
                 props.setÅrsak(event.target.value);
             }}
-            defaultValue={'Velg en årsak'}
             value={props.valgtårsak}
         >
             <option key={'VELG_ÅRSAK'} value={'VELG_ÅRSAK'}>

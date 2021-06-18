@@ -93,7 +93,6 @@ const Oppsummering: FunctionComponent = () => {
     }, [organisasjoner, context.skjema.bedriftNr]);
 
     const onSendClickLogging = () => {
-        console.log('on send logging');
         const antallBerorte = context.skjema.antallBerørt ? context.skjema.antallBerørt : 0;
         const antallIBedriftInt = parseInt(antallIBedrift);
         if (antallBerorte > 0 && context.skjema.type && antallIBedriftInt > 0) {
