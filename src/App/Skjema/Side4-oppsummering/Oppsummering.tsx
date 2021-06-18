@@ -28,6 +28,7 @@ import Dekorator from '../../komponenter/Dekorator/Dekorator';
 import { status } from '../../Forside/SkjemaTabell/SkjemaTabell';
 import AlertStripe from 'nav-frontend-alertstriper';
 import dayjs from 'dayjs';
+import { formaterDato } from '../../komponenter/Datovelger/datovelger-utils';
 const customParseFormat = require('dayjs/plugin/customParseFormat');
 dayjs.extend(customParseFormat);
 
@@ -68,9 +69,7 @@ const Oppsummering: FunctionComponent = () => {
             return context.skjema.startDato !== '' && context.skjema.ukjentSluttDato;
         }
         if (context.skjema.sluttDato && context.skjema.startDato) {
-            return dayjs(context.skjema.sluttDato, 'DD.MM.YYYY').isAfter(
-                dayjs(context.skjema.startDato, 'DD.MM.YYYY')
-            );
+            return dayjs(context.skjema.sluttDato).isAfter(dayjs(context.skjema.startDato));
         }
         return false;
     };
@@ -282,7 +281,7 @@ const Oppsummering: FunctionComponent = () => {
                                         <span className="fra-til">Fra:</span>
                                         <SjekkOmFyltUt
                                             ugyldigInput={!erGyldigDatoInput()}
-                                            verdi={fraDato}
+                                            verdi={formaterDato(dayjs(fraDato))}
                                         />
                                     </div>
                                     <div>
@@ -292,7 +291,7 @@ const Oppsummering: FunctionComponent = () => {
                                         ) : (
                                             <SjekkOmFyltUt
                                                 ugyldigInput={!erGyldigDatoInput()}
-                                                verdi={tilDato}
+                                                verdi={formaterDato(dayjs(tilDato))}
                                             />
                                         )}
                                     </div>

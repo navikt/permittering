@@ -54,8 +54,8 @@ const Side2: FunctionComponent = () => {
     }, []);
 
     useEffect(() => {
-        const datoFra = dayjs(context.skjema.startDato, 'DD.MM.YYYY');
-        const datoTil = dayjs(context.skjema.sluttDato, 'DD.MM.YYYY');
+        const datoFra = dayjs(context.skjema.startDato);
+        const datoTil = dayjs(context.skjema.sluttDato);
         if (datoFra.isValid()) {
             setDatoFra(datoFra);
         }
@@ -169,6 +169,8 @@ const Side2: FunctionComponent = () => {
         context.skjema.id
     );
 
+    console.log(context.skjema);
+
     return (
         <>
             <Dekorator sidetittel={context.skjema.type} />
@@ -240,7 +242,7 @@ const Side2: FunctionComponent = () => {
                         onChange={(event) => {
                             context.endreSkjemaVerdi(
                                 'startDato',
-                                formaterDato(event.currentTarget.value)
+                                event.currentTarget.value.format()
                             );
                             setDatoFra(
                                 dayjs(formaterDato(event.currentTarget.value), 'DD.MM.YYYY')
@@ -255,7 +257,7 @@ const Side2: FunctionComponent = () => {
                             onChange={(event) => {
                                 context.endreSkjemaVerdi(
                                     'sluttDato',
-                                    formaterDato(event.currentTarget.value)
+                                    event.currentTarget.value.format()
                                 );
                                 setDatoTil(
                                     dayjs(formaterDato(event.currentTarget.value), 'DD.MM.YYYY')
