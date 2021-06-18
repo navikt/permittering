@@ -8,16 +8,16 @@ interface Props {
     setOrganisasjon: (orgnr: string) => void;
 }
 
-export const BedriftsVelger: FunctionComponent<Props> = props => {
+export const BedriftsVelger: FunctionComponent<Props> = (props) => {
     return (
         <Select
             label={props.label}
             className={'hva-skal-du-rapportere__bedriftsDropdown'}
-            onChange={event => {
+            onChange={(event) => {
                 props.setOrganisasjon(event.target.value);
             }}
         >
-            {props.organisasjoner.map(organisasjon => {
+            {props.organisasjoner.map((organisasjon) => {
                 return (
                     <option
                         key={organisasjon.OrganizationNumber}

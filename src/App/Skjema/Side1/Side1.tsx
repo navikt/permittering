@@ -57,7 +57,7 @@ const Side1: FunctionComponent = () => {
                     className={'skjema-innhold__side-1-input-felt'}
                     label="Navn"
                     defaultValue={context.skjema.kontaktNavn}
-                    onChange={event =>
+                    onChange={(event) =>
                         context.endreSkjemaVerdi('kontaktNavn', event.currentTarget.value)
                     }
                 />
@@ -86,7 +86,7 @@ const Side1: FunctionComponent = () => {
                         label="E-post"
                         defaultValue={context.skjema.kontaktEpost}
                         feil={feilMeldingEpost}
-                        onBlur={event => {
+                        onBlur={(event) => {
                             if (erGyldigEpost(event.currentTarget.value)) {
                                 context.endreSkjemaVerdi('kontaktEpost', event.currentTarget.value);
                                 setFeilmeldingEpost('');

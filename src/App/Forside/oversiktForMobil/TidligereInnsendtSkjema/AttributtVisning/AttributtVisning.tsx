@@ -7,7 +7,7 @@ interface Props {
     attributtVerdi?: any;
 }
 
-const AttributtVisning: FunctionComponent<Props> = props => {
+const AttributtVisning: FunctionComponent<Props> = (props) => {
     return (
         <div className="attributt">
             <div className="attributt__navn"> {props.attributt}</div>

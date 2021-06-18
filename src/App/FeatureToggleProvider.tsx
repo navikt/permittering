@@ -8,7 +8,7 @@ export enum Feature {
 }
 
 const featureTogglePath = (features: Feature[]): string => {
-    const query = features.map(feature => `feature=${feature}`).join('&');
+    const query = features.map((feature) => `feature=${feature}`).join('&');
     return `${featurePath}?${query}`;
 };
 
