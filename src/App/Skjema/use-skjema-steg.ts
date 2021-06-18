@@ -1,5 +1,3 @@
-import { useContext } from 'react';
-import { Feature, FeatureToggleContext } from '../FeatureToggleProvider';
 import { SkjemaNavigasjon } from '../../types/SkjemaNavigasjon';
 
 const createSkjemaPath = (slug: string, id?: string) => {
@@ -7,8 +5,6 @@ const createSkjemaPath = (slug: string, id?: string) => {
 };
 
 export const useSkjemaSteg = (currentPathName: string, id: string): SkjemaNavigasjon => {
-    const featureToggleContext = useContext(FeatureToggleContext);
-    const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
     const steg = [
         {
             label: 'Kontaktinformasjon',
@@ -32,10 +28,8 @@ export const useSkjemaSteg = (currentPathName: string, id: string): SkjemaNaviga
         },
     ]
         .filter((item) => {
-            if (!tillatFnrInput) {
-                if (item.slug === 'hvem-rammes') {
-                    return false;
-                }
+            if (item.slug === 'hvem-rammes') {
+                return false;
             }
             return true;
         })
