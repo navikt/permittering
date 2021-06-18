@@ -35,7 +35,7 @@ const YrkeskategoriTabell: React.FunctionComponent<any> = ({ selected, setSelect
                                     size={4}
                                     defaultValue={'0'}
                                     value={kategori.antall || null}
-                                    onChange={e => {
+                                    onChange={(e) => {
                                         kategori.antall = e.currentTarget.value;
                                         const selectedCopy = [...selected];
                                         selectedCopy.splice(index, 1, kategori);
@@ -48,7 +48,6 @@ const YrkeskategoriTabell: React.FunctionComponent<any> = ({ selected, setSelect
                                 <SlettKnapp
                                     ariaLabel={'slette'}
                                     onClick={() => {
-                                        console.log('sletter', kategori.key);
                                         const selectedCopy = [...selected];
                                         selectedCopy.splice(index, 1);
                                         setSelected(selectedCopy);
