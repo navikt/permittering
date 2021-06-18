@@ -17,28 +17,16 @@ export const useSkjemaSteg = (currentPathName: string, id: string): SkjemaNaviga
             slug: 'generelle-opplysninger',
         },
         {
-            label: 'Hvem berøres?',
-            aktiv: false,
-            slug: 'hvem-rammes',
-        },
-        {
             label: 'Oppsummering',
             aktiv: false,
             slug: 'oppsummering',
         },
-    ]
-        .filter((item) => {
-            if (item.slug === 'hvem-rammes') {
-                return false;
-            }
-            return true;
-        })
-        .map((item, index) => ({
-            ...item,
-            index,
-            path: createSkjemaPath(item.slug, id),
-            aktiv: currentPathName.includes(item.slug),
-        }));
+    ].map((item, index) => ({
+        ...item,
+        index,
+        path: createSkjemaPath(item.slug, id),
+        aktiv: currentPathName.includes(item.slug),
+    }));
 
     const nesteSide = (() => {
         const aktivSteg = steg.find((e) => e.aktiv);
