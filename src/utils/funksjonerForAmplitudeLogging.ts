@@ -44,7 +44,7 @@ export const loggTrykketPaTidligereSkjema = (type: string) => {
 
 export const loggBedriftsInfo = async (organisasjon: Organisasjon): Promise<string> => {
     let infoFraEereg: OrganisasjonFraEnhetsregisteret = tomEnhetsregOrg;
-    await hentUnderenhet(organisasjon.OrganizationNumber).then(underenhet => {
+    await hentUnderenhet(organisasjon.OrganizationNumber).then((underenhet) => {
         infoFraEereg = underenhet;
     });
 
@@ -52,7 +52,7 @@ export const loggBedriftsInfo = async (organisasjon: Organisasjon): Promise<stri
 
     if (infoFraEereg !== tomEnhetsregOrg) {
         let infoFraEeregJuridisk: OrganisasjonFraEnhetsregisteret = tomEnhetsregOrg;
-        await hentOverordnetEnhet(organisasjon.ParentOrganizationNumber).then(enhet => {
+        await hentOverordnetEnhet(organisasjon.ParentOrganizationNumber).then((enhet) => {
             infoFraEeregJuridisk = enhet;
         });
         if (infoFraEereg.naeringskode1 && infoFraEereg.naeringskode1.kode.startsWith('84')) {

@@ -4,8 +4,8 @@ const listObjects = () => {
     return mockStorage;
 };
 
-const getObject = id => {
-    const found = mockStorage.filter(obj => obj.id === id);
+const getObject = (id) => {
+    const found = mockStorage.filter((obj) => obj.id === id);
     return found[0];
 };
 
@@ -17,8 +17,8 @@ const putObject = (id, data) => {
     return data;
 };
 
-const deleteObject = id => {
-    mockStorage = mockStorage.filter(obj => obj.id !== id);
+const deleteObject = (id) => {
+    mockStorage = mockStorage.filter((obj) => obj.id !== id);
 };
 
 module.exports = {

@@ -29,7 +29,7 @@ const Forside: FunctionComponent = () => {
     useEffect(() => {
         if (skjemaer && skjemaer.length > 0) {
             const antallPaBegynte = skjemaer.filter(
-                skjema => skjema.sendtInnTidspunkt == null || skjema.sendtInnTidspunkt === ''
+                (skjema) => skjema.sendtInnTidspunkt == null || skjema.sendtInnTidspunkt === ''
             ).length;
             antallPaBegynte && loggAntallPaBegynteSkjema(antallPaBegynte);
         }

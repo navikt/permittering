@@ -1,7 +1,7 @@
 import { mergeFritekst, splittOppFritekst } from './fritekstFunksjoner';
 
 const assert = require('assert');
-describe('Fritekst Funksjoner', function() {
+describe('Fritekst Funksjoner', function () {
     it('should parse fritekst', () => {
         const fritekst = `### EN OVERSKRIFT HER
         

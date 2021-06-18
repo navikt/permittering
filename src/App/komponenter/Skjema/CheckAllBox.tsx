@@ -8,7 +8,7 @@ export interface CheckAllBoxProps extends Partial<CheckboxProps> {
     label?: string;
 }
 
-const CheckAllBox: React.FunctionComponent<CheckAllBoxProps> = props => {
+const CheckAllBox: React.FunctionComponent<CheckAllBoxProps> = (props) => {
     const { rows, setRows, label, onChange, checked, ...other } = props;
     const [checkAll, setCheckAll] = useState<boolean>(false);
     useEffect(() => {
@@ -20,7 +20,7 @@ const CheckAllBox: React.FunctionComponent<CheckAllBoxProps> = props => {
     }, [rows]);
 
     const onCheckAllClicked = (): void => {
-        const newRows = rows.map(row => ({
+        const newRows = rows.map((row) => ({
             ...row,
             selected: !checkAll,
         }));

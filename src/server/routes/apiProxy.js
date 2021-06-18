@@ -8,17 +8,17 @@ const apiProxy = (app, tokenXClient, tokenXIssuer) => {
         paths.apiPath,
         ensureAuthenticated,
         proxy(`${BACKEND_BASEURL}`, {
-            proxyReqPathResolver: req => {
+            proxyReqPathResolver: (req) => {
                 return `${BACKEND_API_PATH}${req.url}`;
             },
             proxyReqOptDecorator: (options, req) => {
                 return new Promise((resolve, reject) => {
                     exchangeToken(tokenXClient, tokenXIssuer, req).then(
-                        access_token => {
+                        (access_token) => {
                             options.headers.Authorization = `Bearer ${access_token}`;
                             resolve(options);
                         },
-                        error => reject(error)
+                        (error) => reject(error)
                     );
                 });
             },

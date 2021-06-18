@@ -30,7 +30,7 @@ const loginRoutes = (app, idPortenEndSession) => {
         }
     );
 
-    app.get(paths.logoutPath, function(req, res) {
+    app.get(paths.logoutPath, function (req, res) {
         const idToken = req.user.tokenSets
             ? req.user.tokenSets.IDPORTEN_TOKEN_SET_KEY.id_token
             : '';

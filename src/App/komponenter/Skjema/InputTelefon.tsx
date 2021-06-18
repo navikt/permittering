@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Input, InputProps } from 'nav-frontend-skjema';
 import { erGyldigTelefonNr } from '../../../utils/inputFeltValideringer';
 
-const InputTelefon: React.FunctionComponent<InputProps> = props => {
+const InputTelefon: React.FunctionComponent<InputProps> = (props) => {
     const { onChange, ...other } = props;
     const [feilMelding, setFeilmelding] = useState('');
     return (

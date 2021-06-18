@@ -3,7 +3,7 @@ const TOKENX_TOKEN_SET_KEY = 'TOKENX_TOKEN_SET_KEY';
 const IDPORTEN_TOKEN_SET_KEY = 'IDPORTEN_TOKEN_SET_KEY';
 const { API_AUDIENCE } = require('./konstanter');
 
-const getTokenSetsFromSession = req => {
+const getTokenSetsFromSession = (req) => {
     if (req && req.user) {
         return req.user.tokenSets;
     }
@@ -62,11 +62,11 @@ const exchangeToken = (tokenXClient, tokenXIssuer, req) => {
                     },
                     additionalClaims
                 )
-                .then(tokenSet => {
+                .then((tokenSet) => {
                     req.user.tokenSets[TOKENX_TOKEN_SET_KEY] = tokenSet;
                     resolve(tokenSet.access_token);
                 })
-                .catch(err => {
+                .catch((err) => {
                     console.error(err);
                     reject(err);
                 });

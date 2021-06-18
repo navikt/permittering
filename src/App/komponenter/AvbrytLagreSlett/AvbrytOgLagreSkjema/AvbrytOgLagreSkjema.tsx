@@ -19,7 +19,7 @@ export const AvbrytOgLagreSkjema: FunctionComponent<AvbrytOgLagreSkjemaProps> = 
             <Lenke
                 className="lagre-lenke"
                 href="#"
-                onClick={async e => {
+                onClick={async (e) => {
                     e.preventDefault();
                     setOpen(true);
                 }}

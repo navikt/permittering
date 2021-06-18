@@ -16,7 +16,7 @@ const getUpdatedSuggestions = async (path: string, q: string) => {
     });
     return suggestions;
 };
-export const YrkeskategorivelgerGammel: FunctionComponent<any> = props => {
+export const YrkeskategorivelgerGammel: FunctionComponent<any> = (props) => {
     const [suggestions, setSuggestions] = React.useState<any>([]);
     const [value, setValue] = React.useState('');
     return (
@@ -34,7 +34,7 @@ export const YrkeskategorivelgerGammel: FunctionComponent<any> = props => {
                 placeholder="Søk etter yrke"
                 ariaLabel="test"
                 name="yrkeskategori"
-                onSelect={d => {
+                onSelect={(d) => {
                     const existing = props.selected.find((e: any) => e.key === d.key);
                     if (existing === undefined) {
                         const selectedCopy = [...props.selected];

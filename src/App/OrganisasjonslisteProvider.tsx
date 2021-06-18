@@ -19,7 +19,7 @@ const OrganisasjonsListeContext = React.createContext<OrganisajonsContext>(
 );
 export { OrganisasjonsListeContext };
 
-export const OrganisasjonsListeProvider: FunctionComponent = props => {
+export const OrganisasjonsListeProvider: FunctionComponent = (props) => {
     const [organisasjoner, setOrganisasjoner] = useState(Array<Organisasjon>());
     const [organisasjonslisteFerdigLastet, setOrganisasjonslisteFerdigLastet] = useState(
         Tilgang.LASTER
@@ -29,9 +29,9 @@ export const OrganisasjonsListeProvider: FunctionComponent = props => {
         const abortController = new AbortController();
         const signal = abortController.signal;
         hentOrganisasjonerFraAltinn(signal)
-            .then(organisasjonsliste => {
+            .then((organisasjonsliste) => {
                 const kunBedrifter = organisasjonsliste.filter(
-                    organisasjon =>
+                    (organisasjon) =>
                         organisasjon.OrganizationForm === 'BEDR' ||
                         organisasjon.OrganizationForm === 'AAFY'
                 );
@@ -41,7 +41,7 @@ export const OrganisasjonsListeProvider: FunctionComponent = props => {
                     setOrganisasjonslisteFerdigLastet(Tilgang.IKKE_TILGANG);
                 }
             })
-            .catch(e => {
+            .catch((e) => {
                 setOrganisasjoner([]);
                 //setVisFeilmelding(true);
             });

@@ -50,7 +50,7 @@ const LeggTilPersonerModal: React.FunctionComponent<LeggTilPersonerModalProps> =
                     label="Berørte personer"
                     value={textAreaContent}
                     placeholder={'Lim inn her'}
-                    onChange={e => {
+                    onChange={(e) => {
                         const numbers = extractFnrFromString(e.target.value);
                         setFnrCount(numbers.length);
                         setTextAreaContent(e.target.value);
