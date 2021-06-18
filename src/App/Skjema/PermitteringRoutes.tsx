@@ -5,7 +5,6 @@ import Kvitteirng from './Kvitteringsside/Kvitteringsside';
 import Side0 from './Side0 -hvaSkalDuRapportere/HvaSkalDuRapportere';
 import Side1 from './Side1/Side1';
 import Side2 from './Side2/Side2';
-import Side3 from './Side3-personer/InputAvPersoner';
 import Oppsummering from './Side4-oppsummering/Oppsummering';
 import Side5 from './Side5-yrker/Yrkeskategorier';
 import { SkjemaProvider } from './SkjemaContext/SkjemaContext';
@@ -32,11 +31,6 @@ const PermitteringRoutes = () => {
                     <Route exact path="/skjema/generelle-opplysninger/:id">
                         <SkjemaProvider>
                             <Side2 />
-                        </SkjemaProvider>
-                    </Route>
-                    <Route exact path="/skjema/hvem-rammes/:id">
-                        <SkjemaProvider>
-                            <Side3 />
                         </SkjemaProvider>
                     </Route>
                     <Route exact path="/skjema/yrkeskategorier/:id">
