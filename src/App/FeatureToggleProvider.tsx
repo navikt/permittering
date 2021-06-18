@@ -3,7 +3,6 @@ import React, { createContext, useEffect, useState } from 'react';
 import { featurePath } from '../paths.json';
 
 export enum Feature {
-    visskjema = 'permittering.visskjema',
     tillatFnrInput = 'permittering.tillatFnrInput',
 }
 

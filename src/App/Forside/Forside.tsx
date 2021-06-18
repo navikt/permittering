@@ -15,8 +15,6 @@ import InfoOmMeldepliktBoks from './InfoOmMeldepliktBoks/InfoOmMeldepliktBoks';
 import './Forside.less';
 
 const Forside: FunctionComponent = () => {
-    const featureToggleContext = useContext(FeatureToggleContext);
-    const visskjema = featureToggleContext[Feature.visskjema];
     const [skjemaer, setSkjemaer] = useState<Permitteringsskjema[] | undefined>(undefined);
     const sidetittel =
         'Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid';
@@ -38,7 +36,7 @@ const Forside: FunctionComponent = () => {
     return (
         <>
             <Dekorator sidetittel={sidetittel} />
-            <InfoOmMeldepliktBoks visskjema={visskjema} />
+            <InfoOmMeldepliktBoks />
             {skjemaer && (
                 <>
                     <HvitSideBoks classname="forside__tabell-container">

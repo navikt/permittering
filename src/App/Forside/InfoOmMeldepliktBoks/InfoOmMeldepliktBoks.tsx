@@ -8,11 +8,7 @@ import InfoIkon from './InfoIkon';
 import { EksternLenke } from './EksternLenke';
 import './InfoOmMeldepliktBoks.less';
 
-interface Props {
-    visskjema: boolean;
-}
-
-const InfoOmMeldepliktBoks: FunctionComponent<Props> = (props) => {
+const InfoOmMeldepliktBoks: FunctionComponent = (props) => {
     const history = useHistory();
     return (
         <div className="forside__info-om-meldeplikt-boks">
