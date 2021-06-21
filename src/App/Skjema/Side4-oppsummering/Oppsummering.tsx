@@ -27,10 +27,7 @@ import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 import { status } from '../../Forside/SkjemaTabell/SkjemaTabell';
 import AlertStripe from 'nav-frontend-alertstriper';
-import dayjs from 'dayjs';
-import { skrivOmDato, skrivOmDatoStreng } from '../../komponenter/Datovelger/datovelger-utils';
-const customParseFormat = require('dayjs/plugin/customParseFormat');
-dayjs.extend(customParseFormat);
+import { skrivOmDato } from '../../komponenter/Datovelger/datovelger-utils';
 
 export const lagAntallBerorteTekst = (antallBerorte?: number) => {
     if (antallBerorte) {
@@ -69,10 +66,7 @@ const Oppsummering: FunctionComponent = () => {
             return context.skjema.startDato !== '' && context.skjema.ukjentSluttDato;
         }
         if (context.skjema.sluttDato && context.skjema.startDato) {
-            return (
-                !!skrivOmDatoStreng(context.skjema.sluttDato) <
-                !!skrivOmDatoStreng(context.skjema.startDato)
-            );
+            return new Date(context.skjema.sluttDato) > new Date(context.skjema.startDato);
         }
         return false;
     };
@@ -284,7 +278,7 @@ const Oppsummering: FunctionComponent = () => {
                                         <span className="fra-til">Fra:</span>
                                         <SjekkOmFyltUt
                                             ugyldigInput={!erGyldigDatoInput()}
-                                            verdi={skrivOmDato(skrivOmDatoStreng(fraDato))}
+                                            verdi={skrivOmDato(new Date(fraDato))}
                                         />
                                     </div>
                                     <div>
@@ -294,7 +288,7 @@ const Oppsummering: FunctionComponent = () => {
                                         ) : (
                                             <SjekkOmFyltUt
                                                 ugyldigInput={!erGyldigDatoInput()}
-                                                verdi={skrivOmDato(skrivOmDatoStreng(tilDato))}
+                                                verdi={skrivOmDato(new Date(tilDato))}
                                             />
                                         )}
                                     </div>

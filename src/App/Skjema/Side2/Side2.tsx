@@ -24,7 +24,6 @@ import { Permitteringsårsaksvelger } from '../../komponenter/PermitteringsÅrsa
 import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 import './Side2.less';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
-import { skrivOmDato, skrivOmDatoStreng } from '../../komponenter/Datovelger/datovelger-utils';
 
 const Side2: FunctionComponent = () => {
     const history = useHistory();
@@ -32,8 +31,8 @@ const Side2: FunctionComponent = () => {
     const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
     const context = useContext(SkjemaContext);
 
-    const startDato = context.skjema.startDato ? skrivOmDato(context.skjema.startDato) : undefined;
-    const sluttDato = context.skjema.sluttDato ? skrivOmDato(context.skjema.sluttDato) : undefined;
+    const startDato = context.skjema.startDato ? new Date(context.skjema.startDato) : undefined;
+    const sluttDato = context.skjema.sluttDato ? new Date(context.skjema.sluttDato) : undefined;
 
     const [datoFra, setDatoFra] = useState<Date | undefined>(startDato);
     const [datoTil, setDatoTil] = useState<Date | undefined>(sluttDato);
@@ -45,6 +44,14 @@ const Side2: FunctionComponent = () => {
         window.scrollTo(0, 0);
         loggNavarendeSteg('generelle-opplysninger');
     }, []);
+
+    useEffect(() => {
+        if (context.skjema.sluttDato && context.skjema.startDato) {
+            setDatoFra(new Date(context.skjema.startDato));
+            setDatoTil(new Date(context.skjema.sluttDato));
+        }
+        // eslint-disable-next-line
+    }, [context.skjema.sluttDato, context.skjema.startDato]);
 
     useEffect(() => {
         if (context.skjema.ukjentSluttDato) {
@@ -150,8 +157,6 @@ const Side2: FunctionComponent = () => {
         history.location.pathname,
         context.skjema.id
     );
-
-    console.log(context.skjema);
 
     return (
         <>

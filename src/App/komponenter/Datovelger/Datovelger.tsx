@@ -19,7 +19,7 @@ import './Datovelger.less';
 interface Props {
     overtekst: string;
     value?: Date;
-    onChange: (event: { currentTarget: { value: Date } }) => void;
+    onChange: (event: any) => void;
     disabled?: boolean;
     skalVareEtter?: Date;
     skalVareFoer?: Date;
@@ -80,6 +80,15 @@ const Datovelger: FunctionComponent<Props> = (props) => {
             setFeilMelding('');
         }
     }, [props.tjenesteBestemtFeilmelding, props.disabled]);
+
+    useEffect(() => {
+        if (props.value && props.skalVareFoer && props.value < props.skalVareFoer) {
+            setFeilMelding('');
+        }
+        if (props.value && props.skalVareEtter && props.value > props.skalVareEtter) {
+            setFeilMelding('');
+        }
+    }, [props.skalVareEtter, props.skalVareFoer, props.value]);
 
     useEffect(() => {
         if (erApen) {
