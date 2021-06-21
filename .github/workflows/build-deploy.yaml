@@ -43,7 +43,7 @@ jobs:
 
   deploy-to-dev-gcp:
     name: Deploy to dev-gcp
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/fjern-refusjon'
+    if: github.ref == 'refs/heads/master'
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:
@@ -54,6 +54,21 @@ jobs:
           CLUSTER: dev-gcp
           VAR: version=${{ env.IMAGE }}
           RESOURCE: nais/dev-gcp.yaml,nais/redis.yaml
+          PRINT_PAYLOAD: true
+
+  deploy-to-labs-gcp:
+    name: Deploy to labs-gcp
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/labs-gcp'
+    needs: compile-test-and-build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_KEY_TEAM }}
+          CLUSTER: labs-gcp
+          VAR: version=${{ env.IMAGE }}
+          RESOURCE: nais/labs-gcp.yaml
           PRINT_PAYLOAD: true
 
   deploy-to-prod-gcp:

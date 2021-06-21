@@ -97,14 +97,12 @@
     "scripts": {
         "start": "craco start",
         "build": "craco build",
-        "winmock": "set REACT_APP_MOCK=true && yarn start",
         "server": "yarn build && NODE_ENV=production node src/server/server.js",
         "devserver": "yarn build && node src/server/server.js",
         "mock": "REACT_APP_MOCK=true yarn start",
         "heroku": "node src/server/heroku.js",
         "test": "CI=true craco test -w 1",
-        "eject": "craco eject",
-        "up": "docker-compose up -d --remove-orphans --build"
+        "eject": "craco eject"
     },
     "eslintConfig": {
         "extends": "react-app"
