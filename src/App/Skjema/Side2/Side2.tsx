@@ -64,6 +64,8 @@ const Side2: FunctionComponent = () => {
         }
     }, [context.skjema.sluttDato, context.skjema.startDato, context.skjema.ukjentSluttDato]);
 
+    console.log(context.skjema.startDato, 'startdato i context');
+
     useEffect(() => {
         if (context.skjema.ukjentSluttDato) {
             context.endreSkjemaVerdi('sluttDato', undefined);

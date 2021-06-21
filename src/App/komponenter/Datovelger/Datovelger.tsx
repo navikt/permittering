@@ -153,7 +153,11 @@ const Datovelger: FunctionComponent<Props> = (props) => {
                             setErApen(!erApen);
                         }
                     }}
-                    onDayClick={(day: Date) => velgDato(dayjs(day))}
+                    onDayClick={(day: Date) => {
+                        console.log('original dag: ' + day, 'dayjs dag ', dayjs(day));
+                        day.setHours(12);
+                        velgDato(dayjs(day));
+                    }}
                     months={MONTHS['no']}
                     weekdaysLong={WEEKDAYS_LONG['no']}
                     weekdaysShort={WEEKDAYS_SHORT['no']}
