@@ -1,42 +1,53 @@
-import { Dayjs } from 'dayjs';
-
-export const datoValidering = (day?: Dayjs, after?: Dayjs, before?: Dayjs) => {
-    if (day) {
-        if (after) {
-            if (day.isBefore(after)) {
-                return 'Til-dato må være etter fra-dato';
-            }
+export const skrivOmDato = (dato?: Date) => {
+    if (dato) {
+        const year = dato.getFullYear().toString();
+        let day = dato.getDate().toString();
+        let month = (dato.getMonth() + 1).toString();
+        if (day.length < 2) {
+            day = '0' + day;
         }
-        if (before) {
-            if (day.isAfter(before)) {
-                return 'Fra-dato må være før til-dato';
-            }
+        if (month.length < 2) {
+            month = '0' + month;
         }
+        return day + '.' + month + '.' + year;
     }
-
     return '';
 };
 
-type FastDatoIntervall = {
-    datoFra: Dayjs;
-    datoTil: Dayjs;
-    erLøpende?: false;
+export const skrivOmDatoStreng = (datoStreng: string) => {
+    console.log(datoStreng);
+    const parts = datoStreng.split('.');
+    const year = parseInt(parts[2]);
+    const month = parseInt(parts[1]);
+    const day = parseInt(parts[0]);
+    if (year > 1970 && month > 0 && day > 0) {
+        const returnDate = new Date(year, month - 1, day);
+        return returnDate;
+    } else {
+        return undefined;
+    }
 };
 
-type LøpendeDatoIntervall = {
-    datoFra: Dayjs;
-    datoTil?: undefined;
-    erLøpende: true;
+export const datoValidering = (day: Date, after?: Date, before?: Date) => {
+    if (after) {
+        if (day.getTime() <= after.getTime()) {
+            return 'Til-dato må være etter fra-dato';
+        }
+    }
+    if (before) {
+        if (day.getTime() >= before.getTime()) {
+            return 'Fra-dato må være før til-dato';
+        }
+    }
+    /*if (day.getTime() + 84400000 < new Date().getTime()) {
+        return 'Kan ikke velge tilbake i tid';
+    }*/
+    return '';
 };
-
-export type DatoIntervall = FastDatoIntervall | LøpendeDatoIntervall;
 
 export const WEEKDAYS_SHORT = {
     no: ['Sø', 'Ma', 'Ti', 'On', 'To', 'Fr', 'Lø'],
 };
-
-export const formaterDato = (dato: Dayjs): string => dato.format('DD.MM.YYYY');
-
 export const MONTHS = {
     no: [
         'Januar',

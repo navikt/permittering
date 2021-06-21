@@ -24,10 +24,7 @@ import { Permitteringsårsaksvelger } from '../../komponenter/PermitteringsÅrsa
 import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 import './Side2.less';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
-import dayjs, { Dayjs } from 'dayjs';
-import { formaterDato } from '../../komponenter/Datovelger/datovelger-utils';
-const customParseFormat = require('dayjs/plugin/customParseFormat');
-dayjs.extend(customParseFormat);
+import { skrivOmDato, skrivOmDatoStreng } from '../../komponenter/Datovelger/datovelger-utils';
 
 const Side2: FunctionComponent = () => {
     const history = useHistory();
@@ -35,15 +32,11 @@ const Side2: FunctionComponent = () => {
     const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
     const context = useContext(SkjemaContext);
 
-    const startDato = dayjs(context.skjema.startDato, 'DD.MM.YYYY').isValid()
-        ? dayjs(context.skjema.startDato, 'DD.MM.YYYY')
-        : undefined;
-    const sluttDato = dayjs(context.skjema.sluttDato, 'DD.MM.YYYY').isValid()
-        ? dayjs(context.skjema.sluttDato, 'DD.MM.YYYY')
-        : undefined;
+    const startDato = context.skjema.startDato ? skrivOmDato(context.skjema.startDato) : undefined;
+    const sluttDato = context.skjema.sluttDato ? skrivOmDato(context.skjema.sluttDato) : undefined;
 
-    const [datoFra, setDatoFra] = useState<Dayjs | undefined>(startDato);
-    const [datoTil, setDatoTil] = useState<Dayjs | undefined>(sluttDato);
+    const [datoFra, setDatoFra] = useState<Date | undefined>(startDato);
+    const [datoTil, setDatoTil] = useState<Date | undefined>(sluttDato);
     const [feilMeldingAntallBerort, setFeilmeldingAntallBerort] = useState('');
 
     let { yrkeskategorier = [] } = context.skjema;
@@ -52,19 +45,6 @@ const Side2: FunctionComponent = () => {
         window.scrollTo(0, 0);
         loggNavarendeSteg('generelle-opplysninger');
     }, []);
-
-    useEffect(() => {
-        const datoFra = dayjs(context.skjema.startDato);
-        const datoTil = dayjs(context.skjema.sluttDato);
-        if (datoFra.isValid()) {
-            setDatoFra(datoFra);
-        }
-        if (datoTil.isValid()) {
-            setDatoTil(datoTil);
-        }
-    }, [context.skjema.sluttDato, context.skjema.startDato, context.skjema.ukjentSluttDato]);
-
-    console.log(context.skjema.startDato, 'startdato i context');
 
     useEffect(() => {
         if (context.skjema.ukjentSluttDato) {
@@ -242,13 +222,8 @@ const Side2: FunctionComponent = () => {
                     <Datovelger
                         value={datoFra}
                         onChange={(event) => {
-                            context.endreSkjemaVerdi(
-                                'startDato',
-                                event.currentTarget.value.format()
-                            );
-                            setDatoFra(
-                                dayjs(formaterDato(event.currentTarget.value), 'DD.MM.YYYY')
-                            );
+                            context.endreSkjemaVerdi('startDato', event.currentTarget.value);
+                            setDatoFra(event.currentTarget.value);
                         }}
                         skalVareFoer={datoTil}
                         overtekst={'Fra'}
@@ -257,13 +232,8 @@ const Side2: FunctionComponent = () => {
                         <Datovelger
                             value={datoTil}
                             onChange={(event) => {
-                                context.endreSkjemaVerdi(
-                                    'sluttDato',
-                                    event.currentTarget.value.format()
-                                );
-                                setDatoTil(
-                                    dayjs(formaterDato(event.currentTarget.value), 'DD.MM.YYYY')
-                                );
+                                context.endreSkjemaVerdi('sluttDato', event.currentTarget.value);
+                                setDatoTil(event.currentTarget.value);
                             }}
                             disabled={context.skjema.ukjentSluttDato}
                             overtekst={'Til'}

@@ -6,37 +6,34 @@ import { Input, Label } from 'nav-frontend-skjema';
 import { guid } from 'nav-frontend-js-utils';
 import {
     datoValidering,
-    formaterDato,
     LABELS,
     MONTHS,
+    skrivOmDato,
+    skrivOmDatoStreng,
     WEEKDAYS_LONG,
     WEEKDAYS_SHORT,
 } from './datovelger-utils';
 import kalender from './kalender.svg';
 import './Datovelger.less';
-import dayjs, { Dayjs } from 'dayjs';
 
 interface Props {
     overtekst: string;
-    value?: Dayjs;
-    onChange: (event: { currentTarget: { value: Dayjs } }) => void;
+    value?: Date;
+    onChange: (event: { currentTarget: { value: Date } }) => void;
     disabled?: boolean;
-    skalVareEtter?: Dayjs;
-    skalVareFoer?: Dayjs;
+    skalVareEtter?: Date;
+    skalVareFoer?: Date;
     className?: string;
     tjenesteBestemtFeilmelding?: string;
 }
-
-const customParseFormat = require('dayjs/plugin/customParseFormat');
-dayjs.extend(customParseFormat);
 
 const Datovelger: FunctionComponent<Props> = (props) => {
     const datepickernode = useRef<HTMLDivElement>(null);
     const knappRef = useRef<HTMLButtonElement>(null);
     const [erApen, setErApen] = useState(false);
     const [editing, setEditing] = useState(false);
-    const selectedDate: Dayjs = props.value || dayjs();
-    const [tempDate, setTempDate] = useState(formaterDato(selectedDate));
+    const selectedDate: Date | undefined = props.value;
+    const [tempDate, setTempDate] = useState(skrivOmDato(selectedDate));
     const [feilmelding, setFeilMelding] = useState('');
 
     const datovelgerId = guid();
@@ -45,10 +42,10 @@ const Datovelger: FunctionComponent<Props> = (props) => {
         if (!editing && !props.value) {
             return 'dd.mm.yyyy';
         }
-        return editing ? tempDate : formaterDato(selectedDate);
+        return editing ? tempDate : skrivOmDato(selectedDate);
     };
 
-    const velgDato = (date: Dayjs) => {
+    const velgDato = (date: Date) => {
         props.onChange({
             currentTarget: {
                 value: date,
@@ -66,8 +63,8 @@ const Datovelger: FunctionComponent<Props> = (props) => {
 
     const inputOnBlur = (event: any) => {
         setEditing(false);
-        const newDato = dayjs(event.currentTarget.value, 'DD.MM.YYYY');
-        if (newDato.isValid()) {
+        const newDato = skrivOmDatoStreng(event.currentTarget.value);
+        if (newDato) {
             velgDato(newDato);
         } else if (tekstIInputfeltet() !== 'dd.mm.yyyy') {
             setFeilMelding('dd.mm.yyyy');
@@ -145,8 +142,7 @@ const Datovelger: FunctionComponent<Props> = (props) => {
                         }
                     }}
                     className={'datofelt__collapse'}
-                    selectedDays={selectedDate.toDate()}
-                    month={selectedDate.toDate()}
+                    selectedDays={selectedDate || new Date()}
                     firstDayOfWeek={1}
                     onDayKeyDown={(date, modifiers, e) => {
                         if (e.key === 'Tab') {
@@ -154,9 +150,8 @@ const Datovelger: FunctionComponent<Props> = (props) => {
                         }
                     }}
                     onDayClick={(day: Date) => {
-                        console.log('original dag: ' + day, 'dayjs dag ', dayjs(day));
                         day.setHours(12);
-                        velgDato(dayjs(day));
+                        velgDato(day);
                     }}
                     months={MONTHS['no']}
                     weekdaysLong={WEEKDAYS_LONG['no']}
