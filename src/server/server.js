@@ -8,6 +8,7 @@ const { Issuer, Strategy } = require('openid-client');
 const mustacheExpress = require('mustache-express');
 const getDecorator = require('./routes/decorator');
 const { getConfiguredRouter } = require('./routes/router');
+const { getConfiguredMockRouter } = require('./routes/mockRouter');
 const port = process.env.PORT || 3000;
 const path = require('path');
 const buildPath = path.join(__dirname, '../../build');
@@ -145,22 +146,30 @@ const startServer = async (html) => {
         sessionOptions.store = setupRedis();
         console.log('Redis ok');
     }
-    app.use(session(sessionOptions));
-    const idPortenClient = await getConfiguredIDportenClient();
-    const tokenXClient = await getConfiguredTokenXClient();
-    app.use(passport.initialize());
-    app.use(passport.session());
+    if (process.env.NAIS_CLUSTER_NAME === 'labs-gcp') {
+        const router = getConfiguredMockRouter(html);
+        app.use('/', router);
+        app.listen(port, () => {
+            console.log('Server listening on port (ONLY RETURNING MOCK DATA)', port);
+        });
+    } else {
+        app.use(session(sessionOptions));
+        const idPortenClient = await getConfiguredIDportenClient();
+        const tokenXClient = await getConfiguredTokenXClient();
+        app.use(passport.initialize());
+        app.use(passport.session());
 
-    passport.serializeUser((user, done) => done(null, user));
-    passport.deserializeUser((user, done) => done(null, user));
-    passport.use('idPortenOIDC', strategy(idPortenClient));
+        passport.serializeUser((user, done) => done(null, user));
+        passport.deserializeUser((user, done) => done(null, user));
+        passport.use('idPortenOIDC', strategy(idPortenClient));
 
-    console.log('start regular server');
-    const router = getConfiguredRouter(tokenXClient, tokenXIssuer, idPortenEndSession, html);
-    app.use('/', router);
-    app.listen(port, () => {
-        console.log('Server listening on port', port);
-    });
+        console.log('start regular server');
+        const router = getConfiguredRouter(tokenXClient, tokenXIssuer, idPortenEndSession, html);
+        app.use('/', router);
+        app.listen(port, () => {
+            console.log('Server listening on port', port);
+        });
+    }
 };
 
 /**

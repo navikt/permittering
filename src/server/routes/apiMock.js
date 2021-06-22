@@ -19,6 +19,9 @@ module.exports = function (app) {
         next();
     });
 
+    app.get(paths.redirectTilLoginPath, (req, res) => res.sendStatus(200));
+    app.get(paths.sjekkInnloggetPath, (req, res) => res.sendStatus(200));
+
     /**
      * Gir deg alle skjemaer innlogget bruker har tilgang til
      */
