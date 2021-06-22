@@ -179,7 +179,7 @@ const startServer = async (html) => {
  * @param p
  */
 const getDecoratorAndStartServer = () => {
-    if (process.env.NODE_ENV === 'production') {
+    if (process.env.NAIS_CLUSTER_NAME !== 'labs-gcp') {
         getDecorator()
             .then(renderApp, (error) => {
                 console.error('Kunne ikke hente dekoratør ', error);
