@@ -169,12 +169,20 @@ const startServer = async (html) => {
  * @param app
  * @param p
  */
-getDecorator()
-    .then(renderApp, (error) => {
-        console.error('Kunne ikke hente dekoratør ', error);
-        process.exit(1);
-    })
-    .then(startServer, (error) => {
-        console.error('Kunne ikke rendre app ', error);
-        process.exit(1);
-    });
+const getDecoratorAndStartServer = () => {
+    if (process.env.NODE_ENV === 'production') {
+        getDecorator()
+            .then(renderApp, (error) => {
+                console.error('Kunne ikke hente dekoratør ', error);
+                process.exit(1);
+            })
+            .then(startServer, (error) => {
+                console.error('Kunne ikke rendre app ', error);
+                process.exit(1);
+            });
+    } else {
+        renderApp('<html></html>').then(startServer);
+    }
+};
+
+getDecoratorAndStartServer();
