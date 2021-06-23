@@ -1,43 +1,38 @@
 @import '~nav-frontend-core/less/_variabler';
 
 .datofelt {
-    margin: 0 0 0.5rem 0;
+    margin-right: 2rem;
     position: relative;
-    width: 10rem;
+    display: flex;
+    flex-direction: column;
+
+    .skjemaelement__input {
+        width: 9.5rem;
+    }
 
     &__input-container {
         display: flex;
     }
 
-    .DayPicker {
+    .ReactCollapse--collapse {
         position: absolute;
         top: 6rem;
         left: 0;
         z-index: 999;
         background-color: @white;
+    }
+
+    .ReactCollapse--content {
         border: 1px solid @navGra60;
-    }
-
-    .DayPicker-Weekday,
-    .DayPicker-NavButton {
-        color: @navDypBlaDarken20;
-    }
-
-    .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
-        background-color: @navBla;
-    }
-
-    &__input {
-        width: 10rem;
     }
 
     &__knapp {
         position: absolute;
-        background-color: transparent;
+        background-color: white;
         height: 2.5rem;
         width: 2.5rem;
         border: 1px solid @navBlaDarken40;
-        right: 0;
+        left: 7rem;
 
         &:focus {
             outline: none;
@@ -47,16 +42,6 @@
         &:hover {
             background-color: @navBlaLighten80;
             border: 2px solid @navBlaDarken40;
-        }
-    }
-}
-
-@media (min-width: @screen-sm) {
-    .datofelt {
-        width: 15rem;
-
-        &__input {
-            width: 15rem;
         }
     }
 }
