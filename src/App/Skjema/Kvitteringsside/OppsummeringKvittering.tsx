@@ -5,10 +5,7 @@ import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import { splittOppFritekst } from '../../../utils/fritekstFunksjoner';
 import '../Side4-oppsummering/Oppsummering.less';
 import KvitteringIkon from '../Kvitteringsside/KvitteringIkon';
-import {
-    formatterDato,
-    lagTekstBasertPaSkjemaType,
-} from '../Side4-oppsummering/oppsummering-utils';
+import { lagTekstBasertPaSkjemaType } from '../Side4-oppsummering/oppsummering-utils';
 import { lagAntallBerorteTekst } from '../Side4-oppsummering/Oppsummering';
 import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 
@@ -22,12 +19,8 @@ const OppsummeringKvittering: FunctionComponent = () => {
     const yrker = existerendeFelter && existerendeFelter.yrker ? existerendeFelter.yrker : '';
     const annet = existerendeFelter && existerendeFelter.annet ? existerendeFelter.annet : '';
 
-    const fraDato = context.skjema.startDato
-        ? formatterDato(new Date(context.skjema.startDato))
-        : '';
-    const tilDato = context.skjema.sluttDato
-        ? formatterDato(new Date(context.skjema.sluttDato))
-        : '';
+    const fraDato = context.skjema.startDato ? context.skjema.startDato : '';
+    const tilDato = context.skjema.sluttDato ? context.skjema.sluttDato : '';
 
     useEffect(() => {
         finnÅrsakstekst(context.skjema.årsakskode).then(setLesbarÅrsakskode);

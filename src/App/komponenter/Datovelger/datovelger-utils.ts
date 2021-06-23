@@ -9,13 +9,13 @@ export const skrivOmDato = (dato?: Date) => {
         if (month.length < 2) {
             month = '0' + month;
         }
-        return day + '/' + month + '/' + year;
+        return day + '.' + month + '.' + year;
     }
     return '';
 };
 
 export const skrivOmDatoStreng = (datoStreng: string) => {
-    const parts = datoStreng.split('/');
+    const parts = datoStreng.split('.');
     const year = parseInt(parts[2]);
     const month = parseInt(parts[1]);
     const day = parseInt(parts[0]);
@@ -23,7 +23,7 @@ export const skrivOmDatoStreng = (datoStreng: string) => {
         const returnDate = new Date(year, month - 1, day);
         return returnDate;
     } else {
-        return false;
+        return undefined;
     }
 };
 
