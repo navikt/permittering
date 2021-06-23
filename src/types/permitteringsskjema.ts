@@ -9,8 +9,8 @@ export type Permitteringsskjema = {
     kontaktEpost?: string;
     varsletAnsattDato?: string;
     varsletNavDato?: string;
-    startDato?: string;
-    sluttDato?: string;
+    startDato?: string | undefined;
+    sluttDato?: string | undefined;
     ukjentSluttDato?: boolean;
     fritekst?: string;
     personer: Person[];
