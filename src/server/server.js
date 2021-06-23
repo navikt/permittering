@@ -141,7 +141,7 @@ const renderApp = (decoratorFragments) =>
     });
 
 const startServer = async (html) => {
-    if (process.env.NODE_ENV === 'production') {
+    if (process.env.NODE_ENV === 'production' && process.env.NAIS_CLUSTER_NAME !== 'labs-gcp') {
         // sessionOptions.cookie.secure = true;
         sessionOptions.store = setupRedis();
         console.log('Redis ok');
