@@ -1,0 +1,33 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: permittering
+  namespace: permittering-og-nedbemanning
+  labels:
+    team: permittering-og-nedbemanning
+spec:
+  image: {{ version }}
+  team: arbeidsgiver
+  port: 3000
+  ingresses:
+    - https://permitteringsskjema.labs.nais.io/permittering
+  liveness:
+    path: /permittering/internal/isAlive
+    initialDelay: 20
+  readiness:
+    path: /permittering/internal/isAlive
+    initialDelay: 20
+  replicas:
+    min: 1
+    max: 1
+  accessPolicy:
+    outbound:
+      rules:
+        - application: permittering-redis
+      external:
+        - host: dekoratoren.labs.nav.io
+  env:
+    - name: BACKEND_BASEURL
+      value: https://arbeidsgiver-permitteringsskjema-api.dev-fss-pub.nais.io
+    - name: BACKEND_API_PATH
+      value: /permitteringsskjema-api

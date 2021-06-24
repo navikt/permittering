@@ -5,6 +5,7 @@
     "license": "MIT",
     "dependencies": {
         "connect-redis": "^6.0.0",
+        "cookie-parser": "^1.4.5",
         "express-http-proxy": "^1.6.2",
         "express-session": "^1.17.2",
         "jsdom": "^16.6.0",
