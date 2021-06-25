@@ -157,7 +157,7 @@ const startServer = async () => {
         passport.use('idPortenOIDC', strategy(idPortenClient));
 
         console.log('start regular server');
-        const router = getConfiguredRouter(tokenXClient, tokenXIssuer, idPortenEndSession, html);
+        const router = getConfiguredRouter(tokenXClient, tokenXIssuer, idPortenEndSession);
         app.use('/', router);
         app.listen(port, () => {
             console.log('Server listening on port', port);

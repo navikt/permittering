@@ -11,7 +11,7 @@ const path = require('path');
 const buildPath = path.join(__dirname, '../../../build');
 const app = express.Router();
 
-const getConfiguredRouter = (tokenXClient, tokenXIssuer, idPortenEndSession, html) => {
+const getConfiguredRouter = (tokenXClient, tokenXIssuer, idPortenEndSession) => {
     loginRoutes(app, idPortenEndSession);
     internalRoutes(app);
     settingsJs(app);
