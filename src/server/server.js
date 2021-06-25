@@ -5,13 +5,9 @@ const session = require('express-session');
 const redis = require('redis');
 const RedisStore = require('connect-redis');
 const { Issuer, Strategy } = require('openid-client');
-const mustacheExpress = require('mustache-express');
-const getDecorator = require('./routes/decorator');
 const { getConfiguredRouter } = require('./routes/router');
 const { getConfiguredMockRouter } = require('./routes/mockRouter');
 const port = process.env.PORT || 3000;
-const path = require('path');
-const buildPath = path.join(__dirname, '../../build');
 const {
     PERMITTERING_SESSION_SECRET,
     PERMITTERING_SESSION_NAME,
@@ -26,9 +22,6 @@ const {
     REDIS_PASSWORD,
     REDIS_PORT,
 } = require('./konstanter');
-app.engine('html', mustacheExpress());
-app.set('view engine', 'mustache');
-app.set('views', buildPath);
 
 let idPortenIssuer = null;
 let tokenXIssuer = null;
@@ -172,26 +165,8 @@ const startServer = async (html) => {
     }
 };
 
-/**
- * Config for running the regular server
- *
- * @param app
- * @param p
- */
-const getDecoratorAndStartServer = () => {
-    if (process.env.NAIS_CLUSTER_NAME !== 'labs-gcp') {
-        getDecorator()
-            .then(renderApp, (error) => {
-                console.error('Kunne ikke hente dekoratør ', error);
-                process.exit(1);
-            })
-            .then(startServer, (error) => {
-                console.error('Kunne ikke rendre app ', error);
-                process.exit(1);
-            });
-    } else {
-        renderApp('<html></html>').then(startServer);
-    }
+const startServerWithDecorator = () => {
+    startServer();
 };
 
-getDecoratorAndStartServer();
+startServerWithDecorator();
