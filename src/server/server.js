@@ -133,14 +133,14 @@ const renderApp = (decoratorFragments) =>
         });
     });
 
-const startServer = async (html) => {
+const startServer = async () => {
     if (process.env.NODE_ENV === 'production' && process.env.NAIS_CLUSTER_NAME !== 'labs-gcp') {
         // sessionOptions.cookie.secure = true;
         sessionOptions.store = setupRedis();
         console.log('Redis ok');
     }
     if (process.env.NAIS_CLUSTER_NAME === 'labs-gcp') {
-        const router = getConfiguredMockRouter(html);
+        const router = getConfiguredMockRouter();
         app.use('/', router);
         app.listen(port, () => {
             console.log('Server listening on port (ONLY RETURNING MOCK DATA)', port);
