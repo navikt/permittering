@@ -2,17 +2,14 @@ import React, { createContext, useEffect, useState } from 'react';
 // @ts-ignore
 import { featurePath } from '../paths.json';
 
-export enum Feature {
-    visskjema = 'permittering.visskjema',
-    tillatFnrInput = 'permittering.tillatFnrInput',
-}
+export enum Feature {}
 
 const featureTogglePath = (features: Feature[]): string => {
     const query = features.map((feature) => `feature=${feature}`).join('&');
     return `${featurePath}?${query}`;
 };
 
-export const alleFeatures = Object.values(Feature);
+export const alleFeatures: Feature[] = []; // Object.values(Feature);
 
 export interface FeatureToggles {
     [toggles: string]: boolean;
@@ -21,7 +18,10 @@ export interface FeatureToggles {
 export const FeatureToggleContext = createContext<FeatureToggles>({});
 
 const hentFeatureToggles = async (featureToggles: Feature[]): Promise<FeatureToggles> => {
-    const response = await fetch(featureTogglePath(alleFeatures), { credentials: 'same-origin' });
+    if (featureToggles.length === 0) {
+        return {};
+    }
+    const response = await fetch(featureTogglePath(featureToggles), { credentials: 'same-origin' });
     return await response.json();
 };
 

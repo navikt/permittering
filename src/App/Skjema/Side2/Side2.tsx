@@ -13,7 +13,6 @@ import { mergeFritekst, splittOppFritekst } from '../../../utils/fritekstFunksjo
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import Datovelger from '../../komponenter/Datovelger/Datovelger';
 import { lagTekstBasertPaSkjemaType } from '../Side4-oppsummering/oppsummering-utils';
-import { Feature, FeatureToggleContext } from '../../FeatureToggleProvider';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
 import Yrkeskategorivelger, {
     Sokeforslag,
@@ -27,8 +26,6 @@ import Dekorator from '../../komponenter/Dekorator/Dekorator';
 
 const Side2: FunctionComponent = () => {
     const history = useHistory();
-    const featureToggleContext = useContext(FeatureToggleContext);
-    const tillatFnrInput = featureToggleContext[Feature.tillatFnrInput];
     const context = useContext(SkjemaContext);
 
     const startDato = context.skjema.startDato ? new Date(context.skjema.startDato) : undefined;
@@ -167,26 +164,21 @@ const Side2: FunctionComponent = () => {
                 slett={async () => await context.avbryt()}
             >
                 <Systemtittel>Generelle opplysninger</Systemtittel>
-                {!tillatFnrInput && (
-                    <div className="skjema-innhold__side-2-text-area">
-                        <Input
-                            label="Hvor mange ansatte blir berørt?"
-                            defaultValue={context.skjema.antallBerørt}
-                            bredde="XS"
-                            feil={feilMeldingAntallBerort}
-                            onBlur={(event: any) => {
-                                if (erGyldigNr(event.currentTarget.value)) {
-                                    context.endreSkjemaVerdi(
-                                        'antallBerørt',
-                                        event.currentTarget.value
-                                    );
-                                    setFeilmeldingAntallBerort('');
-                                } else setFeilmeldingAntallBerort('Vennligst oppgi et tall');
-                            }}
-                            onChange={() => setFeilmeldingAntallBerort('')}
-                        />
-                    </div>
-                )}
+                <div className="skjema-innhold__side-2-text-area">
+                    <Input
+                        label="Hvor mange ansatte blir berørt?"
+                        defaultValue={context.skjema.antallBerørt}
+                        bredde="XS"
+                        feil={feilMeldingAntallBerort}
+                        onBlur={(event: any) => {
+                            if (erGyldigNr(event.currentTarget.value)) {
+                                context.endreSkjemaVerdi('antallBerørt', event.currentTarget.value);
+                                setFeilmeldingAntallBerort('');
+                            } else setFeilmeldingAntallBerort('Vennligst oppgi et tall');
+                        }}
+                        onChange={() => setFeilmeldingAntallBerort('')}
+                    />
+                </div>
 
                 <div className="skjema-innhold__side-2-text-area">
                     <Permitteringsårsaksvelger

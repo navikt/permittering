@@ -88,7 +88,7 @@ module.exports = function (app) {
     });
 
     app.get(paths.featurePath, (req, res) => {
-        res.json({ 'permittering.visskjema': true });
+        res.json({});
     });
 
     app.post(paths.skjemaSendInnPath, (req, res) => {
