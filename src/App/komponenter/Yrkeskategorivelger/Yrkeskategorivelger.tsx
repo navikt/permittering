@@ -14,7 +14,8 @@ export interface Sokeforslag extends Suggestion {
 
 const getUpdatedSuggestions = async (path: string, q: string) => {
     const result = await fetch(path + '?' + stringify({ q }));
-    const data: Yrkeskategori[] = await result.json();
+    const rawData = await result.json();
+    const data: Yrkeskategori[] = rawData.typeaheadYrkeList;
     let suggestions: Sokeforslag[] = [];
 
     data.forEach((kategori: Yrkeskategori) => {
