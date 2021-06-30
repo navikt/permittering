@@ -1,6 +1,7 @@
 const paths = require('../../paths');
 const { getHtmlWithDecorator } = require('../decorator-utils');
 const express = require('express');
+const proxy = require('express-http-proxy');
 const internalRoutes = require('./internals');
 const settingsJs = require('./settingsJs');
 const indexRoute = require('./indexPath');
@@ -16,6 +17,14 @@ const getConfiguredRouter = (tokenXClient, tokenXIssuer, idPortenEndSession) => 
     internalRoutes(app);
     settingsJs(app);
     indexRoute(app);
+    app.use(
+        paths.stillingstitlerPath,
+        proxy('https://pam-janzz.intern.nav.no', {
+            proxyReqPathResolver: (req) => {
+                return `/pam-janzz/rest/typeahead/yrke-med-styrk08-nav${req.url}`;
+            },
+        })
+    );
     apiProxy(app, tokenXClient, tokenXIssuer);
 
     app.get(`${paths.basePath}/*`, async (req, res) => {

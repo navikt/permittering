@@ -35,6 +35,7 @@ spec:
       external:
         - host: dekoratoren.nav.no
         - host: arbeidsgiver-permitteringsskjema-api.prod-fss-pub.nais.io
+        - host: pam-janzz.intern.nav.no
   envFrom:
     - secret: permittering-redis-secrets
     - secret: permittering-secrets

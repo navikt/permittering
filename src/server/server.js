@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const fetch = require('node-fetch');
 const passport = require('passport');
 const session = require('express-session');
 const redis = require('redis');

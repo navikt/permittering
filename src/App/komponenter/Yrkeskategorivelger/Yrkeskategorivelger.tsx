@@ -14,14 +14,15 @@ export interface Sokeforslag extends Suggestion {
 
 const getUpdatedSuggestions = async (path: string, q: string) => {
     const result = await fetch(path + '?' + stringify({ q }));
-    const data: Yrkeskategori[] = await result.json();
+    const rawData = await result.json();
+    const data: Yrkeskategori[] = rawData.typeaheadYrkeList;
     let suggestions: Sokeforslag[] = [];
 
     data.forEach((kategori: Yrkeskategori) => {
         suggestions.push({
             key: `${kategori.konseptId}-${kategori.label}`,
             value: kategori.label,
-            styrk08: kategori.styrk08,
+            styrk08: kategori.styrk08[0],
         });
     });
     return suggestions;

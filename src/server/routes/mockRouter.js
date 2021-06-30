@@ -6,6 +6,7 @@ const internalRoutes = require('./internals');
 const indexRoute = require('./indexPath');
 const settingsJs = require('./settingsJs');
 const stillingstitlerMock = require('./stillingstitlerMock');
+const proxy = require('express-http-proxy');
 const path = require('path');
 
 const buildPath = path.join(__dirname, '../../../build');
@@ -20,7 +21,14 @@ const getConfiguredMockRouter = () => {
     internalRoutes(app);
     featureToggles(app);
     settingsJs(app);
-    stillingstitlerMock(app);
+    app.use(
+        paths.stillingstitlerPath,
+        proxy('https://arbeidsplassen.nav.no', {
+            proxyReqPathResolver: (req) => {
+                return `/pam-janzz/rest/typeahead/yrke-med-styrk08-nav${req.url}`;
+            },
+        })
+    );
     indexRoute(app);
     apiMockRoutes(app);
     app.get(`${paths.basePath}/*`, (req, res) => {

@@ -13,6 +13,6 @@
     "skjemaListPath": "/permittering/api/skjema",
     "skjemaPath": "/permittering/api/skjema/:id",
     "skjemaSendInnPath": "/permittering/api/skjema/:id/send-inn",
-    "stillingstitlerPath": "https://arbeidsgiver.nav.no/stillingstitler/search",
+    "stillingstitlerPath": "/permittering/api/stillingstitler",
     "permitteringsAArsakksodeverk": "/permittering/api/kodeverk/årsakskoder"
 }
