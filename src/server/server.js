@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const fetch = require('node-fetch');
 const passport = require('passport');
 const session = require('express-session');
 const redis = require('redis');
@@ -157,6 +158,16 @@ const startServer = async () => {
         passport.use('idPortenOIDC', strategy(idPortenClient));
 
         console.log('start regular server');
+        const testExtern =
+            'https://arbeidsplassen.nav.no/pam-janzz/rest/typeahead/yrke-med-styrk08-nav?q=kok';
+        const testIntern =
+            'https://pam-janzz.intern.nav.no/pam-janzz/rest/typeahead/yrke-med-styrk08-nav?q=lege';
+        fetch(testExtern)
+            .then((res) => res.json())
+            .then((json) => console.log(json));
+        fetch(testIntern)
+            .then((res) => res.json())
+            .then((json) => console.log(json));
         const router = getConfiguredRouter(tokenXClient, tokenXIssuer, idPortenEndSession);
         app.use('/', router);
         app.listen(port, () => {
