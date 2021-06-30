@@ -22,7 +22,7 @@ const getUpdatedSuggestions = async (path: string, q: string) => {
         suggestions.push({
             key: `${kategori.konseptId}-${kategori.label}`,
             value: kategori.label,
-            styrk08: kategori.styrk08,
+            styrk08: kategori.styrk08[0],
         });
     });
     return suggestions;
