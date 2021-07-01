@@ -3,7 +3,7 @@ const data = require('../../fixtures/stillingstitler');
 module.exports = (app) => {
     app.get(paths.stillingstitlerPath, (req, res) => {
         if (req.query.q) {
-            const filteredData = data.filter((row) => {
+            const filteredData = data.typeaheadYrkeList.filter((row) => {
                 let matched = false;
                 row.label
                     .toLowerCase()
@@ -15,7 +15,10 @@ module.exports = (app) => {
                     });
                 return matched;
             });
-            res.send(filteredData);
+            const result = {
+                typeaheadYrkeList: filteredData,
+            };
+            res.send(result);
         } else {
             res.send([]);
         }
