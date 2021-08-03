@@ -54,6 +54,10 @@ const Oppsummering: FunctionComponent = () => {
     const annet = existerendeFelter && existerendeFelter.annet ? existerendeFelter.annet : '';
     const [antallIBedrift, setAntallIBedrift] = useState('');
 
+    if (context.skjema.sendtInnTidspunkt) {
+        history.replace('/skjema/kvitteringsside/' + context.skjema.id);
+    }
+
     useEffect(() => {
         finnÅrsakstekst(context.skjema.årsakskode).then(setLesbarÅrsakskode);
     }, [context.skjema.årsakskode]);
@@ -103,10 +107,6 @@ const Oppsummering: FunctionComponent = () => {
         }
         context.skjema.type && lesbarårsakskode && loggArsak(lesbarårsakskode, context.skjema.type);
     };
-
-    if (context.skjema.sendtInnTidspunkt) {
-        history.replace('/skjema/kvitteringsside/' + context.skjema.id);
-    }
 
     const sjekkMangler = () => {
         let mangler: string[] = [];
