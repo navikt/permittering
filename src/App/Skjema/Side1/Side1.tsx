@@ -23,6 +23,10 @@ const Side1: FunctionComponent = () => {
         loggNavarendeSteg('kontaktinformasjon');
     }, []);
 
+    if (context.skjema.sendtInnTidspunkt) {
+        history.replace('/');
+    }
+
     return (
         <>
             <Dekorator sidetittel={context.skjema.type} />

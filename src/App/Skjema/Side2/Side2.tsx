@@ -37,6 +37,10 @@ const Side2: FunctionComponent = () => {
 
     let { yrkeskategorier = [] } = context.skjema;
 
+    if (context.skjema.sendtInnTidspunkt) {
+        history.replace('/');
+    }
+
     useEffect(() => {
         window.scrollTo(0, 0);
         loggNavarendeSteg('generelle-opplysninger');
