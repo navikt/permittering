@@ -58,7 +58,7 @@ jobs:
 
   deploy-to-labs-gcp:
     name: Deploy to labs-gcp
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/stillingstitle-tmp-fix'
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/logout-med-idporten'
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:
