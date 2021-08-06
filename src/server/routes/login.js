@@ -34,6 +34,11 @@ const loginRoutes = (app, idPortenEndSession) => {
         }
     );
 
+    app.get(paths.logoutCallbackPath, function (req, res) {
+        console.log('Logger ut fra loginservice');
+        res.redirect(IDPORTEN_LOGOUT_URL);
+    });
+
     app.get(paths.logoutPath, function (req, res) {
         let idToken = null;
         if (req.user) {
@@ -44,9 +49,6 @@ const loginRoutes = (app, idPortenEndSession) => {
         res.cookie('permittering-token', '', {
             expires: new Date(0),
         });
-        res.cookie('selvbetjening-idtoken', '', {
-            expires: new Date(0),
-        });
         if (idPortenEndSession) {
             res.redirect(
                 `${idPortenEndSession}?post_logout_redirect_uri=${IDPORTEN_POST_LOGOUT_REDIRECT_URI}&id_token_hint=${idToken}`
@@ -54,11 +56,6 @@ const loginRoutes = (app, idPortenEndSession) => {
         } else {
             res.redirect(IDPORTEN_POST_LOGOUT_REDIRECT_URI);
         }
-    });
-
-    app.get(IDPORTEN_POST_LOGOUT_REDIRECT_URI, function (req, res) {
-        console.log('Logger ut fra loginservice');
-        res.redirect(IDPORTEN_LOGOUT_URL);
     });
 };
 
