@@ -40,7 +40,7 @@ const loginRoutes = (app, idPortenEndSession) => {
         res.cookie('permittering-token', '', {
             expires: new Date(0),
         });
-        res.cookie('selvbetjening-idtokenn', '', {
+        res.cookie('selvbetjening-idtoken', '', {
             expires: new Date(0),
         });
         if (idPortenEndSession) {
