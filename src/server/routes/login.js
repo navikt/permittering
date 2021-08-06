@@ -37,11 +37,11 @@ const loginRoutes = (app, idPortenEndSession) => {
         }
         req.session.destroy();
         req.logout();
-        res.cookie('permittering-token', {
-            expires: Date.now(),
+        res.cookie('permittering-token', '', {
+            expires: new Date(0),
         });
-        res.cookie('selvbetjening-idtokenn', {
-            expires: Date.now(),
+        res.cookie('selvbetjening-idtokenn', '', {
+            expires: new Date(0),
         });
         if (idPortenEndSession) {
             res.redirect(
