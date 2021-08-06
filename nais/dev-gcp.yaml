@@ -55,4 +55,4 @@ spec:
     - name: REDIS_HOST
       value: permittering-redis.permittering-og-nedbemanning.svc.cluster.local
     - name: IDPORTEN_POST_LOGOUT_REDIRECT_URI
-      value: https://permitteringsskjema.dev.nav.no/permittering
+      value: https://permitteringsskjema.dev.nav.no/permittering/logout-callback
