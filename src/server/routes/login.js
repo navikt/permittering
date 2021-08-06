@@ -40,6 +40,9 @@ const loginRoutes = (app, idPortenEndSession) => {
         res.cookie('permittering-token', {
             expires: Date.now(),
         });
+        res.cookie('selvbetjening-token', {
+            expires: Date.now(),
+        });
         if (idPortenEndSession) {
             res.redirect(
                 `${idPortenEndSession}?post_logout_redirect_uri=${IDPORTEN_POST_LOGOUT_REDIRECT_URI}&id_token_hint=${idToken}`
