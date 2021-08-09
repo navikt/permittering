@@ -27,7 +27,7 @@ spec:
     clientUri: https://permitteringsskjema.dev.nav.no/permittering
     redirectPath: /oauth2/callback
     postLogoutRedirectURIs:
-      - https://permitteringsskjema.dev.nav.no/permittering
+      - https://permitteringsskjema.dev.nav.no/permittering/logout-callback
   accessPolicy:
     outbound:
       rules:
