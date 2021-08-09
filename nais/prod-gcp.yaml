@@ -27,7 +27,7 @@ spec:
     clientUri: https://arbeidsgiver.nav.no/permittering
     redirectPath: /oauth2/callback
     postLogoutRedirectURIs:
-      - https://arbeidsgiver.nav.no/permittering
+      - https://arbeidsgiver.nav.no/permittering/logout-callback
   accessPolicy:
     outbound:
       rules:
@@ -56,3 +56,5 @@ spec:
       value: permittering-redis.permittering-og-nedbemanning.svc.cluster.local
     - name: IDPORTEN_POST_LOGOUT_REDIRECT_URI
       value: https://arbeidsgiver.nav.no/permittering/logout-callback
+    - name: LOGINSERVICE_LOGOUT_URL
+      value: https://loginservice.nav.no/slo
