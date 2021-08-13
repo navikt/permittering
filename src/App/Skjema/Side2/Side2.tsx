@@ -122,12 +122,6 @@ const Side2: FunctionComponent = () => {
         return nr.match(/^[0-9]+$/) != null;
     };
 
-    const endreFritekstFelt = (key: string, value: string) => {
-        const fritekstFelter: any = { årsak, yrker, annet };
-        fritekstFelter[key] = value;
-        context.endreSkjemaVerdi('fritekst', mergeFritekst(fritekstFelter));
-    };
-
     const setÅrsaksKode = (årsaksKode: string) => {
         const fritekstFelter: any = { årsak, yrker, annet };
         if (årsaksKode === 'VELG_ÅRSAK') {
@@ -252,15 +246,6 @@ const Side2: FunctionComponent = () => {
                             }
                         />
                     </div>
-                </div>
-
-                <div className="skjema-innhold__side-2-text-area andre-opplysninger">
-                    <Textarea
-                        label="Andre relevante opplysninger (frivillig)"
-                        value={annet}
-                        maxLength={1000}
-                        onChange={(event) => endreFritekstFelt('annet', event.currentTarget.value)}
-                    />
                 </div>
 
                 <div className="skjema-innhold__fram-og-tilbake">

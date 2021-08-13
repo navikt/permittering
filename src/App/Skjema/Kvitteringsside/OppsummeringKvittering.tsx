@@ -17,7 +17,6 @@ const OppsummeringKvittering: FunctionComponent = () => {
         ? splittOppFritekst(context.skjema.fritekst)
         : null;
     const yrker = existerendeFelter && existerendeFelter.yrker ? existerendeFelter.yrker : '';
-    const annet = existerendeFelter && existerendeFelter.annet ? existerendeFelter.annet : '';
 
     const fraDato = context.skjema.startDato ? context.skjema.startDato : '';
     const tilDato = context.skjema.sluttDato ? context.skjema.sluttDato : '';
@@ -109,15 +108,6 @@ const OppsummeringKvittering: FunctionComponent = () => {
                                         : tilDato}
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div className="oppsummering__boks andre-opplysninger">
-                        <div className="tekst">
-                            <Normaltekst className="overskrift">
-                                Andre relevante opplysninger
-                            </Normaltekst>
-                            <Normaltekst>{annet}</Normaltekst>
                         </div>
                     </div>
                 </Veilederpanel>

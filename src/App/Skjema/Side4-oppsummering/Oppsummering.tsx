@@ -51,7 +51,6 @@ const Oppsummering: FunctionComponent = () => {
         ? splittOppFritekst(context.skjema.fritekst)
         : null;
     const yrker = existerendeFelter && existerendeFelter.yrker ? existerendeFelter.yrker : '';
-    const annet = existerendeFelter && existerendeFelter.annet ? existerendeFelter.annet : '';
     const [antallIBedrift, setAntallIBedrift] = useState('');
 
     if (context.skjema.sendtInnTidspunkt) {
@@ -294,23 +293,6 @@ const Oppsummering: FunctionComponent = () => {
                                 <Lenke
                                     href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
                                     ariaLabel="Gå tilbake for å endre periode"
-                                >
-                                    Endre
-                                </Lenke>
-                            </div>
-                        </div>
-
-                        <div className="oppsummering__boks andre-opplysninger">
-                            <div className="tekst">
-                                <Normaltekst className="overskrift">
-                                    Andre relevante opplysninger
-                                </Normaltekst>
-                                <Normaltekst>{annet}</Normaltekst>
-                            </div>
-                            <div className="endre-lenke">
-                                <Lenke
-                                    href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
-                                    ariaLabel="Gå tilbake for å endre andre relevante opplysninger"
                                 >
                                     Endre
                                 </Lenke>
