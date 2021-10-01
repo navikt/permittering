@@ -62,6 +62,9 @@ const Oppsummering: FunctionComponent = () => {
     }, [context.skjema.årsakskode]);
 
     const erGyldigDatoInput = (): boolean => {
+        if (context.skjema.type === 'MASSEOPPSIGELSE' && context.skjema.startDato) {
+            return true;
+        }
         if (context.skjema.ukjentSluttDato) {
             return context.skjema.startDato !== '' && context.skjema.ukjentSluttDato;
         }
