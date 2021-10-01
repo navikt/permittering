@@ -101,12 +101,14 @@ const OppsummeringKvittering: FunctionComponent = () => {
                                     <span className="fra-til">Fra:</span>
                                     {fraDato}
                                 </div>
-                                <div>
-                                    <span className="fra-til">Til:</span>
-                                    {context.skjema.ukjentSluttDato
-                                        ? 'Vet ikke hvor lenge det vil vare'
-                                        : tilDato}
-                                </div>
+                                {context.skjema.type !== 'MASSEOPPSIGELSE' && (
+                                    <div>
+                                        <span className="fra-til">Til:</span>
+                                        {context.skjema.ukjentSluttDato
+                                            ? 'Vet ikke hvor lenge det vil vare'
+                                            : tilDato}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>

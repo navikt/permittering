@@ -141,6 +141,8 @@ const Oppsummering: FunctionComponent = () => {
         return mangler;
     };
 
+    console.log(context.skjema.startDato);
+
     return (
         <>
             <Dekorator sidetittel={context.skjema.type} />
@@ -275,17 +277,19 @@ const Oppsummering: FunctionComponent = () => {
                                             verdi={skrivOmDato(new Date(fraDato))}
                                         />
                                     </div>
-                                    <div>
-                                        <span className="fra-til">Til:</span>
-                                        {context.skjema.ukjentSluttDato ? (
-                                            'Vet ikke hvor lenge det vil vare'
-                                        ) : (
-                                            <SjekkOmFyltUt
-                                                ugyldigInput={!erGyldigDatoInput()}
-                                                verdi={skrivOmDato(new Date(tilDato))}
-                                            />
-                                        )}
-                                    </div>
+                                    {context.skjema.type !== 'MASSEOPPSIGELSE' && (
+                                        <div>
+                                            <span className="fra-til">Til:</span>
+                                            {context.skjema.ukjentSluttDato ? (
+                                                'Vet ikke hvor lenge det vil vare'
+                                            ) : (
+                                                <SjekkOmFyltUt
+                                                    ugyldigInput={!erGyldigDatoInput()}
+                                                    verdi={skrivOmDato(new Date(tilDato))}
+                                                />
+                                            )}
+                                        </div>
+                                    )}
                                 </div>
                             </div>
 

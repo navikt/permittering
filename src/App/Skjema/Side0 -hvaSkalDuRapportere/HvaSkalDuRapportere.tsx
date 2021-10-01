@@ -74,6 +74,9 @@ const HvaSkalDuRapportere = () => {
                     radios={radios}
                     checked={skjemaType}
                     onChange={(event, value) => {
+                        if (value === 'MASSEOPPSIGELSE') {
+                            context.endreSkjemaVerdi('ukjentSluttDato', true);
+                        }
                         setSkjemaType(value);
                         loggSkjemaValg(value);
                     }}
