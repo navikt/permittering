@@ -62,6 +62,9 @@ const Oppsummering: FunctionComponent = () => {
     }, [context.skjema.årsakskode]);
 
     const erGyldigDatoInput = (): boolean => {
+        if (context.skjema.type === 'MASSEOPPSIGELSE' && context.skjema.startDato) {
+            return true;
+        }
         if (context.skjema.ukjentSluttDato) {
             return context.skjema.startDato !== '' && context.skjema.ukjentSluttDato;
         }
@@ -140,6 +143,8 @@ const Oppsummering: FunctionComponent = () => {
         }
         return mangler;
     };
+
+    console.log(context.skjema.startDato);
 
     return (
         <>
@@ -275,17 +280,19 @@ const Oppsummering: FunctionComponent = () => {
                                             verdi={skrivOmDato(new Date(fraDato))}
                                         />
                                     </div>
-                                    <div>
-                                        <span className="fra-til">Til:</span>
-                                        {context.skjema.ukjentSluttDato ? (
-                                            'Vet ikke hvor lenge det vil vare'
-                                        ) : (
-                                            <SjekkOmFyltUt
-                                                ugyldigInput={!erGyldigDatoInput()}
-                                                verdi={skrivOmDato(new Date(tilDato))}
-                                            />
-                                        )}
-                                    </div>
+                                    {context.skjema.type !== 'MASSEOPPSIGELSE' && (
+                                        <div>
+                                            <span className="fra-til">Til:</span>
+                                            {context.skjema.ukjentSluttDato ? (
+                                                'Vet ikke hvor lenge det vil vare'
+                                            ) : (
+                                                <SjekkOmFyltUt
+                                                    ugyldigInput={!erGyldigDatoInput()}
+                                                    verdi={skrivOmDato(new Date(tilDato))}
+                                                />
+                                            )}
+                                        </div>
+                                    )}
                                 </div>
                             </div>
 

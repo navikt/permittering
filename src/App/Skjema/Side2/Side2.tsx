@@ -223,29 +223,34 @@ const Side2: FunctionComponent = () => {
                         skalVareFoer={datoTil}
                         overtekst={'Fra'}
                     />
-                    <div className="skjema-innhold__dato-velger-til">
-                        <Datovelger
-                            value={datoTil}
-                            onChange={(event) => {
-                                context.endreSkjemaVerdi('sluttDato', event.currentTarget.value);
-                                setDatoTil(event.currentTarget.value);
-                            }}
-                            disabled={context.skjema.ukjentSluttDato}
-                            overtekst={'Til'}
-                            skalVareEtter={datoFra}
-                        />
-                        <Checkbox
-                            className="skjema-innhold__dato-velger-til-checkboks"
-                            label="Vet ikke hvor lenge det vil vare"
-                            checked={!!context.skjema.ukjentSluttDato}
-                            onChange={() =>
-                                context.endreSkjemaVerdi(
-                                    'ukjentSluttDato',
-                                    !context.skjema.ukjentSluttDato
-                                )
-                            }
-                        />
-                    </div>
+                    {context.skjema.type !== 'MASSEOPPSIGELSE' && (
+                        <div className="skjema-innhold__dato-velger-til">
+                            <Datovelger
+                                value={datoTil}
+                                onChange={(event) => {
+                                    context.endreSkjemaVerdi(
+                                        'sluttDato',
+                                        event.currentTarget.value
+                                    );
+                                    setDatoTil(event.currentTarget.value);
+                                }}
+                                disabled={context.skjema.ukjentSluttDato}
+                                overtekst={'Til'}
+                                skalVareEtter={datoFra}
+                            />
+                            <Checkbox
+                                className="skjema-innhold__dato-velger-til-checkboks"
+                                label="Vet ikke hvor lenge det vil vare"
+                                checked={!!context.skjema.ukjentSluttDato}
+                                onChange={() =>
+                                    context.endreSkjemaVerdi(
+                                        'ukjentSluttDato',
+                                        !context.skjema.ukjentSluttDato
+                                    )
+                                }
+                            />
+                        </div>
+                    )}
                 </div>
 
                 <div className="skjema-innhold__fram-og-tilbake">
