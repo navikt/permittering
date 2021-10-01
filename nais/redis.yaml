@@ -6,6 +6,8 @@ metadata:
     team: permittering-og-nedbemanning
   name: permittering-redis
   namespace: permittering-og-nedbemanning
+  annotations:
+    nais.io/read-only-file-system: "false"
 spec:
   image: bitnami/redis:6.0.13
   port: 6379
@@ -28,3 +30,4 @@ spec:
         - application: permittering
   envFrom:
     - secret: permittering-redis-secrets
+
