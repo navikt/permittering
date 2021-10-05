@@ -8,6 +8,7 @@
     "isReadyPath": "/permittering/internal/isReady",
     "redirectTilLoginPath": "/permittering/redirect-til-login",
     "logoutPath": "/permittering/logout",
+    "logoutCallbackPath": "/permittering/logout-callback",
     "settingsJsPath": "/permittering/static/js/settings.js",
     "skjemaAvbrytPath": "/permittering/api/skjema/:id/avbryt",
     "skjemaListPath": "/permittering/api/skjema",

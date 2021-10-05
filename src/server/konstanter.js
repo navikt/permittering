@@ -27,6 +27,8 @@ const IDPORTEN_REDIRECT_URI =
 const IDPORTEN_POST_LOGOUT_REDIRECT_URI =
     process.env.IDPORTEN_POST_LOGOUT_REDIRECT_URI || 'http://localhost:3000/permittering/';
 
+const LOGINSERVICE_LOGOUT_URL =
+    process.env.LOGINSERVICE_LOGOUT_URL || 'https://loginservice.dev.nav.no/slo';
 const TOKEN_X_WELL_KNOWN_URL =
     process.env.TOKEN_X_WELL_KNOWN_URL ||
     'http://localhost:9000/tokenx/.well-known/openid-configuration';
@@ -51,6 +53,7 @@ module.exports = {
     IDPORTEN_CLIENT_JWK,
     IDPORTEN_REDIRECT_URI,
     IDPORTEN_POST_LOGOUT_REDIRECT_URI,
+    LOGINSERVICE_LOGOUT_URL,
     TOKEN_X_WELL_KNOWN_URL,
     TOKEN_X_CLIENT_ID,
     TOKEN_X_PRIVATE_JWK,
