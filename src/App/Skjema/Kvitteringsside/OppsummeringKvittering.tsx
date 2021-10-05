@@ -8,6 +8,7 @@ import KvitteringIkon from '../Kvitteringsside/KvitteringIkon';
 import { lagTekstBasertPaSkjemaType } from '../Side4-oppsummering/oppsummering-utils';
 import { lagAntallBerorteTekst } from '../Side4-oppsummering/Oppsummering';
 import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
+import { skrivOmDato } from '../../komponenter/Datovelger/datovelger-utils';
 
 const OppsummeringKvittering: FunctionComponent = () => {
     const context = useContext(SkjemaContext);
@@ -17,7 +18,6 @@ const OppsummeringKvittering: FunctionComponent = () => {
         ? splittOppFritekst(context.skjema.fritekst)
         : null;
     const yrker = existerendeFelter && existerendeFelter.yrker ? existerendeFelter.yrker : '';
-    const annet = existerendeFelter && existerendeFelter.annet ? existerendeFelter.annet : '';
 
     const fraDato = context.skjema.startDato ? context.skjema.startDato : '';
     const tilDato = context.skjema.sluttDato ? context.skjema.sluttDato : '';
@@ -100,24 +100,17 @@ const OppsummeringKvittering: FunctionComponent = () => {
                             <div>
                                 <div>
                                     <span className="fra-til">Fra:</span>
-                                    {fraDato}
+                                    {skrivOmDato(new Date(fraDato))}
                                 </div>
-                                <div>
-                                    <span className="fra-til">Til:</span>
-                                    {context.skjema.ukjentSluttDato
-                                        ? 'Vet ikke hvor lenge det vil vare'
-                                        : tilDato}
-                                </div>
+                                {context.skjema.type !== 'MASSEOPPSIGELSE' && (
+                                    <div>
+                                        <span className="fra-til">Til:</span>
+                                        {context.skjema.ukjentSluttDato
+                                            ? 'Vet ikke hvor lenge det vil vare'
+                                            : skrivOmDato(new Date(tilDato))}
+                                    </div>
+                                )}
                             </div>
-                        </div>
-                    </div>
-
-                    <div className="oppsummering__boks andre-opplysninger">
-                        <div className="tekst">
-                            <Normaltekst className="overskrift">
-                                Andre relevante opplysninger
-                            </Normaltekst>
-                            <Normaltekst>{annet}</Normaltekst>
                         </div>
                     </div>
                 </Veilederpanel>

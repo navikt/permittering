@@ -32,10 +32,11 @@ spec:
     outbound:
       rules:
         - application: permittering-redis
+        - application: pam-janzz
+          namespace: teampam
       external:
         - host: dekoratoren.dev.nav.no
         - host: arbeidsgiver-permitteringsskjema-api.dev-fss-pub.nais.io
-        - host: pam-janzz.intern.nav.no
   envFrom:
     - secret: permittering-redis-secrets
     - secret: permittering-secrets

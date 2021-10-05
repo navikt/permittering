@@ -51,14 +51,20 @@ const Oppsummering: FunctionComponent = () => {
         ? splittOppFritekst(context.skjema.fritekst)
         : null;
     const yrker = existerendeFelter && existerendeFelter.yrker ? existerendeFelter.yrker : '';
-    const annet = existerendeFelter && existerendeFelter.annet ? existerendeFelter.annet : '';
     const [antallIBedrift, setAntallIBedrift] = useState('');
+
+    if (context.skjema.sendtInnTidspunkt) {
+        history.replace('/skjema/kvitteringsside/' + context.skjema.id);
+    }
 
     useEffect(() => {
         finnÅrsakstekst(context.skjema.årsakskode).then(setLesbarÅrsakskode);
     }, [context.skjema.årsakskode]);
 
     const erGyldigDatoInput = (): boolean => {
+        if (context.skjema.type === 'MASSEOPPSIGELSE' && context.skjema.startDato) {
+            return true;
+        }
         if (context.skjema.ukjentSluttDato) {
             return context.skjema.startDato !== '' && context.skjema.ukjentSluttDato;
         }
@@ -104,10 +110,6 @@ const Oppsummering: FunctionComponent = () => {
         context.skjema.type && lesbarårsakskode && loggArsak(lesbarårsakskode, context.skjema.type);
     };
 
-    if (context.skjema.sendtInnTidspunkt) {
-        history.replace('/skjema/kvitteringsside/' + context.skjema.id);
-    }
-
     const sjekkMangler = () => {
         let mangler: string[] = [];
 
@@ -141,6 +143,8 @@ const Oppsummering: FunctionComponent = () => {
         }
         return mangler;
     };
+
+    console.log(context.skjema.startDato);
 
     return (
         <>
@@ -276,17 +280,19 @@ const Oppsummering: FunctionComponent = () => {
                                             verdi={skrivOmDato(new Date(fraDato))}
                                         />
                                     </div>
-                                    <div>
-                                        <span className="fra-til">Til:</span>
-                                        {context.skjema.ukjentSluttDato ? (
-                                            'Vet ikke hvor lenge det vil vare'
-                                        ) : (
-                                            <SjekkOmFyltUt
-                                                ugyldigInput={!erGyldigDatoInput()}
-                                                verdi={skrivOmDato(new Date(tilDato))}
-                                            />
-                                        )}
-                                    </div>
+                                    {context.skjema.type !== 'MASSEOPPSIGELSE' && (
+                                        <div>
+                                            <span className="fra-til">Til:</span>
+                                            {context.skjema.ukjentSluttDato ? (
+                                                'Vet ikke hvor lenge det vil vare'
+                                            ) : (
+                                                <SjekkOmFyltUt
+                                                    ugyldigInput={!erGyldigDatoInput()}
+                                                    verdi={skrivOmDato(new Date(tilDato))}
+                                                />
+                                            )}
+                                        </div>
+                                    )}
                                 </div>
                             </div>
 
@@ -294,23 +300,6 @@ const Oppsummering: FunctionComponent = () => {
                                 <Lenke
                                     href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
                                     ariaLabel="Gå tilbake for å endre periode"
-                                >
-                                    Endre
-                                </Lenke>
-                            </div>
-                        </div>
-
-                        <div className="oppsummering__boks andre-opplysninger">
-                            <div className="tekst">
-                                <Normaltekst className="overskrift">
-                                    Andre relevante opplysninger
-                                </Normaltekst>
-                                <Normaltekst>{annet}</Normaltekst>
-                            </div>
-                            <div className="endre-lenke">
-                                <Lenke
-                                    href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
-                                    ariaLabel="Gå tilbake for å endre andre relevante opplysninger"
                                 >
                                     Endre
                                 </Lenke>
