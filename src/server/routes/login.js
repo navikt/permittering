@@ -31,15 +31,18 @@ const loginRoutes = (app, idPortenEndSession) => {
     );
 
     app.get(paths.logoutPath, function (req, res) {
-        const idToken = req.user.tokenSets
-            ? req.user.tokenSets.IDPORTEN_TOKEN_SET_KEY.id_token
-            : '';
+        let idToken = null;
+        if (req.user) {
+            idToken = req.user.tokenSets
+                ? req.user.tokenSets.IDPORTEN_TOKEN_SET_KEY.id_token
+                : null;
+        }
         req.session.destroy();
         req.logout();
         res.cookie('permittering-token', {
             expires: Date.now(),
         });
-        if (idPortenEndSession) {
+        if (idPortenEndSession && idToken) {
             res.redirect(
                 `${idPortenEndSession}?post_logout_redirect_uri=${IDPORTEN_POST_LOGOUT_REDIRECT_URI}&id_token_hint=${idToken}`
             );
