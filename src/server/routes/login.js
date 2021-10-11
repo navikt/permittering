@@ -42,14 +42,16 @@ const loginRoutes = (app, idPortenEndSession) => {
     app.get(paths.logoutPath, function (req, res) {
         let idToken = null;
         if (req.user) {
-            idToken = req.user.tokenSets ? req.user.tokenSets.IDPORTEN_TOKEN_SET_KEY.id_token : '';
+            idToken = req.user.tokenSets
+                ? req.user.tokenSets.IDPORTEN_TOKEN_SET_KEY.id_token
+                : null;
         }
         req.session.destroy();
         req.logout();
         res.cookie('permittering-token', '', {
             expires: new Date(0),
         });
-        if (idPortenEndSession) {
+        if (idPortenEndSession && idToken) {
             res.redirect(
                 `${idPortenEndSession}?post_logout_redirect_uri=${IDPORTEN_POST_LOGOUT_REDIRECT_URI}&id_token_hint=${idToken}`
             );
