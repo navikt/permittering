@@ -37,6 +37,10 @@ const Side2: FunctionComponent = () => {
 
     let { yrkeskategorier = [] } = context.skjema;
 
+    if (context.skjema.sendtInnTidspunkt) {
+        history.replace('/');
+    }
+
     useEffect(() => {
         window.scrollTo(0, 0);
         loggNavarendeSteg('generelle-opplysninger');
@@ -116,12 +120,6 @@ const Side2: FunctionComponent = () => {
 
     const erGyldigNr = (nr: string) => {
         return nr.match(/^[0-9]+$/) != null;
-    };
-
-    const endreFritekstFelt = (key: string, value: string) => {
-        const fritekstFelter: any = { årsak, yrker, annet };
-        fritekstFelter[key] = value;
-        context.endreSkjemaVerdi('fritekst', mergeFritekst(fritekstFelter));
     };
 
     const setÅrsaksKode = (årsaksKode: string) => {
@@ -225,38 +223,34 @@ const Side2: FunctionComponent = () => {
                         skalVareFoer={datoTil}
                         overtekst={'Fra'}
                     />
-                    <div className="skjema-innhold__dato-velger-til">
-                        <Datovelger
-                            value={datoTil}
-                            onChange={(event) => {
-                                context.endreSkjemaVerdi('sluttDato', event.currentTarget.value);
-                                setDatoTil(event.currentTarget.value);
-                            }}
-                            disabled={context.skjema.ukjentSluttDato}
-                            overtekst={'Til'}
-                            skalVareEtter={datoFra}
-                        />
-                        <Checkbox
-                            className="skjema-innhold__dato-velger-til-checkboks"
-                            label="Vet ikke hvor lenge det vil vare"
-                            checked={!!context.skjema.ukjentSluttDato}
-                            onChange={() =>
-                                context.endreSkjemaVerdi(
-                                    'ukjentSluttDato',
-                                    !context.skjema.ukjentSluttDato
-                                )
-                            }
-                        />
-                    </div>
-                </div>
-
-                <div className="skjema-innhold__side-2-text-area andre-opplysninger">
-                    <Textarea
-                        label="Andre relevante opplysninger (frivillig)"
-                        value={annet}
-                        maxLength={1000}
-                        onChange={(event) => endreFritekstFelt('annet', event.currentTarget.value)}
-                    />
+                    {context.skjema.type !== 'MASSEOPPSIGELSE' && (
+                        <div className="skjema-innhold__dato-velger-til">
+                            <Datovelger
+                                value={datoTil}
+                                onChange={(event) => {
+                                    context.endreSkjemaVerdi(
+                                        'sluttDato',
+                                        event.currentTarget.value
+                                    );
+                                    setDatoTil(event.currentTarget.value);
+                                }}
+                                disabled={context.skjema.ukjentSluttDato}
+                                overtekst={'Til'}
+                                skalVareEtter={datoFra}
+                            />
+                            <Checkbox
+                                className="skjema-innhold__dato-velger-til-checkboks"
+                                label="Vet ikke hvor lenge det vil vare"
+                                checked={!!context.skjema.ukjentSluttDato}
+                                onChange={() =>
+                                    context.endreSkjemaVerdi(
+                                        'ukjentSluttDato',
+                                        !context.skjema.ukjentSluttDato
+                                    )
+                                }
+                            />
+                        </div>
+                    )}
                 </div>
 
                 <div className="skjema-innhold__fram-og-tilbake">

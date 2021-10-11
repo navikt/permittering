@@ -27,15 +27,16 @@ spec:
     clientUri: https://arbeidsgiver.nav.no/permittering
     redirectPath: /oauth2/callback
     postLogoutRedirectURIs:
-      - https://arbeidsgiver.nav.no/permittering/logout-callback
+      - https://arbeidsgiver.nav.no/permittering
   accessPolicy:
     outbound:
       rules:
         - application: permittering-redis
+        - application: pam-janzz
+          namespace: teampam
       external:
         - host: dekoratoren.nav.no
         - host: arbeidsgiver-permitteringsskjema-api.prod-fss-pub.nais.io
-        - host: pam-janzz.intern.nav.no
   envFrom:
     - secret: permittering-redis-secrets
     - secret: permittering-secrets
@@ -55,6 +56,4 @@ spec:
     - name: REDIS_HOST
       value: permittering-redis.permittering-og-nedbemanning.svc.cluster.local
     - name: IDPORTEN_POST_LOGOUT_REDIRECT_URI
-      value: https://arbeidsgiver.nav.no/permittering/logout-callback
-    - name: LOGINSERVICE_LOGOUT_URL
-      value: https://loginservice.nav.no/slo
+      value: https://arbeidsgiver.nav.no/permittering

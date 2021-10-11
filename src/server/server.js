@@ -123,17 +123,6 @@ const strategy = (client) => {
     return new Strategy(options, verify);
 };
 
-const renderApp = (decoratorFragments) =>
-    new Promise((resolve, reject) => {
-        app.render('index.html', decoratorFragments, (err, html) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(html);
-            }
-        });
-    });
-
 const startServer = async () => {
     if (process.env.NODE_ENV === 'production' && process.env.NAIS_CLUSTER_NAME !== 'labs-gcp') {
         // sessionOptions.cookie.secure = true;
