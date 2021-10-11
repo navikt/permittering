@@ -4,6 +4,10 @@ const decoratorConfig = {
     env: process.env.NAIS_CLUSTER_NAME === 'prod-gcp' ? 'prod' : 'dev',
     context: 'arbeidsgiver',
     language: 'nb',
+    logoutUrl:
+        process.env.NAIS_CLUSTER_NAME === 'prod-gcp'
+            ? 'https://arbeidsgiver.nav.no/permittering/logout'
+            : 'https://permitteringsskjema.dev.nav.no/permittering/logout',
 };
 
 console.log('Bruker dekoratør med følgende config: ', decoratorConfig);

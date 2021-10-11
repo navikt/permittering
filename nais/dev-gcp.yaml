@@ -27,7 +27,7 @@ spec:
     clientUri: https://permitteringsskjema.dev.nav.no/permittering
     redirectPath: /oauth2/callback
     postLogoutRedirectURIs:
-      - https://permitteringsskjema.dev.nav.no/permittering
+      - https://permitteringsskjema.dev.nav.no/permittering/logout-callback
   accessPolicy:
     outbound:
       rules:
@@ -56,4 +56,6 @@ spec:
     - name: REDIS_HOST
       value: permittering-redis.permittering-og-nedbemanning.svc.cluster.local
     - name: IDPORTEN_POST_LOGOUT_REDIRECT_URI
-      value: https://permitteringsskjema.dev.nav.no/permittering
+      value: https://permitteringsskjema.dev.nav.no/permittering/logout-callback
+    - name: LOGINSERVICE_LOGOUT_URL
+      value: https://loginservice.dev.nav.no/slo
