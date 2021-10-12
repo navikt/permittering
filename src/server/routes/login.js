@@ -1,6 +1,10 @@
 const paths = require('../../paths');
 const passport = require('passport');
-const { IDPORTEN_POST_LOGOUT_REDIRECT_URI, LOGIN_URL } = require('../konstanter');
+const {
+    IDPORTEN_POST_LOGOUT_REDIRECT_URI,
+    LOGIN_URL,
+    LOGINSERVICE_LOGOUT_URL,
+} = require('../konstanter');
 
 const successRedirect = LOGIN_URL ? `${LOGIN_URL}` : '/permittering';
 
@@ -30,6 +34,11 @@ const loginRoutes = (app, idPortenEndSession) => {
         }
     );
 
+    app.get(paths.logoutCallbackPath, function (req, res) {
+        console.log('Logger ut fra loginservice');
+        res.redirect(LOGINSERVICE_LOGOUT_URL);
+    });
+
     app.get(paths.logoutPath, function (req, res) {
         let idToken = null;
         if (req.user) {
@@ -39,8 +48,8 @@ const loginRoutes = (app, idPortenEndSession) => {
         }
         req.session.destroy();
         req.logout();
-        res.cookie('permittering-token', {
-            expires: Date.now(),
+        res.cookie('permittering-token', '', {
+            expires: new Date(0),
         });
         if (idPortenEndSession && idToken) {
             res.redirect(
