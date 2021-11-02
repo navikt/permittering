@@ -30,7 +30,7 @@ const OppsummeringKvittering: FunctionComponent = () => {
         <>
             <section className="oppsummering">
                 <div className="oppsummering__tittel-desktop">
-                    <Systemtittel>Kvittering</Systemtittel>
+                    <Systemtittel>Kvittering på mottatt melding</Systemtittel>
                 </div>
                 <Veilederpanel type="plakat" kompakt fargetema="info" svg={KvitteringIkon()}>
                     <Undertittel className="oppsummering__tittel-mobil">Oppsummering</Undertittel>
@@ -75,14 +75,12 @@ const OppsummeringKvittering: FunctionComponent = () => {
                         <Undertittel className="oppsummering__tittel-mobil">
                             Generelle opplysninger
                         </Undertittel>
-                        <Normaltekst className="overskrift">
-                            {lagTekstBasertPaSkjemaType(context.skjema.type)}
-                        </Normaltekst>
-                        {lesbarÅrsakskode &&
-                            context.skjema.årsakskode !== 'ANDRE_ÅRSAKER' &&
-                            lesbarÅrsakskode}
-                        {context.skjema.årsakskode === 'ANDRE_ÅRSAKER' &&
-                            context.skjema.årsakstekst}
+                        <div className="tekst">
+                            <Normaltekst className="overskrift">
+                                {lagTekstBasertPaSkjemaType(context.skjema.type)}
+                            </Normaltekst>
+                            {lesbarÅrsakskode}
+                        </div>
                     </div>
 
                     <div className="oppsummering__boks yrkeskategorier">
