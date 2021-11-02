@@ -2,7 +2,6 @@ import React, { FunctionComponent, useContext, useEffect, useState } from 'react
 import { useHistory } from 'react-router-dom';
 import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
 import { Knapp } from 'nav-frontend-knapper';
-import { Textarea } from 'nav-frontend-skjema';
 import Checkbox from 'nav-frontend-skjema/lib/checkbox';
 import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
@@ -142,12 +141,6 @@ const Side2: FunctionComponent = () => {
         }
     };
 
-    const setÅrsakstekst = (årsakstekst: string) => {
-        const fritekstFelter: any = { årsak, yrker, annet };
-        fritekstFelter['årsak'] = årsakstekst;
-        context.endreFritekstOgVerdi('årsakstekst', årsakstekst, mergeFritekst(fritekstFelter));
-    };
-
     const { steg, forrigeSide, nesteSide } = useSkjemaSteg(
         history.location.pathname,
         context.skjema.id
@@ -185,16 +178,6 @@ const Side2: FunctionComponent = () => {
                         setÅrsak={setÅrsaksKode}
                     />
                 </div>
-                {context.skjema.årsakskode === 'ANDRE_ÅRSAKER' && (
-                    <div className="skjema-innhold__side-2-text-area">
-                        <Textarea
-                            label={'Beskriv hva du mener med andre årsaker'}
-                            value={context.skjema.årsakstekst || ''}
-                            maxLength={1000}
-                            onChange={(event) => setÅrsakstekst(event.currentTarget.value)}
-                        />
-                    </div>
-                )}
 
                 <div className="skjema-innhold__side-2-text-area">
                     <Yrkeskategorivelger
