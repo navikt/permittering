@@ -125,15 +125,8 @@ const Oppsummering: FunctionComponent = () => {
         if (!context.skjema.antallBerørt) {
             mangler.push('Antall berørte er ikke fylt ut');
         }
-        if (context.skjema.årsakskode !== 'ANDRE_ÅRSAKER') {
-            if (!lesbarårsakskode) {
-                mangler.push('Årsak er ikke fylt ut');
-            }
-        }
-        if (context.skjema.årsakskode === 'ANDRE_ÅRSAKER') {
-            if (!context.skjema.årsakstekst) {
-                mangler.push('Årsak er ikke fylt ut');
-            }
+        if (!lesbarårsakskode) {
+            mangler.push('Årsak er ikke fylt ut');
         }
         if (!yrker) {
             mangler.push('Yrkeskategorier er ikke fylt ut');
@@ -234,12 +227,7 @@ const Oppsummering: FunctionComponent = () => {
                                 <Normaltekst className="overskrift">
                                     {lagTekstBasertPaSkjemaType(context.skjema.type)}
                                 </Normaltekst>
-                                {context.skjema.årsakskode !== 'ANDRE_ÅRSAKER' && (
-                                    <SjekkOmFyltUt verdi={lesbarårsakskode} />
-                                )}
-                                {context.skjema.årsakskode === 'ANDRE_ÅRSAKER' && (
-                                    <SjekkOmFyltUt verdi={context.skjema.årsakstekst} />
-                                )}
+                                <SjekkOmFyltUt verdi={lesbarårsakskode} />
                             </div>
 
                             <div className="endre-lenke">
