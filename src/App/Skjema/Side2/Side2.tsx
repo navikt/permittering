@@ -206,7 +206,7 @@ const Side2: FunctionComponent = () => {
                         skalVareFoer={datoTil}
                         overtekst={'Fra'}
                     />
-                    {context.skjema.type !== 'MASSEOPPSIGELSE' && (
+                    {context.skjema.type === 'PERMITTERING_UTEN_LØNN' && (
                         <div className="skjema-innhold__dato-velger-til">
                             <Datovelger
                                 value={datoTil}
