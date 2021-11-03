@@ -100,7 +100,7 @@ const OppsummeringKvittering: FunctionComponent = () => {
                                     <span className="fra-til">Fra:</span>
                                     {skrivOmDato(new Date(fraDato))}
                                 </div>
-                                {context.skjema.type !== 'MASSEOPPSIGELSE' && (
+                                {context.skjema.type === 'PERMITTERING_UTEN_LØNN' && (
                                     <div>
                                         <span className="fra-til">Til:</span>
                                         {context.skjema.ukjentSluttDato

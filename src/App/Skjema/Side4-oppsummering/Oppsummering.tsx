@@ -62,7 +62,7 @@ const Oppsummering: FunctionComponent = () => {
     }, [context.skjema.årsakskode]);
 
     const erGyldigDatoInput = (): boolean => {
-        if (context.skjema.type === 'MASSEOPPSIGELSE' && context.skjema.startDato) {
+        if (context.skjema.type !== 'PERMITTERING_UTEN_LØNN' && context.skjema.startDato) {
             return true;
         }
         if (context.skjema.ukjentSluttDato) {
@@ -268,7 +268,7 @@ const Oppsummering: FunctionComponent = () => {
                                             verdi={skrivOmDato(new Date(fraDato))}
                                         />
                                     </div>
-                                    {context.skjema.type !== 'MASSEOPPSIGELSE' && (
+                                    {context.skjema.type === 'PERMITTERING_UTEN_LØNN' && (
                                         <div>
                                             <span className="fra-til">Til:</span>
                                             {context.skjema.ukjentSluttDato ? (
