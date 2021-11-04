@@ -29,7 +29,7 @@ export const skrivOmDatoStreng = (datoStreng: string) => {
 
 export const datoValidering = (day: Date, after?: Date, before?: Date) => {
     if (after) {
-        if (day.getTime() <= after.getTime()) {
+        if (day.getTime() < after.getTime()) {
             return 'Til-dato må være etter fra-dato';
         }
     }
