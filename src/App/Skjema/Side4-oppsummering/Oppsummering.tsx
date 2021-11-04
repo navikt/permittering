@@ -69,7 +69,7 @@ const Oppsummering: FunctionComponent = () => {
             return context.skjema.startDato !== '' && context.skjema.ukjentSluttDato;
         }
         if (context.skjema.sluttDato && context.skjema.startDato) {
-            return new Date(context.skjema.sluttDato) > new Date(context.skjema.startDato);
+            return new Date(context.skjema.sluttDato) >= new Date(context.skjema.startDato);
         }
         return false;
     };
