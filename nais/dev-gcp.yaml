@@ -48,7 +48,7 @@ spec:
     - name: LOGIN_URL
       value: https://loginservice.dev.nav.no/login?redirect=https://permitteringsskjema.dev.nav.no/permittering
     - name: API_AUDIENCE
-      value: dev-fss:permittering-og-nedbemanning:permitteringsskjema-api
+      value: dev-gcp:permittering-og-nedbemanning:permitteringsskjema-api
     - name: BACKEND_BASEURL
       value: http://permitteringsskjema-api
     - name: BACKEND_API_PATH
