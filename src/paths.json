@@ -15,5 +15,6 @@
     "skjemaPath": "/permittering/api/skjema/:id",
     "skjemaSendInnPath": "/permittering/api/skjema/:id/send-inn",
     "stillingstitlerPath": "/permittering/api/stillingstitler",
-    "permitteringsAArsakksodeverk": "/permittering/api/kodeverk/årsakskoder"
+    "permitteringsAArsakksodeverk": "/permittering/api/kodeverk/årsakskoder",
+    "wonderwallLogin": "/oauth2/login?redirect=/permittering"
 }

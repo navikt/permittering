@@ -3,12 +3,12 @@ import { Ingress, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import Lenke from 'nav-frontend-lenker';
 import LoggInnBanner from './LoggInnBanner/LoggInnBanner';
-import { redirectTilLoginPath } from '../../paths.json';
+import { wonderwallLogin } from '../../paths.json';
 import skjema from './skjema.svg';
 import './Logginn.less';
 
 export const redirectTilLogin = () => {
-    window.location.href = redirectTilLoginPath;
+    window.location.href = wonderwallLogin;
 };
 
 const LoggInn = () => {
