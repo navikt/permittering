@@ -24,7 +24,10 @@ const hasValidAccessToken = (req, key) => {
 
 const ensureAuthenticated = async (req, res, next) => {
     //Må sjekke at access-token og id-token finnes på requesten
-    console.log(req.headers['Authorization'].length, req.headers['X-Wonderwall-ID-Token'].length);
+    if (req.headers) {
+        console.log(req.headers);
+    }
+
     if (req.isAuthenticated() && hasValidAccessToken(req, IDPORTEN_TOKEN_SET_KEY)) {
         next();
     } else {
