@@ -23,6 +23,12 @@ spec:
   tokenx:
     enabled: true
   idporten:
+    sidecar:
+      enabled: true
+      level: Level4
+      locale: nb
+      autoLogin: false
+      errorPath: ""
     enabled: true
     clientUri: https://permitteringsskjema.dev.nav.no/permittering
     redirectPath: /oauth2/callback
