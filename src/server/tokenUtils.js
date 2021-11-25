@@ -1,4 +1,4 @@
-const { TokenSet } = require('openid-client');
+const jws = require('jws');
 const TOKENX_TOKEN_SET_KEY = 'TOKENX_TOKEN_SET_KEY';
 const IDPORTEN_TOKEN_SET_KEY = 'IDPORTEN_TOKEN_SET_KEY';
 const { API_AUDIENCE } = require('./konstanter');
@@ -10,25 +10,17 @@ const getTokenSetsFromSession = (req) => {
     return null;
 };
 
-const hasValidAccessToken = (req, key) => {
-    const tokenSets = getTokenSetsFromSession(req);
-    if (!tokenSets) {
-        return false;
-    }
-    const tokenSet = tokenSets[key];
-    if (!tokenSet) {
-        return false;
-    }
-    return new TokenSet(tokenSet).expired() === false;
+const tokenHasExpired = (idPortenAccessToken) => {
+    const expiration = jws.decode(idPortenAccessToken).payload.exp;
+    return expiration * 1000 - Date.now() < 0;
 };
 
 const ensureAuthenticated = async (req, res, next) => {
-    //Må sjekke at access-token og id-token finnes på requesten
-    if (req.headers) {
-        console.log(req.headers);
-    }
+    const idPortenAccessToken = req.headers['authorization'];
+    const idPortenIdToken = req.headers['x-wonderwall-id-token'];
 
-    if (req.isAuthenticated() && hasValidAccessToken(req, IDPORTEN_TOKEN_SET_KEY)) {
+    if (!tokenHasExpired(idPortenAccessToken)) {
+        console.log('Token er ikke expired, går videre');
         next();
     } else {
         req.session.destroy();
