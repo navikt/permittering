@@ -19,9 +19,8 @@ const tokenHasExpired = (idPortenAccessToken) => {
 };
 
 const ensureAuthenticated = async (req, res, next) => {
-    const idPortenAccessToken = req.headers['authorization'];
+    const idPortenAccessToken = req.headers['authorization'].replace('Bearer ', '');
     const idPortenIdToken = req.headers['x-wonderwall-id-token'];
-
     if (idPortenAccessToken && idPortenIdToken && !tokenHasExpired(idPortenAccessToken)) {
         console.log('Token er ikke expired, går videre');
         next();
