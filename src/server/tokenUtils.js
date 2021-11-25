@@ -3,11 +3,12 @@ const TOKENX_TOKEN_SET_KEY = 'TOKENX_TOKEN_SET_KEY';
 const IDPORTEN_TOKEN_SET_KEY = 'IDPORTEN_TOKEN_SET_KEY';
 const { API_AUDIENCE } = require('./konstanter');
 
-const getTokenSetsFromSession = (req) => {
-    if (req && req.user) {
-        return req.user.tokenSets;
-    }
-    return null;
+const getAccessToken = (req) => {
+    return req.headers['authorization'].replace('Bearer', '').trim();
+};
+
+const getIdToken = (req) => {
+    return req.headers['x-wonderwall-id-token'];
 };
 
 const tokenHasExpired = (idPortenAccessToken) => {
@@ -17,8 +18,9 @@ const tokenHasExpired = (idPortenAccessToken) => {
 };
 
 const ensureAuthenticated = async (req, res, next) => {
-    const idPortenAccessToken = req.headers['authorization'].replace('Bearer ', '');
-    const idPortenIdToken = req.headers['x-wonderwall-id-token'];
+    const idPortenAccessToken = getAccessToken(req);
+    const idPortenIdToken = getIdToken(req);
+
     if (idPortenAccessToken && idPortenIdToken && !tokenHasExpired(idPortenAccessToken)) {
         next();
     } else {
@@ -38,9 +40,9 @@ const exchangeToken = (tokenXClient, tokenXIssuer, req) => {
                 aud: [tokenXIssuer],
             },
         };
-        if (!req.user) {
-            reject('Ikke pålogget');
-        }
+
+        const idPortenAccessToken = getAccessToken(req);
+
         console.log('Lager grant for ny token fra tokendings');
         tokenXClient
             .grant(
@@ -49,12 +51,13 @@ const exchangeToken = (tokenXClient, tokenXIssuer, req) => {
                     client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
                     subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
                     audience: API_AUDIENCE,
-                    subject_token: req.user.tokenSets[IDPORTEN_TOKEN_SET_KEY].access_token,
+                    subject_token: idPortenAccessToken,
                 },
                 additionalClaims
             )
             .then((tokenSet) => {
-                req.user.tokenSets[TOKENX_TOKEN_SET_KEY] = tokenSet;
+                // req.user.tokenSets[TOKENX_TOKEN_SET_KEY] = tokenSet;
+                console.log('Fikk tokenSet: ', JSON.stringify(tokenSet));
                 resolve(tokenSet.access_token);
             })
             .catch((err) => {
