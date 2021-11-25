@@ -4,7 +4,7 @@ const IDPORTEN_TOKEN_SET_KEY = 'IDPORTEN_TOKEN_SET_KEY';
 const { API_AUDIENCE } = require('./konstanter');
 
 const getAccessToken = (req) => {
-    return req.headers['authorization'].replace('Bearer', '').trim();
+    return req.headers['authorization']?.replace('Bearer', '')?.trim();
 };
 
 const getIdToken = (req) => {
