@@ -12,6 +12,7 @@ const getTokenSetsFromSession = (req) => {
 
 const tokenHasExpired = (idPortenAccessToken) => {
     const expiration = jws.decode(idPortenAccessToken).payload.exp;
+    // Convert seconds to milliseconds
     return expiration * 1000 - Date.now() < 0;
 };
 
