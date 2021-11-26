@@ -6,9 +6,10 @@ import LoggInnBanner from './LoggInnBanner/LoggInnBanner';
 import { wonderwallLogin } from '../../paths.json';
 import skjema from './skjema.svg';
 import './Logginn.less';
+import { LOGIN_URL } from '../../server/konstanter';
 
 export const redirectTilLogin = () => {
-    window.location.href = wonderwallLogin;
+    window.location.href = `${wonderwallLogin}?redirect=${LOGIN_URL}`;
 };
 
 const LoggInn = () => {
