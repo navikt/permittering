@@ -1,6 +1,4 @@
 const jws = require('jws');
-const TOKENX_TOKEN_SET_KEY = 'TOKENX_TOKEN_SET_KEY';
-const IDPORTEN_TOKEN_SET_KEY = 'IDPORTEN_TOKEN_SET_KEY';
 const { API_AUDIENCE } = require('./konstanter');
 
 const getAccessToken = (req) => {
@@ -56,8 +54,6 @@ const exchangeToken = (tokenXClient, tokenXIssuer, req) => {
                 additionalClaims
             )
             .then((tokenSet) => {
-                // req.user.tokenSets[TOKENX_TOKEN_SET_KEY] = tokenSet;
-                console.log('Fikk tokenSet: ', JSON.stringify(tokenSet));
                 resolve(tokenSet.access_token);
             })
             .catch((err) => {
