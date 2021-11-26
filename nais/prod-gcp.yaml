@@ -32,11 +32,11 @@ spec:
     outbound:
       rules:
         - application: permittering-redis
+        - application: permitteringsskjema-api
         - application: pam-janzz
           namespace: teampam
       external:
         - host: dekoratoren.nav.no
-        - host: arbeidsgiver-permitteringsskjema-api.prod-fss-pub.nais.io
   envFrom:
     - secret: permittering-redis-secrets
     - secret: permittering-secrets
@@ -48,9 +48,9 @@ spec:
     - name: LOGIN_URL
       value: https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/permittering
     - name: API_AUDIENCE
-      value: prod-fss:permittering-og-nedbemanning:permitteringsskjema-api
+      value: prod-gcp:permittering-og-nedbemanning:permitteringsskjema-api
     - name: BACKEND_BASEURL
-      value: https://arbeidsgiver-permitteringsskjema-api.prod-fss-pub.nais.io
+      value: http://permitteringsskjema-api
     - name: BACKEND_API_PATH
       value: /permitteringsskjema-api
     - name: REDIS_HOST
