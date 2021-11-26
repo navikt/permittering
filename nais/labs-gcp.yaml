@@ -24,10 +24,11 @@ spec:
     outbound:
       rules:
         - application: permittering-redis
+        - application: permitteringsskjema-api
       external:
         - host: dekoratoren.labs.nav.io
   env:
     - name: BACKEND_BASEURL
-      value: https://arbeidsgiver-permitteringsskjema-api.dev-fss-pub.nais.io
+      value: http://permitteringsskjema-api
     - name: BACKEND_API_PATH
       value: /permitteringsskjema-api
