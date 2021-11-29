@@ -22,10 +22,6 @@ const ensureAuthenticated = async (req, res, next) => {
     if (idPortenAccessToken && idPortenIdToken && !tokenHasExpired(idPortenAccessToken)) {
         next();
     } else {
-        req.session.destroy();
-        res.cookie('permittering-token', {
-            expires: Date.now(),
-        });
         res.sendStatus(401);
     }
 };
