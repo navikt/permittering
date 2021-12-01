@@ -3,13 +3,11 @@ import { Ingress, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import Lenke from 'nav-frontend-lenker';
 import LoggInnBanner from './LoggInnBanner/LoggInnBanner';
-import { wonderwallLogin } from '../../paths.json';
 import skjema from './skjema.svg';
 import './Logginn.less';
-import environment from '../../utils/environment';
 
 export const redirectTilLogin = () => {
-    window.location.href = `${wonderwallLogin}?redirect=${environment.LOGIN_URL}`;
+    window.location.href = `/permittering/oauth2/login?redirect=/permittering/login-callback`;
 };
 
 const LoggInn = () => {

@@ -5,6 +5,7 @@ const proxy = require('express-http-proxy');
 const internalRoutes = require('./internals');
 const settingsJs = require('./settingsJs');
 const indexRoute = require('./indexPath');
+const loginRoute = require('./login');
 const apiProxy = require('./apiProxy');
 const path = require('path');
 
@@ -24,6 +25,7 @@ const getConfiguredRouter = (tokenXClient, tokenXIssuer) => {
         })
     );
     apiProxy(app, tokenXClient, tokenXIssuer);
+    loginRoute(app);
 
     app.get(`${paths.basePath}/*`, async (req, res) => {
         try {
