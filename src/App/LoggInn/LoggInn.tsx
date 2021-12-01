@@ -6,7 +6,6 @@ import LoggInnBanner from './LoggInnBanner/LoggInnBanner';
 import { wonderwallLogin } from '../../paths.json';
 import skjema from './skjema.svg';
 import './Logginn.less';
-import { LOGIN_URL } from '../../server/konstanter';
 import environment from '../../utils/environment';
 
 export const redirectTilLogin = () => {
