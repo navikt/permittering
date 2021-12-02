@@ -23,9 +23,10 @@ spec:
   tokenx:
     enabled: true
   idporten:
+    sidecar:
+      enabled: true
     enabled: true
     clientUri: https://arbeidsgiver.nav.no/permittering
-    redirectPath: /oauth2/callback
     postLogoutRedirectURIs:
       - https://arbeidsgiver.nav.no/permittering/logout-callback
   accessPolicy:
@@ -51,7 +52,5 @@ spec:
       value: http://permitteringsskjema-api
     - name: BACKEND_API_PATH
       value: /permitteringsskjema-api
-    - name: IDPORTEN_POST_LOGOUT_REDIRECT_URI
-      value: https://arbeidsgiver.nav.no/permittering/logout-callback
     - name: LOGINSERVICE_LOGOUT_URL
       value: https://loginservice.nav.no/slo

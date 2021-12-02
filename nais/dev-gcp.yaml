@@ -25,13 +25,8 @@ spec:
   idporten:
     sidecar:
       enabled: true
-      level: Level4
-      locale: nb
-      autoLogin: false
-      errorPath: ""
     enabled: true
     clientUri: https://permitteringsskjema.dev.nav.no/permittering
-    redirectPath: /oauth2/callback
     postLogoutRedirectURIs:
       - https://permitteringsskjema.dev.nav.no/permittering/logout-callback
   accessPolicy:
@@ -57,7 +52,5 @@ spec:
       value: http://permitteringsskjema-api
     - name: BACKEND_API_PATH
       value: /permitteringsskjema-api
-    - name: IDPORTEN_POST_LOGOUT_REDIRECT_URI
-      value: https://permitteringsskjema.dev.nav.no/permittering/logout-callback
     - name: LOGINSERVICE_LOGOUT_URL
       value: https://loginservice.dev.nav.no/slo

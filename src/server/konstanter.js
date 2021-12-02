@@ -15,8 +15,6 @@ const testJwk = JSON.stringify({
     dq: 'hGbwg8XkUNTkBkyN3obPvMcEpxneY2LTA3dBRfDt-1FjByf5JesuXPSSyw351AMNI6eMXDjMExaxl9ukl97oh9t-QLQvQsHPmgyPbUjyxQtdD-9gXZ26YvXXWHx0jai2H1vzJmVI1f5cfx5Ycw4VBFCJOgM8M_ZCT-arFXpEIH0',
     n: 'vJRalsEoApXYdEFsrYo7QOcM36shQXTQvyXuiJPzqq-WpwOM7dCLUQJ7HRO07kKJAfdldwV7j1k1KELjwUozXQC_uGL28xByaP3BZ5JcTmBWz_X2tIRkxOcj8QYJYUaRBWF8gjISkbZC_Cli94NI5qkdSegGV4tjHYwGhk3qX1Pp0NULhxmfdiiMtkMj2PEGQGxl87tgUQrWjBZj1pcn-d7Tnw8uUNMt5tfqCzVXQcJefkuPTOetvFMSyMk8ismd1uxLie1sQ4I-KFnD9OMLVAHfuXNtLrQoPaYJVzqE7ix3f9y5kS8VMn8-UN42gxm6AMenJ0TXJFaAUnGAogoC9w',
 });
-const IDPORTEN_POST_LOGOUT_REDIRECT_URI =
-    process.env.IDPORTEN_POST_LOGOUT_REDIRECT_URI || 'http://localhost:3000/permittering/';
 const LOGINSERVICE_LOGOUT_URL =
     process.env.LOGINSERVICE_LOGOUT_URL || 'https://loginservice.dev.nav.no/slo';
 
@@ -32,7 +30,6 @@ const API_AUDIENCE = process.env.API_AUDIENCE || 'tokenx';
 
 module.exports = {
     API_AUDIENCE,
-    IDPORTEN_POST_LOGOUT_REDIRECT_URI,
     LOGINSERVICE_LOGOUT_URL,
     TOKEN_X_WELL_KNOWN_URL,
     TOKEN_X_CLIENT_ID,
