@@ -1,12 +1,6 @@
-const FRONTEND_BASE_URL = '/permittering';
-const FRONTEND_API_PATH = '/api';
 const BACKEND_API_PATH = process.env.BACKEND_API_PATH || '/permitteringsskjema-api';
 const BACKEND_BASEURL = process.env.BACKEND_BASEURL || 'http://localhost:8080';
 
-const IDPORTEN_WELL_KNOWN_URL =
-    process.env.IDPORTEN_WELL_KNOWN_URL ||
-    'http://localhost:9000/aad/.well-known/openid-configuration';
-const IDPORTEN_CLIENT_ID = process.env.IDPORTEN_CLIENT_ID || 'permittering-test-client-id';
 const testJwk = JSON.stringify({
     p: '36qWbr6zTCe4xM3OLpT_x9mcSbNvnx9Sr-z9GHHS4aCQS7JWirw3ez-8vWM71jypLIbUUj7ym_Dbd98IJtc9S6o8j5QejC92Y5EJqtnmKEkKnD4HWLPruCIf8mPlWFPsQQxHeAB6vv1ki036cfaHnmlV7_Fsv2ftYKHfp86-ozE',
     kty: 'RSA',
@@ -21,11 +15,6 @@ const testJwk = JSON.stringify({
     dq: 'hGbwg8XkUNTkBkyN3obPvMcEpxneY2LTA3dBRfDt-1FjByf5JesuXPSSyw351AMNI6eMXDjMExaxl9ukl97oh9t-QLQvQsHPmgyPbUjyxQtdD-9gXZ26YvXXWHx0jai2H1vzJmVI1f5cfx5Ycw4VBFCJOgM8M_ZCT-arFXpEIH0',
     n: 'vJRalsEoApXYdEFsrYo7QOcM36shQXTQvyXuiJPzqq-WpwOM7dCLUQJ7HRO07kKJAfdldwV7j1k1KELjwUozXQC_uGL28xByaP3BZ5JcTmBWz_X2tIRkxOcj8QYJYUaRBWF8gjISkbZC_Cli94NI5qkdSegGV4tjHYwGhk3qX1Pp0NULhxmfdiiMtkMj2PEGQGxl87tgUQrWjBZj1pcn-d7Tnw8uUNMt5tfqCzVXQcJefkuPTOetvFMSyMk8ismd1uxLie1sQ4I-KFnD9OMLVAHfuXNtLrQoPaYJVzqE7ix3f9y5kS8VMn8-UN42gxm6AMenJ0TXJFaAUnGAogoC9w',
 });
-const IDPORTEN_CLIENT_JWK = JSON.parse(process.env.IDPORTEN_CLIENT_JWK || testJwk);
-const IDPORTEN_REDIRECT_URI =
-    process.env.IDPORTEN_REDIRECT_URI || 'http://localhost:3000/permittering/oauth2/callback';
-const IDPORTEN_POST_LOGOUT_REDIRECT_URI =
-    process.env.IDPORTEN_POST_LOGOUT_REDIRECT_URI || 'http://localhost:3000/permittering/';
 const LOGINSERVICE_LOGOUT_URL =
     process.env.LOGINSERVICE_LOGOUT_URL || 'https://loginservice.dev.nav.no/slo';
 
@@ -37,34 +26,15 @@ const TOKEN_X_PRIVATE_JWK = JSON.parse(process.env.TOKEN_X_PRIVATE_JWK || testJw
 
 const LOGIN_URL = process.env.LOGIN_URL;
 
-const PERMITTERING_SESSION_SECRET = process.env.PERMITTERING_SESSION_SECRET || 'secret';
-const PERMITTERING_SESSION_NAME = process.env.PERMITTERING_SESSION_NAME || 'permittering-session';
-
 const API_AUDIENCE = process.env.API_AUDIENCE || 'tokenx';
-
-const REDIS_HOST = process.env.REDIS_HOST;
-const REDIS_PASSWORD = process.env.REDIS_PASSWORD;
-const REDIS_PORT = process.env.REDIS_PORT;
 
 module.exports = {
     API_AUDIENCE,
-    IDPORTEN_WELL_KNOWN_URL,
-    IDPORTEN_CLIENT_ID,
-    IDPORTEN_CLIENT_JWK,
-    IDPORTEN_REDIRECT_URI,
-    IDPORTEN_POST_LOGOUT_REDIRECT_URI,
     LOGINSERVICE_LOGOUT_URL,
     TOKEN_X_WELL_KNOWN_URL,
     TOKEN_X_CLIENT_ID,
     TOKEN_X_PRIVATE_JWK,
     LOGIN_URL,
-    PERMITTERING_SESSION_SECRET,
-    PERMITTERING_SESSION_NAME,
-    FRONTEND_API_PATH,
-    FRONTEND_BASE_URL,
     BACKEND_API_PATH,
     BACKEND_BASEURL,
-    REDIS_HOST,
-    REDIS_PASSWORD,
-    REDIS_PORT,
 };

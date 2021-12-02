@@ -23,28 +23,25 @@ spec:
   tokenx:
     enabled: true
   idporten:
+    sidecar:
+      enabled: true
     enabled: true
     clientUri: https://arbeidsgiver.nav.no/permittering
-    redirectPath: /oauth2/callback
     postLogoutRedirectURIs:
       - https://arbeidsgiver.nav.no/permittering/logout-callback
   accessPolicy:
     outbound:
       rules:
-        - application: permittering-redis
         - application: permitteringsskjema-api
         - application: pam-janzz
           namespace: teampam
       external:
         - host: dekoratoren.nav.no
   envFrom:
-    - secret: permittering-redis-secrets
     - secret: permittering-secrets
   env:
     - name: NODE_EXTRA_CA_CERTS
       value: /etc/ssl/ca-bundle.pem
-    - name: APIGW_URL
-      value: https://api-gw.oera.no
     - name: LOGIN_URL
       value: https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/permittering
     - name: API_AUDIENCE
@@ -53,9 +50,5 @@ spec:
       value: http://permitteringsskjema-api
     - name: BACKEND_API_PATH
       value: /permitteringsskjema-api
-    - name: REDIS_HOST
-      value: permittering-redis.permittering-og-nedbemanning.svc.cluster.local
-    - name: IDPORTEN_POST_LOGOUT_REDIRECT_URI
-      value: https://arbeidsgiver.nav.no/permittering/logout-callback
     - name: LOGINSERVICE_LOGOUT_URL
       value: https://loginservice.nav.no/slo

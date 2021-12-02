@@ -6,8 +6,8 @@ const decoratorConfig = {
     language: 'nb',
     logoutUrl:
         process.env.NAIS_CLUSTER_NAME === 'prod-gcp'
-            ? 'https://arbeidsgiver.nav.no/permittering/logout'
-            : 'https://permitteringsskjema.dev.nav.no/permittering/logout',
+            ? 'https://arbeidsgiver.nav.no/permittering/oauth2/logout'
+            : 'https://permitteringsskjema.dev.nav.no/permittering/oauth2/logout',
 };
 
 console.log('Bruker dekoratør med følgende config: ', decoratorConfig);

@@ -5,15 +5,14 @@ const proxy = require('express-http-proxy');
 const internalRoutes = require('./internals');
 const settingsJs = require('./settingsJs');
 const indexRoute = require('./indexPath');
-const loginRoutes = require('./login');
+const authRoutes = require('./auth');
 const apiProxy = require('./apiProxy');
 const path = require('path');
 
 const buildPath = path.join(__dirname, '../../../build');
 const app = express.Router();
 
-const getConfiguredRouter = (tokenXClient, tokenXIssuer, idPortenEndSession) => {
-    loginRoutes(app, idPortenEndSession);
+const getConfiguredRouter = (tokenXClient, tokenXIssuer) => {
     internalRoutes(app);
     settingsJs(app);
     indexRoute(app);
@@ -26,6 +25,7 @@ const getConfiguredRouter = (tokenXClient, tokenXIssuer, idPortenEndSession) => 
         })
     );
     apiProxy(app, tokenXClient, tokenXIssuer);
+    authRoutes(app);
 
     app.get(`${paths.basePath}/*`, async (req, res) => {
         try {
