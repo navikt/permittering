@@ -51,18 +51,18 @@ export const loggBedriftsInfo = async (organisasjon: Organisasjon): Promise<stri
     const antallAnsatte = infoFraEereg.antallAnsatte;
 
     if (infoFraEereg !== tomEnhetsregOrg) {
+        if (infoFraEereg.naeringskode1 && infoFraEereg.naeringskode1.beskrivelse) {
+            amplitude.logEvent('sidesvisning', {
+                url: 'https://arbeidsgiver.nav.no/permittering/',
+                nærring: infoFraEereg.naeringskode1.beskrivelse,
+            });
+        }
         let infoFraEeregJuridisk: OrganisasjonFraEnhetsregisteret = tomEnhetsregOrg;
         await hentOverordnetEnhet(organisasjon.ParentOrganizationNumber).then((enhet) => {
             infoFraEeregJuridisk = enhet;
         });
         if (infoFraEereg.naeringskode1 && infoFraEereg.naeringskode1.kode.startsWith('84')) {
             amplitude.logEvent('#permitteringsskjema-forside OFFENTLIG');
-            if (infoFraEereg.naeringskode1.beskrivelse) {
-                amplitude.logEvent('sidesvisning', {
-                    url: 'https://arbeidsgiver.nav.no/permittering/',
-                    nærring: infoFraEereg.naeringskode1.beskrivelse,
-                });
-            }
             if (
                 infoFraEereg.institusjonellSektorkode.kode &&
                 infoFraEereg.institusjonellSektorkode.kode === '6500'
