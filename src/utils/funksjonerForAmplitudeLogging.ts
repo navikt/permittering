@@ -54,7 +54,7 @@ export const loggBedriftsInfo = async (organisasjon: Organisasjon): Promise<stri
         if (infoFraEereg.naeringskode1 && infoFraEereg.naeringskode1.beskrivelse) {
             amplitude.logEvent('sidevisning', {
                 url: 'https://arbeidsgiver.nav.no/permittering/',
-                nærring: infoFraEereg.naeringskode1.beskrivelse,
+                næring: infoFraEereg.naeringskode1.beskrivelse,
             });
         }
         let infoFraEeregJuridisk: OrganisasjonFraEnhetsregisteret = tomEnhetsregOrg;
