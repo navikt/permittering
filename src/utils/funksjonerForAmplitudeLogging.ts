@@ -52,7 +52,7 @@ export const loggBedriftsInfo = async (organisasjon: Organisasjon): Promise<stri
 
     if (infoFraEereg !== tomEnhetsregOrg) {
         if (infoFraEereg.naeringskode1 && infoFraEereg.naeringskode1.beskrivelse) {
-            amplitude.logEvent('sidesvisning', {
+            amplitude.logEvent('sidevisning', {
                 url: 'https://arbeidsgiver.nav.no/permittering/',
                 nærring: infoFraEereg.naeringskode1.beskrivelse,
             });
