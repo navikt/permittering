@@ -5,10 +5,6 @@ const getAccessToken = (req) => {
     return req.headers['authorization']?.replace('Bearer', '')?.trim();
 };
 
-const getIdToken = (req) => {
-    return req.headers['x-wonderwall-id-token'];
-};
-
 const tokenHasExpired = (idPortenAccessToken) => {
     const expiration = jws.decode(idPortenAccessToken).payload.exp;
     // Convert seconds to milliseconds
@@ -17,9 +13,8 @@ const tokenHasExpired = (idPortenAccessToken) => {
 
 const ensureAuthenticated = async (req, res, next) => {
     const idPortenAccessToken = getAccessToken(req);
-    const idPortenIdToken = getIdToken(req);
 
-    if (idPortenAccessToken && idPortenIdToken && !tokenHasExpired(idPortenAccessToken)) {
+    if (idPortenAccessToken && !tokenHasExpired(idPortenAccessToken)) {
         next();
     } else {
         res.sendStatus(401);
