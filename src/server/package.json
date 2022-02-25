@@ -16,7 +16,6 @@
         "openid-client": "^4.7.4",
         "passport": "^0.4.1",
         "promise": "^8.1.0",
-        "redis": "^3.1.2",
-        "request": "^2.88.2"
+        "redis": "^3.1.2"
     }
 }
