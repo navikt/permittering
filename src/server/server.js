@@ -25,7 +25,7 @@ const getConfiguredTokenXClient = async () => {
 };
 
 const startServer = async () => {
-    console.log(`Starting server on cluster is ${process.env.NAIS_CLUSTER_NAME}`);
+    console.log(`Starting server on cluster ${process.env.NAIS_CLUSTER_NAME}`);
     if (process.env.NAIS_CLUSTER_NAME === 'labs-gcp') {
         const router = getConfiguredMockRouter();
         app.use('/', router);
