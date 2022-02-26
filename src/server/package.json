@@ -12,7 +12,7 @@
         "jsdom": "^16.6.0",
         "jws": "^4.0.0",
         "node-cache": "^5.1.2",
-        "node-fetch": "^2.6.1",
+        "node-fetch": "^2.6.7",
         "openid-client": "^4.7.4",
         "passport": "^0.4.1",
         "promise": "^8.1.0",
