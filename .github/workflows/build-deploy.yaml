@@ -43,7 +43,7 @@ jobs:
 
   deploy-to-dev-gcp:
     name: Deploy to dev-gcp
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/ikke-bruk-idtoken'
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dependency-runde'
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:
