@@ -28,7 +28,6 @@ const API_AUDIENCE = process.env.API_AUDIENCE || 'tokenx';
 
 module.exports = {
     API_AUDIENCE,
-    LOGINSERVICE_LOGOUT_URL,
     TOKEN_X_WELL_KNOWN_URL,
     TOKEN_X_CLIENT_ID,
     TOKEN_X_PRIVATE_JWK,
