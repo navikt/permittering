@@ -34,8 +34,12 @@ const LoginBoundary: FunctionComponent = (props) => {
         return <div>Sjekker tilgang...</div>;
     }
 
+    console.log('Tilgang sjekket: ', innlogget);
+
     if (innlogget === Tilgang.TILGANG) {
+        console.log('Har tilgang');
         if (redirectPath) {
+            console.log('redirecter til: ', redirectPath);
             window.location.href = `${redirectPath}`;
             return null;
         } else {
@@ -43,6 +47,7 @@ const LoginBoundary: FunctionComponent = (props) => {
         }
     }
     if (innlogget === Tilgang.IKKE_TILGANG) {
+        console.log('Ikke tilgang', redirectPath);
         if (redirectPath) {
             window.location.href = `/permittering/oauth2/login?redirect=${redirectPath}`;
             return null;
