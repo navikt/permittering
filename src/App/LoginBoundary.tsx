@@ -36,7 +36,7 @@ const LoginBoundary: FunctionComponent = (props) => {
 
     if (innlogget === Tilgang.TILGANG) {
         if (redirectPath) {
-            window.location.href = `/permittering/oauth2/login?redirect=${redirectPath}`;
+            window.location.href = `${redirectPath}`;
             return null;
         } else {
             return <> {props.children} </>;
