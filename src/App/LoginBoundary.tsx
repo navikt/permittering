@@ -2,6 +2,7 @@ import React from 'react';
 import { FunctionComponent, useEffect, useState } from 'react';
 import LoggInn from './LoggInn/LoggInn';
 import { sjekkInnlogget } from '../api/permittering-api';
+import NavFrontendSpinner from 'nav-frontend-spinner';
 
 export enum Tilgang {
     LASTER,
@@ -31,17 +32,17 @@ const LoginBoundary: FunctionComponent = (props) => {
     }
 
     if (innlogget === Tilgang.LASTER) {
-        return <div>Sjekker tilgang...</div>;
+        return (
+            <div>
+                <NavFrontendSpinner />
+            </div>
+        );
     }
 
-    console.log('Tilgang sjekket: ', innlogget);
-
     if (innlogget === Tilgang.TILGANG) {
-        console.log('Har tilgang, laster children', props.children);
         return <> {props.children} </>;
     }
     if (innlogget === Tilgang.IKKE_TILGANG) {
-        console.log('Ikke tilgang', redirectPath);
         if (redirectPath) {
             window.location.href = `/permittering/oauth2/login?redirect=${redirectPath}`;
             return null;
