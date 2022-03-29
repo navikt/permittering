@@ -25,11 +25,24 @@ const LoginBoundary: FunctionComponent = (props) => {
         return () => abortController.abort();
     }, []);
 
+    let redirectPath = null;
+    if (window.location.pathname && window.location.pathname.includes('kvitteringsside')) {
+        redirectPath = window.location.pathname;
+    }
+
     if (innlogget === Tilgang.TILGANG) {
-        return <> {props.children} </>;
+        if (redirectPath) {
+            window.location.href = `/permittering/oauth2/login?redirect=${redirectPath}`;
+            return null;
+        } else {
+            return <> {props.children} </>;
+        }
     }
     if (innlogget === Tilgang.IKKE_TILGANG) {
-        if (window.location.href) {
+        if (redirectPath) {
+            window.location.href = `/permittering/oauth2/login?redirect=${redirectPath}`;
+            return null;
+        } else if (window.location.href) {
             return <LoggInn />;
         } else {
             return null;
