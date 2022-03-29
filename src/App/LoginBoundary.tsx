@@ -30,6 +30,10 @@ const LoginBoundary: FunctionComponent = (props) => {
         redirectPath = window.location.pathname;
     }
 
+    if (innlogget === Tilgang.LASTER) {
+        return <div>Sjekker tilgang...</div>;
+    }
+
     if (innlogget === Tilgang.TILGANG) {
         if (redirectPath) {
             window.location.href = `/permittering/oauth2/login?redirect=${redirectPath}`;
