@@ -37,14 +37,8 @@ const LoginBoundary: FunctionComponent = (props) => {
     console.log('Tilgang sjekket: ', innlogget);
 
     if (innlogget === Tilgang.TILGANG) {
-        console.log('Har tilgang');
-        if (redirectPath) {
-            console.log('redirecter til: ', redirectPath);
-            window.location.href = `${redirectPath}`;
-            return null;
-        } else {
-            return <> {props.children} </>;
-        }
+        console.log('Har tilgang, laster children', props.children);
+        return <> {props.children} </>;
     }
     if (innlogget === Tilgang.IKKE_TILGANG) {
         console.log('Ikke tilgang', redirectPath);
