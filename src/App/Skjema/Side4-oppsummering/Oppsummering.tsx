@@ -294,6 +294,16 @@ const Oppsummering: FunctionComponent = () => {
                             </div>
                         </div>
                     </Veilederpanel>
+                    <AlertStripe
+                        type="info"
+                        className="oppsummering__alertstripe feilmelding-send-inn__tekst"
+                        aria-live="polite"
+                    >
+                        <Normaltekst>
+                            Alle med rettigheten "Innsyn i permittering- og nedbemanningsmeldinger
+                            sendt til NAV" vil kunne se meldingen etter den er sendt inn.
+                        </Normaltekst>
+                    </AlertStripe>
                     <div className="skjema-innhold__fram-og-tilbake">
                         <Knapp
                             onClick={async () => {

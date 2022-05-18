@@ -12,17 +12,25 @@ export enum Tilgang {
 const LoginBoundary: FunctionComponent = (props) => {
     const [innlogget, setInnlogget] = useState(Tilgang.LASTER);
 
+    const lokalKjoring = () => {
+        return window.location.href.includes('localhost');
+    };
+
     useEffect(() => {
         setInnlogget(Tilgang.LASTER);
-        const abortController = new AbortController();
-        sjekkInnlogget(abortController.signal).then((innlogget) => {
-            if (innlogget) {
-                setInnlogget(Tilgang.TILGANG);
-            } else {
-                setInnlogget(Tilgang.IKKE_TILGANG);
-            }
-        });
-        return () => abortController.abort();
+        if (lokalKjoring()) {
+            setInnlogget(Tilgang.TILGANG);
+        } else {
+            const abortController = new AbortController();
+            sjekkInnlogget(abortController.signal).then((innlogget) => {
+                if (innlogget) {
+                    setInnlogget(Tilgang.TILGANG);
+                } else {
+                    setInnlogget(Tilgang.IKKE_TILGANG);
+                }
+            });
+            return () => abortController.abort();
+        }
     }, []);
 
     if (innlogget === Tilgang.TILGANG) {
