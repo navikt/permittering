@@ -13,7 +13,7 @@ const LoginBoundary: FunctionComponent = (props) => {
     const [innlogget, setInnlogget] = useState(Tilgang.LASTER);
 
     const lokalKjoring = () => {
-        return window.location.href.includes('localhost');
+        return window.location.hostname === 'localhost';
     };
 
     useEffect(() => {
