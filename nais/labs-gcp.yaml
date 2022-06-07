@@ -23,7 +23,6 @@ spec:
   accessPolicy:
     outbound:
       rules:
-        - application: permittering-redis
         - application: permitteringsskjema-api
       external:
         - host: dekoratoren.labs.nav.io

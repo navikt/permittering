@@ -43,7 +43,7 @@ jobs:
 
   deploy-to-dev-gcp:
     name: Deploy to dev-gcp
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dep-upgrade-0228'
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/slettet-redis-deps'
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:
@@ -53,12 +53,12 @@ jobs:
           APIKEY: ${{ secrets.NAIS_DEPLOY_KEY_TEAM }}
           CLUSTER: dev-gcp
           VAR: version=${{ env.IMAGE }}
-          RESOURCE: nais/dev-gcp.yaml,nais/redis.yaml
+          RESOURCE: nais/dev-gcp.yaml
           PRINT_PAYLOAD: true
 
   deploy-to-labs-gcp:
     name: Deploy to labs-gcp
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/fjernet-nok-et-fritekstfelt'
+    if: github.ref == 'refs/heads/master'
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:
@@ -83,5 +83,5 @@ jobs:
           APIKEY: ${{ secrets.NAIS_DEPLOY_KEY_TEAM }}
           CLUSTER: prod-gcp
           VAR: version=${{ env.IMAGE }}
-          RESOURCE: nais/prod-gcp.yaml,nais/redis.yaml
+          RESOURCE: nais/prod-gcp.yaml
           PRINT_PAYLOAD: true
