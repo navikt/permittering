@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
+          node-version: '14'
       - uses: actions/cache@v1
         with:
           path: ./node_modules
@@ -43,7 +43,7 @@ jobs:
 
   deploy-to-dev-gcp:
     name: Deploy to dev-gcp
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/slettet-redis-deps'
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dep-rydding'
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:

@@ -1,12 +1,12 @@
 import React, { createContext, useEffect, useState } from 'react';
 // @ts-ignore
-import { featurePath } from '../paths.json';
+import * as paths from '../paths';
 
 export enum Feature {}
 
 const featureTogglePath = (features: Feature[]): string => {
     const query = features.map((feature) => `feature=${feature}`).join('&');
-    return `${featurePath}?${query}`;
+    return `${paths.featurePath}?${query}`;
 };
 
 export const alleFeatures: Feature[] = []; // Object.values(Feature);

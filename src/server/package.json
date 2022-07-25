@@ -13,7 +13,6 @@
         "node-cache": "^5.1.2",
         "node-fetch": "^2.6.1",
         "openid-client": "^4.9.1",
-        "passport": "^0.5.2",
         "promise": "^8.1.0",
         "uuid": "^8.3.2"
     }

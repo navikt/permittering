@@ -4,7 +4,7 @@ WORKDIR /app
 COPY build/ build/
 COPY src/server/ src/server/
 COPY src/fixtures/ src/fixtures/
-COPY src/paths.json src/paths.json
+COPY src/paths.js src/paths.js
 
 WORKDIR /app/src/server
 ENV NODE_ENV production
