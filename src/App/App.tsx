@@ -2,7 +2,6 @@ import 'moment/locale/nb';
 import React, { useEffect } from 'react';
 import { IntlProvider } from 'react-intl';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { basePath } from '../paths.json';
 import { brukerLoggetPa } from '../utils/funksjonerForAmplitudeLogging';
 import { FeatureToggleProvider } from './FeatureToggleProvider';
 import Forside from './Forside/Forside';
@@ -14,6 +13,8 @@ function App() {
     useEffect(() => {
         brukerLoggetPa();
     }, []);
+
+    const basePath = '/permittering';
 
     return (
         <IntlProvider locale={'nb'}>

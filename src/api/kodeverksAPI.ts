@@ -1,7 +1,7 @@
-import { permitteringsAArsakksodeverk } from '../paths.json';
+import * as paths from '../paths';
 
 const hentAArsakskoder = async (): Promise<any> => {
-    const response = await fetch(permitteringsAArsakksodeverk);
+    const response = await fetch(paths.permitteringsAArsakksodeverk);
     return await response.json();
 };
 
