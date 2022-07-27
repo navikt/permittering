@@ -6,8 +6,16 @@ import LoggInnBanner from './LoggInnBanner/LoggInnBanner';
 import skjema from './skjema.svg';
 import './Logginn.less';
 
+const lokalKjoring = () => {
+    return window.location.hostname === 'localhost';
+};
+
 export const redirectTilLogin = () => {
-    window.location.href = `/permittering/oauth2/login?redirect=/permittering/login-callback`;
+    lokalKjoring()
+        ? (window.location.href =
+              'http://localhost:8080/permitteringsskjema-api/auth/mock-token?redirect=http://localhost:3000/permittering')
+        : (window.location.href =
+              '/permittering/oauth2/login?redirect=/permittering/login-callback');
 };
 
 const LoggInn = () => {
