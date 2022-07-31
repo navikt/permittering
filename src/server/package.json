@@ -11,7 +11,7 @@
         "jsdom": "^16.6.0",
         "jws": "^4.0.0",
         "node-cache": "^5.1.2",
-        "node-fetch": "^2.6.1",
+        "node-fetch": "^3.2.10",
         "openid-client": "^4.9.1",
         "promise": "^8.1.0",
         "uuid": "^8.3.2"
