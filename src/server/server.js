@@ -26,22 +26,22 @@ const getConfiguredTokenXClient = async () => {
 
 const startServer = async () => {
     console.log(`Starting server on cluster ${process.env.NAIS_CLUSTER_NAME}`);
-    if (process.env.NAIS_CLUSTER_NAME === 'labs-gcp') {
-        const router = getConfiguredMockRouter();
-        app.use('/', router);
-        app.listen(port, () => {
-            console.log('Server listening on port (ONLY RETURNING MOCK DATA)', port);
-        });
-    } else {
-        const tokenXClient = await getConfiguredTokenXClient();
-
-        console.log('start regular server');
-        const router = getConfiguredRouter(tokenXClient, tokenXIssuer);
-        app.use('/', router);
-        app.listen(port, () => {
-            console.log('Server listening on port', port);
-        });
-    }
+    // if (process.env.NAIS_CLUSTER_NAME === 'labs-gcp') {
+    const router = getConfiguredMockRouter();
+    app.use('/', router);
+    app.listen(port, () => {
+        console.log('Server listening on port (ONLY RETURNING MOCK DATA)', port);
+    });
+    // } else {
+    //     const tokenXClient = await getConfiguredTokenXClient();
+    //
+    //     console.log('start regular server');
+    //     const router = getConfiguredRouter(tokenXClient, tokenXIssuer);
+    //     app.use('/', router);
+    //     app.listen(port, () => {
+    //         console.log('Server listening on port', port);
+    //     });
+    // }
 };
 
 const startServerWithDecorator = () => {
