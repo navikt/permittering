@@ -8,6 +8,7 @@ esbuild.build({
     bundle: true,
     sourcemap: true,
     minify: true,
+    publicPath: "/permittering/",
     loader: {
         ".svg": "file"
     },
