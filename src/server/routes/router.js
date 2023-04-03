@@ -18,7 +18,7 @@ const getConfiguredRouter = (tokenXClient, tokenXIssuer) => {
     indexRoute(app);
     app.use(
         paths.stillingstitlerPath,
-        proxy('http://pam-janzz.teampam', {
+        proxy('http://pam-janzz.teampam.svc.nais.local', {
             proxyReqPathResolver: (req) => {
                 return `/pam-janzz/rest/typeahead/yrke-med-styrk08-nav${req.url}`;
             },
