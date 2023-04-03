@@ -15,15 +15,15 @@ const app = express.Router();
 const getConfiguredRouter = (tokenXClient, tokenXIssuer) => {
     internalRoutes(app);
     settingsJs(app);
-    indexRoute(app);
     app.use(
         paths.stillingstitlerPath,
-        proxy('https://arbeidsplassen.nav.no', {
+        proxy('http://pam-janzz.teampam', {
             proxyReqPathResolver: (req) => {
                 return `/pam-janzz/rest/typeahead/yrke-med-styrk08-nav${req.url}`;
             },
         })
     );
+    indexRoute(app);
     apiProxy(app, tokenXClient, tokenXIssuer);
     authRoutes(app);
 
