@@ -8,30 +8,27 @@ env:
 jobs:
   compile-test-and-build:
     name: Build and run tests
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
         with:
-          node-version: '14'
-      - uses: actions/cache@v1
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
         with:
-          path: ./node_modules
-          key: ${{ runner.os }}-node-cache-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-cache-
+          node-version: '16.14.2'
+          cache: 'npm'
       - name: Install dependencies
         run: |
-          yarn install --frozen-lockfile
+          npm ci
       - name: Install node server dependencies
         working-directory: ./src/server
         run: |
-          yarn install --frozen-lockfile
+          npm ci
       - name: Run tests
-        run: yarn test
+        run: npm test
       - name: Build application
         run: |
-          yarn run build
+          npm run build
       - name: Build tag and push Docker container
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
