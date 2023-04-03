@@ -25,7 +25,7 @@ jobs:
       - uses: nais/docker-build-push@v0
         id: gar-push
         with:
-          team: permittering-og-nedbemanning
+          team: fager
           tag: ${{ github.sha }}
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
@@ -45,19 +45,16 @@ jobs:
         with:
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-          team: permittering-og-nedbemanning
+          team: fager
       - uses: nais/deploy/actions/deploy@v1
         env:
           IMAGE: ${{ steps.login.outputs.registry }}/permittering:${{ github.sha }}
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          APIKEY: ${{ secrets.NAIS_DEPLOY_KEY_TEAM }}
           CLUSTER: dev-gcp
           RESOURCE: nais/dev-gcp.yaml
           PRINT_PAYLOAD: true
 
   deploy-to-labs-gcp:
-    permissions:
-      contents: "read"
-      id-token: "write"
     name: Deploy to labs-gcp
     if: github.ref == 'refs/heads/master'
     needs: compile-test-and-build
@@ -69,19 +66,16 @@ jobs:
         with:
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-          team: permittering-og-nedbemanning
+          team: fager
       - uses: nais/deploy/actions/deploy@v1
         env:
           IMAGE: ${{ steps.login.outputs.registry }}/permittering:${{ github.sha }}
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          APIKEY: ${{ secrets.NAIS_DEPLOY_KEY_TEAM }}
           CLUSTER: labs-gcp
           RESOURCE: nais/labs-gcp.yaml
           PRINT_PAYLOAD: true
 
   deploy-to-prod-gcp:
-    permissions:
-      contents: "read"
-      id-token: "write"
     name: Deploy to prod-gcp
     if: github.ref == 'refs/heads/master'
     needs: compile-test-and-build
@@ -93,11 +87,11 @@ jobs:
         with:
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-          team: permittering-og-nedbemanning
+          team: fager
       - uses: nais/deploy/actions/deploy@v1
         env:
           IMAGE: ${{ steps.login.outputs.registry }}/permittering:${{ github.sha }}
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          APIKEY: ${{ secrets.NAIS_DEPLOY_KEY_TEAM }}
           CLUSTER: prod-gcp
           RESOURCE: nais/prod-gcp.yaml
           PRINT_PAYLOAD: true
