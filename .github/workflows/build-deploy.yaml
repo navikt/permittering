@@ -2,11 +2,11 @@ name: Build and deploy
 
 on: [push]
 
-env:
-  IMAGE: docker.pkg.github.com/${{ github.repository }}/permittering:${{ github.sha }}
-
 jobs:
   compile-test-and-build:
+    permissions:
+      contents: "read"
+      id-token: "write"
     name: Build and run tests
     runs-on: ubuntu-latest
     steps:
@@ -17,68 +17,87 @@ jobs:
         with:
           node-version: '16.14.2'
           cache: 'npm'
-      - name: Install dependencies
-        run: |
-          npm ci
-      - name: Install node server dependencies
-        working-directory: ./src/server
-        run: |
-          npm ci
-      - name: Run tests
-        run: npm test
-      - name: Build application
-        run: |
-          npm run build
-      - name: Build tag and push Docker container
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          docker build . -t ${IMAGE}
-          echo ${GITHUB_TOKEN} | docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} --password-stdin
-          echo ${IMAGE}
-          docker push ${IMAGE}
+      - run: npm ci
+      - working-directory: ./src/server
+        run: npm ci
+      - run: npm test
+      - run: npm run build
+      - uses: nais/docker-build-push@v0
+        id: gar-push
+        with:
+          team: fager
+          tag: ${{ github.sha }}
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
 
   deploy-to-dev-gcp:
+    permissions:
+      contents: "read"
+      id-token: "write"
     name: Deploy to dev-gcp
     if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/bytt_til_esbuild'
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
+      - uses: nais/login@v0
+        id: login
+        with:
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          team: fager
       - uses: nais/deploy/actions/deploy@v1
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_KEY_TEAM }}
+          IMAGE: ${{ steps.login.outputs.registry }}/permittering:${{ github.sha }}
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
-          VAR: version=${{ env.IMAGE }}
           RESOURCE: nais/dev-gcp.yaml
           PRINT_PAYLOAD: true
 
   deploy-to-labs-gcp:
+    permissions:
+      contents: "read"
+      id-token: "write"
     name: Deploy to labs-gcp
     if: github.ref == 'refs/heads/master'
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
+      - uses: nais/login@v0
+        id: login
+        with:
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          team: fager
       - uses: nais/deploy/actions/deploy@v1
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_KEY_TEAM }}
+          IMAGE: ${{ steps.login.outputs.registry }}/permittering:${{ github.sha }}
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: labs-gcp
-          VAR: version=${{ env.IMAGE }}
           RESOURCE: nais/labs-gcp.yaml
           PRINT_PAYLOAD: true
 
   deploy-to-prod-gcp:
+    permissions:
+      contents: "read"
+      id-token: "write"
     name: Deploy to prod-gcp
     if: github.ref == 'refs/heads/master'
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
+      - uses: nais/login@v0
+        id: login
+        with:
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          team: fager
       - uses: nais/deploy/actions/deploy@v1
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_KEY_TEAM }}
+          IMAGE: ${{ steps.login.outputs.registry }}/permittering:${{ github.sha }}
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: prod-gcp
-          VAR: version=${{ env.IMAGE }}
           RESOURCE: nais/prod-gcp.yaml
           PRINT_PAYLOAD: true
