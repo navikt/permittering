@@ -2812,10 +2812,10 @@
   resolved "https://registry.yarnpkg.com/@tsconfig/node16/-/node16-1.0.3.tgz#472eaab5f15c1ffdd7f8628bd4c4f753995ec79e"
   integrity sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==
 
-"@types/amplitude-js@^8.0.0":
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/@types/amplitude-js/-/amplitude-js-8.0.0.tgz#a899219787bdc43d1dec19d4b5c5c22eb2fe1885"
-  integrity sha512-E0kxOrhnP5rZVnN+Hzvv7HLQJ4P/4SeVbvRWnjumB+WU7aH4t9bLfN33SiZt2Owc4/eCQ7OLgGWWIRyrIUNeXA==
+"@types/amplitude-js@^8.16.2":
+  version "8.16.2"
+  resolved "https://registry.yarnpkg.com/@types/amplitude-js/-/amplitude-js-8.16.2.tgz#2cfb850a01a4171e632498821f92e45bef23c952"
+  integrity sha512-a+tb/CEQOlrHRvEvAuYNOcoUy1POERANnAhfKgiTmsy0eACj3eukGP0ucA9t115QOPzVUhbnUfZqtyHp99IZyA==
 
 "@types/aria-query@^4.2.0":
   version "4.2.1"
