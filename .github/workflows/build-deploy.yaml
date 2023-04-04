@@ -19,6 +19,8 @@ jobs:
           registry-url: https://npm.pkg.github.com/
           cache: 'npm'
       - run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
       - working-directory: ./server
         run: npm ci
       - run: npm test
