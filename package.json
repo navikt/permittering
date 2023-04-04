@@ -6,7 +6,7 @@
     "dependencies": {
         "@navikt/fnrvalidator": "^1.1.4",
         "@navikt/nap-autocomplete": "^1.0.2",
-        "@navikt/nav-dekoratoren-moduler": "1.6.9",
+        "@navikt/nav-dekoratoren-moduler": "1.6.18",
         "@sentry/react": "^6.7.0",
         "@types/amplitude-js": "^8.0.0",
         "@types/classnames": "^2.2.10",
