@@ -6,7 +6,7 @@ import organisasjoner from './organisasjoner.json' assert { type: 'json' };
 import årsakskoder from './årsakskoder.json' assert { type: 'json' };
 const uuid = require('uuid');
 
-export default (app) => {
+export const mock = (app) => {
     app.use(express.json());
     app.use(cookieParser());
 

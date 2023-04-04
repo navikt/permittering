@@ -5,7 +5,6 @@ import Prometheus from 'prom-client';
 import path from 'path';
 import { tokenXMiddleware } from './tokenx-middleware.js';
 import { createProxyMiddleware } from 'http-proxy-middleware';
-import apiMockRoutes from './mocks/apiMock.js';
 
 const {
     PORT = 3000,
@@ -16,7 +15,7 @@ const {
     BACKEND_BASEURL = 'http://localhost:8080',
 } = process.env;
 
-const BUILD_PATH = path.join(process.cwd(), '../../build');
+const BUILD_PATH = path.join(process.cwd(), '../build');
 
 const log_events_counter = new Prometheus.Counter({
     name: 'logback_events_total',
@@ -72,7 +71,7 @@ const main = async () => {
     );
 
     if (MILJO === 'local' || MILJO === 'demo') {
-        apiMockRoutes(app);
+        (await import('./mocks/apiMock.js')).mock(app);
     } else {
         app.use(
             '/permittering/api',

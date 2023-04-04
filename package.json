@@ -100,7 +100,7 @@
         "watch:tsc": "tsc --watch",
         "watch:statics": "cp public/* build/",
         "watch:esbuild": "node esbuild.mjs --watch",
-        "watch:server": "cd src/server && MOCK=true npm-run-all start",
+        "watch:server": "cd server && MOCK=true npm-run-all start",
         "build": "npm-run-all clean --parallel build:*",
         "build:statics": "cp public/* build/",
         "build:tsc": "tsc",

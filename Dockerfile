@@ -2,9 +2,9 @@ FROM navikt/node-express:16
 
 WORKDIR /app
 COPY build/ build/
-COPY src/server/ src/server/
+COPY server/ server/
 
-WORKDIR /app/src/server
+WORKDIR /app/server
 ENV NODE_ENV production
 
 EXPOSE 3000
