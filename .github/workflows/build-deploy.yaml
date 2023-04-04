@@ -38,7 +38,7 @@ jobs:
       contents: "read"
       id-token: "write"
     name: Deploy to dev-gcp
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/bytt_til_esbuild'
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/cleanup_server'
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:
