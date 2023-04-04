@@ -1,5 +1,5 @@
 const jws = require('jws');
-const { API_AUDIENCE } = require('./konstanter');
+const { API_AUDIENCE = 'tokenx' } = process.env;
 
 const getAccessToken = (req) => {
     return req.headers['authorization']?.replace('Bearer', '')?.trim();

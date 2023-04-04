@@ -53,6 +53,7 @@ jobs:
           CLUSTER: dev-gcp
           RESOURCE: nais/dev-gcp.yaml
           PRINT_PAYLOAD: true
+          VAR: commit=${{ github.sha }}
 
   deploy-to-labs-gcp:
     name: Deploy to labs-gcp
@@ -74,6 +75,7 @@ jobs:
           CLUSTER: labs-gcp
           RESOURCE: nais/labs-gcp.yaml
           PRINT_PAYLOAD: true
+          VAR: commit=${{ github.sha }}
 
   deploy-to-prod-gcp:
     name: Deploy to prod-gcp
@@ -95,3 +97,4 @@ jobs:
           CLUSTER: prod-gcp
           RESOURCE: nais/prod-gcp.yaml
           PRINT_PAYLOAD: true
+          VAR: commit=${{ github.sha }}

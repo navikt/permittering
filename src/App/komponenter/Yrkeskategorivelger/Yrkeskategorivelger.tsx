@@ -3,7 +3,6 @@ import { stringify } from 'querystring';
 import Autocomplete from '@navikt/nap-autocomplete';
 import { Label } from 'nav-frontend-skjema';
 import { Normaltekst } from 'nav-frontend-typografi';
-import * as paths from '../../../paths';
 import { Yrkeskategori } from '../../../types/permitteringsskjema';
 import { Suggestion } from '@navikt/nap-autocomplete/dist/types/Suggestion';
 import './Yrkeskategorivelger.less';
@@ -58,7 +57,7 @@ const Yrkeskategorivelger: FunctionComponent<YrkeskategorivelgerProps> = ({
                     setSuggestions([]);
                     setValue(value);
                     const newSuggestionList = await getUpdatedSuggestions(
-                        paths.stillingstitlerPath,
+                        '/permittering/api/stillingstitler',
                         value
                     );
                     setSuggestions(newSuggestionList);

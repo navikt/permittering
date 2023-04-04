@@ -1,6 +1,4 @@
 *
 !/build/**
 !/src/server/**
-!/src/fixtures/**
-!/src/paths.js
 !/start.sh

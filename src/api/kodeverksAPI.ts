@@ -1,7 +1,5 @@
-import * as paths from '../paths';
-
 const hentAArsakskoder = async (): Promise<any> => {
-    const response = await fetch(paths.permitteringsAArsakksodeverk);
+    const response = await fetch('/permittering/api/kodeverk/årsakskoder');
     return await response.json();
 };
 
