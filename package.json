@@ -6,7 +6,7 @@
     "dependencies": {
         "@navikt/fnrvalidator": "^1.1.4",
         "@navikt/nap-autocomplete": "^1.0.2",
-        "@sentry/browser": "^6.7.1",
+        "@sentry/browser": "^6.19.7",
         "@types/amplitude-js": "^8.0.0",
         "@types/classnames": "^2.2.10",
         "@types/react": "^17.0.11",
