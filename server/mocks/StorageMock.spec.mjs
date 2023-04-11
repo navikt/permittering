@@ -1,5 +1,6 @@
-const storageClient = require('./StorageMock');
-const assert = require('assert');
+import * as storageClient from './StorageMock.js';
+import assert from 'assert';
+
 describe('StorageMock Tests', function () {
     it('should return nothing when initialized', function () {
         const res = storageClient.getObject('x');

@@ -335,6 +335,7 @@ const Oppsummering: FunctionComponent = () => {
                                     loggSkjemaInnsendt();
                                     setFeilVedInnsending(false);
                                 } catch (e) {
+                                    // @ts-ignore TODO: fix typescript error
                                     if (e.response.status === 400) {
                                         setVisFeilmeldingManglendeFelter(true);
                                     } else {

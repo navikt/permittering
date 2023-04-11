@@ -2,7 +2,6 @@ import React, { FunctionComponent, useContext, useEffect } from 'react';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import { useSkjemaSteg } from '../use-skjema-steg';
-import * as paths from '../../../paths';
 import YrkeskategoriTabell from '../../komponenter/Yrkeskategorivelger/Yrkeskategorivelger-gammel/YrkeskategoriTabell';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
@@ -29,7 +28,7 @@ const Yrkeskategorier: FunctionComponent = () => {
                 slett={async () => await context.avbryt()}
             >
                 <YrkeskategorivelgerGammel
-                    searchPath={paths.stillingstitlerPath}
+                    searchPath={'/permittering/api/stillingstitler'}
                     selected={selected}
                     setSelected={setSelected}
                 />

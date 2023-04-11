@@ -6,7 +6,7 @@ metadata:
   labels:
     team: permittering-og-nedbemanning
 spec:
-  image: {{ version }}
+  image: {{image}}
   team: arbeidsgiver
   port: 3000
   ingresses:
@@ -27,6 +27,10 @@ spec:
       external:
         - host: dekoratoren.labs.nav.io
   env:
+    - name: GIT_COMMIT
+      value: {{commit}}
+    - name: MILJO
+      value: demo
     - name: BACKEND_BASEURL
       value: http://permitteringsskjema-api
     - name: BACKEND_API_PATH

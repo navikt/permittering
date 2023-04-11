@@ -2,59 +2,61 @@ name: Build and deploy
 
 on: [push]
 
-env:
-  IMAGE: docker.pkg.github.com/${{ github.repository }}/permittering:${{ github.sha }}
-
 jobs:
   compile-test-and-build:
+    permissions:
+      contents: "read"
+      id-token: "write"
     name: Build and run tests
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
         with:
-          node-version: '14'
-      - uses: actions/cache@v1
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
         with:
-          path: ./node_modules
-          key: ${{ runner.os }}-node-cache-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-cache-
-      - name: Install dependencies
-        run: |
-          yarn install --frozen-lockfile
-      - name: Install node server dependencies
-        working-directory: ./src/server
-        run: |
-          yarn install --frozen-lockfile
-      - name: Run tests
-        run: yarn test
-      - name: Build application
-        run: |
-          yarn run build
-      - name: Build tag and push Docker container
+          node-version: '16.14.2'
+          registry-url: https://npm.pkg.github.com/
+          cache: 'npm'
+      - run: npm ci
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          docker build . -t ${IMAGE}
-          echo ${GITHUB_TOKEN} | docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} --password-stdin
-          echo ${IMAGE}
-          docker push ${IMAGE}
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+      - working-directory: ./server
+        run: npm ci
+      - run: npm test
+      - run: npm run build
+      - uses: nais/docker-build-push@v0
+        id: gar-push
+        with:
+          team: fager
+          tag: ${{ github.sha }}
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
 
   deploy-to-dev-gcp:
+    permissions:
+      contents: "read"
+      id-token: "write"
     name: Deploy to dev-gcp
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dep-rydding'
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/bytt_til_esbuild'
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
+      - uses: nais/login@v0
+        id: login
+        with:
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          team: fager
       - uses: nais/deploy/actions/deploy@v1
         env:
+          IMAGE: ${{ steps.login.outputs.registry }}/permittering:${{ github.sha }}
           APIKEY: ${{ secrets.NAIS_DEPLOY_KEY_TEAM }}
           CLUSTER: dev-gcp
-          VAR: version=${{ env.IMAGE }}
           RESOURCE: nais/dev-gcp.yaml
           PRINT_PAYLOAD: true
+          VAR: commit=${{ github.sha }}
 
   deploy-to-labs-gcp:
     name: Deploy to labs-gcp
@@ -62,14 +64,21 @@ jobs:
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
+      - uses: nais/login@v0
+        id: login
+        with:
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          team: fager
       - uses: nais/deploy/actions/deploy@v1
         env:
+          IMAGE: ${{ steps.login.outputs.registry }}/permittering:${{ github.sha }}
           APIKEY: ${{ secrets.NAIS_DEPLOY_KEY_TEAM }}
           CLUSTER: labs-gcp
-          VAR: version=${{ env.IMAGE }}
           RESOURCE: nais/labs-gcp.yaml
           PRINT_PAYLOAD: true
+          VAR: commit=${{ github.sha }}
 
   deploy-to-prod-gcp:
     name: Deploy to prod-gcp
@@ -77,11 +86,18 @@ jobs:
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
+      - uses: nais/login@v0
+        id: login
+        with:
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          team: fager
       - uses: nais/deploy/actions/deploy@v1
         env:
+          IMAGE: ${{ steps.login.outputs.registry }}/permittering:${{ github.sha }}
           APIKEY: ${{ secrets.NAIS_DEPLOY_KEY_TEAM }}
           CLUSTER: prod-gcp
-          VAR: version=${{ env.IMAGE }}
           RESOURCE: nais/prod-gcp.yaml
           PRINT_PAYLOAD: true
+          VAR: commit=${{ github.sha }}
