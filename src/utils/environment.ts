@@ -1,7 +1,34 @@
-const environment = () => {
-    return {
-        MILJO: (window as any).appSettings.MILJO,
-    };
+interface Environment {
+    MILJO: string;
+    GIT_COMMIT: string;
+}
+
+const environment: Environment = {
+    MILJO: 'local',
+    GIT_COMMIT: 'unknown',
+    ...(window as any)?.environment,
 };
 
-export default environment();
+interface Miljo<T> {
+    prod: T;
+    demo?: T;
+    dev?: T;
+    other: T;
+}
+
+export const gittMiljo = <T>(e: Miljo<T>): T => {
+    switch (environment.MILJO) {
+        case 'prod':
+            return e.prod;
+        case 'dev':
+            return e.hasOwnProperty('dev') ? e.dev! : e.other;
+        case 'demo':
+            return e.hasOwnProperty('demo') ? e.demo! : e.other;
+        default:
+            return e.other;
+    }
+};
+
+export const caseMiljo = <T>(e: Miljo<(miljo: string) => T>): T => gittMiljo(e)(environment.MILJO);
+
+export default environment;

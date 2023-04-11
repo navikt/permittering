@@ -2,7 +2,6 @@ import React, { FunctionComponent, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { OpprettSkjema, Permitteringsskjema } from '../../../types/permitteringsskjema';
 import { avbryt, hent, lagre, opprett, sendInn } from '../../../api/permittering-api';
-import { RouteParams } from '../PermitteringRoutes';
 
 type Context = {
     skjema: Permitteringsskjema;
@@ -22,7 +21,7 @@ const SkjemaContext = React.createContext<Context>({} as Context);
 
 export const SkjemaProvider: FunctionComponent = (props) => {
     const [skjema, setSkjema] = useState<Permitteringsskjema>({} as Permitteringsskjema);
-    const { id } = useParams<RouteParams>();
+    const { id } = useParams<{ id: string }>();
     useEffect(() => {
         if (id) {
             hent(id).then(setSkjema);

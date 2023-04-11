@@ -1,32 +1,31 @@
-const paths = require('../../paths');
-const express = require('express');
-const cookieParser = require('cookie-parser');
+import express from 'express';
+import cookieParser from 'cookie-parser';
+import require from '../esm-require.js';
+import * as storageClient from './StorageMock.js';
+import organisasjoner from './organisasjoner.json' assert { type: 'json' };
+import årsakskoder from './årsakskoder.json' assert { type: 'json' };
 const uuid = require('uuid');
-const storageClient = require('../StorageMock');
-const organisasjoner = require('../../fixtures/organisasjoner.json');
-const cookieName = 'localhost-idtoken';
-/**
- * Mock for å
- */
-module.exports = function (app) {
+
+export const mock = (app) => {
     app.use(express.json());
     app.use(cookieParser());
 
+    // TODO: is this even used?
     app.use((req, res, next) => {
-        if (!req.cookies[cookieName]) {
-            res.cookie(cookieName, uuid.v1(), { maxAge: 900000, httpOnly: false });
+        if (!req.cookies['localhost-idtoken']) {
+            res.cookie('localhost-idtoken', uuid.v1(), { maxAge: 900000, httpOnly: false });
         }
         next();
     });
 
-    app.get(paths.redirectTilLoginPath, (req, res) => res.sendStatus(200));
-    app.get(paths.sjekkInnloggetPath, (req, res) => res.sendStatus(200));
+    app.get('/permittering/redirect-til-login', (req, res) => res.sendStatus(200));
+    app.get('/permittering/api/innlogget', (req, res) => res.sendStatus(200));
 
     /**
      * Gir deg alle skjemaer innlogget bruker har tilgang til
      */
-    app.get(paths.skjemaListPath, (req, res) => {
-        const userId = req.cookies[cookieName];
+    app.get('/permittering/api/skjema', (req, res) => {
+        const userId = req.cookies['localhost-idtoken'];
         const list = storageClient.listObjects();
         const filteredList = list.filter((o) => o.userId === userId);
         const reduced = [];
@@ -39,8 +38,8 @@ module.exports = function (app) {
     /**
      * Oppretter nytt skjema
      */
-    app.post(paths.skjemaListPath, (req, res) => {
-        const userId = req.cookies[cookieName];
+    app.post('/permittering/api/skjema', (req, res) => {
+        const userId = req.cookies['localhost-idtoken'];
         const inputData = req.body;
         const id = uuid.v1();
         const org = organisasjoner.find((org) => req.body.bedriftNr === org.OrganizationNumber);
@@ -51,7 +50,7 @@ module.exports = function (app) {
     /**
      * Gir deg ett skjema
      */
-    app.get(paths.skjemaPath, (req, res) => {
+    app.get('/permittering/api/skjema/:id', (req, res) => {
         const skjema = storageClient.getObject(req.params.id);
         if (skjema) {
             res.json(skjema);
@@ -66,7 +65,7 @@ module.exports = function (app) {
     /**
      * Oppdaterer ett skjema
      */
-    app.put(paths.skjemaPath, (req, res) => {
+    app.put('/permittering/api/skjema/:id', (req, res) => {
         const skjema = storageClient.putObject(req.params.id, req.body);
         res.json(skjema);
     });
@@ -74,24 +73,20 @@ module.exports = function (app) {
     /**
      * Sletter ett skjema
      */
-    app.post(paths.skjemaAvbrytPath, (req, res) => {
+    app.post('/permittering/api/skjema/:id/avbryt', (req, res) => {
         const skjema = storageClient.deleteObject(req.params.id);
         res.json(skjema);
     });
 
-    app.get(paths.hentOrganisasjonerPath, (req, res) => {
+    app.get('/permittering/api/organisasjoner', (req, res) => {
         res.json(organisasjoner);
     });
 
-    app.get(paths.permitteringsAArsakksodeverk.replace('å', '%C3%A5'), (req, res) => {
-        res.json(require('../../fixtures/årsakskoder'));
+    app.get('/permittering/api/kodeverk/årsakskoder'.replace('å', '%C3%A5'), (req, res) => {
+        res.json(årsakskoder);
     });
 
-    app.get(paths.featurePath, (req, res) => {
-        res.json({});
-    });
-
-    app.post(paths.skjemaSendInnPath, (req, res) => {
+    app.post('/permittering/api/skjema/:id/send-inn', (req, res) => {
         const data = storageClient.getObject(req.params.id);
         if (
             !data.kontaktNavn ||
