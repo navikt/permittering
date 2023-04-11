@@ -29,6 +29,7 @@ try {
     } else {
         const result = await context.rebuild()
         console.log("build success", {result})
+        await context.dispose()
     }
 } catch (error) {
         console.error("build error", {error})
