@@ -69,7 +69,6 @@ injectDecoratorClientSide({
         prod: 'https://arbeidsgiver.nav.no/permittering/oauth2/logout',
         other: 'https://permitteringsskjema.dev.nav.no/permittering/oauth2/logout',
     }),
-    //level: 'Level4', TODO: var ikke satt i denne appen, hvorfor ikke?
 }).catch(Sentry.captureException);
 
 ReactDOM.render(
