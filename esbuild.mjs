@@ -2,7 +2,7 @@ import esbuild from 'esbuild';
 import {lessLoader} from "esbuild-plugin-less";
 import LessPluginNpmImport from 'less-plugin-npm-import';
 
-esbuild.build({
+const context = await esbuild.context({
     entryPoints: ['./src/index.tsx'],
     outdir: './build',
     bundle: true,
@@ -13,19 +13,24 @@ esbuild.build({
         ".svg": "file"
     },
     plugins: [
-        // alias({
-        //     "~nav-frontend-core":  path.resolve(__dirname, "node_modules/nav-frontend-core")
-        // }),
         lessLoader({
             plugins: [
                 new LessPluginNpmImport({
                     prefix: '~'
                 })
             ]
-            // paths: ["./node_modules/"]
         })
     ],
-    // watch: process.argv.includes("--watch"),
 })
-    .then(result => console.log("build success", {result}))
-    .catch(error => console.error("build error", {error}))
+
+try {
+    if (process.argv.includes("--watch")) {
+        await context.watch()
+    } else {
+        const result = await context.rebuild()
+        console.log("build success", {result})
+    }
+} catch (error) {
+        console.error("build error", {error})
+}
+
