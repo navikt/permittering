@@ -63,7 +63,7 @@ jobs:
       contents: "read"
       id-token: "write"
     name: Deploy to demo app dev-gcp
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/migrer_labs_eksterndev'
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/inject_parameters'
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:

@@ -5,6 +5,7 @@ import Prometheus from 'prom-client';
 import path from 'path';
 import { tokenXMiddleware } from './tokenx-middleware.js';
 import { createProxyMiddleware } from 'http-proxy-middleware';
+import mustacheExpress from 'mustache-express';
 
 const {
     PORT = 3000,
@@ -48,6 +49,7 @@ if (MILJO === 'dev' || MILJO === 'prod') {
 }
 const main = async () => {
     console.log(`Starting server on cluster ${process.env.NAIS_CLUSTER_NAME}`);
+    app.engine('html', mustacheExpress());
 
     app.use(
         '/permittering/api/stillingstitler',
@@ -110,23 +112,31 @@ const main = async () => {
     }
 
     app.use('/permittering', express.static(BUILD_PATH, { index: false }));
+
+    const fragments = {
+        SETTINGS: `<script type="application/javascript">
+                window.environment = {
+                    MILJO: '${MILJO}',
+                    GIT_COMMIT: '${GIT_COMMIT}',
+                }
+            </script>`,
+    };
+
     app.get('/permittering/*', (req, res) => {
-        res.sendFile(BUILD_PATH + '/index.html');
+        res.render(BUILD_PATH + '/index.html', fragments, (err, html) => {
+            if (err) {
+                log.error(err);
+                res.sendStatus(500);
+            } else {
+                res.send(html);
+            }
+        });
     });
     app.get('/', (req, res) => {
         res.redirect(301, '/permittering');
     });
     app.get('/permittering/internal/isAlive', (req, res) => res.sendStatus(200));
     app.get('/permittering/internal/isReady', (req, res) => res.sendStatus(200));
-    app.get('/permittering/static/js/settings.js', (req, res) => {
-        res.contentType('text/javascript');
-        res.send(`
-            window.environment = {
-                MILJO: '${MILJO}',
-                GIT_COMMIT: '${GIT_COMMIT}',
-            };
-        `);
-    });
 
     app.listen(PORT, () => {
         console.log('Server listening on port', PORT);
