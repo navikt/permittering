@@ -24,6 +24,8 @@ spec:
     outbound:
       rules:
         - application: permitteringsskjema-api
+        - application: pam-janzz
+          namespace: teampam
       external:
         - host: dekoratoren.labs.nav.io
   env:

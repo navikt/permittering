@@ -1,10 +1,11 @@
 import express from 'express';
-const app = express();
 import { createLogger, format, transports } from 'winston';
 import Prometheus from 'prom-client';
 import path from 'path';
 import { tokenXMiddleware } from './tokenx-middleware.js';
 import { createProxyMiddleware } from 'http-proxy-middleware';
+
+const app = express();
 
 const {
     PORT = 3000,
@@ -42,10 +43,6 @@ const log = new Proxy(
     }
 );
 
-let pamJanzzUrl = 'https://arbeidsplassen.nav.no';
-if (MILJO === 'dev' || MILJO === 'prod') {
-    pamJanzzUrl = 'http://pam-janzz.teampam';
-}
 const main = async () => {
     console.log(`Starting server on cluster ${process.env.NAIS_CLUSTER_NAME}`);
 
@@ -66,7 +63,8 @@ const main = async () => {
                 '^/permittering/api/stillingstitler':
                     '/pam-janzz/rest/typeahead/yrke-med-styrk08-nav',
             },
-            target: pamJanzzUrl,
+            target:
+                MILJO === 'local' ? 'https://arbeidsplassen.nav.no' : 'http://pam-janzz.teampam',
         })
     );
 
