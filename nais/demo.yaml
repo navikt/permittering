@@ -22,9 +22,8 @@ spec:
     max: 1
   accessPolicy:
     outbound:
-      rules:
-        - application: pam-janzz
-          namespace: teampam
+      external:
+        - host: arbeidsplassen.nav.no
   env:
     - name: GIT_COMMIT
       value: {{commit}}
