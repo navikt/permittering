@@ -64,7 +64,9 @@ const main = async () => {
                     '/pam-janzz/rest/typeahead/yrke-med-styrk08-nav',
             },
             target:
-                MILJO === 'local' ? 'https://arbeidsplassen.nav.no' : 'http://pam-janzz.teampam',
+                MILJO === 'local' || MILJO === 'demo'
+                    ? 'https://arbeidsplassen.nav.no'
+                    : 'http://pam-janzz.teampam',
         })
     );
 
