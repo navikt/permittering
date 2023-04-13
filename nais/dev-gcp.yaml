@@ -35,8 +35,6 @@ spec:
         - application: permitteringsskjema-api
         - application: pam-janzz
           namespace: teampam
-      external:
-        - host: dekoratoren.dev.nav.no
   envFrom:
     - secret: permittering-secrets
   env:

@@ -38,7 +38,7 @@ jobs:
       contents: "read"
       id-token: "write"
     name: Deploy to dev-gcp
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/bytt_til_esbuild'
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/inject_parameters2'
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:
@@ -55,6 +55,31 @@ jobs:
           APIKEY: ${{ secrets.NAIS_DEPLOY_KEY_TEAM }}
           CLUSTER: dev-gcp
           RESOURCE: nais/dev-gcp.yaml
+          PRINT_PAYLOAD: true
+          VAR: commit=${{ github.sha }}
+
+  deploy-demo-app:
+    permissions:
+      contents: "read"
+      id-token: "write"
+    name: Deploy to demo app dev-gcp
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/inject_parameters2'
+    needs: compile-test-and-build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: nais/login@v0
+        id: login
+        with:
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          team: fager
+      - uses: nais/deploy/actions/deploy@v1
+        env:
+          IMAGE: ${{ steps.login.outputs.registry }}/permittering:${{ github.sha }}
+          APIKEY: ${{ secrets.NAIS_DEPLOY_KEY_TEAM }}
+          CLUSTER: dev-gcp
+          RESOURCE: nais/demo.yaml
           PRINT_PAYLOAD: true
           VAR: commit=${{ github.sha }}
 

@@ -1,7 +1,7 @@
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
-  name: permittering
+  name: demo-prodlik-permittering
   namespace: permittering-og-nedbemanning
   labels:
     team: permittering-og-nedbemanning
@@ -10,7 +10,7 @@ spec:
   team: arbeidsgiver
   port: 3000
   ingresses:
-    - https://permitteringsskjema.labs.nais.io/permittering
+    - https://arbeidsgiver.ekstern.dev.nav.no/permittering
   liveness:
     path: /permittering/internal/isAlive
     initialDelay: 20
@@ -23,11 +23,8 @@ spec:
   accessPolicy:
     outbound:
       rules:
-        - application: permitteringsskjema-api
         - application: pam-janzz
           namespace: teampam
-      external:
-        - host: dekoratoren.labs.nav.io
   env:
     - name: GIT_COMMIT
       value: {{commit}}

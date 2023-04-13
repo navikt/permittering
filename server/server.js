@@ -107,15 +107,6 @@ const main = async () => {
         });
     }
 
-    app.use('/permittering', express.static(BUILD_PATH, { index: false }));
-    app.get('/permittering/*', (req, res) => {
-        res.sendFile(BUILD_PATH + '/index.html');
-    });
-    app.get('/', (req, res) => {
-        res.redirect(301, '/permittering');
-    });
-    app.get('/permittering/internal/isAlive', (req, res) => res.sendStatus(200));
-    app.get('/permittering/internal/isReady', (req, res) => res.sendStatus(200));
     app.get('/permittering/static/js/settings.js', (req, res) => {
         res.contentType('text/javascript');
         res.send(`
@@ -124,6 +115,15 @@ const main = async () => {
                 GIT_COMMIT: '${GIT_COMMIT}',
             };
         `);
+    });
+    app.get('/permittering/internal/isAlive', (req, res) => res.sendStatus(200));
+    app.get('/permittering/internal/isReady', (req, res) => res.sendStatus(200));
+    app.use('/permittering', express.static(BUILD_PATH, { index: false }));
+    app.get('/permittering/*', (req, res) => {
+        res.sendFile(BUILD_PATH + '/index.html');
+    });
+    app.get('/', (req, res) => {
+        res.redirect(301, '/permittering');
     });
 
     app.listen(PORT, () => {
