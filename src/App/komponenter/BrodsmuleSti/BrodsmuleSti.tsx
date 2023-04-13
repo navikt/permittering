@@ -1,4 +1,4 @@
-import { VenstreChevron } from 'nav-frontend-chevron';
+import { ChevronLeftIcon } from '@navikt/aksel-icons';
 import React, { useContext, useEffect, useState } from 'react';
 import Lenke from 'nav-frontend-lenker';
 import SkjemaContext from '../../Skjema/SkjemaContext/SkjemaContext';
@@ -25,7 +25,7 @@ export const BrodsmuleSti = () => {
     return (
         <div className="app__brodsmulesti">
             <Lenke href={link}>
-                <VenstreChevron type={'venstre'} /> Tilbake til Min side – arbeidsgiver
+                <ChevronLeftIcon /> Tilbake til Min side – arbeidsgiver
             </Lenke>
         </div>
     );
