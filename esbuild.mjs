@@ -12,13 +12,7 @@ const context = await esbuild.context({
         ".svg": "file",
     },
     plugins: [
-        lessLoader({
-            //plugins: [
-            //    new LessPluginNpmImport({
-            //        prefix: '~'
-            //    })
-            //]
-        })
+        lessLoader({})
     ],
 })
 

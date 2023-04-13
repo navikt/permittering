@@ -25,7 +25,7 @@ import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 import { status } from '../../Forside/SkjemaTabell/SkjemaTabell';
-import AlertStripe from 'nav-frontend-alertstriper';
+import { Alert } from '@navikt/ds-react';
 import { skrivOmDato } from '../../komponenter/Datovelger/datovelger-utils';
 
 export const lagAntallBerorteTekst = (antallBerorte?: number) => {
@@ -294,8 +294,8 @@ const Oppsummering: FunctionComponent = () => {
                             </div>
                         </div>
                     </Veilederpanel>
-                    <AlertStripe
-                        type="info"
+                    <Alert
+                        variant="info"
                         className="oppsummering__alertstripe feilmelding-send-inn__tekst"
                         aria-live="polite"
                     >
@@ -303,7 +303,7 @@ const Oppsummering: FunctionComponent = () => {
                             Alle med rettigheten "Innsyn i permittering- og nedbemanningsmeldinger
                             sendt til NAV" vil kunne se meldingen etter den er sendt inn.
                         </Normaltekst>
-                    </AlertStripe>
+                    </Alert>
                     <div className="skjema-innhold__fram-og-tilbake">
                         <Knapp
                             onClick={async () => {
@@ -349,18 +349,18 @@ const Oppsummering: FunctionComponent = () => {
                         </Hovedknapp>
                     </div>
                     {feilVedInnsending && (
-                        <AlertStripe
-                            type={'feil'}
+                        <Alert
+                            variant="error"
                             aria-live="polite"
                             className="oppsummering__alertstripe"
                         >
                             <Element>Noe gikk galt!</Element>
                             <Normaltekst>Prøv å sende inn skjemaet på nytt.</Normaltekst>
-                        </AlertStripe>
+                        </Alert>
                     )}
                     {visFeilmeldingMangledeFelter && (
-                        <AlertStripe
-                            type="feil"
+                        <Alert
+                            variant="error"
                             className="oppsummering__alertstripe feilmelding-send-inn__tekst"
                             aria-live="polite"
                         >
@@ -372,7 +372,7 @@ const Oppsummering: FunctionComponent = () => {
                                     })}
                                 </ul>
                             </Normaltekst>
-                        </AlertStripe>
+                        </Alert>
                     )}
                 </section>
             </SkjemaRamme>
