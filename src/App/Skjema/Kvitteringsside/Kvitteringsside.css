@@ -3,6 +3,10 @@
     margin: 0;
     padding: 0;
 }
+.kvitteringside ul li {
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
 .kvitteringside__ikon {
     display: flex;
     justify-content: center;
@@ -15,9 +19,6 @@
 .kvitteringside__tekst .kvitteringside-ingress {
     margin: 0 auto;
     padding: 1.5rem 0 0.5rem;
-}
-.kvitteringside .lenkepanel .typo-normal {
-    font-weight: 600;
 }
 @media (min-width: 768px) {
     .hvit-side-boks.kvitteringside {
