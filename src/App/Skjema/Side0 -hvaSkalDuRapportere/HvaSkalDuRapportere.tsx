@@ -1,5 +1,4 @@
-import { Button } from '@navikt/ds-react';
-import Lenke from 'nav-frontend-lenker';
+import { Button, Link } from '@navikt/ds-react';
 import { RadioPanelGruppe } from 'nav-frontend-skjema';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { useContext, useEffect, useState } from 'react';
@@ -109,9 +108,9 @@ const HvaSkalDuRapportere = () => {
                 >
                     Gå til skjema
                 </Button>
-                <Lenke className="hva-skal-du-rapportere__avbryt" href="/permittering">
+                <Link className="hva-skal-du-rapportere__avbryt" href="/permittering">
                     Avbryt
-                </Lenke>
+                </Link>
             </HvitSideBoks>
         </>
     );

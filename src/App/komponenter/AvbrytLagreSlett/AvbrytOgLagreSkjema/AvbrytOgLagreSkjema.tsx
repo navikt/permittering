@@ -1,8 +1,7 @@
 import React, { FunctionComponent, useState } from 'react';
 import ModalWrapper from 'nav-frontend-modal';
-import Lenke from 'nav-frontend-lenker';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import { Button } from '@navikt/ds-react';
+import { Button, Link } from '@navikt/ds-react';
 import { useHistory } from 'react-router-dom';
 import VerticalSpacer from '../../VerticalSpacer';
 import './AvbrytOgLagreSkjema.css';
@@ -16,7 +15,7 @@ export const AvbrytOgLagreSkjema: FunctionComponent<AvbrytOgLagreSkjemaProps> = 
     const history = useHistory();
     return (
         <>
-            <Lenke
+            <Link
                 className="lagre-lenke"
                 href="#"
                 onClick={async (e) => {
@@ -25,7 +24,7 @@ export const AvbrytOgLagreSkjema: FunctionComponent<AvbrytOgLagreSkjemaProps> = 
                 }}
             >
                 Lagre skjema og gå til oversikten
-            </Lenke>
+            </Link>
             <ModalWrapper
                 isOpen={isOpen}
                 onRequestClose={() => setOpen(false)}

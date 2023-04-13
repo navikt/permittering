@@ -1,8 +1,7 @@
 import React, { FunctionComponent, useState } from 'react';
 import ModalWrapper from 'nav-frontend-modal';
-import Lenke from 'nav-frontend-lenker';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import { Button } from '@navikt/ds-react';
+import { Button, Link } from '@navikt/ds-react';
 import { useHistory } from 'react-router-dom';
 import VerticalSpacer from '../../VerticalSpacer';
 import './SlettSkjema.css';
@@ -16,7 +15,7 @@ export const SlettSkjema: FunctionComponent<SlettSkjemaProps> = ({ slett }) => {
     const history = useHistory();
     return (
         <>
-            <Lenke
+            <Link
                 href="#"
                 role="button"
                 onClick={(e) => {
@@ -25,7 +24,7 @@ export const SlettSkjema: FunctionComponent<SlettSkjemaProps> = ({ slett }) => {
                 }}
             >
                 Slett skjema
-            </Lenke>
+            </Link>
             <ModalWrapper
                 isOpen={isOpen}
                 onRequestClose={() => setOpen(false)}

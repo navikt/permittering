@@ -1,7 +1,6 @@
 import React from 'react';
 import { Ingress, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
-import { Button } from '@navikt/ds-react';
-import Lenke from 'nav-frontend-lenker';
+import { Button, Link } from '@navikt/ds-react';
 import LoggInnBanner from './LoggInnBanner/LoggInnBanner';
 import skjema from './skjema.svg';
 import './Logginn.css';
@@ -41,9 +40,9 @@ const LoggInn = () => {
                     <Normaltekst>
                         Ønsker du å se dine tjenester som privatperson?
                         <div className="logg-inn-lenke">
-                            <Lenke href="https://www.nav.no/person/dittnav/">
+                            <Link href="https://www.nav.no/person/dittnav/">
                                 Logg inn på Ditt NAV
-                            </Lenke>
+                            </Link>
                         </div>
                     </Normaltekst>
                 </div>

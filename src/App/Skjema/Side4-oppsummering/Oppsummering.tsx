@@ -1,8 +1,7 @@
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button } from '@navikt/ds-react';
+import { Button, Link } from '@navikt/ds-react';
 import { Element, Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
-import Lenke from 'nav-frontend-lenker';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import environment from '../../../utils/environment';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
@@ -192,12 +191,12 @@ const Oppsummering: FunctionComponent = () => {
                                 </tbody>
                             </table>
                             <div className="endre-lenke">
-                                <Lenke
+                                <Link
                                     href={`/permittering/skjema/kontaktinformasjon/${context.skjema.id}`}
-                                    ariaLabel="Gå tilbake for å endre kontaktinformasjon"
+                                    aria-label="Gå tilbake for å endre kontaktinformasjon"
                                 >
                                     Endre
-                                </Lenke>
+                                </Link>
                             </div>
                         </div>
 
@@ -210,12 +209,12 @@ const Oppsummering: FunctionComponent = () => {
                                 </div>
                             </div>
                             <div className="endre-lenke">
-                                <Lenke
+                                <Link
                                     href={endreantallberørteLenke}
-                                    ariaLabel="Gå tilbake for å endre antall berørte personer"
+                                    aria-label="Gå tilbake for å endre antall berørte personer"
                                 >
                                     Endre
-                                </Lenke>
+                                </Link>
                             </div>
                         </div>
 
@@ -231,12 +230,12 @@ const Oppsummering: FunctionComponent = () => {
                             </div>
 
                             <div className="endre-lenke">
-                                <Lenke
+                                <Link
                                     href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
-                                    ariaLabel="Gå tilbake for å endre årsak"
+                                    aria-label="Gå tilbake for å endre årsak"
                                 >
                                     Endre
-                                </Lenke>
+                                </Link>
                             </div>
                         </div>
 
@@ -246,12 +245,12 @@ const Oppsummering: FunctionComponent = () => {
                                 <SjekkOmFyltUt verdi={yrker} />
                             </div>
                             <div className="endre-lenke">
-                                <Lenke
+                                <Link
                                     href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
-                                    ariaLabel="Gå tilbake for å endre yrkeskategorier"
+                                    aria-label="Gå tilbake for å endre yrkeskategorier"
                                 >
                                     Endre
-                                </Lenke>
+                                </Link>
                             </div>
                         </div>
 
@@ -285,12 +284,12 @@ const Oppsummering: FunctionComponent = () => {
                             </div>
 
                             <div className="endre-lenke">
-                                <Lenke
+                                <Link
                                     href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
-                                    ariaLabel="Gå tilbake for å endre periode"
+                                    aria-label="Gå tilbake for å endre periode"
                                 >
                                     Endre
-                                </Lenke>
+                                </Link>
                             </div>
                         </div>
                     </Veilederpanel>

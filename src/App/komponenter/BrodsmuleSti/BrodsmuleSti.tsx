@@ -1,6 +1,6 @@
 import { ChevronLeftIcon } from '@navikt/aksel-icons';
 import React, { useContext, useEffect, useState } from 'react';
-import Lenke from 'nav-frontend-lenker';
+import { Link } from '@navikt/ds-react';
 import SkjemaContext from '../../Skjema/SkjemaContext/SkjemaContext';
 import environment from '../../../utils/environment';
 import { Permitteringsskjema } from '../../../types/permitteringsskjema';
@@ -24,9 +24,9 @@ export const BrodsmuleSti = () => {
 
     return (
         <div className="app__brodsmulesti">
-            <Lenke href={link}>
+            <Link href={link}>
                 <ChevronLeftIcon /> Tilbake til Min side – arbeidsgiver
-            </Lenke>
+            </Link>
         </div>
     );
 };

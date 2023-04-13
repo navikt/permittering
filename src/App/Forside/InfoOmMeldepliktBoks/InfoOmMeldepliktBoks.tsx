@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import { Button } from '@navikt/ds-react';
-import Lenke from 'nav-frontend-lenker';
+import { Button, Link } from '@navikt/ds-react';
 import { useHistory } from 'react-router';
 import { BrodsmuleSti } from '../../komponenter/BrodsmuleSti/BrodsmuleSti';
 import InfoIkon from './InfoIkon';
@@ -27,14 +26,14 @@ const InfoOmMeldepliktBoks: FunctionComponent = () => {
                 <Element>Dette er bestemt av:</Element>
                 <ul>
                     <li>
-                        <Lenke href="https://lovdata.no/lov/2004-12-10-76/§8">
+                        <Link href="https://lovdata.no/lov/2004-12-10-76/§8">
                             <span>Arbeidsmarkedsloven §8</span> <EksternLenke />
-                        </Lenke>
+                        </Link>
                     </li>
                     <li>
-                        <Lenke href="https://lovdata.no/lov/2005-06-17-62/§15-2">
+                        <Link href="https://lovdata.no/lov/2005-06-17-62/§15-2">
                             <span>Arbeidsmiljøloven §15-2 </span> <EksternLenke />
-                        </Lenke>
+                        </Link>
                     </li>
                 </ul>
 
