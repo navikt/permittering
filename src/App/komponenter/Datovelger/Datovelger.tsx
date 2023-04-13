@@ -3,7 +3,6 @@ import { UnmountClosed } from 'react-collapse';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import { Input, Label } from 'nav-frontend-skjema';
-import { guid } from 'nav-frontend-js-utils';
 import {
     datoValidering,
     LABELS,
@@ -15,6 +14,14 @@ import {
 } from './datovelger-utils';
 import kalender from './kalender.svg';
 import './Datovelger.css';
+
+// inlinet fra nav-frontend-js-utils
+const s4 = () => {
+    return `${Math.floor((1 + Math.random()) * 0x10000)}`.substring(1);
+};
+const guid = () => {
+    return `${s4()}${s4()}-${s4()}-${s4()}-${s4()}-${s4()}${s4()}${s4()}`;
+};
 
 interface Props {
     overtekst: string;
