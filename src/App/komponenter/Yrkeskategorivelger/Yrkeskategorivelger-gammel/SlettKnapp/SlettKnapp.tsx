@@ -1,9 +1,8 @@
 import * as React from 'react';
 import TrashcanIkon from './TrashcanIkon';
-import { KnappBaseProps } from 'nav-frontend-knapper';
 import './SlettKnapp.css';
 
-export interface SlettKnappProps extends KnappBaseProps {
+export interface SlettKnappProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     ariaLabel: string;
     onClick: () => void;
 }

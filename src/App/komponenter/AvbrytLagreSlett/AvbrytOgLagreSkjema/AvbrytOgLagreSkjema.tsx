@@ -2,7 +2,7 @@ import React, { FunctionComponent, useState } from 'react';
 import ModalWrapper from 'nav-frontend-modal';
 import Lenke from 'nav-frontend-lenker';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
+import { Button } from '@navikt/ds-react';
 import { useHistory } from 'react-router-dom';
 import VerticalSpacer from '../../VerticalSpacer';
 import './AvbrytOgLagreSkjema.css';
@@ -41,15 +41,17 @@ export const AvbrytOgLagreSkjema: FunctionComponent<AvbrytOgLagreSkjemaProps> = 
                     </Normaltekst>
                     <VerticalSpacer rem={2} />
                     <div className="avbryt-modal-innhold__knapper">
-                        <Hovedknapp
+                        <Button
                             onClick={async () => {
                                 await lagre();
                                 history.push('/');
                             }}
                         >
                             Lagre og gå til oversikten
-                        </Hovedknapp>
-                        <Flatknapp onClick={() => setOpen(false)}>Avbryt</Flatknapp>
+                        </Button>
+                        <Button variant="tertiary" onClick={() => setOpen(false)}>
+                            Avbryt
+                        </Button>
                     </div>
                 </div>
             </ModalWrapper>

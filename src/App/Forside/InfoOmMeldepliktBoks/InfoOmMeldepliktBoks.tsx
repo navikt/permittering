@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import { Hovedknapp } from 'nav-frontend-knapper';
+import { Button } from '@navikt/ds-react';
 import Lenke from 'nav-frontend-lenker';
 import { useHistory } from 'react-router';
 import { BrodsmuleSti } from '../../komponenter/BrodsmuleSti/BrodsmuleSti';
@@ -8,7 +8,7 @@ import InfoIkon from './InfoIkon';
 import { EksternLenke } from './EksternLenke';
 import './InfoOmMeldepliktBoks.css';
 
-const InfoOmMeldepliktBoks: FunctionComponent = (props) => {
+const InfoOmMeldepliktBoks: FunctionComponent = () => {
     const history = useHistory();
     return (
         <div className="forside__info-om-meldeplikt-boks">
@@ -38,9 +38,9 @@ const InfoOmMeldepliktBoks: FunctionComponent = (props) => {
                     </li>
                 </ul>
 
-                <Hovedknapp className="meld-fra-knapp" onClick={() => history.push('skjema/start')}>
+                <Button className="meld-fra-knapp" onClick={() => history.push('skjema/start')}>
                     Meld fra til NAV
-                </Hovedknapp>
+                </Button>
             </div>
         </div>
     );

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Ingress, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
-import { Hovedknapp } from 'nav-frontend-knapper';
+import { Button } from '@navikt/ds-react';
 import Lenke from 'nav-frontend-lenker';
 import LoggInnBanner from './LoggInnBanner/LoggInnBanner';
 import skjema from './skjema.svg';
@@ -33,9 +33,9 @@ const LoggInn = () => {
                     innskrenkning i arbeidstid.
                 </Ingress>
 
-                <Hovedknapp className="innloggingsside__loginKnapp" onClick={redirectTilLogin}>
+                <Button className="innloggingsside__loginKnapp" onClick={redirectTilLogin}>
                     Logg inn
-                </Hovedknapp>
+                </Button>
 
                 <div className="innloggingsside__besok-ditt-nav">
                     <Normaltekst>

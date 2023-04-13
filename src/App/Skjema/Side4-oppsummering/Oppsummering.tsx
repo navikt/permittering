@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
+import { Button } from '@navikt/ds-react';
 import { Element, Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
 import Lenke from 'nav-frontend-lenker';
 import Veilederpanel from 'nav-frontend-veilederpanel';
@@ -305,16 +305,17 @@ const Oppsummering: FunctionComponent = () => {
                         </Normaltekst>
                     </Alert>
                     <div className="skjema-innhold__fram-og-tilbake">
-                        <Knapp
+                        <Button
+                            variant="tertiary"
                             onClick={async () => {
                                 await context.lagre();
                                 history.push(forrigeSide);
                             }}
                         >
                             Tilbake
-                        </Knapp>
+                        </Button>
 
-                        <Hovedknapp
+                        <Button
                             id="send-inn-hovedknapp"
                             className="skjema-innhold__lagre"
                             onClick={async () => {
@@ -346,7 +347,7 @@ const Oppsummering: FunctionComponent = () => {
                             }}
                         >
                             Send til NAV
-                        </Hovedknapp>
+                        </Button>
                     </div>
                     {feilVedInnsending && (
                         <Alert

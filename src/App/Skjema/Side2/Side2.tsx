@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
+import { Button } from '@navikt/ds-react';
 import { Checkbox } from 'nav-frontend-skjema';
 import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import { Input } from 'nav-frontend-skjema';
@@ -235,7 +235,8 @@ const Side2: FunctionComponent = () => {
                 </div>
 
                 <div className="skjema-innhold__fram-og-tilbake">
-                    <Knapp
+                    <Button
+                        variant="secondary"
                         onClick={async () => {
                             await context.lagre();
                             history.push(forrigeSide);
@@ -243,15 +244,15 @@ const Side2: FunctionComponent = () => {
                     >
                         {' '}
                         Tilbake
-                    </Knapp>
-                    <Hovedknapp
+                    </Button>
+                    <Button
                         onClick={async () => {
                             await context.lagre();
                             history.push(nesteSide);
                         }}
                     >
                         Neste
-                    </Hovedknapp>
+                    </Button>
                 </div>
             </SkjemaRamme>
         </>

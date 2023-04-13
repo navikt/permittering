@@ -1,4 +1,4 @@
-import { Hovedknapp } from 'nav-frontend-knapper';
+import { Button } from '@navikt/ds-react';
 import Lenke from 'nav-frontend-lenker';
 import { RadioPanelGruppe } from 'nav-frontend-skjema';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
@@ -102,13 +102,13 @@ const HvaSkalDuRapportere = () => {
                     Du kan kun sende skjema på vegne av virksomhet (også kalt underenhet), og ikke
                     på vegne av juridisk enhet.
                 </Normaltekst>
-                <Hovedknapp
+                <Button
                     disabled={skjemaType === undefined}
                     className="hva-skal-du-rapportere__knapp"
                     onClick={opprettOgNavigerTilSkjema}
                 >
                     Gå til skjema
-                </Hovedknapp>
+                </Button>
                 <Lenke className="hva-skal-du-rapportere__avbryt" href="/permittering">
                     Avbryt
                 </Lenke>

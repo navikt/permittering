@@ -2,7 +2,7 @@ import React, { FunctionComponent, useContext, useEffect, useState } from 'react
 import { useHistory } from 'react-router-dom';
 import { Systemtittel, Undertittel } from 'nav-frontend-typografi';
 import { Input } from 'nav-frontend-skjema';
-import { Hovedknapp } from 'nav-frontend-knapper';
+import { Button } from '@navikt/ds-react';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import { useSkjemaSteg } from '../use-skjema-steg';
@@ -103,14 +103,14 @@ const Side1: FunctionComponent = () => {
                 </div>
                 <div className={'skjema-innhold__fram-og-tilbake'}>
                     &nbsp;
-                    <Hovedknapp
+                    <Button
                         onClick={async () => {
                             await context.lagre();
                             history.push(nesteSide);
                         }}
                     >
                         Neste
-                    </Hovedknapp>
+                    </Button>
                 </div>
             </SkjemaRamme>
         </>
