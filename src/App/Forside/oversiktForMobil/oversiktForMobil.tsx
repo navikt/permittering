@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Ingress, Undertittel } from 'nav-frontend-typografi';
 import { Permitteringsskjema } from '../../../types/permitteringsskjema';
 import TidligereInnsendtSkjema from './TidligereInnsendtSkjema/tidligereInnsendtSkjema';
-import './oversiktForMobil.less';
+import './oversiktForMobil.css';
 
 interface Props {
     listeMedSkjema: any;

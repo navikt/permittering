@@ -5,7 +5,7 @@ import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
 import { useHistory } from 'react-router-dom';
 import VerticalSpacer from '../../VerticalSpacer';
-import './AvbrytOgLagreSkjema.less';
+import './AvbrytOgLagreSkjema.css';
 
 interface AvbrytOgLagreSkjemaProps {
     lagre: () => void;

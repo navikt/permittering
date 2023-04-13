@@ -8,7 +8,7 @@ import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import { useSkjemaSteg } from '../use-skjema-steg';
 import { erGyldigEpost, erGyldigTelefonNr } from '../../../utils/inputFeltValideringer';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
-import './Side1.less';
+import './Side1.css';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 
 const Side1: FunctionComponent = () => {

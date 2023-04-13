@@ -14,7 +14,7 @@ import {
     WEEKDAYS_SHORT,
 } from './datovelger-utils';
 import kalender from './kalender.svg';
-import './Datovelger.less';
+import './Datovelger.css';
 
 interface Props {
     overtekst: string;

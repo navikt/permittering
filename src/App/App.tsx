@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { brukerLoggetPa } from '../utils/funksjonerForAmplitudeLogging';
 import Forside from './Forside/Forside';
 import LoginBoundary from './LoginBoundary';
-import './App.less';
+import './App.css';
 import { OrganisasjonsListeProvider } from './OrganisasjonslisteProvider';
 import { SkjemaProvider } from './Skjema/SkjemaContext/SkjemaContext';
 import Side0 from './Skjema/Side0 -hvaSkalDuRapportere/HvaSkalDuRapportere';

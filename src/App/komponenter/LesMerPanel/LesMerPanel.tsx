@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import InfoToggler from './InfoToggler/InfoToggler';
 import { Normaltekst } from 'nav-frontend-typografi';
-import './LesMerPanel.less';
+import './LesMerPanel.css';
 import { Collapse } from 'react-collapse';
 import classNames from 'classnames';
 

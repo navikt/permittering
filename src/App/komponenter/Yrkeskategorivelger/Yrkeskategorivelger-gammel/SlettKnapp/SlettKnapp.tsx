@@ -1,7 +1,7 @@
 import * as React from 'react';
 import TrashcanIkon from './TrashcanIkon';
 import { KnappBaseProps } from 'nav-frontend-knapper';
-import './SlettKnapp.less';
+import './SlettKnapp.css';
 
 export interface SlettKnappProps extends KnappBaseProps {
     ariaLabel: string;

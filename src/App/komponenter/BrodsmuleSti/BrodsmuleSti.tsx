@@ -4,7 +4,7 @@ import Lenke from 'nav-frontend-lenker';
 import SkjemaContext from '../../Skjema/SkjemaContext/SkjemaContext';
 import environment from '../../../utils/environment';
 import { Permitteringsskjema } from '../../../types/permitteringsskjema';
-import './BrodsmuleSti.less';
+import './BrodsmuleSti.css';
 
 export const lagLinkTilMinSide = (skjema: Permitteringsskjema) => {
     const bedriftsnummer = skjema && skjema.bedriftNr ? skjema.bedriftNr : '';

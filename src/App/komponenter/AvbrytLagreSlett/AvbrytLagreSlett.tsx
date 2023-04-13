@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { AvbrytOgLagreSkjema } from './AvbrytOgLagreSkjema/AvbrytOgLagreSkjema';
 import { SlettSkjema } from './SlettSkjema/SlettSkjema';
-import './AvbrytLagreSlett.less';
+import './AvbrytLagreSlett.css';
 
 interface AvbrytLagreSlettProps {
     lagre: () => Promise<void>;

@@ -5,7 +5,7 @@ import { Label } from 'nav-frontend-skjema';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { Yrkeskategori } from '../../../types/permitteringsskjema';
 import { Suggestion } from '@navikt/nap-autocomplete/dist/types/Suggestion';
-import './Yrkeskategorivelger.less';
+import './Yrkeskategorivelger.css';
 
 export interface Sokeforslag extends Suggestion {
     styrk08?: string;

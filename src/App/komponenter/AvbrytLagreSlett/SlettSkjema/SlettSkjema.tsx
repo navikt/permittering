@@ -5,7 +5,7 @@ import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { Fareknapp, Flatknapp } from 'nav-frontend-knapper';
 import { useHistory } from 'react-router-dom';
 import VerticalSpacer from '../../VerticalSpacer';
-import './SlettSkjema.less';
+import './SlettSkjema.css';
 
 interface SlettSkjemaProps {
     slett: () => void;

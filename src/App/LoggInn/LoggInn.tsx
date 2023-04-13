@@ -4,7 +4,7 @@ import { Hovedknapp } from 'nav-frontend-knapper';
 import Lenke from 'nav-frontend-lenker';
 import LoggInnBanner from './LoggInnBanner/LoggInnBanner';
 import skjema from './skjema.svg';
-import './Logginn.less';
+import './Logginn.css';
 
 const lokalKjoring = () => {
     return window.location.hostname === 'localhost';

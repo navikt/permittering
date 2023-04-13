@@ -1,7 +1,7 @@
 import React from 'react';
 import { Sidetittel } from 'nav-frontend-typografi';
 import kontor from './kontor.svg';
-import './LoggInnBanner.less';
+import './LoggInnBanner.css';
 
 const LoggInnBanner = () => {
     return (

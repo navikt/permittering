@@ -11,7 +11,7 @@ import {
 } from '../../utils/funksjonerForAmplitudeLogging';
 import OversiktForMobil from './oversiktForMobil/oversiktForMobil';
 import InfoOmMeldepliktBoks from './InfoOmMeldepliktBoks/InfoOmMeldepliktBoks';
-import './Forside.less';
+import './Forside.css';
 
 const Forside: FunctionComponent = () => {
     const [skjemaer, setSkjemaer] = useState<Permitteringsskjema[] | undefined>(undefined);

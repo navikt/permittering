@@ -3,7 +3,7 @@ import Lenkepanel from 'nav-frontend-lenkepanel/lib';
 import HvitSideBoks from '../../komponenter/HvitSideBoks';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
-import './Kvitteringsside.less';
+import './Kvitteringsside.css';
 import OppsummeringKvittering from './OppsummeringKvittering';
 
 const Kvitteringsside = () => {

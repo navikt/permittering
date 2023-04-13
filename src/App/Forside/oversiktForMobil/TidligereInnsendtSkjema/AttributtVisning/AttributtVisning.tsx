@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import './AttributtVisning.less';
+import './AttributtVisning.css';
 
 interface Props {
     className?: string;

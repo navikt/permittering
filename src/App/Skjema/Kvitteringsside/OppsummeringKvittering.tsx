@@ -3,7 +3,7 @@ import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import { splittOppFritekst } from '../../../utils/fritekstFunksjoner';
-import '../Side4-oppsummering/Oppsummering.less';
+import '../Side4-oppsummering/Oppsummering.css';
 import KvitteringIkon from '../Kvitteringsside/KvitteringIkon';
 import { lagTekstBasertPaSkjemaType } from '../Side4-oppsummering/oppsummering-utils';
 import { lagAntallBerorteTekst } from '../Side4-oppsummering/Oppsummering';

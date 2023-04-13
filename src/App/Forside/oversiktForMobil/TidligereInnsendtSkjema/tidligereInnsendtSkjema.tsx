@@ -4,7 +4,7 @@ import Lenkepanel from 'nav-frontend-lenkepanel/lib';
 import { Element } from 'nav-frontend-typografi';
 import AttributtVisning from './AttributtVisning/AttributtVisning';
 import { Permitteringsskjema } from '../../../../types/permitteringsskjema';
-import './tidligereInnsendtSkjema.less';
+import './tidligereInnsendtSkjema.css';
 
 const status = (skjema: Permitteringsskjema) => {
     if (skjema.sendtInnTidspunkt) {

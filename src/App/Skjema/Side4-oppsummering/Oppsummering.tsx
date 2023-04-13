@@ -20,7 +20,7 @@ import { splittOppFritekst } from '../../../utils/fritekstFunksjoner';
 import { lagTekstBasertPaSkjemaType } from './oppsummering-utils';
 import SjekkOmFyltUt from '../../komponenter/SjekkOmFyltUt/SjekkOmFyltUt';
 import veilederIkon from './gjenstand.svg';
-import './Oppsummering.less';
+import './Oppsummering.css';
 import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';

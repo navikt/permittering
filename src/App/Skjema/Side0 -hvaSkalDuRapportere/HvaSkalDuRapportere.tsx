@@ -15,7 +15,7 @@ import Dekorator from '../../komponenter/Dekorator/Dekorator';
 import HvitSideBoks from '../../komponenter/HvitSideBoks';
 import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
-import './HvaSkalDuRapportere.less';
+import './HvaSkalDuRapportere.css';
 import infoIkon from './info.svg';
 
 const HvaSkalDuRapportere = () => {

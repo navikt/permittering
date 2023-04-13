@@ -1,0 +1,119 @@
+.hva-skal-du-rapportere {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+}
+.hva-skal-du-rapportere .typo-systemtittel {
+    margin-bottom: 3rem;
+}
+.hva-skal-du-rapportere .skjemagruppe__legend {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+.hva-skal-du-rapportere .inputPanelGruppe__inner {
+    position: initial;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.hva-skal-du-rapportere .inputPanelGruppe__inner .radioPanel {
+    width: 22%;
+}
+.hva-skal-du-rapportere .inputPanelGruppe__inner .inputPanel {
+    margin-bottom: 0.5rem;
+}
+.hva-skal-du-rapportere__info-om-virksomhet-juridisk {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+}
+.hva-skal-du-rapportere__infoikon {
+    margin-right: 1rem;
+}
+.hva-skal-du-rapportere__forklaring-boks {
+    margin: 1.5rem 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.hva-skal-du-rapportere__forklaring-boks .forklaring {
+    width: 30%;
+}
+.hva-skal-du-rapportere__bedriftsDropdown {
+    margin-top: 2rem;
+}
+.hva-skal-du-rapportere__knapp {
+    align-self: center;
+    margin-top: 1.5rem;
+}
+.hva-skal-du-rapportere__avbryt {
+    align-self: center;
+    margin-top: 0.5rem;
+}
+@media (max-width: 992px) {
+    .hva-skal-du-rapportere {
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+        position: relative;
+    }
+    .hva-skal-du-rapportere .typo-systemtittel {
+        margin-bottom: 3rem;
+    }
+    .hva-skal-du-rapportere .inputPanelGruppe__inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .hva-skal-du-rapportere .inputPanelGruppe__inner .radioPanel {
+        width: 90%;
+    }
+    .hva-skal-du-rapportere .inputPanelGruppe__inner .inputPanel {
+        margin-bottom: 0.5rem;
+    }
+}
+@media (max-width: 768px) {
+    .hva-skal-du-rapportere {
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+    }
+    .hva-skal-du-rapportere .inputPanelGruppe__inner .radioPanel {
+        width: 80%;
+    }
+    .hva-skal-du-rapportere .inputPanelGruppe__inner .inputPanel {
+        margin-bottom: 0.5rem;
+    }
+    .hva-skal-du-rapportere__forklaring-boks {
+        margin: 1.5rem 1rem 0 1rem;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-self: center;
+    }
+    .hva-skal-du-rapportere__forklaring-boks .forklaring {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    .hva-skal-du-rapportere__bedriftsDropdown {
+        margin: 2rem 0 2rem 0;
+    }
+}
+@media (min-width: 992px) {
+    .hvit-side-boks.hva-skal-du-rapportere {
+        width: 50rem;
+    }
+}

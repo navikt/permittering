@@ -4,7 +4,7 @@ import { StegindikatorStegProps } from 'nav-frontend-stegindikator/lib/stegindik
 import HvitSideBoks from './HvitSideBoks';
 import VerticalSpacer from './VerticalSpacer';
 import AvbrytLagreSlett from './AvbrytLagreSlett/AvbrytLagreSlett';
-import './SkjemaRamme.less';
+import './SkjemaRamme.css';
 import Stegindikator from 'nav-frontend-stegindikator/lib/stegindikator';
 import { SkjemaSteg } from '../../types/SkjemaNavigasjon';
 

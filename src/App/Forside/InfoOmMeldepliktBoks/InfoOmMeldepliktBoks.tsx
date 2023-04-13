@@ -6,7 +6,7 @@ import { useHistory } from 'react-router';
 import { BrodsmuleSti } from '../../komponenter/BrodsmuleSti/BrodsmuleSti';
 import InfoIkon from './InfoIkon';
 import { EksternLenke } from './EksternLenke';
-import './InfoOmMeldepliktBoks.less';
+import './InfoOmMeldepliktBoks.css';
 
 const InfoOmMeldepliktBoks: FunctionComponent = (props) => {
     const history = useHistory();

@@ -1,7 +1,7 @@
 import React from 'react';
 import NavFrontendChevron from 'nav-frontend-chevron';
 
-import './infoToggler.less';
+import './infoToggler.css';
 
 interface Props {
     children: React.ReactNode;

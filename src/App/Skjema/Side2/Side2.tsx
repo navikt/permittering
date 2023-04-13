@@ -20,7 +20,7 @@ import { Yrkeskategori } from '../../../types/permitteringsskjema';
 import YrkeskategoriVisning from '../../komponenter/Yrkeskategorivelger/YrkeskategoriVisning';
 import { Permitteringsårsaksvelger } from '../../komponenter/PermitteringsÅrsaksVelger/PermitteringsÅrsaksVelger';
 import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
-import './Side2.less';
+import './Side2.css';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 
 const Side2: FunctionComponent = () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Innholdstittel } from 'nav-frontend-typografi';
-import './Dekorator.less';
+import './Dekorator.css';
 
 const lagBannerTittel = (type: string): string => {
     if (type === 'MASSEOPPSIGELSE') {
