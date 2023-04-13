@@ -1,11 +1,9 @@
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
-import { Knapp } from 'nav-frontend-knapper';
-import Checkbox from 'nav-frontend-skjema/lib/checkbox';
-import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
-import Input from 'nav-frontend-skjema/lib/input';
+import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
+import { Checkbox } from 'nav-frontend-skjema';
+import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { Input } from 'nav-frontend-skjema';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import { useSkjemaSteg } from '../use-skjema-steg';
 import { mergeFritekst, splittOppFritekst } from '../../../utils/fritekstFunksjoner';

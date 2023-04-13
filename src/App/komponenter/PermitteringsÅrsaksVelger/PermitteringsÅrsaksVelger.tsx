@@ -1,4 +1,4 @@
-import Select from 'nav-frontend-skjema/lib/select';
+import { Select } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import hentAArsakskoder from '../../../api/kodeverksAPI';
 

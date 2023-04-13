@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Lenkepanel from 'nav-frontend-lenkepanel/lib';
+import Lenkepanel from 'nav-frontend-lenkepanel';
 import HvitSideBoks from '../../komponenter/HvitSideBoks';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';

@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import moment from 'moment';
-import Lenkepanel from 'nav-frontend-lenkepanel/lib';
+import Lenkepanel from 'nav-frontend-lenkepanel';
 import { Element } from 'nav-frontend-typografi';
 import AttributtVisning from './AttributtVisning/AttributtVisning';
 import { Permitteringsskjema } from '../../../../types/permitteringsskjema';

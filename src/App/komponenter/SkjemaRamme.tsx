@@ -1,11 +1,10 @@
 import React, { FunctionComponent } from 'react';
 import { useHistory } from 'react-router-dom';
-import { StegindikatorStegProps } from 'nav-frontend-stegindikator/lib/stegindikator-steg';
 import HvitSideBoks from './HvitSideBoks';
 import VerticalSpacer from './VerticalSpacer';
 import AvbrytLagreSlett from './AvbrytLagreSlett/AvbrytLagreSlett';
 import './SkjemaRamme.css';
-import Stegindikator from 'nav-frontend-stegindikator/lib/stegindikator';
+import Stegindikator from 'nav-frontend-stegindikator';
 import { SkjemaSteg } from '../../types/SkjemaNavigasjon';
 
 interface SkjemaRammeProps {
@@ -23,7 +22,7 @@ const SkjemaRamme: FunctionComponent<SkjemaRammeProps> = ({ children, steg, lagr
         <>
             <VerticalSpacer rem={2} />
             <Stegindikator
-                steg={steg as StegindikatorStegProps[]}
+                steg={steg}
                 onChange={async (index) => {
                     await lagre();
                     skiftSide(index);
