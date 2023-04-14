@@ -2,6 +2,7 @@ import React, { FunctionComponent, useState } from 'react';
 import { BodyLong, Button, Heading, Link, Modal } from '@navikt/ds-react';
 import { useHistory } from 'react-router-dom';
 import './AvbrytOgLagreSkjema.css';
+import VerticalSpacer from '../../VerticalSpacer';
 
 interface AvbrytOgLagreSkjemaProps {
     lagre: () => void;
@@ -31,10 +32,12 @@ export const AvbrytOgLagreSkjema: FunctionComponent<AvbrytOgLagreSkjemaProps> = 
                     <Heading id="avbryt-modal-heading" spacing level="2" size="medium">
                         Lagre og gå til oversikten?
                     </Heading>
+                    <VerticalSpacer rem={1} />
                     <BodyLong spacing>
                         Du er i ferd med å forlate skjema. Innholdet i skjemaet blir bevart og du
                         kan fortsette utfylling senere.
                     </BodyLong>
+                    <VerticalSpacer rem={2} />
                     <div className="avbryt-modal-innhold__knapper">
                         <Button
                             onClick={async () => {
