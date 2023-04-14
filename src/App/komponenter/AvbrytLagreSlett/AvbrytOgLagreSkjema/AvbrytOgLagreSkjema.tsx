@@ -1,9 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
-import ModalWrapper from 'nav-frontend-modal';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import { Button, Link } from '@navikt/ds-react';
+import { BodyLong, Button, Heading, Link, Modal } from '@navikt/ds-react';
 import { useHistory } from 'react-router-dom';
-import VerticalSpacer from '../../VerticalSpacer';
 import './AvbrytOgLagreSkjema.css';
 
 interface AvbrytOgLagreSkjemaProps {
@@ -25,20 +22,19 @@ export const AvbrytOgLagreSkjema: FunctionComponent<AvbrytOgLagreSkjemaProps> = 
             >
                 Lagre skjema og gå til oversikten
             </Link>
-            <ModalWrapper
-                isOpen={isOpen}
-                onRequestClose={() => setOpen(false)}
-                closeButton={true}
-                contentLabel="Min modalrute"
+            <Modal
+                open={isOpen}
+                onClose={() => setOpen((x) => !x)}
+                aria-labelledby="avbryt-modal-heading"
             >
-                <div className="avbryt-modal-innhold">
-                    <Undertittel>Lagre og gå til oversikten?</Undertittel>
-                    <VerticalSpacer rem={1} />
-                    <Normaltekst>
+                <Modal.Content className="avbryt-modal-innhold">
+                    <Heading id="avbryt-modal-heading" spacing level="2" size="medium">
+                        Lagre og gå til oversikten?
+                    </Heading>
+                    <BodyLong spacing>
                         Du er i ferd med å forlate skjema. Innholdet i skjemaet blir bevart og du
                         kan fortsette utfylling senere.
-                    </Normaltekst>
-                    <VerticalSpacer rem={2} />
+                    </BodyLong>
                     <div className="avbryt-modal-innhold__knapper">
                         <Button
                             onClick={async () => {
@@ -52,8 +48,8 @@ export const AvbrytOgLagreSkjema: FunctionComponent<AvbrytOgLagreSkjemaProps> = 
                             Avbryt
                         </Button>
                     </div>
-                </div>
-            </ModalWrapper>
+                </Modal.Content>
+            </Modal>
         </>
     );
 };

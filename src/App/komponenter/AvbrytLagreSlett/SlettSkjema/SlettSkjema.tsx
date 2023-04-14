@@ -1,9 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
-import ModalWrapper from 'nav-frontend-modal';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import { Button, Link } from '@navikt/ds-react';
+import { BodyLong, Button, Heading, Link, Modal } from '@navikt/ds-react';
 import { useHistory } from 'react-router-dom';
-import VerticalSpacer from '../../VerticalSpacer';
 import './SlettSkjema.css';
 
 interface SlettSkjemaProps {
@@ -25,19 +22,18 @@ export const SlettSkjema: FunctionComponent<SlettSkjemaProps> = ({ slett }) => {
             >
                 Slett skjema
             </Link>
-            <ModalWrapper
-                isOpen={isOpen}
-                onRequestClose={() => setOpen(false)}
-                closeButton={true}
-                contentLabel="Min modalrute"
+            <Modal
+                open={isOpen}
+                onClose={() => setOpen((x) => !x)}
+                aria-labelledby="slett-modal-heading"
             >
-                <div className="slett-modal-innhold">
-                    <Undertittel>Slett skjema?</Undertittel>
-                    <VerticalSpacer rem={1} />
-                    <Normaltekst>
+                <Modal.Content className="avbryt-modal-innhold">
+                    <Heading id="slett-modal-heading" spacing level="2" size="medium">
+                        Slett skjema?
+                    </Heading>
+                    <BodyLong spacing>
                         Hvis du fortsetter vil innholdet i skjemaet bli slettet.
-                    </Normaltekst>
-                    <VerticalSpacer rem={2} />
+                    </BodyLong>
                     <div className="slett-modal-innhold__knapper">
                         <Button
                             variant="danger"
@@ -56,8 +52,8 @@ export const SlettSkjema: FunctionComponent<SlettSkjemaProps> = ({ slett }) => {
                             Behold skjema
                         </Button>
                     </div>
-                </div>
-            </ModalWrapper>
+                </Modal.Content>
+            </Modal>
         </>
     );
 };
