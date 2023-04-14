@@ -1,6 +1,6 @@
 export interface SkjemaSteg {
     aktiv: boolean;
-    index: number;
+    number: number;
     label: string;
     slug: string;
     path: string;

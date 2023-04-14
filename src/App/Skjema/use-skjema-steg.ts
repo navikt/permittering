@@ -23,15 +23,15 @@ export const useSkjemaSteg = (currentPathName: string, id: string): SkjemaNaviga
         },
     ].map((item, index) => ({
         ...item,
-        index,
+        number: index + 1,
         path: createSkjemaPath(item.slug, id),
         aktiv: currentPathName.includes(item.slug),
     }));
 
     const nesteSide = (() => {
         const aktivSteg = steg.find((e) => e.aktiv);
-        if (aktivSteg && steg[aktivSteg.index + 1]) {
-            return steg[aktivSteg.index + 1].path;
+        if (aktivSteg && steg[aktivSteg.number + 1]) {
+            return steg[aktivSteg.number + 1].path;
         } else {
             return '';
         }
@@ -39,8 +39,8 @@ export const useSkjemaSteg = (currentPathName: string, id: string): SkjemaNaviga
 
     const forrigeSide = (() => {
         const aktivSteg = steg.find((e) => e.aktiv);
-        if (aktivSteg && steg[aktivSteg.index - 1]) {
-            return steg[aktivSteg.index - 1].path;
+        if (aktivSteg && steg[aktivSteg.number - 1]) {
+            return steg[aktivSteg.number - 1].path;
         } else {
             return '';
         }
