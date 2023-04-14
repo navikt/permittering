@@ -23,7 +23,6 @@
         "lodash.throttle": "^4.1.1",
         "moment": "^2.29.4",
         "nav-frontend-core": "^6.0.1",
-        "nav-frontend-paneler-style": "^2.0.2",
         "nav-frontend-skjema": "^4.0.6",
         "nav-frontend-skjema-style": "^3.0.3",
         "nav-frontend-spinner": "^3.0.1",
