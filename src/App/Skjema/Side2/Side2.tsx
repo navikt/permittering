@@ -139,10 +139,7 @@ const Side2: FunctionComponent = () => {
         }
     };
 
-    const { steg, forrigeSide, nesteSide } = useSkjemaSteg(
-        history.location.pathname,
-        context.skjema.id
-    );
+    const { steg, forrigeSide, nesteSide } = useSkjemaSteg(context.skjema.id);
 
     return (
         <>

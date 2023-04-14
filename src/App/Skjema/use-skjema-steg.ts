@@ -1,53 +1,35 @@
 import { SkjemaNavigasjon } from '../../types/SkjemaNavigasjon';
+import { useHistory } from 'react-router-dom';
 
-const createSkjemaPath = (slug: string, id?: string) => {
-    return ['', 'skjema', slug, id].join('/');
-};
+const stegdefinisjon = [
+    {
+        label: 'Kontaktinformasjon',
+        slug: 'kontaktinformasjon',
+    },
+    {
+        label: 'Generelle opplysninger',
+        slug: 'generelle-opplysninger',
+    },
+    {
+        label: 'Oppsummering',
+        slug: 'oppsummering',
+    },
+];
 
-export const useSkjemaSteg = (currentPathName: string, id: string): SkjemaNavigasjon => {
-    const steg = [
-        {
-            label: 'Kontaktinformasjon',
-            aktiv: false,
-            slug: 'kontaktinformasjon',
-        },
-        {
-            label: 'Generelle opplysninger',
-            aktiv: false,
-            slug: 'generelle-opplysninger',
-        },
-        {
-            label: 'Oppsummering',
-            aktiv: false,
-            slug: 'oppsummering',
-        },
-    ].map((item, index) => ({
+export const useSkjemaSteg = (id: string): SkjemaNavigasjon => {
+    const history = useHistory();
+    const currentPathName = history.location.pathname;
+    const steg = stegdefinisjon.map((item, index) => ({
         ...item,
         number: index + 1,
-        path: createSkjemaPath(item.slug, id),
+        path: `/skjema/${item.slug}/${id}`,
         aktiv: currentPathName.includes(item.slug),
     }));
 
-    const nesteSide = (() => {
-        const aktivSteg = steg.find((e) => e.aktiv);
-        if (aktivSteg && steg[aktivSteg.number + 1]) {
-            return steg[aktivSteg.number + 1].path;
-        } else {
-            return '';
-        }
-    })();
-
-    const forrigeSide = (() => {
-        const aktivSteg = steg.find((e) => e.aktiv);
-        if (aktivSteg && steg[aktivSteg.number - 1]) {
-            return steg[aktivSteg.number - 1].path;
-        } else {
-            return '';
-        }
-    })();
+    const aktivIndex = steg.findIndex((e) => e.aktiv);
     return {
         steg,
-        nesteSide,
-        forrigeSide,
+        nesteSide: aktivIndex !== undefined ? steg[aktivIndex + 1]?.path ?? '' : '',
+        forrigeSide: aktivIndex !== undefined ? steg[aktivIndex - 1]?.path ?? '' : '',
     };
 };

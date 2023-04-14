@@ -1,4 +1,4 @@
-import { Select } from 'nav-frontend-skjema';
+import { Select } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import { Organisasjon } from '../../../types/Organisasjon';
 

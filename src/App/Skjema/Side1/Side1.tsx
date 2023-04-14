@@ -14,7 +14,7 @@ import Dekorator from '../../komponenter/Dekorator/Dekorator';
 const Side1: FunctionComponent = () => {
     const context = useContext(SkjemaContext);
     const history = useHistory();
-    const { steg, nesteSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
+    const { steg, nesteSide } = useSkjemaSteg(context.skjema.id);
     const [feilMeldingEpost, setFeilmeldingEpost] = useState('');
     const [feilMeldingTelefonNr, setFeilmeldingTelefonNr] = useState('');
 
@@ -26,6 +26,8 @@ const Side1: FunctionComponent = () => {
     if (context.skjema.sendtInnTidspunkt) {
         history.replace('/');
     }
+
+    console.log({ nesteSide });
 
     return (
         <>

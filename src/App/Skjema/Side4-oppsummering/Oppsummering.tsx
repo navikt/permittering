@@ -25,7 +25,7 @@ import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 import { status } from '../../Forside/SkjemaTabell/SkjemaTabell';
 import { Alert } from '@navikt/ds-react';
-import { skrivOmDato } from '../../komponenter/Datovelger/datovelger-utils';
+import { formatDate } from '../../../utils/date-utils';
 
 export const lagAntallBerorteTekst = (antallBerorte?: number) => {
     if (antallBerorte) {
@@ -44,7 +44,7 @@ const Oppsummering: FunctionComponent = () => {
         useState<boolean>(false);
     const [manglendeFelter, setManglendeFelter] = useState<string[]>([]);
 
-    const { steg, forrigeSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
+    const { steg, forrigeSide } = useSkjemaSteg(context.skjema.id);
     const [lesbarårsakskode, setLesbarÅrsakskode] = useState<string | undefined>(undefined);
     const existerendeFelter = context.skjema.fritekst
         ? splittOppFritekst(context.skjema.fritekst)
@@ -73,8 +73,8 @@ const Oppsummering: FunctionComponent = () => {
         return false;
     };
 
-    const fraDato = context.skjema.startDato ? context.skjema.startDato : '';
-    const tilDato = context.skjema.sluttDato ? context.skjema.sluttDato : '';
+    const fraDato = context.skjema.startDato ? new Date(context.skjema.startDato) : undefined;
+    const tilDato = context.skjema.sluttDato ? new Date(context.skjema.sluttDato) : undefined;
 
     const endreantallberørteLenke = `/permittering/skjema/generelle-opplysninger/${context.skjema.id}`;
 
@@ -264,7 +264,7 @@ const Oppsummering: FunctionComponent = () => {
                                         <span className="fra-til">Fra:</span>
                                         <SjekkOmFyltUt
                                             ugyldigInput={!erGyldigDatoInput()}
-                                            verdi={skrivOmDato(new Date(fraDato))}
+                                            verdi={formatDate(fraDato)}
                                         />
                                     </div>
                                     {context.skjema.type === 'PERMITTERING_UTEN_LØNN' && (
@@ -275,7 +275,7 @@ const Oppsummering: FunctionComponent = () => {
                                             ) : (
                                                 <SjekkOmFyltUt
                                                     ugyldigInput={!erGyldigDatoInput()}
-                                                    verdi={skrivOmDato(new Date(tilDato))}
+                                                    verdi={formatDate(tilDato)}
                                                 />
                                             )}
                                         </div>

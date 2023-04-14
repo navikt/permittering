@@ -7,32 +7,3 @@
 .datofelt .skjemaelement__input {
     width: 9.5rem;
 }
-.datofelt__input-container {
-    display: flex;
-}
-.datofelt .ReactCollapse--collapse {
-    position: absolute;
-    top: 6rem;
-    left: 0;
-    z-index: 999;
-    background-color: #fff;
-}
-.datofelt .ReactCollapse--content {
-    border: 1px solid #6a6a6a;
-}
-.datofelt__knapp {
-    position: absolute;
-    background-color: white;
-    height: 2.5rem;
-    width: 2.5rem;
-    border: 1px solid #00459c;
-    left: 7rem;
-}
-.datofelt__knapp:focus {
-    outline: none;
-    border: 2px solid #00459c;
-}
-.datofelt__knapp:hover {
-    background-color: #cce1ff;
-    border: 2px solid #00459c;
-}

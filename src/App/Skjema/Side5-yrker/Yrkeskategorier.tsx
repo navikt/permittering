@@ -6,18 +6,16 @@ import YrkeskategoriTabell from '../../komponenter/Yrkeskategorivelger/Yrkeskate
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
 import { YrkeskategorivelgerGammel } from '../../komponenter/Yrkeskategorivelger/Yrkeskategorivelger-gammel/Yrkeskategorivelger-gammel';
-import { useHistory } from 'react-router-dom';
 
 const Yrkeskategorier: FunctionComponent = () => {
     const context = useContext(SkjemaContext);
-    const history = useHistory();
     const [selected, setSelected] = React.useState<any>([]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
         loggNavarendeSteg('yrkeskategorier');
     }, []);
-    const { steg } = useSkjemaSteg(history.location.pathname, context.skjema.id);
+    const { steg } = useSkjemaSteg(context.skjema.id);
 
     return (
         <>
