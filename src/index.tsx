@@ -7,7 +7,6 @@ import ReactDOM from 'react-dom';
 import * as Sentry from '@sentry/react';
 import { injectDecoratorClientSide } from '@navikt/nav-dekoratoren-moduler';
 import 'nav-frontend-skjema-style/dist/main.css';
-import 'nav-frontend-spinner-style/dist/main.css';
 import 'nav-frontend-stegindikator-style/dist/main.css';
 import 'nav-frontend-tabell-style/dist/main.css';
 import 'nav-frontend-typografi-style/dist/main.css';
