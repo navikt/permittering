@@ -1,9 +1,7 @@
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button } from '@navikt/ds-react';
-import { Checkbox } from 'nav-frontend-skjema';
+import { Button, Checkbox, TextField } from '@navikt/ds-react';
 import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import { Input } from 'nav-frontend-skjema';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import { useSkjemaSteg } from '../use-skjema-steg';
 import { mergeFritekst, splittOppFritekst } from '../../../utils/fritekstFunksjoner';
@@ -151,11 +149,11 @@ const Side2: FunctionComponent = () => {
             >
                 <Systemtittel>Generelle opplysninger</Systemtittel>
                 <div className="skjema-innhold__side-2-text-area">
-                    <Input
+                    <TextField
                         label="Hvor mange ansatte blir berørt?"
                         defaultValue={context.skjema.antallBerørt}
-                        bredde="XS"
-                        feil={feilMeldingAntallBerort}
+                        size="small"
+                        error={feilMeldingAntallBerort}
                         onBlur={(event: any) => {
                             if (erGyldigNr(event.currentTarget.value)) {
                                 context.endreSkjemaVerdi('antallBerørt', event.currentTarget.value);
@@ -218,7 +216,6 @@ const Side2: FunctionComponent = () => {
                             />
                             <Checkbox
                                 className="skjema-innhold__dato-velger-til-checkboks"
-                                label="Vet ikke hvor lenge det vil vare"
                                 checked={!!context.skjema.ukjentSluttDato}
                                 onChange={() =>
                                     context.endreSkjemaVerdi(
@@ -226,7 +223,9 @@ const Side2: FunctionComponent = () => {
                                         !context.skjema.ukjentSluttDato
                                     )
                                 }
-                            />
+                            >
+                                Vet ikke hvor lenge det vil vare
+                            </Checkbox>
                         </div>
                     )}
                 </div>

@@ -1,8 +1,7 @@
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Systemtittel, Undertittel } from 'nav-frontend-typografi';
-import { Input } from 'nav-frontend-skjema';
-import { Button } from '@navikt/ds-react';
+import { Button, TextField } from '@navikt/ds-react';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import { useSkjemaSteg } from '../use-skjema-steg';
@@ -43,13 +42,13 @@ const Side1: FunctionComponent = () => {
                 </Undertittel>
 
                 <div className={'skjema-innhold__side-1-linje-2'}>
-                    <Input
+                    <TextField
                         className={'skjema-innhold__side-1-input-felt'}
                         label="Bedriftens navn"
                         defaultValue={context.skjema.bedriftNavn}
                         disabled
                     />
-                    <Input
+                    <TextField
                         className={'skjema-innhold__side-1-input-felt'}
                         label="Bedriftsnummer"
                         defaultValue={context.skjema.bedriftNr}
@@ -59,7 +58,7 @@ const Side1: FunctionComponent = () => {
                 <Undertittel className={'skjema-innhold__side-1-undertittel'} tag="h3">
                     Kontaktperson i virksomheten
                 </Undertittel>
-                <Input
+                <TextField
                     className={'skjema-innhold__side-1-input-felt'}
                     label="Navn"
                     defaultValue={context.skjema.kontaktNavn}
@@ -68,11 +67,11 @@ const Side1: FunctionComponent = () => {
                     }
                 />
                 <div className={'skjema-innhold__side-1-linje-4'}>
-                    <Input
+                    <TextField
                         className={'skjema-innhold__side-1-input-felt'}
                         label="Telefonnummer"
                         defaultValue={context.skjema.kontaktTlf}
-                        feil={feilMeldingTelefonNr}
+                        error={feilMeldingTelefonNr}
                         onBlur={(event: any) => {
                             if (erGyldigTelefonNr(event.currentTarget.value)) {
                                 const telefonNummer = event.currentTarget.value;
@@ -87,11 +86,11 @@ const Side1: FunctionComponent = () => {
                         }}
                         onChange={() => setFeilmeldingTelefonNr('')}
                     />
-                    <Input
+                    <TextField
                         className={'skjema-innhold__side-1-input-felt'}
                         label="E-post"
                         defaultValue={context.skjema.kontaktEpost}
-                        feil={feilMeldingEpost}
+                        error={feilMeldingEpost}
                         onBlur={(event) => {
                             if (erGyldigEpost(event.currentTarget.value)) {
                                 context.endreSkjemaVerdi('kontaktEpost', event.currentTarget.value);

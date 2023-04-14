@@ -2,7 +2,7 @@ import React, { FunctionComponent, useState } from 'react';
 import { stringify } from 'querystring';
 /* TODO: bytt med noe ala https://nav-it.slack.com/archives/C6HJFRRMY/p1662389497021649?thread_ts=1662102321.708009&cid=C6HJFRRMY */
 import Autocomplete from '@navikt/nap-autocomplete';
-import { Label } from 'nav-frontend-skjema';
+import { Label } from '@navikt/ds-react';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { Yrkeskategori } from '../../../types/permitteringsskjema';
 import { Suggestion } from '@navikt/nap-autocomplete/dist/types/Suggestion';

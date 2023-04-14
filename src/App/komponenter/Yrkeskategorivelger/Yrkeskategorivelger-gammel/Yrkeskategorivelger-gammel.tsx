@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { stringify } from 'querystring';
 import Autocomplete from '@navikt/nap-autocomplete';
-import { Label } from 'nav-frontend-skjema';
+import { Label } from '@navikt/ds-react';
 
 const getUpdatedSuggestions = async (path: string, q: string) => {
     const result = await fetch(path + '?' + stringify({ q }));

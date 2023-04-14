@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input } from 'nav-frontend-skjema';
+import { TextField } from '@navikt/ds-react';
 import SlettKnapp from './SlettKnapp/SlettKnapp';
 
 const YrkeskategoriTabell: React.FunctionComponent<any> = ({ selected, setSelected }) => {
@@ -28,10 +28,10 @@ const YrkeskategoriTabell: React.FunctionComponent<any> = ({ selected, setSelect
                             <td>{kategori.key}</td>
                             <td>{kategori.value}</td>
                             <td>
-                                <Input
-                                    bredde="XS"
-                                    mini
-                                    size={4}
+                                <TextField
+                                    label=""
+                                    hideLabel
+                                    size="small"
                                     defaultValue={'0'}
                                     value={kategori.antall || null}
                                     onChange={(e) => {
