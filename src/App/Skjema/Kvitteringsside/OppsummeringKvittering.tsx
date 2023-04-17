@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
-import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
+import { Heading, Label } from '@navikt/ds-react';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import { splittOppFritekst } from '../../../utils/fritekstFunksjoner';
@@ -19,8 +19,8 @@ const OppsummeringKvittering: FunctionComponent = () => {
         : null;
     const yrker = existerendeFelter && existerendeFelter.yrker ? existerendeFelter.yrker : '';
 
-    const fraDato = context.skjema.startDato ? context.skjema.startDato : '';
-    const tilDato = context.skjema.sluttDato ? context.skjema.sluttDato : '';
+    const fraDato = context.skjema.startDato ? new Date(context.skjema.startDato) : undefined;
+    const tilDato = context.skjema.sluttDato ? new Date(context.skjema.sluttDato) : undefined;
 
     useEffect(() => {
         finnÅrsakstekst(context.skjema.årsakskode).then(setLesbarÅrsakskode);
@@ -30,10 +30,14 @@ const OppsummeringKvittering: FunctionComponent = () => {
         <>
             <section className="oppsummering">
                 <div className="oppsummering__tittel-desktop">
-                    <Systemtittel>Kvittering på mottatt melding</Systemtittel>
+                    <Heading level="2" size="medium">
+                        Kvittering på mottatt melding
+                    </Heading>
                 </div>
                 <Veilederpanel type="plakat" kompakt fargetema="info" svg={KvitteringIkon()}>
-                    <Undertittel className="oppsummering__tittel-mobil">Oppsummering</Undertittel>
+                    <Heading level="3" size="small" className="oppsummering__tittel-mobil">
+                        Oppsummering
+                    </Heading>
                     <div className="oppsummering__boks kontaktinfo">
                         <table className="tabell">
                             <tbody>
@@ -63,7 +67,9 @@ const OppsummeringKvittering: FunctionComponent = () => {
 
                     <div className="oppsummering__boks antall-arbeidstakere">
                         <div className="tekst">
-                            <Normaltekst className="overskrift">Antall berørte:</Normaltekst>
+                            <Label size="small" spacing>
+                                Antall berørte:
+                            </Label>
                             <div>
                                 {context.skjema.antallBerørt}
                                 {lagAntallBerorteTekst(context.skjema.antallBerørt)}
@@ -72,44 +78,39 @@ const OppsummeringKvittering: FunctionComponent = () => {
                     </div>
 
                     <div className="oppsummering__boks aarsak">
-                        <Undertittel className="oppsummering__tittel-mobil">
+                        <Heading level="4" size="small" className="oppsummering__tittel-mobil">
                             Generelle opplysninger
-                        </Undertittel>
-                        <div className="tekst">
-                            <Normaltekst className="overskrift">
-                                {lagTekstBasertPaSkjemaType(context.skjema.type)}
-                            </Normaltekst>
-                            {lesbarÅrsakskode}
-                        </div>
+                        </Heading>
+
+                        <Label size="small" spacing>
+                            {lagTekstBasertPaSkjemaType(context.skjema.type)}
+                        </Label>
+                        {lesbarÅrsakskode}
                     </div>
 
                     <div className="oppsummering__boks yrkeskategorier">
-                        <div className="tekst">
-                            <Normaltekst className="overskrift">Yrkeskategorier</Normaltekst>
-                            {yrker}
-                        </div>
+                        <Label size="small" spacing>
+                            Yrkeskategorier
+                        </Label>
+                        {yrker}
                     </div>
 
                     <div className="oppsummering__boks varighet">
-                        <div className="tekst">
-                            <Normaltekst className="overskrift">
-                                For hvilken periode gjelder dette?
-                            </Normaltekst>
-                            <div>
-                                <div>
-                                    <span className="fra-til">Fra:</span>
-                                    {formatDate(new Date(fraDato))}
-                                </div>
-                                {context.skjema.type === 'PERMITTERING_UTEN_LØNN' && (
-                                    <div>
-                                        <span className="fra-til">Til:</span>
-                                        {context.skjema.ukjentSluttDato
-                                            ? 'Vet ikke hvor lenge det vil vare'
-                                            : formatDate(new Date(tilDato))}
-                                    </div>
-                                )}
-                            </div>
+                        <Label size="small" spacing>
+                            For hvilken periode gjelder dette?
+                        </Label>
+                        <div>
+                            <span className="fra-til">Fra:</span>
+                            {formatDate(fraDato)}
                         </div>
+                        {context.skjema.type === 'PERMITTERING_UTEN_LØNN' && (
+                            <div>
+                                <span className="fra-til">Til:</span>
+                                {context.skjema.ukjentSluttDato
+                                    ? 'Vet ikke hvor lenge det vil vare'
+                                    : formatDate(tilDato)}
+                            </div>
+                        )}
                     </div>
                 </Veilederpanel>
             </section>

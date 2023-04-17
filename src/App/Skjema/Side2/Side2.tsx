@@ -1,7 +1,6 @@
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button, Checkbox, TextField } from '@navikt/ds-react';
-import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { Button, Checkbox, Heading, Label, TextField } from '@navikt/ds-react';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import { useSkjemaSteg } from '../use-skjema-steg';
 import { mergeFritekst, splittOppFritekst } from '../../../utils/fritekstFunksjoner';
@@ -147,7 +146,9 @@ const Side2: FunctionComponent = () => {
                 lagre={async () => await context.lagre()}
                 slett={async () => await context.avbryt()}
             >
-                <Systemtittel>Generelle opplysninger</Systemtittel>
+                <Heading level="3" size="medium">
+                    Generelle opplysninger
+                </Heading>
                 <div className="skjema-innhold__side-2-text-area">
                     <TextField
                         label="Hvor mange ansatte blir berørt?"
@@ -178,7 +179,7 @@ const Side2: FunctionComponent = () => {
                         leggTilYrkeskategori={leggTilYrkeskategori}
                     />
                     {yrkeskategorier.length ? (
-                        <Normaltekst className="yrker-valgt__overskrift">Du har valgt:</Normaltekst>
+                        <Label className="yrker-valgt__overskrift">Du har valgt:</Label>
                     ) : null}
                     <YrkeskategoriVisning
                         yrkeskategorier={yrkeskategorier}
@@ -186,9 +187,9 @@ const Side2: FunctionComponent = () => {
                     />
                 </div>
 
-                <Element className="skjema-innhold__side-2-dato-overskrift">
+                <Label className="skjema-innhold__side-2-dato-overskrift">
                     For hvilken periode gjelder dette?
-                </Element>
+                </Label>
                 <div className="skjema-innhold__side-2-dato-container">
                     <Datovelger
                         value={datoFra}

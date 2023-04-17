@@ -2,8 +2,7 @@ import React, { FunctionComponent, useState } from 'react';
 import { stringify } from 'querystring';
 /* TODO: bytt med noe ala https://nav-it.slack.com/archives/C6HJFRRMY/p1662389497021649?thread_ts=1662102321.708009&cid=C6HJFRRMY */
 import Autocomplete from '@navikt/nap-autocomplete';
-import { Label } from '@navikt/ds-react';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort, Label } from '@navikt/ds-react';
 import { Yrkeskategori } from '../../../types/permitteringsskjema';
 import { Suggestion } from '@navikt/nap-autocomplete/dist/types/Suggestion';
 import './Yrkeskategorivelger.css';
@@ -45,12 +44,12 @@ const Yrkeskategorivelger: FunctionComponent<YrkeskategorivelgerProps> = ({
             <Label htmlFor={'yrkeskategori'} id="yrkeskategori-label">
                 Hvilke yrkeskategorier tilhører de berørte?
             </Label>
-            <Normaltekst
+            <BodyShort
                 id="autocomplete-input-description"
                 className="autocomplete-input-description"
             >
                 For eksempel: kokk
-            </Normaltekst>
+            </BodyShort>
             <Autocomplete
                 suggestions={suggestions}
                 value={value}

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Ingress, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
-import { Button, Link } from '@navikt/ds-react';
+import { BodyShort, Button, Heading, Ingress, Link } from '@navikt/ds-react';
 import LoggInnBanner from './LoggInnBanner/LoggInnBanner';
 import skjema from './skjema.svg';
 import './Logginn.css';
@@ -24,9 +23,9 @@ const LoggInn = () => {
             <div className="innloggingsside__innhold">
                 <img src={skjema} className="innloggingsside__circle" alt="" />
 
-                <Innholdstittel className="innloggingsside__sidetittel" tag="h2">
+                <Heading level="2" size="large" className="innloggingsside__sidetittel">
                     Meld fra til NAV
-                </Innholdstittel>
+                </Heading>
                 <Ingress className="innloggingsside__ingress">
                     Arbeidsgivers meldeplikt til NAV ved masseoppsigelser, permittering uten lønn og
                     innskrenkning i arbeidstid.
@@ -37,14 +36,14 @@ const LoggInn = () => {
                 </Button>
 
                 <div className="innloggingsside__besok-ditt-nav">
-                    <Normaltekst>
+                    <BodyShort>
                         Ønsker du å se dine tjenester som privatperson?
                         <div className="logg-inn-lenke">
                             <Link href="https://www.nav.no/person/dittnav/">
                                 Logg inn på Ditt NAV
                             </Link>
                         </div>
-                    </Normaltekst>
+                    </BodyShort>
                 </div>
             </div>
         </div>

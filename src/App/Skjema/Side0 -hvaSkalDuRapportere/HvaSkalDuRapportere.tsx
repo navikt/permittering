@@ -1,5 +1,4 @@
-import { Button, Link, Radio, RadioGroup, Select } from '@navikt/ds-react';
-import { Systemtittel } from 'nav-frontend-typografi';
+import { Button, Heading, Link, Radio, RadioGroup, Select } from '@navikt/ds-react';
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Permitteringsskjema } from '../../../types/permitteringsskjema';
@@ -46,7 +45,9 @@ const HvaSkalDuRapportere = () => {
         <>
             <Dekorator sidetittel={sidetittel} />
             <HvitSideBoks classname="hva-skal-du-rapportere">
-                <Systemtittel>Hva vil du informere NAV om?</Systemtittel>
+                <Heading level="3" size="medium">
+                    Hva vil du informere NAV om?
+                </Heading>
                 <RadioGroup
                     value={skjemaType}
                     legend="Hva vil du informere NAV om?"

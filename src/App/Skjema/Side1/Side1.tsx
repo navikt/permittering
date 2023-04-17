@@ -1,7 +1,6 @@
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Systemtittel, Undertittel } from 'nav-frontend-typografi';
-import { Button, TextField } from '@navikt/ds-react';
+import { Button, Heading, TextField } from '@navikt/ds-react';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import { useSkjemaSteg } from '../use-skjema-steg';
@@ -36,12 +35,14 @@ const Side1: FunctionComponent = () => {
                 lagre={async () => await context.lagre()}
                 slett={async () => await context.avbryt()}
             >
-                <Systemtittel>Kontaktinformasjon</Systemtittel>
-                <Undertittel className={'skjema-innhold__side-1-undertittel'} tag="h3">
+                <Heading level="2" size="medium" spacing>
+                    Kontaktinformasjon
+                </Heading>
+                <Heading level="3" size="small" spacing>
                     Informasjon om arbeidsgiver
-                </Undertittel>
+                </Heading>
 
-                <div className={'skjema-innhold__side-1-linje-2'}>
+                <div className="skjema-innhold__side-1-linje-2">
                     <TextField
                         className={'skjema-innhold__side-1-input-felt'}
                         label="Bedriftens navn"
@@ -55,9 +56,9 @@ const Side1: FunctionComponent = () => {
                         disabled
                     />
                 </div>
-                <Undertittel className={'skjema-innhold__side-1-undertittel'} tag="h3">
+                <Heading level="3" size="small" spacing>
                     Kontaktperson i virksomheten
-                </Undertittel>
+                </Heading>
                 <TextField
                     className={'skjema-innhold__side-1-input-felt'}
                     label="Navn"

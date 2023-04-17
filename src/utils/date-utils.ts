@@ -4,6 +4,5 @@ export const formatDate = (dato?: Date) => {
         month: 'short',
         day: '2-digit',
     });
-    console.log({ dato });
     return dato ? dateFormat.format(dato) : '';
 };

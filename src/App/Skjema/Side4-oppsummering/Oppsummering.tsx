@@ -1,7 +1,6 @@
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button, Link } from '@navikt/ds-react';
-import { Element, Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
+import { Alert, BodyLong, BodyShort, Button, Heading, Label, Link } from '@navikt/ds-react';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import environment from '../../../utils/environment';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
@@ -24,7 +23,6 @@ import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 import { status } from '../../Forside/SkjemaTabell/SkjemaTabell';
-import { Alert } from '@navikt/ds-react';
 import { formatDate } from '../../../utils/date-utils';
 
 export const lagAntallBerorteTekst = (antallBerorte?: number) => {
@@ -148,7 +146,9 @@ const Oppsummering: FunctionComponent = () => {
             >
                 <section className="oppsummering">
                     <div className="oppsummering__tittel-desktop">
-                        <Systemtittel>{'Er opplysningene riktige?'}</Systemtittel>
+                        <Heading level="3" size="medium">
+                            {'Er opplysningene riktige?'}
+                        </Heading>
                     </div>
                     <Veilederpanel
                         type="plakat"
@@ -156,9 +156,9 @@ const Oppsummering: FunctionComponent = () => {
                         fargetema="info"
                         svg={<img src={veilederIkon} alt="" aria-hidden="true" />}
                     >
-                        <Undertittel className="oppsummering__tittel-mobil">
+                        <Heading level="2" size="medium" className="oppsummering__tittel-mobil">
                             Oppsummering
-                        </Undertittel>
+                        </Heading>
                         <div className="oppsummering__boks kontaktinfo">
                             <table className="tabell">
                                 <tbody>
@@ -201,12 +201,10 @@ const Oppsummering: FunctionComponent = () => {
                         </div>
 
                         <div className="oppsummering__boks antall-arbeidstakere">
-                            <div className="tekst">
-                                <Normaltekst className="overskrift">Antall berørte:</Normaltekst>
-                                <div>
-                                    <SjekkOmFyltUt verdi={context.skjema.antallBerørt} />
-                                    {lagAntallBerorteTekst(context.skjema.antallBerørt)}
-                                </div>
+                            <Label className="overskrift">Antall berørte:</Label>
+                            <div>
+                                <SjekkOmFyltUt verdi={context.skjema.antallBerørt} />
+                                {lagAntallBerorteTekst(context.skjema.antallBerørt)}
                             </div>
                             <div className="endre-lenke">
                                 <Link
@@ -219,15 +217,13 @@ const Oppsummering: FunctionComponent = () => {
                         </div>
 
                         <div className="oppsummering__boks aarsak">
-                            <Undertittel className="oppsummering__tittel-mobil">
+                            <Heading level="3" size="medium" className="oppsummering__tittel-mobil">
                                 Generelle opplysninger
-                            </Undertittel>
-                            <div className="tekst">
-                                <Normaltekst className="overskrift">
-                                    {lagTekstBasertPaSkjemaType(context.skjema.type)}
-                                </Normaltekst>
-                                <SjekkOmFyltUt verdi={lesbarårsakskode} />
-                            </div>
+                            </Heading>
+                            <Label className="overskrift">
+                                {lagTekstBasertPaSkjemaType(context.skjema.type)}
+                            </Label>
+                            <SjekkOmFyltUt verdi={lesbarårsakskode} />
 
                             <div className="endre-lenke">
                                 <Link
@@ -240,10 +236,8 @@ const Oppsummering: FunctionComponent = () => {
                         </div>
 
                         <div className="oppsummering__boks yrkeskategorier">
-                            <div className="tekst">
-                                <Normaltekst className="overskrift">Yrkeskategorier</Normaltekst>
-                                <SjekkOmFyltUt verdi={yrker} />
-                            </div>
+                            <Label className="overskrift">Yrkeskategorier</Label>
+                            <SjekkOmFyltUt verdi={yrker} />
                             <div className="endre-lenke">
                                 <Link
                                     href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
@@ -255,32 +249,28 @@ const Oppsummering: FunctionComponent = () => {
                         </div>
 
                         <div className="oppsummering__boks varighet">
-                            <div className="tekst">
-                                <Normaltekst className="overskrift">
-                                    For hvilken periode gjelder dette?
-                                </Normaltekst>
+                            <Label className="overskrift">For hvilken periode gjelder dette?</Label>
+                            <div>
                                 <div>
-                                    <div>
-                                        <span className="fra-til">Fra:</span>
-                                        <SjekkOmFyltUt
-                                            ugyldigInput={!erGyldigDatoInput()}
-                                            verdi={formatDate(fraDato)}
-                                        />
-                                    </div>
-                                    {context.skjema.type === 'PERMITTERING_UTEN_LØNN' && (
-                                        <div>
-                                            <span className="fra-til">Til:</span>
-                                            {context.skjema.ukjentSluttDato ? (
-                                                'Vet ikke hvor lenge det vil vare'
-                                            ) : (
-                                                <SjekkOmFyltUt
-                                                    ugyldigInput={!erGyldigDatoInput()}
-                                                    verdi={formatDate(tilDato)}
-                                                />
-                                            )}
-                                        </div>
-                                    )}
+                                    <span className="fra-til">Fra:</span>
+                                    <SjekkOmFyltUt
+                                        ugyldigInput={!erGyldigDatoInput()}
+                                        verdi={formatDate(fraDato)}
+                                    />
                                 </div>
+                                {context.skjema.type === 'PERMITTERING_UTEN_LØNN' && (
+                                    <div>
+                                        <span className="fra-til">Til:</span>
+                                        {context.skjema.ukjentSluttDato ? (
+                                            'Vet ikke hvor lenge det vil vare'
+                                        ) : (
+                                            <SjekkOmFyltUt
+                                                ugyldigInput={!erGyldigDatoInput()}
+                                                verdi={formatDate(tilDato)}
+                                            />
+                                        )}
+                                    </div>
+                                )}
                             </div>
 
                             <div className="endre-lenke">
@@ -298,10 +288,10 @@ const Oppsummering: FunctionComponent = () => {
                         className="oppsummering__alertstripe feilmelding-send-inn__tekst"
                         aria-live="polite"
                     >
-                        <Normaltekst>
+                        <BodyLong>
                             Alle med rettigheten "Innsyn i permittering- og nedbemanningsmeldinger
                             sendt til NAV" vil kunne se meldingen etter den er sendt inn.
-                        </Normaltekst>
+                        </BodyLong>
                     </Alert>
                     <div className="skjema-innhold__fram-og-tilbake">
                         <Button
@@ -354,8 +344,8 @@ const Oppsummering: FunctionComponent = () => {
                             aria-live="polite"
                             className="oppsummering__alertstripe"
                         >
-                            <Element>Noe gikk galt!</Element>
-                            <Normaltekst>Prøv å sende inn skjemaet på nytt.</Normaltekst>
+                            <Label>Noe gikk galt!</Label>
+                            <BodyShort>Prøv å sende inn skjemaet på nytt.</BodyShort>
                         </Alert>
                     )}
                     {visFeilmeldingMangledeFelter && (
@@ -364,14 +354,12 @@ const Oppsummering: FunctionComponent = () => {
                             className="oppsummering__alertstripe feilmelding-send-inn__tekst"
                             aria-live="polite"
                         >
-                            <Normaltekst>
-                                Du må fylle ut alle feltene.
-                                <ul>
-                                    {manglendeFelter.map((felt) => {
-                                        return <li>{felt}</li>;
-                                    })}
-                                </ul>
-                            </Normaltekst>
+                            <BodyShort>Du må fylle ut alle feltene.</BodyShort>
+                            <ul>
+                                {manglendeFelter.map((felt) => {
+                                    return <li>{felt}</li>;
+                                })}
+                            </ul>
                         </Alert>
                     )}
                 </section>

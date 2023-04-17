@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { Systemtittel } from 'nav-frontend-typografi';
+import { Heading } from '@navikt/ds-react';
 import { Permitteringsskjema } from '../../types/permitteringsskjema';
 import { hentAlle } from '../../api/permittering-api';
 import SkjemaTabell from './SkjemaTabell/SkjemaTabell';
@@ -39,7 +39,9 @@ const Forside: FunctionComponent = () => {
             {skjemaer && (
                 <>
                     <HvitSideBoks classname="forside__tabell-container">
-                        <Systemtittel className="forside__topp">Dine skjema</Systemtittel>
+                        <Heading level="3" size="medium" className="forside__topp">
+                            Dine skjema
+                        </Heading>
                         {skjemaer.length > 0 ? (
                             <SkjemaTabell skjemaer={skjemaer} />
                         ) : (

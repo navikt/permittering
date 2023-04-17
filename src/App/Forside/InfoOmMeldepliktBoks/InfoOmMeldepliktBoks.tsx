@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import { Button, Link } from '@navikt/ds-react';
+import { Button, Heading, Ingress, Label, Link } from '@navikt/ds-react';
 import { useHistory } from 'react-router';
 import { BrodsmuleSti } from '../../komponenter/BrodsmuleSti/BrodsmuleSti';
 import InfoIkon from './InfoIkon';
@@ -16,14 +15,16 @@ const InfoOmMeldepliktBoks: FunctionComponent = () => {
                 <InfoIkon />
             </div>
             <div className="innhold">
-                <Systemtittel>Arbeidsgivers meldeplikt til NAV</Systemtittel>
-                <Normaltekst className="ingress">
+                <Heading level="3" size="medium">
+                    Arbeidsgivers meldeplikt til NAV
+                </Heading>
+                <Ingress className="ingress">
                     Skal du permittere, si opp eller innskrenke arbeidstiden til 10 eller flere
                     ansatte? Da har du meldeplikt til NAV. Du kan også melde ifra til NAV dersom det
                     gjelder færre enn 10 ansatte om du ønsker det.
-                </Normaltekst>
+                </Ingress>
 
-                <Element>Dette er bestemt av:</Element>
+                <Label>Dette er bestemt av:</Label>
                 <ul>
                     <li>
                         <Link href="https://lovdata.no/lov/2004-12-10-76/§8">
