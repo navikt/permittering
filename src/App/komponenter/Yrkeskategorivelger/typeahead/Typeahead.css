@@ -1,0 +1,67 @@
+@media (min-width: 900px) {
+    .typeahead-form {
+        justify-items: stretch;
+    }
+}
+
+.typeahead-form .input {
+    padding-right: var(--a-spacing-2);
+}
+
+.typeahead-form .suggestionPopover[data-reach-combobox-popover] {
+    transform: translateY(4px);
+    border-radius: var(--a-border-radius-medium);
+    border-color: var(--a-border-default);
+    box-shadow: var(--a-shadow-medium);
+
+    /* Laveste mulige verdi for å vises over Popover-komponenten */
+    z-index: 1000;
+}
+
+.typeahead-form .suggestion[data-reach-combobox-option][data-highlighted],
+.typeahead-form .suggestion[data-reach-combobox-option]:hover {
+    background-color: var(--a-blue-100);
+}
+
+.typeahead-form .suggestion[data-reach-combobox-option] {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.typeahead-form .suggestion:first-child {
+    border-radius: var(--a-border-radius-medium) var(--a-border-radius-medium) 0 0;
+}
+
+.typeahead-form .suggestion:last-child {
+    border-radius: 0 0 var(--a-border-radius-medium) var(--a-border-radius-medium);
+}
+
+.typeahead-form .suggestion:only-child {
+    border-radius: var(--a-border-radius-medium);
+}
+
+.typeahead-form .suggestion [data-user-value] {
+    font-weight: bold;
+}
+.typeahead-form .suggestion [data-suggested-value] {
+    font-weight: normal;
+}
+
+.typeahead-form .selected-suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.typeahead-form .selected-suggestion {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    border-radius: var(--a-border-radius-medium);
+    padding: 0.5rem 1rem;
+    background-color: var(--a-blue-100);
+}

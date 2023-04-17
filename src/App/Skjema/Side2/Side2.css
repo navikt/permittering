@@ -6,6 +6,7 @@
     height: 100px !important;
 }
 .skjema-innhold__side-2-dato-container {
+    margin-top: 2rem;
     display: flex;
     justify-content: flex-start;
     flex-direction: column;

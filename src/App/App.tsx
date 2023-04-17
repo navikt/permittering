@@ -10,7 +10,6 @@ import { SkjemaProvider } from './Skjema/SkjemaContext/SkjemaContext';
 import Side0 from './Skjema/Side0 -hvaSkalDuRapportere/HvaSkalDuRapportere';
 import Side1 from './Skjema/Side1/Side1';
 import Side2 from './Skjema/Side2/Side2';
-import Side5 from './Skjema/Side5-yrker/Yrkeskategorier';
 import Oppsummering from './Skjema/Side4-oppsummering/Oppsummering';
 import Kvitteirng from './Skjema/Kvitteringsside/Kvitteringsside';
 
@@ -43,11 +42,6 @@ function App() {
                             <Route exact path="/skjema/generelle-opplysninger/:id">
                                 <SkjemaProvider>
                                     <Side2 />
-                                </SkjemaProvider>
-                            </Route>
-                            <Route exact path="/skjema/yrkeskategorier/:id">
-                                <SkjemaProvider>
-                                    <Side5 />
                                 </SkjemaProvider>
                             </Route>
                             <Route exact path="/skjema/oppsummering/:id">

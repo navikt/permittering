@@ -8,11 +8,8 @@ import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import Datovelger from '../../komponenter/Datovelger/Datovelger';
 import { lagTekstBasertPaSkjemaType } from '../Side4-oppsummering/oppsummering-utils';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
-import Yrkeskategorivelger, {
-    Sokeforslag,
-} from '../../komponenter/Yrkeskategorivelger/Yrkeskategorivelger';
+import Yrkeskategorivelger from '../../komponenter/Yrkeskategorivelger/Yrkeskategorivelger';
 import { Yrkeskategori } from '../../../types/permitteringsskjema';
-import YrkeskategoriVisning from '../../komponenter/Yrkeskategorivelger/YrkeskategoriVisning';
 import { Permitteringsårsaksvelger } from '../../komponenter/PermitteringsÅrsaksVelger/PermitteringsÅrsaksVelger';
 import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 import './Side2.css';
@@ -91,15 +88,12 @@ const Side2: FunctionComponent = () => {
         return yrkertekst;
     };
 
-    const leggTilYrkeskategori = (nyYrkeskategori: Sokeforslag) => {
-        const yrkeskategorierCopy = [...yrkeskategorier];
-        const nyKategori: Yrkeskategori = {
-            konseptId: parseInt(nyYrkeskategori.key),
-            label: nyYrkeskategori.value,
-            styrk08: nyYrkeskategori.styrk08 ? nyYrkeskategori.styrk08 : '',
-        };
-        yrkeskategorierCopy.push(nyKategori);
-        setYrkeskategorier(yrkeskategorierCopy);
+    const leggTilYrkeskategori = (nyYrkeskategori: Yrkeskategori) => {
+        setYrkeskategorier([...yrkeskategorier, nyYrkeskategori]);
+    };
+
+    const fjernYrkeskategori = (fjernet: Yrkeskategori) => {
+        setYrkeskategorier([...yrkeskategorier].filter((k) => k.konseptId !== fjernet.konseptId));
     };
 
     const setYrkeskategorier = (yrkeskategorier: Yrkeskategori[]) => {
@@ -177,20 +171,14 @@ const Side2: FunctionComponent = () => {
                     <Yrkeskategorivelger
                         yrkeskategorier={yrkeskategorier}
                         leggTilYrkeskategori={leggTilYrkeskategori}
-                    />
-                    {yrkeskategorier.length ? (
-                        <Label className="yrker-valgt__overskrift">Du har valgt:</Label>
-                    ) : null}
-                    <YrkeskategoriVisning
-                        yrkeskategorier={yrkeskategorier}
-                        setYrkeskategorier={setYrkeskategorier}
+                        fjernYrkeskategori={fjernYrkeskategori}
                     />
                 </div>
 
-                <Label className="skjema-innhold__side-2-dato-overskrift">
-                    For hvilken periode gjelder dette?
-                </Label>
                 <div className="skjema-innhold__side-2-dato-container">
+                    <Label className="skjema-innhold__side-2-dato-overskrift">
+                        For hvilken periode gjelder dette?
+                    </Label>
                     <Datovelger
                         value={datoFra}
                         onChange={(event) => {
