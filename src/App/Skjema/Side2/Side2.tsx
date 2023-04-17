@@ -147,7 +147,6 @@ const Side2: FunctionComponent = () => {
                     <TextField
                         label="Hvor mange ansatte blir berørt?"
                         defaultValue={context.skjema.antallBerørt}
-                        size="small"
                         error={feilMeldingAntallBerort}
                         onBlur={(event: any) => {
                             if (erGyldigNr(event.currentTarget.value)) {
