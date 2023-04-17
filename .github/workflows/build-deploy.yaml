@@ -38,7 +38,7 @@ jobs:
       contents: "read"
       id-token: "write"
     name: Deploy to dev-gcp
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/inject_parameters2'
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/oppgrader_til_ds-css'
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:
