@@ -9,7 +9,6 @@ interface Props {
     disabled?: boolean;
     skalVareEtter?: Date;
     skalVareFoer?: Date;
-    className?: string;
     tjenesteBestemtFeilmelding?: string;
 }
 
@@ -60,7 +59,7 @@ const Datovelger: FunctionComponent<Props> = (props) => {
     });
 
     return (
-        <div ref={datepickernode} className={'datofelt ' + props.className}>
+        <div ref={datepickernode} className={'datofelt'}>
             <UNSAFE_DatePicker {...datepickerProps}>
                 <UNSAFE_DatePicker.Input
                     {...inputProps}
