@@ -1,5 +1,4 @@
 import esbuild from 'esbuild';
-import {lessLoader} from "esbuild-plugin-less";
 
 const context = await esbuild.context({
     entryPoints: ['./src/index.tsx'],
@@ -11,9 +10,6 @@ const context = await esbuild.context({
     loader: {
         ".svg": "file",
     },
-    plugins: [
-        lessLoader({})
-    ],
 })
 
 try {
