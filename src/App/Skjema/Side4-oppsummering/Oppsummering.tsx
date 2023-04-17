@@ -1,7 +1,15 @@
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Alert, BodyLong, BodyShort, Button, Heading, Label, Link } from '@navikt/ds-react';
-import Veilederpanel from 'nav-frontend-veilederpanel';
+import {
+    Alert,
+    BodyLong,
+    BodyShort,
+    Button,
+    GuidePanel,
+    Heading,
+    Label,
+    Link,
+} from '@navikt/ds-react';
 import environment from '../../../utils/environment';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import { useSkjemaSteg } from '../use-skjema-steg';
@@ -150,11 +158,9 @@ const Oppsummering: FunctionComponent = () => {
                             {'Er opplysningene riktige?'}
                         </Heading>
                     </div>
-                    <Veilederpanel
-                        type="plakat"
-                        kompakt
-                        fargetema="info"
-                        svg={<img src={veilederIkon} alt="" aria-hidden="true" />}
+                    <GuidePanel
+                        poster
+                        illustration={<img src={veilederIkon} alt="" aria-hidden="true" />}
                     >
                         <Heading level="2" size="medium" className="oppsummering__tittel-mobil">
                             Oppsummering
@@ -282,7 +288,7 @@ const Oppsummering: FunctionComponent = () => {
                                 </Link>
                             </div>
                         </div>
-                    </Veilederpanel>
+                    </GuidePanel>
                     <Alert
                         variant="info"
                         className="oppsummering__alertstripe feilmelding-send-inn__tekst"

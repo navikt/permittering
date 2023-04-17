@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
-import { Heading, Label } from '@navikt/ds-react';
-import Veilederpanel from 'nav-frontend-veilederpanel';
+import { GuidePanel, Heading, Label } from '@navikt/ds-react';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import { splittOppFritekst } from '../../../utils/fritekstFunksjoner';
 import '../Side4-oppsummering/Oppsummering.css';
@@ -34,7 +33,7 @@ const OppsummeringKvittering: FunctionComponent = () => {
                         Kvittering på mottatt melding
                     </Heading>
                 </div>
-                <Veilederpanel type="plakat" kompakt fargetema="info" svg={KvitteringIkon()}>
+                <GuidePanel poster illustration={KvitteringIkon()}>
                     <Heading level="3" size="small" className="oppsummering__tittel-mobil">
                         Oppsummering
                     </Heading>
@@ -112,7 +111,7 @@ const OppsummeringKvittering: FunctionComponent = () => {
                             </div>
                         )}
                     </div>
-                </Veilederpanel>
+                </GuidePanel>
             </section>
         </>
     );
