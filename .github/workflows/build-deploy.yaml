@@ -57,6 +57,7 @@ jobs:
           RESOURCE: nais/dev-gcp.yaml
           PRINT_PAYLOAD: true
           VAR: commit=${{ github.sha }}
+          REF: ${{ github.sha }}
 
   deploy-demo-app:
     permissions:
@@ -82,6 +83,7 @@ jobs:
           RESOURCE: nais/demo.yaml
           PRINT_PAYLOAD: true
           VAR: commit=${{ github.sha }}
+          REF: ${{ github.sha }}
 
   deploy-to-prod-gcp:
     permissions:
@@ -107,3 +109,4 @@ jobs:
           RESOURCE: nais/prod-gcp.yaml
           PRINT_PAYLOAD: true
           VAR: commit=${{ github.sha }}
+          REF: ${{ github.sha }}
