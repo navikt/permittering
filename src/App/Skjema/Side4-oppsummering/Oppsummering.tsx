@@ -1,9 +1,15 @@
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { Element, Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
-import Lenke from 'nav-frontend-lenker';
-import Veilederpanel from 'nav-frontend-veilederpanel';
+import {
+    Alert,
+    BodyLong,
+    BodyShort,
+    Button,
+    GuidePanel,
+    Heading,
+    Label,
+    Link,
+} from '@navikt/ds-react';
 import environment from '../../../utils/environment';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import { useSkjemaSteg } from '../use-skjema-steg';
@@ -20,13 +26,12 @@ import { splittOppFritekst } from '../../../utils/fritekstFunksjoner';
 import { lagTekstBasertPaSkjemaType } from './oppsummering-utils';
 import SjekkOmFyltUt from '../../komponenter/SjekkOmFyltUt/SjekkOmFyltUt';
 import veilederIkon from './gjenstand.svg';
-import './Oppsummering.less';
+import './Oppsummering.css';
 import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
 import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 import { status } from '../../Forside/SkjemaTabell/SkjemaTabell';
-import AlertStripe from 'nav-frontend-alertstriper';
-import { skrivOmDato } from '../../komponenter/Datovelger/datovelger-utils';
+import { formatDate } from '../../../utils/date-utils';
 
 export const lagAntallBerorteTekst = (antallBerorte?: number) => {
     if (antallBerorte) {
@@ -45,7 +50,7 @@ const Oppsummering: FunctionComponent = () => {
         useState<boolean>(false);
     const [manglendeFelter, setManglendeFelter] = useState<string[]>([]);
 
-    const { steg, forrigeSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
+    const { steg, forrigeSide } = useSkjemaSteg(context.skjema.id);
     const [lesbarårsakskode, setLesbarÅrsakskode] = useState<string | undefined>(undefined);
     const existerendeFelter = context.skjema.fritekst
         ? splittOppFritekst(context.skjema.fritekst)
@@ -74,8 +79,8 @@ const Oppsummering: FunctionComponent = () => {
         return false;
     };
 
-    const fraDato = context.skjema.startDato ? context.skjema.startDato : '';
-    const tilDato = context.skjema.sluttDato ? context.skjema.sluttDato : '';
+    const fraDato = context.skjema.startDato ? new Date(context.skjema.startDato) : undefined;
+    const tilDato = context.skjema.sluttDato ? new Date(context.skjema.sluttDato) : undefined;
 
     const endreantallberørteLenke = `/permittering/skjema/generelle-opplysninger/${context.skjema.id}`;
 
@@ -149,17 +154,17 @@ const Oppsummering: FunctionComponent = () => {
             >
                 <section className="oppsummering">
                     <div className="oppsummering__tittel-desktop">
-                        <Systemtittel>{'Er opplysningene riktige?'}</Systemtittel>
+                        <Heading level="3" size="medium">
+                            {'Er opplysningene riktige?'}
+                        </Heading>
                     </div>
-                    <Veilederpanel
-                        type="plakat"
-                        kompakt
-                        fargetema="info"
-                        svg={<img src={veilederIkon} alt="" aria-hidden="true" />}
+                    <GuidePanel
+                        poster
+                        illustration={<img src={veilederIkon} alt="" aria-hidden="true" />}
                     >
-                        <Undertittel className="oppsummering__tittel-mobil">
+                        <Heading level="2" size="medium" className="oppsummering__tittel-mobil">
                             Oppsummering
-                        </Undertittel>
+                        </Heading>
                         <div className="oppsummering__boks kontaktinfo">
                             <table className="tabell">
                                 <tbody>
@@ -192,129 +197,120 @@ const Oppsummering: FunctionComponent = () => {
                                 </tbody>
                             </table>
                             <div className="endre-lenke">
-                                <Lenke
+                                <Link
                                     href={`/permittering/skjema/kontaktinformasjon/${context.skjema.id}`}
-                                    ariaLabel="Gå tilbake for å endre kontaktinformasjon"
+                                    aria-label="Gå tilbake for å endre kontaktinformasjon"
                                 >
                                     Endre
-                                </Lenke>
+                                </Link>
                             </div>
                         </div>
 
                         <div className="oppsummering__boks antall-arbeidstakere">
-                            <div className="tekst">
-                                <Normaltekst className="overskrift">Antall berørte:</Normaltekst>
-                                <div>
-                                    <SjekkOmFyltUt verdi={context.skjema.antallBerørt} />
-                                    {lagAntallBerorteTekst(context.skjema.antallBerørt)}
-                                </div>
+                            <Label className="overskrift">Antall berørte:</Label>
+                            <div>
+                                <SjekkOmFyltUt verdi={context.skjema.antallBerørt} />
+                                {lagAntallBerorteTekst(context.skjema.antallBerørt)}
                             </div>
                             <div className="endre-lenke">
-                                <Lenke
+                                <Link
                                     href={endreantallberørteLenke}
-                                    ariaLabel="Gå tilbake for å endre antall berørte personer"
+                                    aria-label="Gå tilbake for å endre antall berørte personer"
                                 >
                                     Endre
-                                </Lenke>
+                                </Link>
                             </div>
                         </div>
 
                         <div className="oppsummering__boks aarsak">
-                            <Undertittel className="oppsummering__tittel-mobil">
+                            <Heading level="3" size="medium" className="oppsummering__tittel-mobil">
                                 Generelle opplysninger
-                            </Undertittel>
-                            <div className="tekst">
-                                <Normaltekst className="overskrift">
-                                    {lagTekstBasertPaSkjemaType(context.skjema.type)}
-                                </Normaltekst>
-                                <SjekkOmFyltUt verdi={lesbarårsakskode} />
-                            </div>
+                            </Heading>
+                            <Label className="overskrift">
+                                {lagTekstBasertPaSkjemaType(context.skjema.type)}
+                            </Label>
+                            <SjekkOmFyltUt verdi={lesbarårsakskode} />
 
                             <div className="endre-lenke">
-                                <Lenke
+                                <Link
                                     href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
-                                    ariaLabel="Gå tilbake for å endre årsak"
+                                    aria-label="Gå tilbake for å endre årsak"
                                 >
                                     Endre
-                                </Lenke>
+                                </Link>
                             </div>
                         </div>
 
                         <div className="oppsummering__boks yrkeskategorier">
-                            <div className="tekst">
-                                <Normaltekst className="overskrift">Yrkeskategorier</Normaltekst>
-                                <SjekkOmFyltUt verdi={yrker} />
-                            </div>
+                            <Label className="overskrift">Yrkeskategorier</Label>
+                            <SjekkOmFyltUt verdi={yrker} />
                             <div className="endre-lenke">
-                                <Lenke
+                                <Link
                                     href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
-                                    ariaLabel="Gå tilbake for å endre yrkeskategorier"
+                                    aria-label="Gå tilbake for å endre yrkeskategorier"
                                 >
                                     Endre
-                                </Lenke>
+                                </Link>
                             </div>
                         </div>
 
                         <div className="oppsummering__boks varighet">
-                            <div className="tekst">
-                                <Normaltekst className="overskrift">
-                                    For hvilken periode gjelder dette?
-                                </Normaltekst>
+                            <Label className="overskrift">For hvilken periode gjelder dette?</Label>
+                            <div>
                                 <div>
-                                    <div>
-                                        <span className="fra-til">Fra:</span>
-                                        <SjekkOmFyltUt
-                                            ugyldigInput={!erGyldigDatoInput()}
-                                            verdi={skrivOmDato(new Date(fraDato))}
-                                        />
-                                    </div>
-                                    {context.skjema.type === 'PERMITTERING_UTEN_LØNN' && (
-                                        <div>
-                                            <span className="fra-til">Til:</span>
-                                            {context.skjema.ukjentSluttDato ? (
-                                                'Vet ikke hvor lenge det vil vare'
-                                            ) : (
-                                                <SjekkOmFyltUt
-                                                    ugyldigInput={!erGyldigDatoInput()}
-                                                    verdi={skrivOmDato(new Date(tilDato))}
-                                                />
-                                            )}
-                                        </div>
-                                    )}
+                                    <span className="fra-til">Fra:</span>
+                                    <SjekkOmFyltUt
+                                        ugyldigInput={!erGyldigDatoInput()}
+                                        verdi={formatDate(fraDato)}
+                                    />
                                 </div>
+                                {context.skjema.type === 'PERMITTERING_UTEN_LØNN' && (
+                                    <div>
+                                        <span className="fra-til">Til:</span>
+                                        {context.skjema.ukjentSluttDato ? (
+                                            'Vet ikke hvor lenge det vil vare'
+                                        ) : (
+                                            <SjekkOmFyltUt
+                                                ugyldigInput={!erGyldigDatoInput()}
+                                                verdi={formatDate(tilDato)}
+                                            />
+                                        )}
+                                    </div>
+                                )}
                             </div>
 
                             <div className="endre-lenke">
-                                <Lenke
+                                <Link
                                     href={`/permittering/skjema/generelle-opplysninger/${context.skjema.id}`}
-                                    ariaLabel="Gå tilbake for å endre periode"
+                                    aria-label="Gå tilbake for å endre periode"
                                 >
                                     Endre
-                                </Lenke>
+                                </Link>
                             </div>
                         </div>
-                    </Veilederpanel>
-                    <AlertStripe
-                        type="info"
+                    </GuidePanel>
+                    <Alert
+                        variant="info"
                         className="oppsummering__alertstripe feilmelding-send-inn__tekst"
                         aria-live="polite"
                     >
-                        <Normaltekst>
+                        <BodyLong>
                             Alle med rettigheten "Innsyn i permittering- og nedbemanningsmeldinger
                             sendt til NAV" vil kunne se meldingen etter den er sendt inn.
-                        </Normaltekst>
-                    </AlertStripe>
+                        </BodyLong>
+                    </Alert>
                     <div className="skjema-innhold__fram-og-tilbake">
-                        <Knapp
+                        <Button
+                            variant="tertiary"
                             onClick={async () => {
                                 await context.lagre();
                                 history.push(forrigeSide);
                             }}
                         >
                             Tilbake
-                        </Knapp>
+                        </Button>
 
-                        <Hovedknapp
+                        <Button
                             id="send-inn-hovedknapp"
                             className="skjema-innhold__lagre"
                             onClick={async () => {
@@ -346,33 +342,31 @@ const Oppsummering: FunctionComponent = () => {
                             }}
                         >
                             Send til NAV
-                        </Hovedknapp>
+                        </Button>
                     </div>
                     {feilVedInnsending && (
-                        <AlertStripe
-                            type={'feil'}
+                        <Alert
+                            variant="error"
                             aria-live="polite"
                             className="oppsummering__alertstripe"
                         >
-                            <Element>Noe gikk galt!</Element>
-                            <Normaltekst>Prøv å sende inn skjemaet på nytt.</Normaltekst>
-                        </AlertStripe>
+                            <Label>Noe gikk galt!</Label>
+                            <BodyShort>Prøv å sende inn skjemaet på nytt.</BodyShort>
+                        </Alert>
                     )}
                     {visFeilmeldingMangledeFelter && (
-                        <AlertStripe
-                            type="feil"
+                        <Alert
+                            variant="error"
                             className="oppsummering__alertstripe feilmelding-send-inn__tekst"
                             aria-live="polite"
                         >
-                            <Normaltekst>
-                                Du må fylle ut alle feltene.
-                                <ul>
-                                    {manglendeFelter.map((felt) => {
-                                        return <li>{felt}</li>;
-                                    })}
-                                </ul>
-                            </Normaltekst>
-                        </AlertStripe>
+                            <BodyShort>Du må fylle ut alle feltene.</BodyShort>
+                            <ul>
+                                {manglendeFelter.map((felt) => {
+                                    return <li>{felt}</li>;
+                                })}
+                            </ul>
+                        </Alert>
                     )}
                 </section>
             </SkjemaRamme>

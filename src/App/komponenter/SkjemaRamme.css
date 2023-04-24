@@ -1,0 +1,18 @@
+.skjema-innhold__fram-og-tilbake {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+@media (min-width: 768px) {
+    .skjema-innhold__fram-og-tilbake {
+        margin-top: 2rem;
+    }
+}
+.skjema-innhold__fram-og-tilbake .knapp {
+    padding: calc(0.475rem - 1px) 1.5rem calc(0.525rem - 1px) 1.5rem;
+}
+@media (min-width: 420px) {
+    .skjema-innhold__fram-og-tilbake .knapp {
+        padding: calc(0.475rem - 1px) 2.5rem calc(0.525rem - 1px) 2.5rem;
+    }
+}

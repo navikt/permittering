@@ -1,10 +1,9 @@
 import React, { FunctionComponent } from 'react';
 import moment from 'moment';
-import Lenkepanel from 'nav-frontend-lenkepanel/lib';
-import { Element } from 'nav-frontend-typografi';
+import { LinkPanel } from '@navikt/ds-react';
 import AttributtVisning from './AttributtVisning/AttributtVisning';
 import { Permitteringsskjema } from '../../../../types/permitteringsskjema';
-import './tidligereInnsendtSkjema.less';
+import './tidligereInnsendtSkjema.css';
 
 const status = (skjema: Permitteringsskjema) => {
     if (skjema.sendtInnTidspunkt) {
@@ -45,29 +44,28 @@ const TidligereInnsendtSkjema: FunctionComponent<Props> = (props) => {
 
     return (
         <li className="tidligere-skjema__liste">
-            <Lenkepanel
-                tittelProps="normaltekst"
-                href={redirectLenkeTilTidligereSkjema(props.tidligereSkjema)}
-            >
-                <Element className="tidligere-skjema__overskrift-kort">
+            <LinkPanel href={redirectLenkeTilTidligereSkjema(props.tidligereSkjema)}>
+                <LinkPanel.Title className="tidligere-skjema__overskrift-kort">
                     {lagTekstBasertPaSkjemaType(props.tidligereSkjema.type)}
-                </Element>
-                <AttributtVisning
-                    attributt="Dato sendt inn"
-                    attributtVerdi={
-                        props.tidligereSkjema.sendtInnTidspunkt &&
-                        moment(props.tidligereSkjema.sendtInnTidspunkt).format('L')
-                    }
-                />
-                <AttributtVisning
-                    attributt="Bedriftsnummer"
-                    attributtVerdi={props.tidligereSkjema.bedriftNr}
-                />
-                <AttributtVisning
-                    attributt="Status"
-                    attributtVerdi={status(props.tidligereSkjema)}
-                />
-            </Lenkepanel>
+                </LinkPanel.Title>
+                <LinkPanel.Description>
+                    <AttributtVisning
+                        attributt="Dato sendt inn"
+                        attributtVerdi={
+                            props.tidligereSkjema.sendtInnTidspunkt &&
+                            moment(props.tidligereSkjema.sendtInnTidspunkt).format('L')
+                        }
+                    />
+                    <AttributtVisning
+                        attributt="Bedriftsnummer"
+                        attributtVerdi={props.tidligereSkjema.bedriftNr}
+                    />
+                    <AttributtVisning
+                        attributt="Status"
+                        attributtVerdi={status(props.tidligereSkjema)}
+                    />
+                </LinkPanel.Description>
+            </LinkPanel>
         </li>
     );
 };

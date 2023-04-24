@@ -1,11 +1,10 @@
 import React, { FunctionComponent } from 'react';
 import { useHistory } from 'react-router-dom';
-import { StegindikatorStegProps } from 'nav-frontend-stegindikator/lib/stegindikator-steg';
+import { Stepper } from '@navikt/ds-react';
 import HvitSideBoks from './HvitSideBoks';
 import VerticalSpacer from './VerticalSpacer';
 import AvbrytLagreSlett from './AvbrytLagreSlett/AvbrytLagreSlett';
-import './SkjemaRamme.less';
-import Stegindikator from 'nav-frontend-stegindikator/lib/stegindikator';
+import './SkjemaRamme.css';
 import { SkjemaSteg } from '../../types/SkjemaNavigasjon';
 
 interface SkjemaRammeProps {
@@ -16,21 +15,26 @@ interface SkjemaRammeProps {
 
 const SkjemaRamme: FunctionComponent<SkjemaRammeProps> = ({ children, steg, lagre, slett }) => {
     const history = useHistory();
-    const skiftSide = (index: number) => {
-        history.push(steg[index].path);
-    };
+    const activeStep = steg.find(({ aktiv }) => aktiv)?.number ?? 1;
     return (
         <>
             <VerticalSpacer rem={2} />
-            <Stegindikator
-                steg={steg as StegindikatorStegProps[]}
-                onChange={async (index) => {
+            <Stepper
+                aria-labelledby="stepper-heading"
+                activeStep={activeStep}
+                onStepChange={async (x) => {
                     await lagre();
-                    skiftSide(index);
+                    const s = steg.find((s) => s.number === x);
+                    if (s) {
+                        history.push(s.path);
+                    }
                 }}
-                visLabel
-                autoResponsiv
-            />
+                orientation="horizontal"
+            >
+                {steg.map(({ label }) => (
+                    <Stepper.Step>{label}</Stepper.Step>
+                ))}
+            </Stepper>
 
             <HvitSideBoks>{children}</HvitSideBoks>
             <VerticalSpacer rem={1} />

@@ -1,20 +1,18 @@
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Systemtittel, Undertittel } from 'nav-frontend-typografi';
-import { Input } from 'nav-frontend-skjema';
-import { Hovedknapp } from 'nav-frontend-knapper';
+import { Button, Heading, TextField } from '@navikt/ds-react';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import { useSkjemaSteg } from '../use-skjema-steg';
 import { erGyldigEpost, erGyldigTelefonNr } from '../../../utils/inputFeltValideringer';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
-import './Side1.less';
+import './Side1.css';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 
 const Side1: FunctionComponent = () => {
     const context = useContext(SkjemaContext);
     const history = useHistory();
-    const { steg, nesteSide } = useSkjemaSteg(history.location.pathname, context.skjema.id);
+    const { steg, nesteSide } = useSkjemaSteg(context.skjema.id);
     const [feilMeldingEpost, setFeilmeldingEpost] = useState('');
     const [feilMeldingTelefonNr, setFeilmeldingTelefonNr] = useState('');
 
@@ -27,6 +25,8 @@ const Side1: FunctionComponent = () => {
         history.replace('/');
     }
 
+    console.log({ nesteSide });
+
     return (
         <>
             <Dekorator sidetittel={context.skjema.type} />
@@ -35,29 +35,31 @@ const Side1: FunctionComponent = () => {
                 lagre={async () => await context.lagre()}
                 slett={async () => await context.avbryt()}
             >
-                <Systemtittel>Kontaktinformasjon</Systemtittel>
-                <Undertittel className={'skjema-innhold__side-1-undertittel'} tag="h3">
+                <Heading level="2" size="medium" spacing>
+                    Kontaktinformasjon
+                </Heading>
+                <Heading level="3" size="small" spacing>
                     Informasjon om arbeidsgiver
-                </Undertittel>
+                </Heading>
 
-                <div className={'skjema-innhold__side-1-linje-2'}>
-                    <Input
+                <div className="skjema-innhold__side-1-linje-2">
+                    <TextField
                         className={'skjema-innhold__side-1-input-felt'}
                         label="Bedriftens navn"
                         defaultValue={context.skjema.bedriftNavn}
                         disabled
                     />
-                    <Input
+                    <TextField
                         className={'skjema-innhold__side-1-input-felt'}
                         label="Bedriftsnummer"
                         defaultValue={context.skjema.bedriftNr}
                         disabled
                     />
                 </div>
-                <Undertittel className={'skjema-innhold__side-1-undertittel'} tag="h3">
+                <Heading level="3" size="small" spacing>
                     Kontaktperson i virksomheten
-                </Undertittel>
-                <Input
+                </Heading>
+                <TextField
                     className={'skjema-innhold__side-1-input-felt'}
                     label="Navn"
                     defaultValue={context.skjema.kontaktNavn}
@@ -66,11 +68,11 @@ const Side1: FunctionComponent = () => {
                     }
                 />
                 <div className={'skjema-innhold__side-1-linje-4'}>
-                    <Input
+                    <TextField
                         className={'skjema-innhold__side-1-input-felt'}
                         label="Telefonnummer"
                         defaultValue={context.skjema.kontaktTlf}
-                        feil={feilMeldingTelefonNr}
+                        error={feilMeldingTelefonNr}
                         onBlur={(event: any) => {
                             if (erGyldigTelefonNr(event.currentTarget.value)) {
                                 const telefonNummer = event.currentTarget.value;
@@ -85,11 +87,11 @@ const Side1: FunctionComponent = () => {
                         }}
                         onChange={() => setFeilmeldingTelefonNr('')}
                     />
-                    <Input
+                    <TextField
                         className={'skjema-innhold__side-1-input-felt'}
                         label="E-post"
                         defaultValue={context.skjema.kontaktEpost}
-                        feil={feilMeldingEpost}
+                        error={feilMeldingEpost}
                         onBlur={(event) => {
                             if (erGyldigEpost(event.currentTarget.value)) {
                                 context.endreSkjemaVerdi('kontaktEpost', event.currentTarget.value);
@@ -103,14 +105,14 @@ const Side1: FunctionComponent = () => {
                 </div>
                 <div className={'skjema-innhold__fram-og-tilbake'}>
                     &nbsp;
-                    <Hovedknapp
+                    <Button
                         onClick={async () => {
                             await context.lagre();
                             history.push(nesteSide);
                         }}
                     >
                         Neste
-                    </Hovedknapp>
+                    </Button>
                 </div>
             </SkjemaRamme>
         </>

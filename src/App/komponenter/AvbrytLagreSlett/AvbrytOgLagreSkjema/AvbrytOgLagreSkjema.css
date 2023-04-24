@@ -1,0 +1,13 @@
+.avbryt-modal-innhold {
+    padding: 1rem;
+}
+.avbryt-modal-innhold__knapper {
+    display: flex;
+    flex-direction: column;
+}
+@media (min-width: 768px) {
+    .avbryt-modal-innhold__knapper {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}

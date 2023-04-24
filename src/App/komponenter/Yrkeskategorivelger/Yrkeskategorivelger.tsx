@@ -1,13 +1,12 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { stringify } from 'querystring';
-import Autocomplete from '@navikt/nap-autocomplete';
-import { Label } from 'nav-frontend-skjema';
-import { Normaltekst } from 'nav-frontend-typografi';
 import { Yrkeskategori } from '../../../types/permitteringsskjema';
-import { Suggestion } from '@navikt/nap-autocomplete/dist/types/Suggestion';
-import './Yrkeskategorivelger.less';
+import './Yrkeskategorivelger.css';
+import { Typeahead } from './typeahead/Typeahead';
 
-export interface Sokeforslag extends Suggestion {
+export interface Sokeforslag {
+    key: string;
+    value: string;
     styrk08?: string;
 }
 
@@ -29,53 +28,57 @@ const getUpdatedSuggestions = async (path: string, q: string) => {
 
 interface YrkeskategorivelgerProps {
     yrkeskategorier: Yrkeskategori[];
-    leggTilYrkeskategori: (nykategori: Sokeforslag) => void;
+    leggTilYrkeskategori: (nykategori: Yrkeskategori) => void;
+    fjernYrkeskategori: (kategori: Yrkeskategori) => void;
 }
 
 const Yrkeskategorivelger: FunctionComponent<YrkeskategorivelgerProps> = ({
     yrkeskategorier,
     leggTilYrkeskategori,
+    fjernYrkeskategori,
 }) => {
-    const [suggestions, setSuggestions] = useState<any>([]);
+    const [suggestions, setSuggestions] = useState<Sokeforslag[]>([]);
     const [value, setValue] = useState('');
+    const valgtSuggestions = yrkeskategorier.map((k) => k.label);
+
+    useEffect(() => {
+        const fetchSuggestions = async () => {
+            return await getUpdatedSuggestions('/permittering/api/stillingstitler', value);
+        };
+        fetchSuggestions().then(setSuggestions);
+    }, [value]);
 
     return (
         <div className="yrkeskategorier">
-            <Label htmlFor={'yrkeskategori'} id="yrkeskategori-label">
-                Hvilke yrkeskategorier tilhører de berørte?
-            </Label>
-            <Normaltekst
-                id="autocomplete-input-description"
-                className="autocomplete-input-description"
-            >
-                For eksempel: kokk
-            </Normaltekst>
-            <Autocomplete
-                suggestions={suggestions}
+            <Typeahead
+                suggestions={suggestions.map((s) => s.value)}
                 value={value}
-                onChange={async (value: any) => {
-                    setSuggestions([]);
-                    setValue(value);
-                    const newSuggestionList = await getUpdatedSuggestions(
-                        '/permittering/api/stillingstitler',
-                        value
-                    );
-                    setSuggestions(newSuggestionList);
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    setValue(event.target.value);
                 }}
-                id="yrkeskategori-input"
-                placeholder="Skriv inn og velg fra listen"
-                ariaLabel="Hvilke yrkeskategorier tilhører de berørte?"
-                name="yrkeskategori"
-                aria-describedby="autocomplete-input-description"
-                onSelect={(valgtYrke: Sokeforslag) => {
+                label="Hvilke yrkeskategorier tilhører de berørte?"
+                description="For eksempel: kokk"
+                onSelect={(valgtYrke: string) => {
+                    const selected = suggestions.find((s) => s.value === valgtYrke);
                     const finnesAllerede = yrkeskategorier.find(
-                        (kategori: Yrkeskategori) => kategori.konseptId.toString() === valgtYrke.key
+                        (kategori: Yrkeskategori) => kategori.konseptId.toString() === selected?.key
                     );
-                    if (!finnesAllerede) {
-                        leggTilYrkeskategori(valgtYrke);
+                    if (!finnesAllerede && selected) {
+                        leggTilYrkeskategori({
+                            konseptId: parseInt(selected.key),
+                            label: selected.value,
+                            styrk08: selected.styrk08 ? selected.styrk08 : '',
+                        });
                         setValue('');
                     }
                 }}
+                onRemoveSuggestion={(suggestion: string) => () => {
+                    const existing = yrkeskategorier.find((s) => s.label === suggestion);
+                    if (existing) {
+                        fjernYrkeskategori(existing);
+                    }
+                }}
+                selectedSuggestions={valgtSuggestions}
             />
         </div>
     );

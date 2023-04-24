@@ -1,0 +1,34 @@
+.avbryt-slett-knapper {
+    margin: 0 1rem 2rem;
+}
+@media (min-width: 768px) {
+    .avbryt-slett-knapper {
+        width: 37rem;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+}
+@media (min-width: 992px) {
+    .avbryt-slett-knapper {
+        width: 45rem;
+    }
+}
+.avbryt-slett-knapper .knapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.avbryt-slett-knapper .knapper .lagre-lenke {
+    margin-bottom: 1rem;
+}
+@media (min-width: 768px) {
+    .avbryt-slett-knapper .knapper {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 0 0 4rem;
+    }
+    .avbryt-slett-knapper .knapper .lagre-lenke {
+        margin-bottom: 0;
+    }
+}

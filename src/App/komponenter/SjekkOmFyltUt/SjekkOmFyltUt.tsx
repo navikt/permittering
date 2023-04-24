@@ -1,15 +1,15 @@
 import React, { FunctionComponent } from 'react';
-import { EtikettFokus } from 'nav-frontend-etiketter';
+import { Tag } from '@navikt/ds-react';
 
 const SjekkOmFyltUt: FunctionComponent<{
     verdi: string | number | undefined;
     ugyldigInput?: boolean;
 }> = ({ verdi, ugyldigInput }) => {
     if (ugyldigInput) {
-        return <EtikettFokus>Ugyldig tidsintervall</EtikettFokus>;
+        return <Tag variant="warning">Ugyldig tidsintervall</Tag>;
     }
     if (verdi === undefined) {
-        return <EtikettFokus>Ikke fylt ut</EtikettFokus>;
+        return <Tag variant="warning">Ikke fylt ut</Tag>;
     }
     return <>{verdi}</>;
 };

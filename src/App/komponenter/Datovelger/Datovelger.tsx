@@ -1,20 +1,6 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
-import { UnmountClosed } from 'react-collapse';
-import DayPicker from 'react-day-picker';
-import 'react-day-picker/lib/style.css';
-import { Input, Label } from 'nav-frontend-skjema';
-import { guid } from 'nav-frontend-js-utils';
-import {
-    datoValidering,
-    LABELS,
-    MONTHS,
-    skrivOmDato,
-    skrivOmDatoStreng,
-    WEEKDAYS_LONG,
-    WEEKDAYS_SHORT,
-} from './datovelger-utils';
-import kalender from './kalender.svg';
-import './Datovelger.less';
+import { UNSAFE_DatePicker, UNSAFE_useDatepicker } from '@navikt/ds-react';
+import './Datovelger.css';
 
 interface Props {
     overtekst: string;
@@ -23,28 +9,13 @@ interface Props {
     disabled?: boolean;
     skalVareEtter?: Date;
     skalVareFoer?: Date;
-    className?: string;
     tjenesteBestemtFeilmelding?: string;
 }
 
 const Datovelger: FunctionComponent<Props> = (props) => {
     const datepickernode = useRef<HTMLDivElement>(null);
     const knappRef = useRef<HTMLButtonElement>(null);
-    const [erApen, setErApen] = useState(false);
-    const [editing, setEditing] = useState(false);
-    const selectedDate: Date | undefined = props.value;
-    const [tempDate, setTempDate] = useState(skrivOmDato(selectedDate));
     const [feilmelding, setFeilMelding] = useState('');
-
-    const datovelgerId = guid();
-
-    const tekstIInputfeltet = () => {
-        if (!editing && !props.value) {
-            return 'dd.mm.yyyy';
-        }
-        return editing ? tempDate : skrivOmDato(selectedDate);
-    };
-
     const velgDato = (date: Date) => {
         props.onChange({
             currentTarget: {
@@ -57,19 +28,7 @@ const Datovelger: FunctionComponent<Props> = (props) => {
         } else {
             setFeilMelding('');
         }
-        setErApen(false);
         knappRef?.current?.focus();
-    };
-
-    const inputOnBlur = (event: any) => {
-        setEditing(false);
-        const newDato = skrivOmDatoStreng(event.currentTarget.value);
-        if (newDato) {
-            velgDato(newDato);
-        } else if (tekstIInputfeltet() !== 'dd.mm.yyyy') {
-            setFeilMelding('dd.mm.yyyy');
-            setErApen(false);
-        }
     };
 
     useEffect(() => {
@@ -90,86 +49,44 @@ const Datovelger: FunctionComponent<Props> = (props) => {
         }
     }, [props.skalVareEtter, props.skalVareFoer, props.value]);
 
-    useEffect(() => {
-        if (erApen) {
-            setFeilMelding('');
-        }
-    }, [erApen]);
-
-    useEffect(() => {
-        const handleOutsideClick = (e: MouseEvent) => {
-            const node = datepickernode.current;
-            // @ts-ignore
-            if (node && node.contains(e.target as HTMLElement)) {
-                return;
+    const { datepickerProps, inputProps } = UNSAFE_useDatepicker({
+        onDateChange: (date) => {
+            if (date) {
+                date.setHours(12);
+                velgDato(date);
             }
-            if (erApen) {
-                setErApen(false);
-                knappRef?.current?.focus();
-            }
-        };
-        document.addEventListener('click', handleOutsideClick, false);
-        return () => {
-            document.removeEventListener('click', handleOutsideClick, false);
-        };
-    }, [erApen, setErApen]);
+        },
+    });
 
     return (
-        <div ref={datepickernode} className={'datofelt ' + props.className}>
-            <Label htmlFor={datovelgerId}>{props.overtekst}</Label>
-            <div className={'datofelt__input-container'}>
-                <Input
-                    feil={feilmelding}
+        <div ref={datepickernode} className={'datofelt'}>
+            <UNSAFE_DatePicker {...datepickerProps}>
+                <UNSAFE_DatePicker.Input
+                    {...inputProps}
+                    label={props.overtekst}
                     disabled={props.disabled}
-                    id={datovelgerId}
-                    aria-label="Skriv startdato:"
-                    value={tekstIInputfeltet()}
-                    className="datofelt__input"
-                    onChange={(event) => {
-                        setEditing(true);
-                        setTempDate(event.currentTarget.value);
-                    }}
-                    onBlur={(event) => {
-                        inputOnBlur(event);
-                    }}
+                    error={feilmelding}
                 />
-                <button
-                    aria-label={'Velg' + props.overtekst + ' dato'}
-                    disabled={props.disabled}
-                    className={'datofelt__knapp'}
-                    onClick={() => setErApen(!erApen)}
-                    ref={knappRef}
-                >
-                    <img alt={''} src={kalender} />
-                </button>
-            </div>
-            <UnmountClosed isOpened={erApen}>
-                <DayPicker
-                    onKeyDown={(e) => {
-                        if (e.key === 'Escape') {
-                            setErApen(false);
-                        }
-                    }}
-                    className={'datofelt__collapse'}
-                    selectedDays={selectedDate || new Date()}
-                    firstDayOfWeek={1}
-                    onDayKeyDown={(date, modifiers, e) => {
-                        if (e.key === 'Tab') {
-                            setErApen(!erApen);
-                        }
-                    }}
-                    onDayClick={(day: Date) => {
-                        day.setHours(12);
-                        velgDato(day);
-                    }}
-                    months={MONTHS['no']}
-                    weekdaysLong={WEEKDAYS_LONG['no']}
-                    weekdaysShort={WEEKDAYS_SHORT['no']}
-                    labels={LABELS['no']}
-                />
-            </UnmountClosed>
+            </UNSAFE_DatePicker>
         </div>
     );
+};
+
+const datoValidering = (day: Date, after?: Date, before?: Date) => {
+    if (after) {
+        if (day.getTime() < after.getTime()) {
+            return 'Til-dato må være etter fra-dato';
+        }
+    }
+    if (before) {
+        if (day.getTime() >= before.getTime()) {
+            return 'Fra-dato må være før til-dato';
+        }
+    }
+    /*if (day.getTime() + 84400000 < new Date().getTime()) {
+        return 'Kan ikke velge tilbake i tid';
+    }*/
+    return '';
 };
 
 export default Datovelger;

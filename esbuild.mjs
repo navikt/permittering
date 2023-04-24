@@ -1,6 +1,4 @@
 import esbuild from 'esbuild';
-import {lessLoader} from "esbuild-plugin-less";
-import LessPluginNpmImport from 'less-plugin-npm-import';
 
 const context = await esbuild.context({
     entryPoints: ['./src/index.tsx'],
@@ -10,17 +8,8 @@ const context = await esbuild.context({
     minify: true,
     publicPath: "/permittering/",
     loader: {
-        ".svg": "file"
+        ".svg": "file",
     },
-    plugins: [
-        lessLoader({
-            plugins: [
-                new LessPluginNpmImport({
-                    prefix: '~'
-                })
-            ]
-        })
-    ],
 })
 
 try {

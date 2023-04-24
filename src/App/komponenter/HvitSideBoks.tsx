@@ -1,5 +1,5 @@
 import React from 'react';
-import './HvitSideBoks.less';
+import './HvitSideBoks.css';
 
 interface Props {
     classname?: string;

@@ -1,0 +1,14 @@
+.forside__topp {
+    margin-bottom: 2rem;
+    margin-right: 2rem;
+}
+.forside__tabell-container {
+    display: initial;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+@media (max-width: 992px) {
+    .forside__tabell-container {
+        display: none;
+    }
+}

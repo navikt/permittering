@@ -1,7 +1,7 @@
 import React from 'react';
 import { Permitteringsskjema } from '../../../types/permitteringsskjema';
 import moment from 'moment';
-import Lenke from 'nav-frontend-lenker';
+import { Link } from '@navikt/ds-react';
 import { loggTrykketPaTidligereSkjema } from '../../../utils/funksjonerForAmplitudeLogging';
 
 interface SkjemaTabellProps {
@@ -76,14 +76,14 @@ const SkjemaTabell: React.FunctionComponent<SkjemaTabellProps> = ({ skjemaer }) 
                                     <td>{skjema.bedriftNr}</td>
                                     <td>{status(skjema)}</td>
                                     <td>
-                                        <Lenke
+                                        <Link
                                             onClick={() =>
                                                 loggTrykketPaTidligereSkjema(status(skjema))
                                             }
                                             href={redirectLenkeTilTidligereSkjema(skjema)}
                                         >
                                             Gå til skjema
-                                        </Lenke>
+                                        </Link>
                                     </td>
                                 </tr>
                             );

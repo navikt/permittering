@@ -1,0 +1,124 @@
+.oppsummering {
+    margin: 0;
+}
+.oppsummering__tittel-desktop {
+    display: none;
+}
+.oppsummering__tittel-mobil {
+    margin: 0.5rem 0 1rem;
+}
+.oppsummering__boks {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: #f1f1f1 2px solid;
+}
+.oppsummering__boks ul {
+    margin: 0;
+}
+.oppsummering__boks:last-child {
+    border-bottom: none;
+}
+.oppsummering__boks .tabell {
+    margin-bottom: 1rem;
+}
+.oppsummering__boks .tabell tbody tr:first-child {
+    border-top: none;
+}
+.oppsummering__boks .tabell th,
+.oppsummering__boks .tabell td {
+    border-bottom: 0;
+    padding: 0.25rem 0.5rem 0.25rem 0;
+}
+.oppsummering__boks .tabell th {
+    width: 116px;
+}
+.oppsummering__boks .tabell td {
+    padding: 0.25rem 0.5rem 0.25rem 0;
+    max-width: 138px;
+    overflow-wrap: break-word;
+}
+@media (min-width: 375px) {
+    .oppsummering__boks .tabell td {
+        max-width: 170px;
+    }
+}
+.oppsummering__boks .endre-lenke {
+    margin: 0 0 0.5rem;
+}
+.oppsummering__boks .fra-til {
+    display: inline-block;
+    margin-right: 0.5rem;
+    width: 2rem;
+}
+.oppsummering__alertstripe {
+    margin: 1.5rem 0 1.5rem;
+}
+.oppsummering .feilmelding-send-inn {
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: flex-end;
+}
+.oppsummering .feilmelding-send-inn__tekst ul {
+    padding-left: 1rem;
+}
+.oppsummering .nav-veileder.nav-veileder--flytende {
+    display: none;
+}
+.oppsummering .nav-veilederpanel--kompakt.nav-veilederpanel--plakat {
+    margin-top: 0;
+    padding: 0;
+}
+.oppsummering .nav-veilederpanel--info {
+    border: 0;
+}
+@media (min-width: 768px) {
+    .oppsummering__tittel-desktop {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        padding-bottom: 2rem;
+    }
+    .oppsummering__tittel-mobil {
+        display: none;
+    }
+    .oppsummering__boks {
+        flex-direction: row;
+    }
+    .oppsummering__boks .tabell {
+        margin-bottom: 0;
+        width: 90%;
+    }
+    .oppsummering__boks .tabell td {
+        max-width: none;
+    }
+    .oppsummering__boks .tabell th,
+    .oppsummering__boks .tabell td {
+        border-bottom: 0;
+        padding: 0.25rem 1rem 0.25rem 0.5rem;
+    }
+    .oppsummering__boks .endre-lenke {
+        width: 10%;
+        margin: 0;
+        text-align: right;
+    }
+    .oppsummering .nav-veilederpanel__content {
+        padding-bottom: 1rem;
+    }
+    .oppsummering .nav-veilederpanel--info {
+        border: 2px solid #99c4dd;
+    }
+    .oppsummering .nav-veilederpanel--kompakt.nav-veilederpanel--plakat {
+        margin-top: 3.125rem;
+        padding: 2rem;
+        padding-top: 4.25rem;
+    }
+    .oppsummering .nav-veileder__frame svg,
+    .oppsummering .nav-veileder__frame img {
+        height: 100%;
+    }
+    .oppsummering .nav-veileder.nav-veileder--flytende {
+        display: initial;
+    }
+}

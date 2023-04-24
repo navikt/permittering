@@ -6,6 +6,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as Sentry from '@sentry/react';
 import { injectDecoratorClientSide } from '@navikt/nav-dekoratoren-moduler';
+import '@navikt/ds-css';
 import App from './App/App';
 import environment, { gittMiljo } from './utils/environment';
 import * as SentryTypes from '@sentry/types';

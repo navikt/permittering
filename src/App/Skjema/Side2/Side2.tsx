@@ -1,11 +1,6 @@
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import Hovedknapp from 'nav-frontend-knapper/lib/hovedknapp';
-import { Knapp } from 'nav-frontend-knapper';
-import Checkbox from 'nav-frontend-skjema/lib/checkbox';
-import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
-import Input from 'nav-frontend-skjema/lib/input';
+import { Button, Checkbox, Heading, Label, TextField } from '@navikt/ds-react';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import { useSkjemaSteg } from '../use-skjema-steg';
 import { mergeFritekst, splittOppFritekst } from '../../../utils/fritekstFunksjoner';
@@ -13,14 +8,11 @@ import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import Datovelger from '../../komponenter/Datovelger/Datovelger';
 import { lagTekstBasertPaSkjemaType } from '../Side4-oppsummering/oppsummering-utils';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
-import Yrkeskategorivelger, {
-    Sokeforslag,
-} from '../../komponenter/Yrkeskategorivelger/Yrkeskategorivelger';
+import Yrkeskategorivelger from '../../komponenter/Yrkeskategorivelger/Yrkeskategorivelger';
 import { Yrkeskategori } from '../../../types/permitteringsskjema';
-import YrkeskategoriVisning from '../../komponenter/Yrkeskategorivelger/YrkeskategoriVisning';
 import { Permitteringsårsaksvelger } from '../../komponenter/PermitteringsÅrsaksVelger/PermitteringsÅrsaksVelger';
 import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
-import './Side2.less';
+import './Side2.css';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 
 const Side2: FunctionComponent = () => {
@@ -96,15 +88,12 @@ const Side2: FunctionComponent = () => {
         return yrkertekst;
     };
 
-    const leggTilYrkeskategori = (nyYrkeskategori: Sokeforslag) => {
-        const yrkeskategorierCopy = [...yrkeskategorier];
-        const nyKategori: Yrkeskategori = {
-            konseptId: parseInt(nyYrkeskategori.key),
-            label: nyYrkeskategori.value,
-            styrk08: nyYrkeskategori.styrk08 ? nyYrkeskategori.styrk08 : '',
-        };
-        yrkeskategorierCopy.push(nyKategori);
-        setYrkeskategorier(yrkeskategorierCopy);
+    const leggTilYrkeskategori = (nyYrkeskategori: Yrkeskategori) => {
+        setYrkeskategorier([...yrkeskategorier, nyYrkeskategori]);
+    };
+
+    const fjernYrkeskategori = (fjernet: Yrkeskategori) => {
+        setYrkeskategorier([...yrkeskategorier].filter((k) => k.konseptId !== fjernet.konseptId));
     };
 
     const setYrkeskategorier = (yrkeskategorier: Yrkeskategori[]) => {
@@ -141,10 +130,7 @@ const Side2: FunctionComponent = () => {
         }
     };
 
-    const { steg, forrigeSide, nesteSide } = useSkjemaSteg(
-        history.location.pathname,
-        context.skjema.id
-    );
+    const { steg, forrigeSide, nesteSide } = useSkjemaSteg(context.skjema.id);
 
     return (
         <>
@@ -154,13 +140,14 @@ const Side2: FunctionComponent = () => {
                 lagre={async () => await context.lagre()}
                 slett={async () => await context.avbryt()}
             >
-                <Systemtittel>Generelle opplysninger</Systemtittel>
+                <Heading level="3" size="medium">
+                    Generelle opplysninger
+                </Heading>
                 <div className="skjema-innhold__side-2-text-area">
-                    <Input
+                    <TextField
                         label="Hvor mange ansatte blir berørt?"
                         defaultValue={context.skjema.antallBerørt}
-                        bredde="XS"
-                        feil={feilMeldingAntallBerort}
+                        error={feilMeldingAntallBerort}
                         onBlur={(event: any) => {
                             if (erGyldigNr(event.currentTarget.value)) {
                                 context.endreSkjemaVerdi('antallBerørt', event.currentTarget.value);
@@ -183,20 +170,14 @@ const Side2: FunctionComponent = () => {
                     <Yrkeskategorivelger
                         yrkeskategorier={yrkeskategorier}
                         leggTilYrkeskategori={leggTilYrkeskategori}
-                    />
-                    {yrkeskategorier.length ? (
-                        <Normaltekst className="yrker-valgt__overskrift">Du har valgt:</Normaltekst>
-                    ) : null}
-                    <YrkeskategoriVisning
-                        yrkeskategorier={yrkeskategorier}
-                        setYrkeskategorier={setYrkeskategorier}
+                        fjernYrkeskategori={fjernYrkeskategori}
                     />
                 </div>
 
-                <Element className="skjema-innhold__side-2-dato-overskrift">
-                    For hvilken periode gjelder dette?
-                </Element>
                 <div className="skjema-innhold__side-2-dato-container">
+                    <Label className="skjema-innhold__side-2-dato-overskrift">
+                        For hvilken periode gjelder dette?
+                    </Label>
                     <Datovelger
                         value={datoFra}
                         onChange={(event) => {
@@ -223,7 +204,6 @@ const Side2: FunctionComponent = () => {
                             />
                             <Checkbox
                                 className="skjema-innhold__dato-velger-til-checkboks"
-                                label="Vet ikke hvor lenge det vil vare"
                                 checked={!!context.skjema.ukjentSluttDato}
                                 onChange={() =>
                                     context.endreSkjemaVerdi(
@@ -231,13 +211,16 @@ const Side2: FunctionComponent = () => {
                                         !context.skjema.ukjentSluttDato
                                     )
                                 }
-                            />
+                            >
+                                Vet ikke hvor lenge det vil vare
+                            </Checkbox>
                         </div>
                     )}
                 </div>
 
                 <div className="skjema-innhold__fram-og-tilbake">
-                    <Knapp
+                    <Button
+                        variant="secondary"
                         onClick={async () => {
                             await context.lagre();
                             history.push(forrigeSide);
@@ -245,15 +228,15 @@ const Side2: FunctionComponent = () => {
                     >
                         {' '}
                         Tilbake
-                    </Knapp>
-                    <Hovedknapp
+                    </Button>
+                    <Button
                         onClick={async () => {
                             await context.lagre();
                             history.push(nesteSide);
                         }}
                     >
                         Neste
-                    </Hovedknapp>
+                    </Button>
                 </div>
             </SkjemaRamme>
         </>

@@ -1,0 +1,31 @@
+.skjema-innhold__side-2-text-area {
+    margin-top: 2rem;
+    width: 100%;
+}
+.skjema-innhold__side-2-text-area .textarea--medMeta {
+    height: 100px !important;
+}
+.skjema-innhold__side-2-dato-container {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 1rem;
+}
+.skjema-innhold__side-2-dato-overskrift {
+    margin: 2rem 0 0.5rem;
+}
+.skjema-innhold__dato-velger-til-checkboks {
+    margin-top: 0.5rem;
+}
+.andre-opplysninger {
+    margin-bottom: 2rem;
+}
+@media (min-width: 768px) {
+    .skjema-innhold__side-2-text-area .textarea--medMeta {
+        height: 65px !important;
+    }
+    .skjema-innhold__side-2-dato-container {
+        flex-direction: row;
+    }
+}

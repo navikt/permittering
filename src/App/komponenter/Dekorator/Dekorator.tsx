@@ -1,6 +1,6 @@
 import React from 'react';
-import { Innholdstittel } from 'nav-frontend-typografi';
-import './Dekorator.less';
+import { Heading } from '@navikt/ds-react';
+import './Dekorator.css';
 
 const lagBannerTittel = (type: string): string => {
     if (type === 'MASSEOPPSIGELSE') {
@@ -15,9 +15,9 @@ const lagBannerTittel = (type: string): string => {
 const Dekorator: React.FunctionComponent<any> = (props) => (
     <div className="banner">
         <div className="banner__inner">
-            <Innholdstittel className="banner__tittel">
+            <Heading level="2" size="large" className="banner__tittel">
                 {props.sidetittel ? lagBannerTittel(props.sidetittel) : '\u00a0'}
-            </Innholdstittel>
+            </Heading>
             {props.children}
         </div>
     </div>

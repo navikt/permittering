@@ -1,11 +1,8 @@
 import React, { FunctionComponent, useState } from 'react';
-import ModalWrapper from 'nav-frontend-modal';
-import Lenke from 'nav-frontend-lenker';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
+import { BodyLong, Button, Heading, Link, Modal } from '@navikt/ds-react';
 import { useHistory } from 'react-router-dom';
+import './AvbrytOgLagreSkjema.css';
 import VerticalSpacer from '../../VerticalSpacer';
-import './AvbrytOgLagreSkjema.less';
 
 interface AvbrytOgLagreSkjemaProps {
     lagre: () => void;
@@ -16,7 +13,7 @@ export const AvbrytOgLagreSkjema: FunctionComponent<AvbrytOgLagreSkjemaProps> = 
     const history = useHistory();
     return (
         <>
-            <Lenke
+            <Link
                 className="lagre-lenke"
                 href="#"
                 onClick={async (e) => {
@@ -25,34 +22,37 @@ export const AvbrytOgLagreSkjema: FunctionComponent<AvbrytOgLagreSkjemaProps> = 
                 }}
             >
                 Lagre skjema og gå til oversikten
-            </Lenke>
-            <ModalWrapper
-                isOpen={isOpen}
-                onRequestClose={() => setOpen(false)}
-                closeButton={true}
-                contentLabel="Min modalrute"
+            </Link>
+            <Modal
+                open={isOpen}
+                onClose={() => setOpen((x) => !x)}
+                aria-labelledby="avbryt-modal-heading"
             >
-                <div className="avbryt-modal-innhold">
-                    <Undertittel>Lagre og gå til oversikten?</Undertittel>
+                <Modal.Content className="avbryt-modal-innhold">
+                    <Heading id="avbryt-modal-heading" spacing level="2" size="medium">
+                        Lagre og gå til oversikten?
+                    </Heading>
                     <VerticalSpacer rem={1} />
-                    <Normaltekst>
+                    <BodyLong spacing>
                         Du er i ferd med å forlate skjema. Innholdet i skjemaet blir bevart og du
                         kan fortsette utfylling senere.
-                    </Normaltekst>
+                    </BodyLong>
                     <VerticalSpacer rem={2} />
                     <div className="avbryt-modal-innhold__knapper">
-                        <Hovedknapp
+                        <Button
                             onClick={async () => {
                                 await lagre();
                                 history.push('/');
                             }}
                         >
                             Lagre og gå til oversikten
-                        </Hovedknapp>
-                        <Flatknapp onClick={() => setOpen(false)}>Avbryt</Flatknapp>
+                        </Button>
+                        <Button variant="tertiary" onClick={() => setOpen(false)}>
+                            Avbryt
+                        </Button>
                     </div>
-                </div>
-            </ModalWrapper>
+                </Modal.Content>
+            </Modal>
         </>
     );
 };

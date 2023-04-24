@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import Lenkepanel from 'nav-frontend-lenkepanel/lib';
+import { LinkPanel } from '@navikt/ds-react';
 import HvitSideBoks from '../../komponenter/HvitSideBoks';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
-import './Kvitteringsside.less';
+import './Kvitteringsside.css';
 import OppsummeringKvittering from './OppsummeringKvittering';
 
 const Kvitteringsside = () => {
@@ -24,23 +24,15 @@ const Kvitteringsside = () => {
                 </div>
                 <ul aria-label="Lenker">
                     <li>
-                        <Lenkepanel
-                            href="https://arbeidsgiver.nav.no/min-side-arbeidsgiver/"
-                            border
-                            tittelProps="normaltekst"
-                        >
+                        <LinkPanel href="https://arbeidsgiver.nav.no/min-side-arbeidsgiver/">
                             Gå til Min side – arbeidsgiver
-                        </Lenkepanel>
+                        </LinkPanel>
                     </li>
                     <li>
-                        <Lenkepanel
-                            href="https://www.nav.no/no/bedrift/innhold-til-bedrift-forside/nyheter/permitteringer-som-folge-av-koronaviruset"
-                            border
-                            tittelProps="normaltekst"
-                        >
+                        <LinkPanel href="https://www.nav.no/no/bedrift/innhold-til-bedrift-forside/nyheter/permitteringer-som-folge-av-koronaviruset">
                             Informasjon om permitteringer til arbeidsgivere i forbindelse med
                             koronaviruset
-                        </Lenkepanel>
+                        </LinkPanel>
                     </li>
                 </ul>
             </HvitSideBoks>

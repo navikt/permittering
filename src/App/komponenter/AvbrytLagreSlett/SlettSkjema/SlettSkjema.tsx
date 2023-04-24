@@ -1,11 +1,8 @@
 import React, { FunctionComponent, useState } from 'react';
-import ModalWrapper from 'nav-frontend-modal';
-import Lenke from 'nav-frontend-lenker';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import { Fareknapp, Flatknapp } from 'nav-frontend-knapper';
+import { BodyLong, Button, Heading, Link, Modal } from '@navikt/ds-react';
 import { useHistory } from 'react-router-dom';
+import './SlettSkjema.css';
 import VerticalSpacer from '../../VerticalSpacer';
-import './SlettSkjema.less';
 
 interface SlettSkjemaProps {
     slett: () => void;
@@ -16,7 +13,7 @@ export const SlettSkjema: FunctionComponent<SlettSkjemaProps> = ({ slett }) => {
     const history = useHistory();
     return (
         <>
-            <Lenke
+            <Link
                 href="#"
                 role="button"
                 onClick={(e) => {
@@ -25,35 +22,41 @@ export const SlettSkjema: FunctionComponent<SlettSkjemaProps> = ({ slett }) => {
                 }}
             >
                 Slett skjema
-            </Lenke>
-            <ModalWrapper
-                isOpen={isOpen}
-                onRequestClose={() => setOpen(false)}
-                closeButton={true}
-                contentLabel="Min modalrute"
+            </Link>
+            <Modal
+                open={isOpen}
+                onClose={() => setOpen((x) => !x)}
+                aria-labelledby="slett-modal-heading"
             >
-                <div className="slett-modal-innhold">
-                    <Undertittel>Slett skjema?</Undertittel>
+                <Modal.Content className="avbryt-modal-innhold">
+                    <Heading id="slett-modal-heading" spacing level="2" size="medium">
+                        Slett skjema?
+                    </Heading>
                     <VerticalSpacer rem={1} />
-                    <Normaltekst>
+                    <BodyLong spacing>
                         Hvis du fortsetter vil innholdet i skjemaet bli slettet.
-                    </Normaltekst>
+                    </BodyLong>
                     <VerticalSpacer rem={2} />
                     <div className="slett-modal-innhold__knapper">
-                        <Fareknapp
+                        <Button
+                            variant="danger"
                             onClick={async () => {
                                 await slett();
                                 history.push('/');
                             }}
                         >
                             Slett skjema
-                        </Fareknapp>
-                        <Flatknapp className="behold-knapp" onClick={() => setOpen(false)}>
+                        </Button>
+                        <Button
+                            variant="tertiary"
+                            className="behold-knapp"
+                            onClick={() => setOpen(false)}
+                        >
                             Behold skjema
-                        </Flatknapp>
+                        </Button>
                     </div>
-                </div>
-            </ModalWrapper>
+                </Modal.Content>
+            </Modal>
         </>
     );
 };

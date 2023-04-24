@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
-import { Ingress, Undertittel } from 'nav-frontend-typografi';
+import { Heading, Ingress } from '@navikt/ds-react';
 import { Permitteringsskjema } from '../../../types/permitteringsskjema';
 import TidligereInnsendtSkjema from './TidligereInnsendtSkjema/tidligereInnsendtSkjema';
-import './oversiktForMobil.less';
+import './oversiktForMobil.css';
 
 interface Props {
     listeMedSkjema: any;
@@ -15,7 +15,9 @@ const OversiktForMobil: FunctionComponent<Props> = (props: Props) => {
 
     return (
         <div className="forside__mobilvisning">
-            <Undertittel className="forside__mobilvisning__undertittel">Dine skjema</Undertittel>
+            <Heading level="3" size="small" className="forside__mobilvisning__undertittel">
+                Dine skjema
+            </Heading>
             {props.listeMedSkjema ? (
                 <ul className="forside__mobilvisning__ul" aria-label="Dine skjema">
                     {rader}

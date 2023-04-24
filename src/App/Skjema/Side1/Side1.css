@@ -1,0 +1,33 @@
+.skjema-innhold__side-1-input-felt {
+    width: 100%;
+    margin-top: 1rem;
+}
+@media (min-width: 768px) {
+    .skjema-innhold__side-1-input-felt {
+        width: 45%;
+        margin-top: 0;
+    }
+}
+.skjema-innhold__side-1-linje-2 {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0;
+}
+@media (min-width: 768px) {
+    .skjema-innhold__side-1-linje-2 {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+.skjema-innhold__side-1-linje-4 {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+@media (min-width: 768px) {
+    .skjema-innhold__side-1-linje-4 {
+        flex-direction: row;
+        justify-content: space-between;
+        margin: 1.5rem 0 2rem 0;
+    }
+}
