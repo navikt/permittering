@@ -169,11 +169,11 @@ const Oppsummering: FunctionComponent = () => {
                             <table className="tabell">
                                 <tbody>
                                     <tr>
-                                        <th>Bedrift:</th>
+                                        <th>Virksomhet:</th>
                                         <td>{context.skjema.bedriftNavn}</td>
                                     </tr>
                                     <tr>
-                                        <th>Bedriftsnummer:</th>
+                                        <th>Virksomhetsnummer:</th>
                                         <td>{context.skjema.bedriftNr}</td>
                                     </tr>
                                     <tr>
