@@ -19,11 +19,8 @@ const Side2: FunctionComponent = () => {
     const history = useHistory();
     const context = useContext(SkjemaContext);
 
-    const startDato = context.skjema.startDato ? new Date(context.skjema.startDato) : undefined;
-    const sluttDato = context.skjema.sluttDato ? new Date(context.skjema.sluttDato) : undefined;
-
-    const [datoFra, setDatoFra] = useState<Date | undefined>(startDato);
-    const [datoTil, setDatoTil] = useState<Date | undefined>(sluttDato);
+    const [datoFra, setDatoFra] = useState<Date | undefined>();
+    const [datoTil, setDatoTil] = useState<Date | undefined>();
     const [feilMeldingAntallBerort, setFeilmeldingAntallBerort] = useState('');
 
     let { yrkeskategorier = [] } = context.skjema;
@@ -38,8 +35,10 @@ const Side2: FunctionComponent = () => {
     }, []);
 
     useEffect(() => {
-        if (context.skjema.sluttDato && context.skjema.startDato) {
+        if (context.skjema.startDato) {
             setDatoFra(new Date(context.skjema.startDato));
+        }
+        if (context.skjema.sluttDato) {
             setDatoTil(new Date(context.skjema.sluttDato));
         }
         // eslint-disable-next-line
@@ -220,7 +219,7 @@ const Side2: FunctionComponent = () => {
 
                 <div className="skjema-innhold__fram-og-tilbake">
                     <Button
-                        variant="secondary"
+                        variant="tertiary"
                         onClick={async () => {
                             await context.lagre();
                             history.push(forrigeSide);

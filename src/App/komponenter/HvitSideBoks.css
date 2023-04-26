@@ -7,14 +7,9 @@
 }
 @media (min-width: 768px) {
     .hvit-side-boks {
-        width: 38rem;
+        width: 768px;
         align-self: center;
         margin: 2rem 0 0;
         padding: 3rem 2rem;
-    }
-}
-@media (min-width: 992px) {
-    .hvit-side-boks {
-        width: 45rem;
     }
 }

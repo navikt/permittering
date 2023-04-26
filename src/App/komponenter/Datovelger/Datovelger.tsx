@@ -63,6 +63,7 @@ const Datovelger: FunctionComponent<Props> = (props) => {
             <UNSAFE_DatePicker {...datepickerProps}>
                 <UNSAFE_DatePicker.Input
                     {...inputProps}
+                    value={props.value?.toLocaleDateString()}
                     label={props.overtekst}
                     disabled={props.disabled}
                     error={feilmelding}

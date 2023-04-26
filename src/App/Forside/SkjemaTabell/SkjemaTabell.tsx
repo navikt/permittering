@@ -51,7 +51,7 @@ const SkjemaTabell: React.FunctionComponent<SkjemaTabellProps> = ({ skjemaer }) 
                             Dato sendt inn
                         </th>
                         <th role="columnheader" aria-sort="none">
-                            Bedriftsnummer
+                            Virksomhetsnummer
                         </th>
 
                         <th role="columnheader" aria-sort="none">
