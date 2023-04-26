@@ -142,8 +142,6 @@ const Oppsummering: FunctionComponent = () => {
         return mangler;
     };
 
-    console.log(context.skjema.startDato);
-
     return (
         <>
             <Dekorator sidetittel={context.skjema.type} />
