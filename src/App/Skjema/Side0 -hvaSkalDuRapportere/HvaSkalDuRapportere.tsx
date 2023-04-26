@@ -51,6 +51,7 @@ const HvaSkalDuRapportere = () => {
                 <RadioGroup
                     value={skjemaType}
                     legend="Hva vil du informere NAV om?"
+                    hideLegend
                     onChange={(value: any) => {
                         setSkjemaType(value);
                         loggSkjemaValg(value);
