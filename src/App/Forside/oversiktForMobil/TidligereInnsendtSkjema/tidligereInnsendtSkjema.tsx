@@ -57,7 +57,7 @@ const TidligereInnsendtSkjema: FunctionComponent<Props> = (props) => {
                         }
                     />
                     <AttributtVisning
-                        attributt="Bedriftsnummer"
+                        attributt="Virksomhetsnummer"
                         attributtVerdi={props.tidligereSkjema.bedriftNr}
                     />
                     <AttributtVisning
