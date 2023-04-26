@@ -220,7 +220,7 @@ const Side2: FunctionComponent = () => {
 
                 <div className="skjema-innhold__fram-og-tilbake">
                     <Button
-                        variant="secondary"
+                        variant="tertiary"
                         onClick={async () => {
                             await context.lagre();
                             history.push(forrigeSide);
