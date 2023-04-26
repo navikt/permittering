@@ -11,7 +11,7 @@ const IkkeTilgang: FunctionComponent = () => {
                 Du har dessverre ikke tilgang til å fylle ut skjema om permittering
             </Heading>
             <p>
-                For å fylle ut skjema kreves det at du har en rolle eller rettighet i bedriften i
+                For å fylle ut skjema kreves det at du har en rolle eller rettighet i virksomheten i
                 Altinn
             </p>
         </HvitSideBoks>
