@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { LinkPanel } from '@navikt/ds-react';
 import HvitSideBoks from '../../komponenter/HvitSideBoks';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
 import './Kvitteringsside.css';
 import OppsummeringKvittering from './OppsummeringKvittering';
+import SkjemaContext from '../SkjemaContext/SkjemaContext';
 
 const Kvitteringsside = () => {
+    const context = useContext(SkjemaContext);
     const sidetittel =
         'Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid';
 
@@ -28,11 +30,20 @@ const Kvitteringsside = () => {
                             Gå til Min side – arbeidsgiver
                         </LinkPanel>
                     </li>
-                    <li>
-                        <LinkPanel href="https://www.nav.no/arbeidsgiver/permittere">
-                            Informasjon om permittering til arbeidsgiver
-                        </LinkPanel>
-                    </li>
+
+                    {context.skjema.type === 'MASSEOPPSIGELSE' ? (
+                        <li>
+                            <LinkPanel href="https://www.nav.no/arbeidsgiver/nedbemanne">
+                                Informasjon om nedbemanning til arbeidsgiver
+                            </LinkPanel>
+                        </li>
+                    ) : (
+                        <li>
+                            <LinkPanel href="https://www.nav.no/arbeidsgiver/permittere">
+                                Informasjon om permittering til arbeidsgiver
+                            </LinkPanel>
+                        </li>
+                    )}
                 </ul>
             </HvitSideBoks>
         </>
