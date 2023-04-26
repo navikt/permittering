@@ -29,9 +29,8 @@ const Kvitteringsside = () => {
                         </LinkPanel>
                     </li>
                     <li>
-                        <LinkPanel href="https://www.nav.no/no/bedrift/innhold-til-bedrift-forside/nyheter/permitteringer-som-folge-av-koronaviruset">
-                            Informasjon om permitteringer til arbeidsgivere i forbindelse med
-                            koronaviruset
+                        <LinkPanel href="https://www.nav.no/arbeidsgiver/permittere">
+                            Informasjon om permittering til arbeidsgiver
                         </LinkPanel>
                     </li>
                 </ul>
