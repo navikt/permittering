@@ -68,7 +68,7 @@ injectDecoratorClientSide({
     redirectToApp: true,
     logoutUrl: gittMiljo({
         prod: 'https://arbeidsgiver.nav.no/permittering/oauth2/logout',
-        other: 'https://permitteringsskjema.dev.nav.no/permittering/oauth2/logout',
+        other: 'https://permitteringsskjema.intern.dev.nav.no/permittering/oauth2/logout',
     }),
 }).catch(Sentry.captureException);
 

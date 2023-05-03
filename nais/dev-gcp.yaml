@@ -10,7 +10,7 @@ spec:
   team: arbeidsgiver
   port: 3000
   ingresses:
-    - https://permitteringsskjema.dev.nav.no/permittering
+    - https://permitteringsskjema.intern.dev.nav.no/permittering
   liveness:
     path: /permittering/internal/isAlive
     initialDelay: 20
@@ -26,9 +26,9 @@ spec:
     sidecar:
       enabled: true
     enabled: true
-    clientUri: https://permitteringsskjema.dev.nav.no/permittering
+    clientUri: https://permitteringsskjema.intern.dev.nav.no/permittering
     postLogoutRedirectURIs:
-      - https://permitteringsskjema.dev.nav.no/permittering/logout-callback
+      - https://permitteringsskjema.intern.dev.nav.no/permittering/logout-callback
   accessPolicy:
     outbound:
       rules:
@@ -45,7 +45,7 @@ spec:
     - name: MILJO
       value: dev
     - name: LOGIN_URL
-      value: https://loginservice.dev.nav.no/login?redirect=https://permitteringsskjema.dev.nav.no/permittering
+      value: https://loginservice.dev.nav.no/login?redirect=https://permitteringsskjema.intern.dev.nav.no/permittering
     - name: API_AUDIENCE
       value: dev-gcp:permittering-og-nedbemanning:permitteringsskjema-api
     - name: BACKEND_BASEURL
