@@ -38,7 +38,7 @@ jobs:
       contents: "read"
       id-token: "write"
     name: Deploy to dev-gcp
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/TAG-2098_smaafisk'
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/fiks_login'
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:
@@ -64,7 +64,7 @@ jobs:
       contents: "read"
       id-token: "write"
     name: Deploy to demo app dev-gcp
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/TAG-2098_smaafisk'
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/fiks_login'
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:
