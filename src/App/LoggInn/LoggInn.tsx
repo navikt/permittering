@@ -12,8 +12,7 @@ export const redirectTilLogin = () => {
     lokalKjoring()
         ? (window.location.href =
               'http://localhost:8080/permitteringsskjema-api/auth/mock-token?redirect=http://localhost:3000/permittering')
-        : (window.location.href =
-              '/permittering/oauth2/login?redirect=/permittering/login-callback');
+        : (window.location.href = '/permittering/redirect-til-login');
 };
 
 const LoggInn = () => {

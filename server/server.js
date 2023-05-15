@@ -12,7 +12,6 @@ const {
     MILJO = 'local',
     GIT_COMMIT = '?',
     LOGIN_URL,
-    LOGINSERVICE_LOGOUT_URL = 'https://loginservice.dev.nav.no/slo',
     BACKEND_BASEURL = 'http://localhost:8080',
 } = process.env;
 
@@ -100,12 +99,10 @@ const main = async () => {
             })
         );
 
-        app.get('/permittering/login-callback', function (req, res) {
-            res.redirect(LOGIN_URL);
-        });
-
-        app.get('/permittering/logout-callback', function (req, res) {
-            res.redirect(LOGINSERVICE_LOGOUT_URL);
+        app.get('/permittering/redirect-til-login', function (req, res) {
+            const target = new URL(LOGIN_URL);
+            target.searchParams.set('redirect', req.get('referer'));
+            res.redirect(target.href);
         });
     }
 

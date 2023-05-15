@@ -27,8 +27,6 @@ spec:
       enabled: true
     enabled: true
     clientUri: https://arbeidsgiver.nav.no/permittering
-    postLogoutRedirectURIs:
-      - https://arbeidsgiver.nav.no/permittering/logout-callback
   accessPolicy:
     outbound:
       rules:
