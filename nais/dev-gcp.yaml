@@ -27,8 +27,6 @@ spec:
       enabled: true
     enabled: true
     clientUri: https://permitteringsskjema.intern.dev.nav.no/permittering
-    postLogoutRedirectURIs:
-      - https://permitteringsskjema.intern.dev.nav.no/permittering/logout-callback
   accessPolicy:
     outbound:
       rules:
@@ -45,7 +43,7 @@ spec:
     - name: MILJO
       value: dev
     - name: LOGIN_URL
-      value: https://loginservice.dev.nav.no/login?redirect=https://permitteringsskjema.intern.dev.nav.no/permittering
+      value: https://permitteringsskjema.intern.dev.nav.no/permittering/oauth2/login?redirect=/permittering
     - name: API_AUDIENCE
       value: dev-gcp:permittering-og-nedbemanning:permitteringsskjema-api
     - name: BACKEND_BASEURL
