@@ -38,7 +38,7 @@ jobs:
       contents: "read"
       id-token: "write"
     name: Deploy to dev-gcp
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/bump-version'
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/distroless'
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:
@@ -64,7 +64,7 @@ jobs:
       contents: "read"
       id-token: "write"
     name: Deploy to demo app dev-gcp
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/fiks_login'
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/distroless'
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:
