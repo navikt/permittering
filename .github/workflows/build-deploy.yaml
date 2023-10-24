@@ -1,6 +1,6 @@
 name: Build and deploy
 
-on: [push]
+on: [push, workflow_dispatch]
 
 jobs:
   compile-test-and-build:
@@ -38,7 +38,7 @@ jobs:
       contents: "read"
       id-token: "write"
     name: Deploy to dev-gcp
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/distroless'
+    if: github.ref == 'refs/heads/master' || github.event_name == 'workflow_dispatch'
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:
