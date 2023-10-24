@@ -28,7 +28,7 @@ export const AvbrytOgLagreSkjema: FunctionComponent<AvbrytOgLagreSkjemaProps> = 
                 onClose={() => setOpen((x) => !x)}
                 aria-labelledby="avbryt-modal-heading"
             >
-                <Modal.Content className="avbryt-modal-innhold">
+                <div className="avbryt-modal-innhold">
                     <Heading id="avbryt-modal-heading" spacing level="2" size="medium">
                         Lagre og gå til oversikten?
                     </Heading>
@@ -51,7 +51,7 @@ export const AvbrytOgLagreSkjema: FunctionComponent<AvbrytOgLagreSkjemaProps> = 
                             Avbryt
                         </Button>
                     </div>
-                </Modal.Content>
+                </div>
             </Modal>
         </>
     );

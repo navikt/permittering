@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
-import { UNSAFE_DatePicker, UNSAFE_useDatepicker } from '@navikt/ds-react';
+import { DatePicker, useDatepicker } from '@navikt/ds-react';
 import './Datovelger.css';
 
 interface Props {
@@ -49,7 +49,7 @@ const Datovelger: FunctionComponent<Props> = (props) => {
         }
     }, [props.skalVareEtter, props.skalVareFoer, props.value]);
 
-    const { datepickerProps, inputProps } = UNSAFE_useDatepicker({
+    const { datepickerProps, inputProps } = useDatepicker({
         onDateChange: (date) => {
             if (date) {
                 date.setHours(12);
@@ -60,15 +60,15 @@ const Datovelger: FunctionComponent<Props> = (props) => {
 
     return (
         <div ref={datepickernode} className={'datofelt'}>
-            <UNSAFE_DatePicker {...datepickerProps}>
-                <UNSAFE_DatePicker.Input
+            <DatePicker {...datepickerProps}>
+                <DatePicker.Input
                     {...inputProps}
                     value={props.value?.toLocaleDateString()}
                     label={props.overtekst}
                     disabled={props.disabled}
                     error={feilmelding}
                 />
-            </UNSAFE_DatePicker>
+            </DatePicker>
         </div>
     );
 };

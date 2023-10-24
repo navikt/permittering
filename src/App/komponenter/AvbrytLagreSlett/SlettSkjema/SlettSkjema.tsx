@@ -28,7 +28,7 @@ export const SlettSkjema: FunctionComponent<SlettSkjemaProps> = ({ slett }) => {
                 onClose={() => setOpen((x) => !x)}
                 aria-labelledby="slett-modal-heading"
             >
-                <Modal.Content className="avbryt-modal-innhold">
+                <div className="avbryt-modal-innhold">
                     <Heading id="slett-modal-heading" spacing level="2" size="medium">
                         Slett skjema?
                     </Heading>
@@ -55,7 +55,7 @@ export const SlettSkjema: FunctionComponent<SlettSkjemaProps> = ({ slett }) => {
                             Behold skjema
                         </Button>
                     </div>
-                </Modal.Content>
+                </div>
             </Modal>
         </>
     );
