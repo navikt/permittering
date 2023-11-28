@@ -1,5 +1,5 @@
 import React from 'react';
-import { BodyShort, Button, Heading, Ingress, Link } from '@navikt/ds-react';
+import {BodyLong, BodyShort, Button, Heading, Link} from '@navikt/ds-react';
 import LoggInnBanner from './LoggInnBanner/LoggInnBanner';
 import skjema from './skjema.svg';
 import './Logginn.css';
@@ -25,10 +25,10 @@ const LoggInn = () => {
                 <Heading level="2" size="large" className="innloggingsside__sidetittel">
                     Meld fra til NAV
                 </Heading>
-                <Ingress className="innloggingsside__ingress">
+                <BodyLong size="large" className="innloggingsside__ingress">
                     Arbeidsgivers meldeplikt til NAV ved masseoppsigelser, permittering uten lønn og
                     innskrenkning i arbeidstid.
-                </Ingress>
+                </BodyLong>
 
                 <Button className="innloggingsside__loginKnapp" onClick={redirectTilLogin}>
                     Logg inn
