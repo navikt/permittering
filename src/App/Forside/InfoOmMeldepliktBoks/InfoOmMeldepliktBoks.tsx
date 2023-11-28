@@ -1,13 +1,13 @@
 import React, { FunctionComponent } from 'react';
-import { Button, Heading, Ingress, Label, Link } from '@navikt/ds-react';
-import { useHistory } from 'react-router';
+import {BodyLong, Button, Heading, Label, Link} from '@navikt/ds-react';
+import { useNavigate } from 'react-router';
 import { BrodsmuleSti } from '../../komponenter/BrodsmuleSti/BrodsmuleSti';
 import InfoIkon from './InfoIkon';
 import { EksternLenke } from './EksternLenke';
 import './InfoOmMeldepliktBoks.css';
 
 const InfoOmMeldepliktBoks: FunctionComponent = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     return (
         <div className="forside__info-om-meldeplikt-boks">
             <BrodsmuleSti />
@@ -18,11 +18,11 @@ const InfoOmMeldepliktBoks: FunctionComponent = () => {
                 <Heading level="3" size="medium">
                     Arbeidsgivers meldeplikt til NAV
                 </Heading>
-                <Ingress className="ingress">
+                <BodyLong size="large" className="ingress">
                     Skal du permittere, si opp eller innskrenke arbeidstiden til 10 eller flere
                     ansatte? Da har du meldeplikt til NAV. Du kan også melde ifra til NAV dersom det
                     gjelder færre enn 10 ansatte om du ønsker det.
-                </Ingress>
+                </BodyLong>
 
                 <Label>Dette er bestemt av:</Label>
                 <ul>
@@ -38,7 +38,7 @@ const InfoOmMeldepliktBoks: FunctionComponent = () => {
                     </li>
                 </ul>
 
-                <Button className="meld-fra-knapp" onClick={() => history.push('skjema/start')}>
+                <Button className="meld-fra-knapp" onClick={() => navigate('skjema/start')}>
                     Meld fra til NAV
                 </Button>
             </div>

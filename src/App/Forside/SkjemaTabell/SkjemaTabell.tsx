@@ -1,8 +1,8 @@
 import React from 'react';
 import { Permitteringsskjema } from '../../../types/permitteringsskjema';
-import moment from 'moment';
 import { Link } from '@navikt/ds-react';
 import { loggTrykketPaTidligereSkjema } from '../../../utils/funksjonerForAmplitudeLogging';
+import {formatDate} from "../../../utils/date-utils";
 
 interface SkjemaTabellProps {
     skjemaer: any;
@@ -71,7 +71,7 @@ const SkjemaTabell: React.FunctionComponent<SkjemaTabellProps> = ({ skjemaer }) 
                                     <td>{lagTekstBasertPaSkjemaType(skjema.type)}</td>
                                     <td>
                                         {skjema.sendtInnTidspunkt &&
-                                            moment(skjema.sendtInnTidspunkt).format('L')}
+                                            formatDate(new Date(skjema.sendtInnTidspunkt))}
                                     </td>
                                     <td>{skjema.bedriftNr}</td>
                                     <td>{status(skjema)}</td>

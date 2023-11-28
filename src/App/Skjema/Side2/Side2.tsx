@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Button, Checkbox, Heading, Label, TextField } from '@navikt/ds-react';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import { useSkjemaSteg } from '../use-skjema-steg';
@@ -16,7 +16,7 @@ import './Side2.css';
 import Dekorator from '../../komponenter/Dekorator/Dekorator';
 
 const Side2: FunctionComponent = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const context = useContext(SkjemaContext);
 
     const [datoFra, setDatoFra] = useState<Date | undefined>();
@@ -26,7 +26,7 @@ const Side2: FunctionComponent = () => {
     let { yrkeskategorier = [] } = context.skjema;
 
     if (context.skjema.sendtInnTidspunkt) {
-        history.replace('/');
+        navigate('/', { replace: true });
     }
 
     useEffect(() => {
@@ -222,7 +222,7 @@ const Side2: FunctionComponent = () => {
                         variant="tertiary"
                         onClick={async () => {
                             await context.lagre();
-                            history.push(forrigeSide);
+                            navigate(forrigeSide);
                         }}
                     >
                         {' '}
@@ -231,7 +231,7 @@ const Side2: FunctionComponent = () => {
                     <Button
                         onClick={async () => {
                             await context.lagre();
-                            history.push(nesteSide);
+                            navigate(nesteSide);
                         }}
                     >
                         Neste

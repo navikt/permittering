@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, {FunctionComponent, PropsWithChildren, useEffect, useState} from 'react';
 import { Organisasjon } from '../types/Organisasjon';
 import { hentOrganisasjonerFraAltinn } from '../api/AltinnApi';
 import IkkeTilgang from './IkkeTilgang/IkkeTilgang';
@@ -19,7 +19,7 @@ const OrganisasjonsListeContext = React.createContext<OrganisajonsContext>(
 );
 export { OrganisasjonsListeContext };
 
-export const OrganisasjonsListeProvider: FunctionComponent = (props) => {
+export const OrganisasjonsListeProvider: FunctionComponent<PropsWithChildren> = (props) => {
     const [organisasjoner, setOrganisasjoner] = useState(Array<Organisasjon>());
     const [organisasjonslisteFerdigLastet, setOrganisasjonslisteFerdigLastet] = useState(
         Tilgang.LASTER

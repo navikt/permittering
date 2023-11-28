@@ -1,7 +1,3 @@
-import 'react-app-polyfill/ie11';
-import 'abortcontroller-polyfill/dist/polyfill-patch-fetch';
-import 'core-js';
-import 'unorm/lib/unorm';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as Sentry from '@sentry/react';
@@ -62,14 +58,16 @@ injectDecoratorClientSide({
         prod: 'prod',
         other: 'dev',
     }),
-    urlLookupTable: false,
-    context: 'arbeidsgiver',
-    language: 'nb',
-    redirectToApp: true,
-    logoutUrl: gittMiljo({
-        prod: 'https://arbeidsgiver.nav.no/permittering/oauth2/logout',
-        other: 'https://permitteringsskjema.intern.dev.nav.no/permittering/oauth2/logout',
-    }),
+    params: {
+        urlLookupTable: false,
+        context: 'arbeidsgiver',
+        language: 'nb',
+        redirectToApp: true,
+        logoutUrl: gittMiljo({
+            prod: 'https://arbeidsgiver.nav.no/permittering/oauth2/logout',
+            other: 'https://permitteringsskjema.intern.dev.nav.no/permittering/oauth2/logout',
+        }),
+    }
 }).catch(Sentry.captureException);
 
 ReactDOM.render(

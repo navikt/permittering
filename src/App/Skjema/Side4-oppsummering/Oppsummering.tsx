@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {
     Alert,
     BodyLong,
@@ -42,7 +42,7 @@ export const lagAntallBerorteTekst = (antallBerorte?: number) => {
 
 const Oppsummering: FunctionComponent = () => {
     const context = useContext(SkjemaContext);
-    const history = useHistory();
+    const navigate = useNavigate();
     const { organisasjoner } = useContext(OrganisasjonsListeContext);
 
     const [feilVedInnsending, setFeilVedInnsending] = useState(false);
@@ -59,7 +59,7 @@ const Oppsummering: FunctionComponent = () => {
     const [antallIBedrift, setAntallIBedrift] = useState('');
 
     if (context.skjema.sendtInnTidspunkt) {
-        history.replace('/skjema/kvitteringsside/' + context.skjema.id);
+        navigate('/skjema/kvitteringsside/' + context.skjema.id, { replace: true });
     }
 
     useEffect(() => {
@@ -302,7 +302,7 @@ const Oppsummering: FunctionComponent = () => {
                             variant="tertiary"
                             onClick={async () => {
                                 await context.lagre();
-                                history.push(forrigeSide);
+                                navigate(forrigeSide);
                             }}
                         >
                             Tilbake
@@ -324,7 +324,7 @@ const Oppsummering: FunctionComponent = () => {
                                     setVisFeilmeldingManglendeFelter(false);
                                     setManglendeFelter([]);
                                     await context.sendInn();
-                                    history.push('/skjema/kvitteringsside/' + context.skjema.id);
+                                    navigate('/skjema/kvitteringsside/' + context.skjema.id);
                                     onSendClickLogging();
                                     loggSkjemaInnsendt();
                                     setFeilVedInnsending(false);

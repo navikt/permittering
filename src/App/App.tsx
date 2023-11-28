@@ -1,4 +1,3 @@
-import 'moment/locale/nb';
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { brukerLoggetPa } from '../utils/funksjonerForAmplitudeLogging';
@@ -24,32 +23,32 @@ function App() {
         <div className="app">
             <LoginBoundary>
                 <Router basename={basePath}>
-                    <Route exact path="/">
+                    <Route path="/">
                         <Forside />
                     </Route>
                     <Route path="/skjema">
                         <OrganisasjonsListeProvider>
-                            <Route exact path="/skjema/start">
+                            <Route path="/skjema/start">
                                 <SkjemaProvider>
                                     <Side0 />
                                 </SkjemaProvider>
                             </Route>
-                            <Route exact path="/skjema/kontaktinformasjon/:id">
+                            <Route path="/skjema/kontaktinformasjon/:id">
                                 <SkjemaProvider>
                                     <Side1 />
                                 </SkjemaProvider>
                             </Route>
-                            <Route exact path="/skjema/generelle-opplysninger/:id">
+                            <Route path="/skjema/generelle-opplysninger/:id">
                                 <SkjemaProvider>
                                     <Side2 />
                                 </SkjemaProvider>
                             </Route>
-                            <Route exact path="/skjema/oppsummering/:id">
+                            <Route path="/skjema/oppsummering/:id">
                                 <SkjemaProvider>
                                     <Oppsummering />
                                 </SkjemaProvider>
                             </Route>
-                            <Route exact path="/skjema/kvitteringsside/:id">
+                            <Route path="/skjema/kvitteringsside/:id">
                                 <SkjemaProvider>
                                     <Kvitteirng />
                                 </SkjemaProvider>

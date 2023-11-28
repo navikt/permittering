@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 import { BodyLong, Button, Heading, Link, Modal } from '@navikt/ds-react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './SlettSkjema.css';
 import VerticalSpacer from '../../VerticalSpacer';
 
@@ -10,7 +10,7 @@ interface SlettSkjemaProps {
 
 export const SlettSkjema: FunctionComponent<SlettSkjemaProps> = ({ slett }) => {
     const [isOpen, setOpen] = useState<boolean>(false);
-    const history = useHistory();
+    const navigate = useNavigate();
     return (
         <>
             <Link
@@ -42,7 +42,7 @@ export const SlettSkjema: FunctionComponent<SlettSkjemaProps> = ({ slett }) => {
                             variant="danger"
                             onClick={async () => {
                                 await slett();
-                                history.push('/');
+                                navigate('/');
                             }}
                         >
                             Slett skjema
