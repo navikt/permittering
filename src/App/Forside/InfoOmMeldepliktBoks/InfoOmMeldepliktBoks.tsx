@@ -1,8 +1,8 @@
 import React, {FunctionComponent} from 'react';
 import {BodyLong, Button, Heading, Label, Link} from '@navikt/ds-react';
+import {ExternalLinkIcon} from '@navikt/aksel-icons';
 import {useNavigate} from 'react-router-dom';
 import InfoIkon from './InfoIkon';
-import {EksternLenke} from './EksternLenke';
 import './InfoOmMeldepliktBoks.css';
 
 const InfoOmMeldepliktBoks: FunctionComponent = () => {
@@ -26,12 +26,12 @@ const InfoOmMeldepliktBoks: FunctionComponent = () => {
                 <ul>
                     <li>
                         <Link href="https://lovdata.no/lov/2004-12-10-76/§8">
-                            <span>Arbeidsmarkedsloven §8</span> <EksternLenke />
+                            <span>Arbeidsmarkedsloven §8</span> <ExternalLinkIcon title="Ekstern lenke. Åpnes i ny fane" fontSize="1.5rem" />
                         </Link>
                     </li>
                     <li>
                         <Link href="https://lovdata.no/lov/2005-06-17-62/§15-2">
-                            <span>Arbeidsmiljøloven §15-2 </span> <EksternLenke />
+                            <span>Arbeidsmiljøloven §15-2 </span> <ExternalLinkIcon title="Ekstern lenke. Åpnes i ny fane" fontSize="1.5rem" />
                         </Link>
                     </li>
                 </ul>
