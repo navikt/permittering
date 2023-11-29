@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropsWithChildren} from 'react';
 import { FunctionComponent, useEffect, useState } from 'react';
 import LoggInn from './LoggInn/LoggInn';
 import { sjekkInnlogget } from '../api/permittering-api';
@@ -9,7 +9,7 @@ export enum Tilgang {
     TILGANG,
 }
 
-const LoginBoundary: FunctionComponent = (props) => {
+const LoginBoundary: FunctionComponent<PropsWithChildren> = (props) => {
     const [innlogget, setInnlogget] = useState(Tilgang.LASTER);
 
     useEffect(() => {

@@ -1,5 +1,5 @@
-import React, { FunctionComponent } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, {FunctionComponent, PropsWithChildren} from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Stepper } from '@navikt/ds-react';
 import HvitSideBoks from './HvitSideBoks';
 import VerticalSpacer from './VerticalSpacer';
@@ -13,8 +13,8 @@ interface SkjemaRammeProps {
     slett: () => Promise<void>;
 }
 
-const SkjemaRamme: FunctionComponent<SkjemaRammeProps> = ({ children, steg, lagre, slett }) => {
-    const history = useHistory();
+const SkjemaRamme: FunctionComponent<PropsWithChildren<SkjemaRammeProps>> = ({ children, steg, lagre, slett }) => {
+    const navigate = useNavigate();
     const activeStep = steg.find(({ aktiv }) => aktiv)?.number ?? 1;
     return (
         <>
@@ -26,7 +26,7 @@ const SkjemaRamme: FunctionComponent<SkjemaRammeProps> = ({ children, steg, lagr
                     await lagre();
                     const s = steg.find((s) => s.number === x);
                     if (s) {
-                        history.push(s.path);
+                        navigate(s.path);
                     }
                 }}
                 orientation="horizontal"

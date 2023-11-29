@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, {FunctionComponent, PropsWithChildren, useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
 import { OpprettSkjema, Permitteringsskjema } from '../../../types/permitteringsskjema';
 import { avbryt, hent, lagre, opprett, sendInn } from '../../../api/permittering-api';
@@ -19,7 +19,7 @@ type Context = {
 
 const SkjemaContext = React.createContext<Context>({} as Context);
 
-export const SkjemaProvider: FunctionComponent = (props) => {
+export const SkjemaProvider: FunctionComponent<PropsWithChildren> = (props) => {
     const [skjema, setSkjema] = useState<Permitteringsskjema>({} as Permitteringsskjema);
     const { id } = useParams<{ id: string }>();
     useEffect(() => {

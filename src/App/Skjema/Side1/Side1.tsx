@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { BodyShort, Button, Heading, Label, TextField } from '@navikt/ds-react';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
@@ -11,7 +11,7 @@ import Dekorator from '../../komponenter/Dekorator/Dekorator';
 
 const Side1: FunctionComponent = () => {
     const context = useContext(SkjemaContext);
-    const history = useHistory();
+    const navigate = useNavigate();
     const { steg, nesteSide } = useSkjemaSteg(context.skjema.id);
     const [feilMeldingEpost, setFeilmeldingEpost] = useState('');
     const [feilMeldingTelefonNr, setFeilmeldingTelefonNr] = useState('');
@@ -22,7 +22,7 @@ const Side1: FunctionComponent = () => {
     }, []);
 
     if (context.skjema.sendtInnTidspunkt) {
-        history.replace('/');
+        navigate('/', { replace: true });
     }
 
     return (
@@ -115,7 +115,7 @@ const Side1: FunctionComponent = () => {
                     <Button
                         onClick={async () => {
                             await context.lagre();
-                            history.push(nesteSide);
+                            navigate(nesteSide);
                         }}
                     >
                         Neste

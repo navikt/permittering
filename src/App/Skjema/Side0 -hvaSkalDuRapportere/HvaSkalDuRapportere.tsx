@@ -1,6 +1,6 @@
 import { Button, Heading, Link, Radio, RadioGroup, Select } from '@navikt/ds-react';
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Permitteringsskjema } from '../../../types/permitteringsskjema';
 import environment from '../../../utils/environment';
 import {
@@ -14,7 +14,7 @@ import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import './HvaSkalDuRapportere.css';
 
 const HvaSkalDuRapportere = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const context = useContext(SkjemaContext);
     const { organisasjoner } = useContext(OrganisasjonsListeContext);
     const [valgtOrganisasjon, setValgtOrganisasjon] = useState(
@@ -36,7 +36,7 @@ const HvaSkalDuRapportere = () => {
             bedriftNr: valgtOrganisasjon,
             type: skjemaType!,
         });
-        history.push('/skjema/kontaktinformasjon/' + newId);
+        navigate('/skjema/kontaktinformasjon/' + newId);
     };
     const sidetittel =
         'Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid';

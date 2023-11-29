@@ -1,5 +1,4 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { stringify } from 'querystring';
 import { Yrkeskategori } from '../../../types/permitteringsskjema';
 import './Yrkeskategorivelger.css';
 import { Typeahead } from './typeahead/Typeahead';
@@ -11,7 +10,7 @@ export interface Sokeforslag {
 }
 
 const getUpdatedSuggestions = async (path: string, q: string) => {
-    const result = await fetch(path + '?' + stringify({ q }));
+    const result = await fetch(path + '?' + new URLSearchParams({ q }).toString());
     const rawData = await result.json();
     const data: Yrkeskategori[] = rawData.typeaheadYrkeList;
     let suggestions: Sokeforslag[] = [];

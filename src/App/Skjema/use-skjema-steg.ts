@@ -1,5 +1,5 @@
 import { SkjemaNavigasjon } from '../../types/SkjemaNavigasjon';
-import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const stegdefinisjon = [
     {
@@ -17,8 +17,7 @@ const stegdefinisjon = [
 ];
 
 export const useSkjemaSteg = (id: string): SkjemaNavigasjon => {
-    const history = useHistory();
-    const currentPathName = history.location.pathname;
+    const { pathname: currentPathName } = useLocation();
     const steg = stegdefinisjon.map((item, index) => ({
         ...item,
         number: index + 1,

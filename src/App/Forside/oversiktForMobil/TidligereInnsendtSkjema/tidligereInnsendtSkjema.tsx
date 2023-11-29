@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from 'react';
-import moment from 'moment';
 import { LinkPanel } from '@navikt/ds-react';
 import AttributtVisning from './AttributtVisning/AttributtVisning';
 import { Permitteringsskjema } from '../../../../types/permitteringsskjema';
 import './tidligereInnsendtSkjema.css';
+import {formatDate} from "../../../../utils/date-utils";
 
 const status = (skjema: Permitteringsskjema) => {
     if (skjema.sendtInnTidspunkt) {
@@ -53,7 +53,7 @@ const TidligereInnsendtSkjema: FunctionComponent<Props> = (props) => {
                         attributt="Dato sendt inn"
                         attributtVerdi={
                             props.tidligereSkjema.sendtInnTidspunkt &&
-                            moment(props.tidligereSkjema.sendtInnTidspunkt).format('L')
+                            formatDate(new Date(props.tidligereSkjema.sendtInnTidspunkt))
                         }
                     />
                     <AttributtVisning

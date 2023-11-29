@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 import { BodyLong, Button, Heading, Link, Modal } from '@navikt/ds-react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './AvbrytOgLagreSkjema.css';
 import VerticalSpacer from '../../VerticalSpacer';
 
@@ -10,7 +10,7 @@ interface AvbrytOgLagreSkjemaProps {
 
 export const AvbrytOgLagreSkjema: FunctionComponent<AvbrytOgLagreSkjemaProps> = ({ lagre }) => {
     const [isOpen, setOpen] = useState<boolean>(false);
-    const history = useHistory();
+    const navigate = useNavigate();
     return (
         <>
             <Link
@@ -42,7 +42,7 @@ export const AvbrytOgLagreSkjema: FunctionComponent<AvbrytOgLagreSkjemaProps> = 
                         <Button
                             onClick={async () => {
                                 await lagre();
-                                history.push('/');
+                                navigate('/');
                             }}
                         >
                             Lagre og gå til oversikten
