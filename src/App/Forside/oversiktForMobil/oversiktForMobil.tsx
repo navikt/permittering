@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from 'react';
-import {Heading, Ingress} from '@navikt/ds-react';
+import {BodyLong, Heading} from '@navikt/ds-react';
 import {Permitteringsskjema} from '../../../types/permitteringsskjema';
 import TidligereInnsendtSkjema from './TidligereInnsendtSkjema/tidligereInnsendtSkjema';
 import './oversiktForMobil.css';
@@ -23,9 +23,9 @@ const OversiktForMobil: FunctionComponent<Props> = (props: Props) => {
                     {rader}
                 </ul>
             ) : (
-                <Ingress className="forside__mobilvisning__undertittel">
+                <BodyLong size="large" className="forside__mobilvisning__undertittel">
                     <em>Ingen skjemaer</em>
-                </Ingress>
+                </BodyLong>
             )}
         </div>
     );
