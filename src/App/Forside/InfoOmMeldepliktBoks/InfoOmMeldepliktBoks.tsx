@@ -1,7 +1,6 @@
 import React, {FunctionComponent} from 'react';
 import {BodyLong, Button, Heading, Label, Link} from '@navikt/ds-react';
 import {useNavigate} from 'react-router-dom';
-import {BrodsmuleSti} from '../../komponenter/BrodsmuleSti/BrodsmuleSti';
 import InfoIkon from './InfoIkon';
 import {EksternLenke} from './EksternLenke';
 import './InfoOmMeldepliktBoks.css';
@@ -10,7 +9,6 @@ const InfoOmMeldepliktBoks: FunctionComponent = () => {
     const navigate = useNavigate();
     return (
         <div className="forside__info-om-meldeplikt-boks">
-            <BrodsmuleSti />
             <div className="ikon">
                 <InfoIkon />
             </div>

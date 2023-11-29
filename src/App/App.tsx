@@ -11,10 +11,23 @@ import Side1 from './Skjema/Side1/Side1';
 import Side2 from './Skjema/Side2/Side2';
 import Oppsummering from './Skjema/Side4-oppsummering/Oppsummering';
 import Kvitteirng from './Skjema/Kvitteringsside/Kvitteringsside';
+import {gittMiljo} from "../utils/environment";
+import {setBreadcrumbs} from "@navikt/nav-dekoratoren-moduler";
+
+const urlTilMinSideArbeidsgiver = gittMiljo({
+    prod: 'https://arbeidsgiver.nav.no/min-side-arbeidsgiver/',
+    dev: 'https://arbeidsgiver.intern.dev.nav.no/min-side-arbeidsgiver/',
+    demo: 'https://arbeidsgiver.ekstern.dev.nav.no/min-side-arbeidsgiver/',
+    other: 'https://arbeidsgiver.nav.no/min-side-arbeidsgiver/',
+});
 
 function App() {
     useEffect(() => {
         brukerLoggetPa();
+        setBreadcrumbs([
+            { url: urlTilMinSideArbeidsgiver, title: 'Min side – arbeidsgiver', handleInApp: false },
+            { url: '/', title: 'Permittering og oppsigelse', handleInApp: true },
+        ]);
     }, []);
 
     const basePath = '/permittering';
