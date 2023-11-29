@@ -1,6 +1,6 @@
-import { Select } from '@navikt/ds-react';
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import hentAArsakskoder from '../../../api/kodeverksAPI';
+import {Select} from '@navikt/ds-react';
+import React, {FunctionComponent, useEffect, useState} from 'react';
+import {hentAArsakskoder} from '../../../api/kodeverksAPI';
 
 interface Props {
     valgtårsak: string;

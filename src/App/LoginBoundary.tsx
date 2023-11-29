@@ -1,7 +1,6 @@
-import React, {PropsWithChildren} from 'react';
-import { FunctionComponent, useEffect, useState } from 'react';
+import React, {FunctionComponent, PropsWithChildren, useEffect, useState} from 'react';
 import LoggInn from './LoggInn/LoggInn';
-import { sjekkInnlogget } from '../api/permittering-api';
+import {sjekkInnlogget} from '../api/permittering-api';
 
 export enum Tilgang {
     LASTER,
@@ -14,15 +13,13 @@ const LoginBoundary: FunctionComponent<PropsWithChildren> = (props) => {
 
     useEffect(() => {
         setInnlogget(Tilgang.LASTER);
-        const abortController = new AbortController();
-        sjekkInnlogget(abortController.signal).then((innlogget) => {
+        sjekkInnlogget().then((innlogget) => {
             if (innlogget) {
                 setInnlogget(Tilgang.TILGANG);
             } else {
                 setInnlogget(Tilgang.IKKE_TILGANG);
             }
         });
-        return () => abortController.abort();
     }, []);
 
     if (innlogget === Tilgang.TILGANG) {

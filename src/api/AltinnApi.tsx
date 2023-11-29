@@ -1,11 +1,10 @@
-import { Organisasjon } from '../types/Organisasjon';
-import { FetchError } from './api-utils';
+import {Organisasjon} from '../types/Organisasjon';
 
-export async function hentOrganisasjonerFraAltinn(signal: any): Promise<Organisasjon[]> {
-    let respons = await fetch('/permittering/api/organisasjoner', { signal: signal });
+export async function hentOrganisasjonerFraAltinn(): Promise<Organisasjon[]> {
+    let respons = await fetch('/permittering/api/organisasjoner');
     if (respons.ok) {
         return await respons.json();
     } else {
-        throw new FetchError(respons.statusText || respons.type, respons);
+        throw respons;
     }
 }

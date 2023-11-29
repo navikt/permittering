@@ -1,41 +1,58 @@
-import { OpprettSkjema, Permitteringsskjema } from '../types/permitteringsskjema';
-import api from './api-client';
+import {OpprettSkjema, Permitteringsskjema} from '../types/permitteringsskjema';
 
-export async function sjekkInnlogget(signal: any): Promise<boolean> {
-    let respons = await fetch('/permittering/api/innlogget', { signal: signal });
+export async function sjekkInnlogget(): Promise<boolean> {
+    let respons = await fetch('/permittering/api/innlogget');
     return respons.ok;
 }
 
 export const hent = async (id: string) => {
-    const url = '/permittering/api/skjema/:id'.replace(':id', id);
-    const response = await api.get(url);
-    return response.data;
+    const response = await fetch(`/permittering/api/skjema/${id}`);
+    return response.json();
 };
 
 export const hentAlle = async () => {
-    const response = await api.get('/permittering/api/skjema');
-    return response.data;
+    const response = await fetch('/permittering/api/skjema');
+    return response.json();
 };
 
 export const opprett = async (data: OpprettSkjema) => {
-    const response = await api.post('/permittering/api/skjema', data);
-    return response.data;
+    const response = await fetch('/permittering/api/skjema', {
+        body: JSON.stringify(data),
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    return response.json();
 };
 
 export const lagre = async (skjema: Permitteringsskjema) => {
-    const url = '/permittering/api/skjema/:id'.replace(':id', skjema.id);
-    const response = await api.put(url, skjema);
-    return response.data;
+    const response = await fetch(`/permittering/api/skjema/${skjema.id}`, {
+        body: JSON.stringify(skjema),
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    return response.json();
 };
 
 export const sendInn = async (id: Permitteringsskjema['id']) => {
-    const skjemaSendInnUrl = '/permittering/api/skjema/:id/send-inn'.replace(':id', id);
-    const response = await api.post(skjemaSendInnUrl);
-    return response.data;
+    const response = await fetch(`/permittering/api/skjema/${id}/send-inn`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    return response.json();
 };
 
 export const avbryt = async (id: Permitteringsskjema['id']) => {
-    const skjemaAvbrytUrl = '/permittering/api/skjema/:id/avbryt'.replace(':id', id);
-    const response = await api.post(skjemaAvbrytUrl);
-    return response.data;
+    const response = await fetch(`/permittering/api/skjema/${id}/avbryt`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    return response.json();
 };
