@@ -1,45 +1,32 @@
 import express from 'express';
-import * as storageClient from './StorageMock.js';
 import organisasjoner from './organisasjoner.json' assert {type: 'json'};
 import årsakskoder from './årsakskoder.json' assert {type: 'json'};
 
-const userId = "42";
 let skjemaId = 0;
+const userId = "42";
+const mockStorage = {};
+
 export const mock = (app) => {
     app.use(express.json());
 
     app.get('/permittering/redirect-til-login', (req, res) => res.sendStatus(200));
     app.get('/permittering/api/innlogget', (req, res) => res.sendStatus(200));
 
-    /**
-     * Gir deg alle skjemaer innlogget bruker har tilgang til
-     */
     app.get('/permittering/api/skjema', (req, res) => {
-        const list = storageClient.listObjects();
-        const filteredList = list.filter((o) => o.userId === userId);
-        const reduced = [];
-        filteredList.forEach((e) => {
-            delete e.personer;
-            reduced.push(e);
-        });
-        res.json(reduced);
+        res.json(Object.values(mockStorage));
     });
-    /**
-     * Oppretter nytt skjema
-     */
     app.post('/permittering/api/skjema', (req, res) => {
-        const inputData = req.body;
         const id = `${skjemaId += 1}`;
         const org = organisasjoner.find((org) => req.body.bedriftNr === org.OrganizationNumber);
-        const bedriftNavn = org.Name;
-        const skjema = storageClient.putObject(id, { ...inputData, id, bedriftNavn, userId });
-        res.status(201).json(skjema);
+        const data = { ...(req.body), id, bedriftNavn: org.Name, userId };
+        res.status(201).json(mockStorage[id] = {
+            ...(data),
+            id,
+            updated: new Date().toJSON(),
+        });
     });
-    /**
-     * Gir deg ett skjema
-     */
     app.get('/permittering/api/skjema/:id', (req, res) => {
-        const skjema = storageClient.getObject(req.params.id);
+        const skjema = mockStorage[req.params.id];
         if (skjema) {
             res.json(skjema);
         } else {
@@ -49,33 +36,21 @@ export const mock = (app) => {
             });
         }
     });
-
-    /**
-     * Oppdaterer ett skjema
-     */
     app.put('/permittering/api/skjema/:id', (req, res) => {
-        const skjema = storageClient.putObject(req.params.id, req.body);
-        res.json(skjema);
+        let object = mockStorage[req.params.id] = {
+            ...(req.body),
+            id: req.params.id,
+            updated: new Date().toJSON(),
+        };
+        res.json(object);
     });
-
-    /**
-     * Sletter ett skjema
-     */
     app.post('/permittering/api/skjema/:id/avbryt', (req, res) => {
-        const skjema = storageClient.deleteObject(req.params.id);
-        res.json(skjema);
-    });
-
-    app.get('/permittering/api/organisasjoner', (req, res) => {
-        res.json(organisasjoner);
-    });
-
-    app.get('/permittering/api/kodeverk/årsakskoder'.replace('å', '%C3%A5'), (req, res) => {
-        res.json(årsakskoder);
+        delete mockStorage[req.params.id];
+        res.send(Object.values(mockStorage));
     });
 
     app.post('/permittering/api/skjema/:id/send-inn', (req, res) => {
-        const data = storageClient.getObject(req.params.id);
+        const data = mockStorage[req.params.id];
         if (
             !data.kontaktNavn ||
             !data.kontaktEpost ||
@@ -84,10 +59,20 @@ export const mock = (app) => {
             !data.fritekst
         ) {
             res.status(400).send();
-            return;
+        } else {
+            res.status(201).json(mockStorage[req.params.id] = {
+                ...data,
+                sendtInnTidspunkt: new Date().toJSON(),
+                updated: new Date().toJSON(),
+            });
         }
-        const sendtInnTidspunkt = new Date().toJSON();
-        const skjema = storageClient.putObject(req.params.id, { ...data, sendtInnTidspunkt });
-        res.status(201).json(skjema);
+    });
+
+    app.get('/permittering/api/organisasjoner', (req, res) => {
+        res.json(organisasjoner);
+    });
+
+    app.get('/permittering/api/kodeverk/%C3%A5rsakskoder', (req, res) => {
+        res.json(årsakskoder);
     });
 };
