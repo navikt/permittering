@@ -1,14 +1,11 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import { Heading } from '@navikt/ds-react';
-import { Permitteringsskjema } from '../../types/permitteringsskjema';
-import { hentAlle } from '../../api/permittering-api';
+import React, {FunctionComponent, useEffect, useState} from 'react';
+import {Heading} from '@navikt/ds-react';
+import {Permitteringsskjema} from '../../types/permitteringsskjema';
+import {hentAlle} from '../../api/permittering-api';
 import SkjemaTabell from './SkjemaTabell/SkjemaTabell';
 import HvitSideBoks from '../komponenter/HvitSideBoks';
 import Dekorator from '../komponenter/Dekorator/Dekorator';
-import {
-    loggAntallPaBegynteSkjema,
-    loggNavarendeSteg,
-} from '../../utils/funksjonerForAmplitudeLogging';
+import {loggAntallPaBegynteSkjema, loggNavarendeSteg,} from '../../utils/funksjonerForAmplitudeLogging';
 import OversiktForMobil from './oversiktForMobil/oversiktForMobil';
 import InfoOmMeldepliktBoks from './InfoOmMeldepliktBoks/InfoOmMeldepliktBoks';
 import './Forside.css';
@@ -46,7 +43,7 @@ const Forside: FunctionComponent = () => {
                             <SkjemaTabell skjemaer={skjemaer} />
                         ) : (
                             <p>
-                                <i>Ingen skjemaer</i>
+                                <em>Ingen skjemaer</em>
                             </p>
                         )}
                     </HvitSideBoks>

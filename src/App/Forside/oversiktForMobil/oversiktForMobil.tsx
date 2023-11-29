@@ -1,6 +1,6 @@
-import React, { FunctionComponent } from 'react';
-import { Heading, Ingress } from '@navikt/ds-react';
-import { Permitteringsskjema } from '../../../types/permitteringsskjema';
+import React, {FunctionComponent} from 'react';
+import {Heading, Ingress} from '@navikt/ds-react';
+import {Permitteringsskjema} from '../../../types/permitteringsskjema';
 import TidligereInnsendtSkjema from './TidligereInnsendtSkjema/tidligereInnsendtSkjema';
 import './oversiktForMobil.css';
 
@@ -24,7 +24,7 @@ const OversiktForMobil: FunctionComponent<Props> = (props: Props) => {
                 </ul>
             ) : (
                 <Ingress className="forside__mobilvisning__undertittel">
-                    <i>Ingen skjemaer</i>
+                    <em>Ingen skjemaer</em>
                 </Ingress>
             )}
         </div>
