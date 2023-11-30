@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from 'react';
-import {BodyLong, Button, Heading, Label, Link} from '@navikt/ds-react';
+import {BodyLong, Box, Button, Heading, Label, Link} from '@navikt/ds-react';
 import {ExternalLinkIcon} from '@navikt/aksel-icons';
 import {useNavigate} from 'react-router-dom';
 import InfoIkon from './InfoIkon';
@@ -8,7 +8,12 @@ import './InfoOmMeldepliktBoks.css';
 const InfoOmMeldepliktBoks: FunctionComponent = () => {
     const navigate = useNavigate();
     return (
-        <div className="forside__info-om-meldeplikt-boks">
+        <Box
+            className="forside__info-om-meldeplikt-boks"
+            background="bg-default"
+            padding="4"
+            borderRadius="small"
+        >
             <div className="ikon">
                 <InfoIkon />
             </div>
@@ -40,7 +45,7 @@ const InfoOmMeldepliktBoks: FunctionComponent = () => {
                     Meld fra til NAV
                 </Button>
             </div>
-        </div>
+        </Box>
     );
 };
 

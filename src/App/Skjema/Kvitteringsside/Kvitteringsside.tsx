@@ -1,16 +1,14 @@
-import React, { useContext, useEffect } from 'react';
-import { LinkPanel } from '@navikt/ds-react';
+import React, {useContext, useEffect} from 'react';
+import {LinkPanel} from '@navikt/ds-react';
 import HvitSideBoks from '../../komponenter/HvitSideBoks';
-import Dekorator from '../../komponenter/Dekorator/Dekorator';
-import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
+import Banner from '../../komponenter/Banner/Banner';
+import {loggNavarendeSteg} from '../../../utils/funksjonerForAmplitudeLogging';
 import './Kvitteringsside.css';
 import OppsummeringKvittering from './OppsummeringKvittering';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 
 const Kvitteringsside = () => {
     const context = useContext(SkjemaContext);
-    const sidetittel =
-        'Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid';
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -19,7 +17,7 @@ const Kvitteringsside = () => {
 
     return (
         <>
-            <Dekorator sidetittel={sidetittel} />
+            <Banner />
             <HvitSideBoks classname="kvitteringside">
                 <div className="kvitteringside__tekst">
                     <OppsummeringKvittering />

@@ -1,19 +1,19 @@
-import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Button, Checkbox, Heading, Label, TextField } from '@navikt/ds-react';
+import React, {FunctionComponent, useContext, useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {Button, Checkbox, Heading, Label, TextField} from '@navikt/ds-react';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
-import { useSkjemaSteg } from '../use-skjema-steg';
-import { mergeFritekst, splittOppFritekst } from '../../../utils/fritekstFunksjoner';
+import {useSkjemaSteg} from '../use-skjema-steg';
+import {mergeFritekst, splittOppFritekst} from '../../../utils/fritekstFunksjoner';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
 import Datovelger from '../../komponenter/Datovelger/Datovelger';
-import { lagTekstBasertPaSkjemaType } from '../Side4-oppsummering/oppsummering-utils';
-import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
+import {lagTekstBasertPaSkjemaType} from '../Side4-oppsummering/oppsummering-utils';
+import {loggNavarendeSteg} from '../../../utils/funksjonerForAmplitudeLogging';
 import Yrkeskategorivelger from '../../komponenter/Yrkeskategorivelger/Yrkeskategorivelger';
-import { Yrkeskategori } from '../../../types/permitteringsskjema';
-import { Permitteringsårsaksvelger } from '../../komponenter/PermitteringsÅrsaksVelger/PermitteringsÅrsaksVelger';
-import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
+import {Yrkeskategori} from '../../../types/permitteringsskjema';
+import {Permitteringsårsaksvelger} from '../../komponenter/PermitteringsÅrsaksVelger/PermitteringsÅrsaksVelger';
+import {finnÅrsakstekst} from '../../../api/kodeverksAPI';
 import './Side2.css';
-import Dekorator from '../../komponenter/Dekorator/Dekorator';
+import Banner from '../../komponenter/Banner/Banner';
 
 const Side2: FunctionComponent = () => {
     const navigate = useNavigate();
@@ -133,7 +133,7 @@ const Side2: FunctionComponent = () => {
 
     return (
         <>
-            <Dekorator sidetittel={context.skjema.type} />
+            <Banner skjematype={context.skjema.type} />
             <SkjemaRamme
                 steg={steg}
                 lagre={async () => await context.lagre()}
