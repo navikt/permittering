@@ -1,15 +1,17 @@
 import React from "react";
-import {Label, VStack} from "@navikt/ds-react";
+import {BodyShort, HStack, Label, VStack} from "@navikt/ds-react";
 
 type Props = {
     label: string;
-    id: string;
-    children: React.ReactNode;
+    field: React.ReactNode;
 }
 
-export const LabeledField = ({ label, id, children }: Props) => (
-    <VStack gap="0">
-        <Label htmlFor={id}>{label}</Label>
-        <div id={id}>{children}</div>
-    </VStack>
-);
+const idconcat = (felt: string) => `LabeledField${felt.replace(" ","_")}Id`;
+
+export const LabeledField = ({ label, field }: Props) => {
+    const id = idconcat(label);
+    return <HStack gap="0">
+        <Label style={{width: "10rem"}} htmlFor={id}>{`${label}: `}</Label>
+        <BodyShort id={id}>{field}</BodyShort>
+    </HStack>
+}
