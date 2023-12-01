@@ -10,6 +10,7 @@ import {VStack} from "@navikt/ds-react";
 import {Kvittering} from "./Skjema/Kvittering";
 import {InnskrenkningIArbeidstid} from "./Skjema/InnskrenkningIArbeidstid";
 import {Masseoppsigelse} from "./Skjema/Masseoppsigelse";
+import {Oppsummering} from "./Skjema/Oppsummering";
 
 function App() {
     const basePath = '/permittering';
@@ -38,6 +39,39 @@ function App() {
                                 <Route path="PERMITTERING_UTEN_LØNN" element={<PermitteringUtenLønn/>}/>
                                 <Route path="INNSKRENKNING_I_ARBEIDSTID" element={<InnskrenkningIArbeidstid/>}/>
                                 <Route path="kvitteringsside/:skjemaId" element={<Kvittering/>}/>
+                                <Route path="oppsummering/" element={ <Oppsummering skjema={{
+                                    id: '123',
+                                    opprettetTidspunkt: "22.01.2021",
+                                    bedriftNr: "123",
+                                    bedriftNavn: "Testbedrift",
+                                    type: 'MASSEOPPSIGELSE',
+                                    kontaktNavn: "Kontakt Navn",
+                                    kontaktTlf: "12345678",
+                                    kontaktEpost: "kontakt.navn@testbedrift.no",
+                                    varsletAnsattDato: "22.01.2021",
+                                    varsletNavDato: "22.01.2021",
+                                    startDato: "22.01.2021",
+                                    sluttDato: "22.01.2021",
+                                    ukjentSluttDato: false,
+                                    fritekst: "Fritekst",
+                                    personer: [{
+                                        fnr: "123",
+                                        grad: 2,
+                                        selected: false,
+                                        kommentar: "Kommentar",
+                                    }],
+                                    antallBerørt: 123,
+                                    sendtInnTidspunkt: "22.01.2021",
+                                    avbrutt: false,
+                                    årsakskode: "123",
+                                    årsakstekst: "Årsakstekst",
+                                    yrkeskategorier: [{
+                                        konseptId: 123,
+                                        styrk08: "123",
+                                        label: "Label",
+
+                                    }]
+                                }}/>}/>
                             </Route>
                         </Route>
 
