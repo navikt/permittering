@@ -1,6 +1,7 @@
 import React, {PropsWithChildren} from 'react';
 import {Heading} from '@navikt/ds-react';
 import './Banner.css';
+import {BannerPictogram} from "./BannerPictogram";
 
 const skjemaTypeTekst = {
     MASSEOPPSIGELSE: 'Si opp ansatte',
@@ -18,6 +19,7 @@ const Banner: React.FunctionComponent<PropsWithChildren<Props>> = ({skjematype, 
     return (
         <div className="banner">
             <div className="banner__inner">
+                <BannerPictogram/>
                 <Heading level="2" size="large" className="banner__tittel">
                     {heading}
                 </Heading>
