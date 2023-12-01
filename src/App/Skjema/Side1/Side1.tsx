@@ -1,13 +1,13 @@
-import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { BodyShort, Button, Heading, Label, TextField } from '@navikt/ds-react';
+import React, {FunctionComponent, useContext, useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {BodyShort, Button, Heading, Label, TextField} from '@navikt/ds-react';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
-import { useSkjemaSteg } from '../use-skjema-steg';
-import { erGyldigEpost, erGyldigTelefonNr } from '../../../utils/inputFeltValideringer';
-import { loggNavarendeSteg } from '../../../utils/funksjonerForAmplitudeLogging';
+import {useSkjemaSteg} from '../use-skjema-steg';
+import {erGyldigEpost, erGyldigTelefonNr} from '../../../utils/inputFeltValideringer';
+import {loggNavarendeSteg} from '../../../utils/funksjonerForAmplitudeLogging';
 import './Side1.css';
-import Dekorator from '../../komponenter/Dekorator/Dekorator';
+import Banner from '../../komponenter/Banner/Banner';
 
 const Side1: FunctionComponent = () => {
     const context = useContext(SkjemaContext);
@@ -27,7 +27,7 @@ const Side1: FunctionComponent = () => {
 
     return (
         <>
-            <Dekorator sidetittel={context.skjema.type} />
+            <Banner skjematype={context.skjema.type} />
             <SkjemaRamme
                 steg={steg}
                 lagre={async () => await context.lagre()}

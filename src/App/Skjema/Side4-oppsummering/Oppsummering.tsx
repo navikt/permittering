@@ -1,18 +1,9 @@
-import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
+import React, {FunctionComponent, useContext, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {
-    Alert,
-    BodyLong,
-    BodyShort,
-    Button,
-    GuidePanel,
-    Heading,
-    Label,
-    Link,
-} from '@navikt/ds-react';
+import {Alert, BodyLong, BodyShort, Button, GuidePanel, Heading, Label, Link,} from '@navikt/ds-react';
 import environment from '../../../utils/environment';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
-import { useSkjemaSteg } from '../use-skjema-steg';
+import {useSkjemaSteg} from '../use-skjema-steg';
 import {
     loggAntallBerorte,
     loggArsak,
@@ -22,16 +13,15 @@ import {
     loggSkjemaInnsendt,
 } from '../../../utils/funksjonerForAmplitudeLogging';
 import SkjemaRamme from '../../komponenter/SkjemaRamme';
-import { splittOppFritekst } from '../../../utils/fritekstFunksjoner';
-import { lagTekstBasertPaSkjemaType } from './oppsummering-utils';
+import {splittOppFritekst} from '../../../utils/fritekstFunksjoner';
+import {lagTekstBasertPaSkjemaType} from './oppsummering-utils';
 import SjekkOmFyltUt from '../../komponenter/SjekkOmFyltUt/SjekkOmFyltUt';
 import veilederIkon from './gjenstand.svg';
 import './Oppsummering.css';
-import { finnÅrsakstekst } from '../../../api/kodeverksAPI';
-import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
-import Dekorator from '../../komponenter/Dekorator/Dekorator';
-import { status } from '../../Forside/SkjemaTabell/SkjemaTabell';
-import { formatDate } from '../../../utils/date-utils';
+import {finnÅrsakstekst} from '../../../api/kodeverksAPI';
+import {OrganisasjonsListeContext} from '../../OrganisasjonslisteProvider';
+import Banner from '../../komponenter/Banner/Banner';
+import {formatDate} from '../../../utils/date-utils';
 
 export const lagAntallBerorteTekst = (antallBerorte?: number) => {
     if (antallBerorte) {
@@ -87,7 +77,7 @@ const Oppsummering: FunctionComponent = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
         const steg =
-            status(context.skjema) === 'Sendt inn'
+            context.skjema.sendtInnTidspunkt
                 ? 'oppsumeringsside innsendt'
                 : 'oppsummeringsside';
         loggNavarendeSteg(steg);
@@ -144,7 +134,7 @@ const Oppsummering: FunctionComponent = () => {
 
     return (
         <>
-            <Dekorator sidetittel={context.skjema.type} />
+            <Banner skjematype={context.skjema.type} />
             <SkjemaRamme
                 steg={steg}
                 lagre={async () => await context.lagre()}

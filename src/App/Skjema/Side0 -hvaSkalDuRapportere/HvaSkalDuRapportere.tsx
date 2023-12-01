@@ -1,15 +1,12 @@
-import { Button, Heading, Link, Radio, RadioGroup, Select } from '@navikt/ds-react';
-import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Permitteringsskjema } from '../../../types/permitteringsskjema';
+import {Button, Heading, Link, Radio, RadioGroup, Select} from '@navikt/ds-react';
+import React, {useContext, useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {Permitteringsskjema} from '../../../types/permitteringsskjema';
 import environment from '../../../utils/environment';
-import {
-    loggAntallUnderenheter,
-    loggSkjemaValg,
-} from '../../../utils/funksjonerForAmplitudeLogging';
-import Dekorator from '../../komponenter/Dekorator/Dekorator';
+import {loggAntallUnderenheter, loggSkjemaValg,} from '../../../utils/funksjonerForAmplitudeLogging';
+import Banner from '../../komponenter/Banner/Banner';
 import HvitSideBoks from '../../komponenter/HvitSideBoks';
-import { OrganisasjonsListeContext } from '../../OrganisasjonslisteProvider';
+import {OrganisasjonsListeContext} from '../../OrganisasjonslisteProvider';
 import SkjemaContext from '../SkjemaContext/SkjemaContext';
 import './HvaSkalDuRapportere.css';
 
@@ -38,12 +35,10 @@ const HvaSkalDuRapportere = () => {
         });
         navigate('/skjema/kontaktinformasjon/' + newId);
     };
-    const sidetittel =
-        'Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid';
 
     return (
         <>
-            <Dekorator sidetittel={sidetittel} />
+            <Banner />
             <HvitSideBoks classname="hva-skal-du-rapportere">
                 <Heading level="3" size="medium">
                     Hva vil du informere NAV om?

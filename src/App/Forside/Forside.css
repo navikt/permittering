@@ -1,14 +1,14 @@
-.forside__topp {
-    margin-bottom: 2rem;
-    margin-right: 2rem;
+.forside-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 1rem;
+    padding: 1rem 0;
 }
-.forside__tabell-container {
-    display: initial;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-}
-@media (max-width: 992px) {
-    .forside__tabell-container {
-        display: none;
+
+@media (min-width: 1024px) {
+    .forside-container {
+        width: 60rem;
+        margin: 0 auto 2rem auto;
     }
 }

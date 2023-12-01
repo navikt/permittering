@@ -1,58 +1,35 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import { Heading } from '@navikt/ds-react';
-import { Permitteringsskjema } from '../../types/permitteringsskjema';
-import { hentAlle } from '../../api/permittering-api';
-import SkjemaTabell from './SkjemaTabell/SkjemaTabell';
-import HvitSideBoks from '../komponenter/HvitSideBoks';
-import Dekorator from '../komponenter/Dekorator/Dekorator';
-import {
-    loggAntallPaBegynteSkjema,
-    loggNavarendeSteg,
-} from '../../utils/funksjonerForAmplitudeLogging';
-import OversiktForMobil from './oversiktForMobil/oversiktForMobil';
+import React, {FunctionComponent, useEffect, useState} from 'react';
+import {VStack} from '@navikt/ds-react';
+import {Permitteringsskjema} from '../../types/permitteringsskjema';
+import {hentAlle} from '../../api/permittering-api';
+import Banner from '../komponenter/Banner/Banner';
+import {loggAntallPaBegynteSkjema, loggNavarendeSteg,} from '../../utils/funksjonerForAmplitudeLogging';
 import InfoOmMeldepliktBoks from './InfoOmMeldepliktBoks/InfoOmMeldepliktBoks';
 import './Forside.css';
+import {MineSkjema} from "./MineSkjema/MineSkjema";
 
 const Forside: FunctionComponent = () => {
-    const [skjemaer, setSkjemaer] = useState<Permitteringsskjema[] | undefined>(undefined);
-    const sidetittel =
-        'Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid';
+    const [skjema, setSkjema] = useState<Permitteringsskjema[] | undefined>(undefined);
 
     useEffect(() => {
         loggNavarendeSteg('oversikt-tidligere-skjema');
-        hentAlle().then(setSkjemaer);
+        hentAlle().then(setSkjema);
     }, []);
 
     useEffect(() => {
-        if (skjemaer && skjemaer.length > 0) {
-            const antallPaBegynte = skjemaer.filter(
-                (skjema) => skjema.sendtInnTidspunkt == null || skjema.sendtInnTidspunkt === ''
-            ).length;
-            antallPaBegynte && loggAntallPaBegynteSkjema(antallPaBegynte);
+        if (skjema && skjema.length > 0) {
+            const antallPaBegynte = skjema.filter(({sendtInnTidspunkt: ts}) => ts === null || ts === '').length;
+            loggAntallPaBegynteSkjema(antallPaBegynte);
         }
-    }, [skjemaer]);
+    }, [skjema]);
 
     return (
         <>
-            <Dekorator sidetittel={sidetittel} />
-            <InfoOmMeldepliktBoks />
-            {skjemaer && (
-                <>
-                    <HvitSideBoks classname="forside__tabell-container">
-                        <Heading level="3" size="medium" className="forside__topp">
-                            Dine skjema
-                        </Heading>
-                        {skjemaer.length > 0 ? (
-                            <SkjemaTabell skjemaer={skjemaer} />
-                        ) : (
-                            <p>
-                                <i>Ingen skjemaer</i>
-                            </p>
-                        )}
-                    </HvitSideBoks>
-                    <OversiktForMobil listeMedSkjema={skjemaer} />
-                </>
-            )}
+            <Banner />
+            <VStack gap="4" className="forside-container">
+                <InfoOmMeldepliktBoks/>
+                <MineSkjema skjema={skjema}/>
+            </VStack>
         </>
     );
 };
