@@ -6,7 +6,8 @@ import Banner from '../komponenter/Banner/Banner';
 import {loggAntallPaBegynteSkjema, loggNavarendeSteg,} from '../../utils/funksjonerForAmplitudeLogging';
 import InfoOmMeldepliktBoks from './InfoOmMeldepliktBoks/InfoOmMeldepliktBoks';
 import './Forside.css';
-import {MineSkjema} from "./MineSkjema/MineSkjema";
+import {InnsendteSkjemaer} from "./MineSkjema/InnsendteSkjemaer";
+import {Breadcrumbs} from "../Skjema/Breadcrumbs";
 
 const Forside: FunctionComponent = () => {
     const [skjema, setSkjema] = useState<Permitteringsskjema[] | undefined>(undefined);
@@ -25,10 +26,11 @@ const Forside: FunctionComponent = () => {
 
     return (
         <>
+            <Breadcrumbs />
             <Banner />
             <VStack gap="4" className="forside-container">
                 <InfoOmMeldepliktBoks/>
-                <MineSkjema skjema={skjema}/>
+                <InnsendteSkjemaer skjemaer={skjema}/>
             </VStack>
         </>
     );

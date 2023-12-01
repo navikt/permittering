@@ -20,7 +20,7 @@ const Banner: React.FunctionComponent<PropsWithChildren<Props>> = ({skjematype, 
         <div className="banner">
             <div className="banner__inner">
                 <BannerPictogram/>
-                <Heading level="2" size="large" className="banner__tittel">
+                <Heading level="1" size="xlarge" className="banner__tittel">
                     {heading}
                 </Heading>
                 {children}

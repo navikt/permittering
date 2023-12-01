@@ -6,19 +6,19 @@ import {loggTrykketPaTidligereSkjema} from "../../../utils/funksjonerForAmplitud
 import './MineSkjema.css';
 
 
-export const MineSkjema: FunctionComponent<{ skjema: Permitteringsskjema[] | undefined }> = ({skjema}) => {
-    return (skjema === undefined || skjema.length === 0)
+export const InnsendteSkjemaer: FunctionComponent<{ skjemaer: Permitteringsskjema[] | undefined }> = ({skjemaer}) => {
+    return (skjemaer === undefined || skjemaer.length === 0)
         ? null
         : <Box
             background="bg-default"
             padding={{xs: '2', md: '4', lg: '8'}}
             borderRadius="small"
         >
-            <Heading level="3" size="medium" spacing>
-                Skjemaer
+            <Heading level="2" size="large" spacing>
+                Innsendte skjemaer
             </Heading>
             <VStack gap="4">
-                {skjema
+                {skjemaer
                     .filter((skjema: Permitteringsskjema) => !skjema.avbrutt)
                     .map((skjema: Permitteringsskjema) => <SkjemaPanel skjema={skjema}/>)
                 }
@@ -33,19 +33,20 @@ const skjemaTekster = {
 };
 
 const SkjemaPanel: FunctionComponent<{ skjema: Permitteringsskjema }> = ({skjema}) => {
-    const status = skjema.sendtInnTidspunkt ? 'Sendt inn' : 'Påbegynt'
-    const tagVariant = skjema.sendtInnTidspunkt ? 'success' : 'info'
-    const skjemaType = skjemaTekster[skjema.type] ?? 'Ukjent';
-    const lenke = skjema.sendtInnTidspunkt ? `/permittering/skjema/kvitteringsside/${skjema.id}` : `/permittering/skjema/kontaktinformasjon/${skjema.id}`;
+    const skjemaType = skjemaTekster[skjema.type];
+    const lenke = `/permittering/skjema/kvitteringsside/${skjema.id}`;
+
+    // TODO sendtInnTidspunkt not nullable, remove default new Date
+    const innsendt = formatDate(new Date(skjema.sendtInnTidspunkt ? skjema.sendtInnTidspunkt : new Date()));
 
     return <LinkPanel href={lenke} className="skjemapanel" key={skjema.id} border onClick={() =>
-        loggTrykketPaTidligereSkjema(status)
+        loggTrykketPaTidligereSkjema('Sendt inn')
     }>
         <LinkPanel.Title>{skjemaType}</LinkPanel.Title>
         <LinkPanel.Description className="skjemapanel-description">
-            {skjema.sendtInnTidspunkt && formatDate(new Date(skjema.sendtInnTidspunkt))}
-            {skjema.bedriftNavn} {skjema.bedriftNr}
-            <Tag variant={tagVariant}>{status}</Tag>
+
+            {skjema.bedriftNavn} (org.nr {skjema.bedriftNr})
+            <Tag variant="success">Sendt inn: {innsendt}</Tag>
         </LinkPanel.Description>
     </LinkPanel>
 }
