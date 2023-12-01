@@ -1,23 +1,18 @@
 import React, {FunctionComponent} from 'react';
-import {BodyLong, Box, Button, Heading, Label, Link} from '@navikt/ds-react';
+import {BodyLong, Box, Button, Heading, Link, List, VStack} from '@navikt/ds-react';
 import {ExternalLinkIcon} from '@navikt/aksel-icons';
 import {useNavigate} from 'react-router-dom';
-import InfoIkon from './InfoIkon';
 import './InfoOmMeldepliktBoks.css';
 
 const InfoOmMeldepliktBoks: FunctionComponent = () => {
     const navigate = useNavigate();
     return (
         <Box
-            className="forside__info-om-meldeplikt-boks"
             background="bg-default"
-            padding="4"
             borderRadius="small"
+            padding={{xs: '2', md: '4', lg: '8'}}
         >
-            <div className="ikon">
-                <InfoIkon />
-            </div>
-            <div className="innhold">
+            <VStack gap="8">
                 <Heading level="3" size="medium">
                     Arbeidsgivers meldeplikt til NAV
                 </Heading>
@@ -27,24 +22,24 @@ const InfoOmMeldepliktBoks: FunctionComponent = () => {
                     gjelder færre enn 10 ansatte om du ønsker det.
                 </BodyLong>
 
-                <Label>Dette er bestemt av:</Label>
-                <ul>
-                    <li>
+                <List as="ul" title="Dette er bestemt av:" size="small">
+                    <List.Item>
                         <Link href="https://lovdata.no/lov/2004-12-10-76/§8">
-                            <span>Arbeidsmarkedsloven §8</span> <ExternalLinkIcon title="Ekstern lenke. Åpnes i ny fane" fontSize="1.5rem" />
+                            Arbeidsmarkedsloven §8 <ExternalLinkIcon title="Ekstern lenke. Åpnes i ny fane" fontSize="1.5rem" />
                         </Link>
-                    </li>
-                    <li>
+                    </List.Item>
+                    <List.Item>
                         <Link href="https://lovdata.no/lov/2005-06-17-62/§15-2">
-                            <span>Arbeidsmiljøloven §15-2 </span> <ExternalLinkIcon title="Ekstern lenke. Åpnes i ny fane" fontSize="1.5rem" />
+                            Arbeidsmiljøloven §15-2 <ExternalLinkIcon title="Ekstern lenke. Åpnes i ny fane" fontSize="1.5rem" />
                         </Link>
-                    </li>
-                </ul>
+                    </List.Item>
+                </List>
 
-                <Button className="meld-fra-knapp" onClick={() => navigate('skjema/start')}>
+                <Button className="meld-fra-knapp" spacing onClick={() => navigate('skjema/start')}>
                     Meld fra til NAV
                 </Button>
-            </div>
+            </VStack>
+
         </Box>
     );
 };
