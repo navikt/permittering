@@ -11,11 +11,11 @@ export const MineSkjema: FunctionComponent<{ skjema: Permitteringsskjema[] | und
         ? null
         : <Box
             background="bg-default"
-            padding="4"
+            padding={{xs: '2', md: '4', lg: '8'}}
             borderRadius="small"
         >
             <Heading level="3" size="medium" spacing>
-                Dine skjema
+                Skjemaer
             </Heading>
             <VStack gap="4">
                 {skjema
