@@ -1,25 +1,31 @@
 .banner {
-    background-color: #cce1f3;
-    border-bottom: 0.25rem solid #99c2e8;
+    border-bottom: 0.25rem solid var(--a-border-focus-on-inverted);
     padding: 2rem;
+    background-color: var(--a-bg-default);
 }
 .banner__tittel {
     margin-bottom: 1rem;
 }
 .banner__inner {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 60rem;
-    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr minmax(1rem,60rem) 1fr;
+    grid-template-areas: "pictogram title empty";
 }
-@media (min-width: 768px) {
-    .banner__tittel {
-        margin-bottom: 0;
-    }
-    .banner__inner {
-        flex-direction: row;
+
+.banner__tittel {
+    grid-area: title;
+}
+
+.banner__pictogram {
+    grid-area: pictogram;
+    display: flex;
+    justify-self: flex-end;
+    margin: 0 32px 0 64px;
+    align-items: flex-start;
+}
+
+@media (max-width: 1028px) {
+    .banner__pictogram {
+        display: none;
     }
 }
