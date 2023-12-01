@@ -27,11 +27,8 @@ const Forside: FunctionComponent = () => {
     return (
         <>
             <Breadcrumbs />
-            <Banner />
-            <VStack gap="4" className="forside-container">
-                <InfoOmMeldepliktBoks/>
-                <InnsendteSkjemaer skjemaer={skjema}/>
-            </VStack>
+            <InfoOmMeldepliktBoks/>
+            <InnsendteSkjemaer skjemaer={skjema}/>
         </>
     );
 };

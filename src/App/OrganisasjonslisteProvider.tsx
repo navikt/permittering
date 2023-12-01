@@ -5,14 +5,10 @@ import IkkeTilgang from './IkkeTilgang/IkkeTilgang';
 import useSWR from "swr";
 import {z} from "zod";
 
-export enum Tilgang {
-    LASTER,
-    IKKE_TILGANG,
-    TILGANG,
-}
-
 export type OrganisajonsContext = {
     organisasjoner: Array<Organisasjon>;
+    organisasjon: Organisasjon;
+    setOrganisasjon: (organisasjon: Organisasjon) => void;
 };
 
 export const OrganisasjonsListeContext = React.createContext<OrganisajonsContext>(
@@ -20,60 +16,34 @@ export const OrganisasjonsListeContext = React.createContext<OrganisajonsContext
 );
 
 export const OrganisasjonsListeProvider: FunctionComponent<PropsWithChildren> = (props) => {
-    const [organisasjoner, setOrganisasjoner] = useState(Array<Organisasjon>());
-    const [organisasjonslisteFerdigLastet, setOrganisasjonslisteFerdigLastet] = useState(
-        Tilgang.LASTER
-    );
+    const {organisasjoner, isError} = useOrganisasjonerFraAltinn();
+    const [organisasjon, setOrganisasjon] = useState<Organisasjon | undefined>();
 
     useEffect(() => {
-        hentOrganisasjonerFraAltinn()
-            .then((organisasjonsliste) => {
-                const kunBedrifter = organisasjonsliste.filter(
-                    (organisasjon) =>
-                        organisasjon.OrganizationForm === 'BEDR' ||
-                        organisasjon.OrganizationForm === 'AAFY'
-                );
-                setOrganisasjoner(kunBedrifter);
-                if (kunBedrifter.length > 0) setOrganisasjonslisteFerdigLastet(Tilgang.TILGANG);
-                else {
-                    setOrganisasjonslisteFerdigLastet(Tilgang.IKKE_TILGANG);
-                }
-            })
-            .catch((e) => {
-                setOrganisasjoner([]);
-                //setVisFeilmelding(true);
-            });
-    }, []);
+        if (organisasjoner !== undefined && organisasjon === undefined) {
+            setOrganisasjon(organisasjoner[0]);
+        }
+    }, [organisasjoner, organisasjon, setOrganisasjon]);
 
-    let defaultContext: OrganisajonsContext = {
-        organisasjoner,
-    };
-    return (
-        <>
-            {organisasjonslisteFerdigLastet !== Tilgang.LASTER &&
-                organisasjonslisteFerdigLastet === Tilgang.IKKE_TILGANG && <IkkeTilgang/>}
-            {organisasjonslisteFerdigLastet !== Tilgang.LASTER &&
-                organisasjonslisteFerdigLastet === Tilgang.TILGANG && (
-                    <OrganisasjonsListeContext.Provider value={defaultContext}>
-                        {props.children}
-                    </OrganisasjonsListeContext.Provider>
-                )}
-        </>
-    );
-};
-export const OrganisasjonsListeProviderV2: FunctionComponent<PropsWithChildren> = (props) => {
-    const {organisasjoner, isError} = useOrganisasjonerFraAltinn();
+    if (organisasjoner === undefined || organisasjon === undefined) {
+        // TODO: trenger skisse / design på denne staten
+        return <>spinner</>;
+    }
 
-    if (organisasjoner === undefined || isError) {
-        // TODO: trenger skisse / design på denne/disse statene
-        return <>spinner og eller feilmelding</>;
+    if (isError) {
+        // TODO: trenger skisse / design på denne staten
+        return <>vis feilmelding</>;
     }
 
     return (
         <>
             {organisasjoner.length === 0
                 ? <IkkeTilgang/>
-                : <OrganisasjonsListeContext.Provider value={{organisasjoner}}>
+                : <OrganisasjonsListeContext.Provider value={{
+                    organisasjoner,
+                    organisasjon,
+                    setOrganisasjon,
+                }}>
                     {props.children}
                 </OrganisasjonsListeContext.Provider>
             }

@@ -1,6 +1,5 @@
 import React, {FunctionComponent} from 'react';
 import {BodyLong, Box, Heading, Link, LinkPanel, List, ReadMore, VStack} from '@navikt/ds-react';
-import {useNavigate} from 'react-router-dom';
 import './InfoOmMeldepliktBoks.css';
 
 const InfoOmMeldepliktBoks: FunctionComponent = () => {
