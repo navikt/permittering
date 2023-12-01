@@ -1,6 +1,6 @@
-import React, { FunctionComponent, useState } from 'react';
-import { BodyLong, Button, Heading, Link, Modal } from '@navikt/ds-react';
-import { useNavigate } from 'react-router-dom';
+import React, {FunctionComponent, useState} from 'react';
+import {BodyLong, Button, Heading, Link, Modal} from '@navikt/ds-react';
+import {useNavigate} from 'react-router-dom';
 import './AvbrytOgLagreSkjema.css';
 import VerticalSpacer from '../../VerticalSpacer';
 
@@ -25,7 +25,7 @@ export const AvbrytOgLagreSkjema: FunctionComponent<AvbrytOgLagreSkjemaProps> = 
             </Link>
             <Modal
                 open={isOpen}
-                onClose={() => setOpen((x) => !x)}
+                onClose={() => setOpen(false)}
                 aria-labelledby="avbryt-modal-heading"
             >
                 <div className="avbryt-modal-innhold">
