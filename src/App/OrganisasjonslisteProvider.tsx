@@ -1,6 +1,6 @@
 import React, {FunctionComponent, PropsWithChildren, useEffect, useState} from 'react';
-import { Organisasjon } from '../types/Organisasjon';
-import { hentOrganisasjonerFraAltinn } from '../api/AltinnApi';
+import {Organisasjon} from '../types/Organisasjon';
+import {hentOrganisasjonerFraAltinn} from '../api/AltinnApi';
 import IkkeTilgang from './IkkeTilgang/IkkeTilgang';
 
 export enum Tilgang {
@@ -26,9 +26,7 @@ export const OrganisasjonsListeProvider: FunctionComponent<PropsWithChildren> = 
     );
 
     useEffect(() => {
-        const abortController = new AbortController();
-        const signal = abortController.signal;
-        hentOrganisasjonerFraAltinn(signal)
+        hentOrganisasjonerFraAltinn()
             .then((organisasjonsliste) => {
                 const kunBedrifter = organisasjonsliste.filter(
                     (organisasjon) =>
