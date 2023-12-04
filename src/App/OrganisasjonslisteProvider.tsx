@@ -1,7 +1,6 @@
 import React, {FunctionComponent, PropsWithChildren, useEffect, useState} from 'react';
 import {Organisasjon} from '../types/Organisasjon';
-import {hentOrganisasjonerFraAltinn} from '../api/AltinnApi';
-import IkkeTilgang from './IkkeTilgang/IkkeTilgang';
+import {IkkeTilgang} from './IkkeTilgang/IkkeTilgang';
 import useSWR from "swr";
 import {z} from "zod";
 
@@ -27,12 +26,12 @@ export const OrganisasjonsListeProvider: FunctionComponent<PropsWithChildren> = 
 
     if (organisasjoner === undefined || organisasjon === undefined) {
         // TODO: trenger skisse / design på denne staten
-        return <>spinner</>;
+        return null;
     }
 
     if (isError) {
         // TODO: trenger skisse / design på denne staten
-        return <>vis feilmelding</>;
+        return null;
     }
 
     return (

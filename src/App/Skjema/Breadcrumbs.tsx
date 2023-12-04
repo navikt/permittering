@@ -11,14 +11,14 @@ const urlTilMinSideArbeidsgiver = gittMiljo({
 });
 
 const defaultBreadcrumbs = [
-    { url: urlTilMinSideArbeidsgiver, title: 'Min side – arbeidsgiver', handleInApp: false },
-    { url: '/', title: 'Permittering og oppsigelse', handleInApp: true },
+    { url: urlTilMinSideArbeidsgiver, title: 'Min side – arbeidsgiver' },
+    { url: '/', title: 'Permittering og oppsigelse' },
 ]
 
-type Breadcrumb = {
+export type Breadcrumb = {
     url: string;
     title: string;
-    handleInApp: boolean;
+    handleInApp?: boolean;
 };
 
 export const Breadcrumbs: FunctionComponent<{ breadcrumb?: Breadcrumb}> = ({ breadcrumb }) => {

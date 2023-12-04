@@ -1,6 +1,5 @@
 import express from 'express';
 import organisasjoner from './organisasjoner.json' assert {type: 'json'};
-import årsakskoder from './årsakskoder.json' assert {type: 'json'};
 
 let skjemaId = 0;
 const userId = "42";
@@ -70,9 +69,5 @@ export const mock = (app) => {
 
     app.get('/permittering/api/organisasjoner', (req, res) => {
         res.json(organisasjoner);
-    });
-
-    app.get('/permittering/api/kodeverk/%C3%A5rsakskoder', (req, res) => {
-        res.json(årsakskoder);
     });
 };

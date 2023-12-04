@@ -1,6 +1,6 @@
-import {OrganisasjonFraEnhetsregisteret, tomEnhetsregOrg} from '../types/organisasjonFraEnhetsRegisteret';
+import {OrganisasjonFraEnhetsRegisteret, tomEnhetsregOrg} from '../types/OrganisasjonFraEnhetsRegisteret';
 
-export async function hentUnderenhet(orgnr: string): Promise<OrganisasjonFraEnhetsregisteret> {
+export async function hentUnderenhet(orgnr: string): Promise<OrganisasjonFraEnhetsRegisteret> {
     let respons = await fetch(`https://data.brreg.no/enhetsregisteret/api/underenheter/${orgnr}`);
     if (respons.ok) {
         return await respons.json();
@@ -8,7 +8,7 @@ export async function hentUnderenhet(orgnr: string): Promise<OrganisasjonFraEnhe
     return tomEnhetsregOrg;
 }
 
-export async function hentOverordnetEnhet(orgnr: string): Promise<OrganisasjonFraEnhetsregisteret> {
+export async function hentOverordnetEnhet(orgnr: string): Promise<OrganisasjonFraEnhetsRegisteret> {
     if (orgnr !== '') {
         let respons = await fetch(`https://data.brreg.no/enhetsregisteret/api/enheter/${orgnr}`);
         if (respons.ok) {

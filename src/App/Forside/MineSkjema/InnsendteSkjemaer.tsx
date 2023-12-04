@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from "react";
-import {Permitteringsskjema} from "../../../types/permitteringsskjema";
+import {Permitteringsskjema} from "../../../types/Permitteringsskjema";
 import {Box, Heading, LinkPanel, Tag, VStack} from "@navikt/ds-react";
 import {formatDate} from "../../../utils/date-utils";
 import {loggTrykketPaTidligereSkjema} from "../../../utils/funksjonerForAmplitudeLogging";
@@ -19,7 +19,6 @@ export const InnsendteSkjemaer: FunctionComponent<{ skjemaer: Permitteringsskjem
             </Heading>
             <VStack gap="4">
                 {skjemaer
-                    .filter((skjema: Permitteringsskjema) => !skjema.avbrutt)
                     .map((skjema: Permitteringsskjema) => <SkjemaPanel skjema={skjema}/>)
                 }
             </VStack>

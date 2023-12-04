@@ -1,10 +1,7 @@
 import amplitude from '../utils/amplitude';
-import { Organisasjon } from '../types/Organisasjon';
-import {
-    OrganisasjonFraEnhetsregisteret,
-    tomEnhetsregOrg,
-} from '../types/organisasjonFraEnhetsRegisteret';
-import { hentOverordnetEnhet, hentUnderenhet } from '../api/enhetsRegisteretApi';
+import {Organisasjon} from '../types/Organisasjon';
+import {OrganisasjonFraEnhetsRegisteret, tomEnhetsregOrg,} from '../types/OrganisasjonFraEnhetsRegisteret';
+import {hentOverordnetEnhet, hentUnderenhet} from '../api/enhetsRegisteretApi';
 
 export const brukerLoggetPa = () => {
     amplitude.logEvent('#permitteringsskjema-forside bruker logget på');
@@ -43,7 +40,7 @@ export const loggTrykketPaTidligereSkjema = (type: string) => {
 };
 
 export const loggBedriftsInfo = async (organisasjon: Organisasjon): Promise<string> => {
-    let infoFraEereg: OrganisasjonFraEnhetsregisteret = tomEnhetsregOrg;
+    let infoFraEereg: OrganisasjonFraEnhetsRegisteret = tomEnhetsregOrg;
     await hentUnderenhet(organisasjon.OrganizationNumber).then((underenhet) => {
         infoFraEereg = underenhet;
     });
@@ -57,7 +54,7 @@ export const loggBedriftsInfo = async (organisasjon: Organisasjon): Promise<stri
                 næring: infoFraEereg.naeringskode1.beskrivelse,
             });
         }
-        let infoFraEeregJuridisk: OrganisasjonFraEnhetsregisteret = tomEnhetsregOrg;
+        let infoFraEeregJuridisk: OrganisasjonFraEnhetsRegisteret = tomEnhetsregOrg;
         await hentOverordnetEnhet(organisasjon.ParentOrganizationNumber).then((enhet) => {
             infoFraEeregJuridisk = enhet;
         });

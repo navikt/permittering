@@ -1,4 +1,4 @@
-export interface OrganisasjonFraEnhetsregisteret {
+export interface OrganisasjonFraEnhetsRegisteret {
     organisasjonsnummer: string;
     navn: string;
     organisasjonsform: organisasjonsform;
@@ -63,7 +63,7 @@ export interface institusjonellSektorkode {
     beskrivelse: string;
 }
 
-export const tomEnhetsregOrg: OrganisasjonFraEnhetsregisteret = {
+export const tomEnhetsregOrg: OrganisasjonFraEnhetsRegisteret = {
     organisasjonsnummer: '',
     navn: '',
     organisasjonsform: {

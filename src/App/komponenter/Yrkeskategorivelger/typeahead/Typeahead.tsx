@@ -1,5 +1,5 @@
-import { MagnifyingGlassIcon, XMarkIcon } from '@navikt/aksel-icons';
-import { BodyShort, Label, Tag, useId } from '@navikt/ds-react';
+import {MagnifyingGlassIcon, XMarkIcon} from '@navikt/aksel-icons';
+import {BodyShort, Label, Tag, useId} from '@navikt/ds-react';
 import {
     Combobox,
     ComboboxInput,
@@ -8,7 +8,7 @@ import {
     ComboboxOptionText,
     ComboboxPopover,
 } from '@reach/combobox';
-import React, { FormEventHandler, FunctionComponent, ReactNode } from 'react';
+import React, {FormEventHandler, FunctionComponent, ReactNode} from 'react';
 import './Typeahead.css';
 import '@reach/combobox/styles.css';
 
@@ -24,6 +24,7 @@ type Props = {
     description?: string;
     suggestions: string[];
     suggestionsId?: string;
+    inputId?: string;
     selectedSuggestions: string[];
     onRemoveSuggestion: (suggestion: string) => () => void;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -37,13 +38,14 @@ export const Typeahead: FunctionComponent<Props> = ({
     description,
     suggestions,
     suggestionsId,
+    inputId,
     selectedSuggestions,
     onRemoveSuggestion,
     onSelect,
     onChange,
     allowUnmatchedInputs = true,
 }) => {
-    const inputId = useId();
+    const id = inputId ?? useId();
     const descriptionId = useId();
 
     const onSubmit: FormEventHandler = (event) => {
@@ -82,7 +84,7 @@ export const Typeahead: FunctionComponent<Props> = ({
             <Combobox className="navds-search__wrapper" onSelect={onSelect}>
                 <div className="navds-search__wrapper-inner">
                     <ComboboxInput
-                        id={inputId}
+                        id={id}
                         autoComplete="off"
                         aria-describedby={descriptionId}
                         className={

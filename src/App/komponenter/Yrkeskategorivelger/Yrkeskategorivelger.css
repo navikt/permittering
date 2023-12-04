@@ -53,3 +53,7 @@
     background-color: #cce1ff;
     border: none;
 }
+
+.yrkeskategorier.error input {
+    border-color: var(--ac-textfield-error-border, var(--__ac-textfield-error-border, var(--a-border-danger)));
+}

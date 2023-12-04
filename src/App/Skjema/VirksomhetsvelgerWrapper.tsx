@@ -1,9 +1,13 @@
 import React, {FunctionComponent, useCallback, useContext} from "react";
 import {OrganisasjonsListeContext} from "../OrganisasjonslisteProvider";
-import {Label} from "@navikt/ds-react";
+import {Heading} from "@navikt/ds-react";
 import {Virksomhetsvelger} from "@navikt/bedriftsmeny";
+import {Organisasjon} from "@navikt/bedriftsmeny/src/bedriftsmeny/organisasjon";
 
-export const VirksomhetsvelgerWrapper: FunctionComponent = () => {
+type Props = {
+    onOrganisasjonChange: (organisasjon: Organisasjon) => void;
+}
+export const VirksomhetsvelgerWrapper: FunctionComponent<Props> = ({onOrganisasjonChange}) => {
     const {organisasjoner, organisasjon, setOrganisasjon} = useContext(OrganisasjonsListeContext);
     const useOrgnrHook: () => [string | null, (orgnr: string) => void] = useCallback(() => {
         const currentOrgnr = organisasjon.OrganizationNumber;
@@ -19,13 +23,15 @@ export const VirksomhetsvelgerWrapper: FunctionComponent = () => {
     }, [organisasjon, setOrganisasjon]);
 
     return <>
-        <Label size="medium" htmlFor="virksomhetsvelger">Velg virksomhet (underenhet)</Label>
-        <div id="virksomhetsvelger">
-            <Virksomhetsvelger
-                organisasjoner={organisasjoner}
-                onOrganisasjonChange={setOrganisasjon}
-                orgnrSearchParam={useOrgnrHook}
-            />
-        </div>
+        <Heading size="medium" level="2">
+            Velg virksomhet (underenhet)
+        </Heading>
+
+        {/* TODO: fix heading level in Virksomhetsvelger */}
+        <Virksomhetsvelger
+            organisasjoner={organisasjoner}
+            onOrganisasjonChange={onOrganisasjonChange}
+            orgnrSearchParam={useOrgnrHook}
+        />
     </>
 }
