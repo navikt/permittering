@@ -1,9 +1,7 @@
 import React, {FunctionComponent, Ref} from "react";
 import {Permitteringsskjema} from "../../types/Permitteringsskjema";
-import {Alert, BodyShort, Box, Button, Heading, HStack, Label, VStack} from "@navikt/ds-react";
-import {LabeledField} from "../komponenter/LabeledField";
-import "./Oppsummering.css"
-import {formatDate} from "../../utils/date-utils";
+import {Alert, Box, Button, Heading, HStack, Label, VStack} from "@navikt/ds-react";
+import {Oppsummeringsfelter} from "../komponenter/Oppsummeringsfelter";
 
 type Props = {
     ref?: Ref<HTMLHeadingElement>,
@@ -20,25 +18,6 @@ export const Oppsummering: FunctionComponent<Props> = (
         onSendInn = () => {},
     }
 ) => {
-
-    const fritekstId = "oppsummeringFritekstfeltId"
-
-    const årsakstekstLabel = {
-        "PERMITTERING_UTEN_LØNN": "Årsak til permittering",
-        "MASSEOPPSIGELSE": "Årsak til masseoppsigelse",
-        "INNSKRENKNING_I_ARBEIDSTID": "Årsak til innskrenkning i arbeidstid"
-    }
-    const fraDatoLabel = {
-        "PERMITTERING_UTEN_LØNN": "Permitteringene starter",
-        "MASSEOPPSIGELSE": "Masseoppsigelsene starter",
-        "INNSKRENKNING_I_ARBEIDSTID": "Innskrenkning i arbeidstid starter"
-    }
-
-    const tilDatoLabel = {
-        "PERMITTERING_UTEN_LØNN": "Permitteringene ender",
-        "INNSKRENKNING_I_ARBEIDSTID": "Innskrenkning i arbeidstid ender"
-    }
-
     return (
         <>
             <Heading ref={ref} size="large" level="2">Er opplysningene riktige?</Heading>
@@ -48,39 +27,11 @@ export const Oppsummering: FunctionComponent<Props> = (
                 padding={{xs: '2', md: '4', lg: '8'}}
             >
                 <VStack gap="4">
-                    <LabeledField label="Virksomhet" field={skjema.bedriftNavn}/>
-                    <LabeledField label="Bedriftnr." field={skjema.bedriftNavn}/>
-                    <div className="oppsummering_linje"/>
-
-                    <LabeledField label="Kontaktperson" field={skjema.kontaktNavn}/>
-                    <LabeledField label="E-post" field={skjema.kontaktEpost}/>
-                    <LabeledField label="Telefonnummer" field={skjema.kontaktTlf}/>
-                    <div className="oppsummering_linje"/>
-
-                    <Label htmlFor={fritekstId}>{årsakstekstLabel[skjema.type]}</Label>
-                    <BodyShort id={fritekstId}>{skjema.årsakstekst}</BodyShort>
-                    <div className="oppsummering_linje"/>
-
-                    <LabeledField label="Antall berørte" field={skjema.antallBerørt}/>
-                    <div className="oppsummering_linje"/>
-
-                    <Label for="oppsummeringYrkeskategoriId">Berørte yrkeskategorier</Label>
-                    <BodyShort
-                        id="oppsummeringYrkeskategoriId">{skjema.yrkeskategorier.map(i => i.label).join(", ")}</BodyShort>
-                    <div className="oppsummering_linje"/>
-
-                    <LabeledField label={fraDatoLabel[skjema.type]} field={formatDate(skjema.startDato)}/>
-                    {
-                        !skjema.ukjentSluttDato &&
-                        skjema.type !== "MASSEOPPSIGELSE" &&
-                        <LabeledField label={tilDatoLabel[skjema.type]} field={formatDate(skjema.sluttDato)}/>
-                    }
+                    <Oppsummeringsfelter skjema={skjema}/>
                     <Alert variant="info">
                         Alle med rettigheten "Innsyn i permittering- og nedbemanningsmeldinger sendt til NAV" vil kunne
                         se meldingen etter den er sendt inn.
                     </Alert>
-
-                    {skjema.sendtInnTidspunkt}
                     <HStack gap="18">
                         <Button variant="secondary" onClick={() => onTilbake(skjema)}>Tilbake</Button>
                         <Button variant="primary" onClick={() => onSendInn(skjema)}>Send inn</Button>

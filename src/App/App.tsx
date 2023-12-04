@@ -35,7 +35,7 @@ function App() {
                                 <Route path="PERMITTERING_UTEN_LØNN" element={<PermitteringUtenLønn/>}/>
                                 <Route path="MASSEOPPSIGELSE" element={<Masseoppsigelse/>}/>
                                 <Route path="INNSKRENKNING_I_ARBEIDSTID" element={<InnskrenkningIArbeidstid/>}/>
-                                <Route path="kvitteringsside/:skjemaId" element={<Kvittering/>}/>
+                                <Route path="kvitteringsside/:skjemaId" element={<Kvittering skjema={demoSkjema}/>}/>
                                 <Route path="oppsummering" element={
                                     <Side tittel="Permittering uten lønn">
                                         <Box
@@ -43,7 +43,7 @@ function App() {
                                             borderRadius="small"
                                             padding={{xs: '2', md: '4', lg: '8'}}
                                         >
-                                            <Oppsummering skjema={testSkjema}/>
+                                            <Oppsummering skjema={demoSkjema}/>
                                         </Box>
                                     </Side>
                                 }
@@ -58,7 +58,7 @@ function App() {
 }
 
 
-const testSkjema : Permitteringsskjema = {
+const demoSkjema : Permitteringsskjema = {
     id: '123',
     bedriftNr: "123",
     bedriftNavn: "Testbedrift",
