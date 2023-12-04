@@ -1,11 +1,25 @@
-import React, {FunctionComponent} from "react";
+import React, {FunctionComponent, Ref} from "react";
 import {Permitteringsskjema} from "../../types/Permitteringsskjema";
 import {Alert, BodyShort, Box, Button, Heading, HStack, Label, VStack} from "@navikt/ds-react";
 import {LabeledField} from "../komponenter/LabeledField";
 import "./Oppsummering.css"
+import {formatDate} from "../../utils/date-utils";
 
-// viser oppsummering før innsending. Ingen egen route
-export const Oppsummering: FunctionComponent<{ skjema: Permitteringsskjema }> = ({skjema}) => {
+type Props = {
+    ref?: Ref<HTMLHeadingElement>,
+    skjema: Permitteringsskjema,
+    onSendInn?: (skjema: Permitteringsskjema) => void,
+    onTilbake?: (skjema: Permitteringsskjema) => void,
+};
+
+export const Oppsummering: FunctionComponent<Props> = (
+    {
+        ref,
+        skjema,
+        onTilbake = () => {},
+        onSendInn = () => {},
+    }
+) => {
 
     const fritekstId = "oppsummeringFritekstfeltId"
 
@@ -27,7 +41,7 @@ export const Oppsummering: FunctionComponent<{ skjema: Permitteringsskjema }> = 
 
     return (
         <>
-            <Heading size="large" level="2">Er opplysningene riktige?</Heading>
+            <Heading ref={ref} size="large" level="2">Er opplysningene riktige?</Heading>
             <Box
                 background="bg-default"
                 borderRadius="small"
@@ -55,19 +69,21 @@ export const Oppsummering: FunctionComponent<{ skjema: Permitteringsskjema }> = 
                         id="oppsummeringYrkeskategoriId">{skjema.yrkeskategorier.map(i => i.label).join(", ")}</BodyShort>
                     <div className="oppsummering_linje"/>
 
-                    <LabeledField label={fraDatoLabel[skjema.type]} field={skjema.startDato.toISOString()}/>
+                    <LabeledField label={fraDatoLabel[skjema.type]} field={formatDate(skjema.startDato)}/>
                     {
                         !skjema.ukjentSluttDato &&
                         skjema.type !== "MASSEOPPSIGELSE" &&
-                        <LabeledField label={tilDatoLabel[skjema.type]} field={skjema.sluttDato?.toISOString()}/>
+                        <LabeledField label={tilDatoLabel[skjema.type]} field={formatDate(skjema.sluttDato)}/>
                     }
                     <Alert variant="info">
                         Alle med rettigheten "Innsyn i permittering- og nedbemanningsmeldinger sendt til NAV" vil kunne
                         se meldingen etter den er sendt inn.
                     </Alert>
+
+                    {skjema.sendtInnTidspunkt}
                     <HStack gap="18">
-                        <Button variant="secondary">Tilbake</Button>
-                        <Button variant="primary">Send inn</Button>
+                        <Button variant="secondary" onClick={() => onTilbake(skjema)}>Tilbake</Button>
+                        <Button variant="primary" onClick={() => onSendInn(skjema)}>Send inn</Button>
                     </HStack>
                 </VStack>
 
