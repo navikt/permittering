@@ -6,6 +6,7 @@ import {
     DatePicker,
     ErrorSummary,
     Heading,
+    HStack,
     Select,
     TextField,
     useDatepicker,
@@ -25,10 +26,9 @@ import {
 import {z} from "zod";
 import './Skjema.css';
 import Yrkeskategorivelger from "../komponenter/Yrkeskategorivelger/Yrkeskategorivelger";
+import {Oppsummering} from "./Oppsummering";
 
 const PermitteringUtenLønnSkjema = z.object({
-    type: z.enum(['PERMITTERING_UTEN_LØNN']).default('PERMITTERING_UTEN_LØNN'),
-
     bedriftNr: z.string(),
     bedriftNavn: z.string(),
 
@@ -63,7 +63,7 @@ const PermitteringUtenLønnSkjema = z.object({
     startDato: z.date({
         required_error: "Startdato må fylles ut",
     }),
-    sluttDato: z.date().optional().nullable(),
+    sluttDato: z.date().optional(),
     ukjentSluttDato: z.boolean().default(false),
 }).refine((skjema) => {
     return skjema.ukjentSluttDato || skjema.sluttDato;
@@ -88,6 +88,7 @@ const lagFritekst = (yrker: Yrkeskategori[], årsak: Årsakskode) => {
 export const PermitteringUtenLønn: FunctionComponent = () => {
     const [feilmeldinger, setFeilmeldinger] = React.useState<{ id: string, msg: string }[]>([]);
     const errorRef = useRef<HTMLDivElement>(null);
+    const oppsummeringRef = useRef<HTMLHeadingElement>(null);
     const [skjema, setSkjema] = useState<PermitteringUtenLønnSkjema>({
         yrkeskategorier: [] as Yrkeskategori[],
     } as PermitteringUtenLønnSkjema);
@@ -102,7 +103,11 @@ export const PermitteringUtenLønn: FunctionComponent = () => {
             }
         },
     });
-    const {datepickerProps: sluttDatoDatepicker, inputProps: sluttDatoInput, setSelected: nullStillSluttdato} = useDatepicker({
+    const {
+        datepickerProps: sluttDatoDatepicker,
+        inputProps: sluttDatoInput,
+        setSelected: nullStillSluttdato
+    } = useDatepicker({
         onDateChange: (sluttDato) => {
             if (sluttDato === undefined) {
                 const {sluttDato, ...skjemaUtenStartDato} = skjema;
@@ -138,24 +143,24 @@ export const PermitteringUtenLønn: FunctionComponent = () => {
                 type: 'PERMITTERING_UTEN_LØNN',
                 årsakstekst: Årsakskoder[skjema.årsakskode],
                 fritekst: lagFritekst(skjema.yrkeskategorier, skjema.årsakskode),
-                varsletNavDato: new Date().toISOString(),
-                varsletAnsattDato: new Date().toISOString(),
-                opprettetTidspunkt: new Date().toISOString(),
-                sendtInnTidspunkt: new Date().toISOString(),
             });
         }
     };
 
     return (skjemaTilOppsummering !== undefined)
         ? <Side tittel="Permittering uten lønn">
-            <pre>
-                {JSON.stringify(skjemaTilOppsummering, null, 2)}
-            </pre>
+            <Oppsummering
+                ref={oppsummeringRef}
+                skjema={skjemaTilOppsummering}
+                onSendInn={() => console.log('send inn')}
+                onTilbake={() => setSkjemaTilOppsummering(undefined)}
+            />
         </Side>
         : <Side tittel="Permittering uten lønn">
             <Breadcrumbs breadcrumb={{
                 url: '/skjema/PERMITTERING_UTEN_LØNN',
                 title: 'Permittering uten lønn'
+
             }}/>
             <Box
                 background="bg-default"
@@ -163,8 +168,8 @@ export const PermitteringUtenLønn: FunctionComponent = () => {
                 padding={{xs: '2', md: '4', lg: '8'}}
             >
                 <form className="skjema" onSubmit={(e) => {
-                    validate();
                     e.preventDefault();
+                    validate();
                 }}>
                     <VStack gap="8">
 
@@ -267,35 +272,40 @@ export const PermitteringUtenLønn: FunctionComponent = () => {
                                 }}
                             />
 
-                            <DatePicker {...startDatoDatepicker} >
-                                <DatePicker.Input
-                                    {...startDatoInput}
-                                    id="startDato"
-                                    label="Permitteringene starter"
-                                    error={feilmeldinger.find(value => value.id === 'startDato')?.msg}
-                                />
-                            </DatePicker>
-                            <DatePicker {...sluttDatoDatepicker}>
-                                <DatePicker.Input
-                                    {...sluttDatoInput}
-                                    id="sluttDato"
-                                    label="Permitteringene slutter"
-                                    error={feilmeldinger.find(value => value.id === 'sluttDato')?.msg}
-                                />
-                            </DatePicker>
-                            <Checkbox
-                                value={skjema.ukjentSluttDato}
-                                onChange={(e) => {
-                                    setSkjema({...skjema, ukjentSluttDato: e.target.checked});
-                                }}
-                            >Vet ikke hvor lenge det vil vare</Checkbox>
+                            <HStack gap="4">
+                                <DatePicker {...startDatoDatepicker} >
+                                    <DatePicker.Input
+                                        {...startDatoInput}
+                                        id="startDato"
+                                        label="Permitteringene starter"
+                                        error={feilmeldinger.find(value => value.id === 'startDato')?.msg}
+                                    />
+                                </DatePicker>
+
+                                <div>
+                                    <DatePicker {...sluttDatoDatepicker}>
+                                        <DatePicker.Input
+                                            {...sluttDatoInput}
+                                            id="sluttDato"
+                                            label="Permitteringene slutter"
+                                            error={feilmeldinger.find(value => value.id === 'sluttDato')?.msg}
+                                        />
+                                    </DatePicker>
+                                    <Checkbox
+                                        value={skjema.ukjentSluttDato}
+                                        onChange={(e) => {
+                                            setSkjema({...skjema, ukjentSluttDato: e.target.checked});
+                                        }}
+                                    >Vet ikke hvor lenge det vil vare</Checkbox>
+                                </div>
+                            </HStack>
                         </fieldset>
 
-                        <pre>
-                        {JSON.stringify(skjema, null, 2)}
-                        </pre>
-
                         <Button htmlType="submit">Kontroller opplysningene</Button>
+                        <Button variant="tertiary" onClick={(e) => {
+                            e.preventDefault();
+                            window.location.href = "/permittering";
+                        }}>Avbryt</Button>
                     </VStack>
                 </form>
             </Box>

@@ -36,13 +36,10 @@ export const Permitteringsskjema = z.object({
     yrkeskategorier: z.array(Yrkeskategori),
 
     startDato: z.date(),
-    sluttDato: z.date().optional().nullable(),
+    sluttDato: z.date().optional(),
     ukjentSluttDato: z.boolean().default(false),
 
     fritekst: z.string(),
-    varsletAnsattDato: z.string(),
-    varsletNavDato: z.string(),
-    opprettetTidspunkt: z.string(),
     sendtInnTidspunkt: z.string().optional().nullish(),
 });
 export type Permitteringsskjema = z.infer<typeof Permitteringsskjema>;
