@@ -1,5 +1,6 @@
 import React from "react";
 import {BodyShort, HStack, Label, VStack} from "@navikt/ds-react";
+import "../Skjema/Oppsummering.css"
 
 type Props = {
     label: string;
@@ -10,8 +11,9 @@ const idconcat = (felt: string) => `LabeledField${felt.replace(" ","_")}Id`;
 
 export const LabeledField = ({ label, field }: Props) => {
     const id = idconcat(label);
+    const style = {width: "min(16rem, calc(100vw - 16px))"}
     return <HStack gap="0">
-        <Label style={{width: "10rem"}} htmlFor={id}>{`${label}: `}</Label>
-        <BodyShort id={id}>{field}</BodyShort>
+        <Label style={style} htmlFor={id}>{`${label}: `}</Label>
+        <BodyShort style={style} id={id}>{field}</BodyShort>
     </HStack>
 }

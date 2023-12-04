@@ -64,7 +64,8 @@ function App() {
                                     sendtInnTidspunkt: "22.01.2021",
                                     avbrutt: false,
                                     årsakskode: "123",
-                                    årsakstekst: "Årsakstekst",
+                                    årsakstekst: "Grunnen til masseoppsigelsen er økte utgifter generelt. Ingen god" +
+                                        "følelse å la 123 dyktige medarbeidere gå, men ['You´re fired' for _ in range(123)]",
                                     yrkeskategorier: [{
                                         konseptId: 123,
                                         styrk08: "123",
