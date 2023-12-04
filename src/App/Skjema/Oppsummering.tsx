@@ -4,7 +4,6 @@ import {Alert, BodyShort, Box, Button, HStack, Label, VStack} from "@navikt/ds-r
 import {LabeledField} from "../komponenter/LabeledField";
 import "./Oppsummering.css"
 
-
 // viser oppsummering før innsending. Ingen egen route
 export const Oppsummering: FunctionComponent<{ skjema: Permitteringsskjema }> = ({skjema}) => {
 
@@ -16,7 +15,7 @@ export const Oppsummering: FunctionComponent<{ skjema: Permitteringsskjema }> = 
             borderRadius="small"
             padding={{xs: '2', md: '4', lg: '8'}}
         >
-            <VStack gap="2">
+            <VStack gap="4">
                 <h1>Oppsummering</h1>
 
                 <LabeledField label="Virksomhet" field={skjema.bedriftNavn}/>
@@ -28,14 +27,14 @@ export const Oppsummering: FunctionComponent<{ skjema: Permitteringsskjema }> = 
                 <LabeledField label="Telefonnummer" field={skjema.kontaktTlf}/>
                 <div className="oppsummering_linje"/>
 
-                <Label htmlfor={fritekstId}>Hvorfor skal dere permittere?</Label>
-                <BodyShort id={fritekstId}>{skjema.fritekst}</BodyShort>
+                <Label htmlFor={fritekstId} >Årsak til permittering</Label>
+                <BodyShort id={fritekstId}>{skjema.årsakstekst}</BodyShort>
                 <div className="oppsummering_linje"/>
 
                 <LabeledField label="Antall berørte" field={skjema.antallBerørt}/>
                 <div className="oppsummering_linje"/>
 
-                <Label htmlFor="oppsummeringYrkeskategoriId">Hvilke yrkeskategorierer tilhører de berørte?</Label>
+                <Label for="oppsummeringYrkeskategoriId">Berørte yrkeskategorier</Label>
                 <BodyShort id="oppsummeringYrkeskategoriId">{skjema.yrkeskategorier.map(i => i.label).join(", ")}</BodyShort>
                 <div className="oppsummering_linje"/>
 
