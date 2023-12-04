@@ -1,15 +1,19 @@
 import React from "react";
-import {Label, VStack} from "@navikt/ds-react";
+import {BodyShort, HStack, Label, VStack} from "@navikt/ds-react";
+import "../Skjema/Oppsummering.css"
 
 type Props = {
     label: string;
-    id: string;
-    children: React.ReactNode;
+    field: React.ReactNode;
 }
 
-export const LabeledField = ({ label, id, children }: Props) => (
-    <VStack gap="0">
-        <Label htmlFor={id}>{label}</Label>
-        <div id={id}>{children}</div>
-    </VStack>
-);
+const idconcat = (felt: string) => `LabeledField${felt.replace(" ","_")}Id`;
+
+export const LabeledField = ({ label, field }: Props) => {
+    const id = idconcat(label);
+    const style = {width: "min(16rem, calc(100vw - 16px))"}
+    return <HStack gap="0">
+        <Label style={style} htmlFor={id}>{`${label}: `}</Label>
+        <BodyShort style={style} id={id}>{field}</BodyShort>
+    </HStack>
+}

@@ -1,0 +1,20 @@
+
+
+
+.oppsummering_linje {
+    border-bottom: 1px solid rgba(233, 231, 231, 1);
+    height: 2px;
+}
+
+.oppsummering_skjema {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.oppsummering_grid_one {
+    grid-column: 1;
+}
+
+.oppsummering_grid_two {
+    grid-column: 2;
+}
