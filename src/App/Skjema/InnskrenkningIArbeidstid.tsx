@@ -1,15 +1,22 @@
 import React, {FunctionComponent, useState} from "react";
-import {Permitteringsskjema} from "../../types/Permitteringsskjema";
+import {Permitteringsskjema, Yrkeskategori} from "../../types/Permitteringsskjema";
 import {Side} from "../Side";
 import {Breadcrumbs} from "./Breadcrumbs";
 import {Oppsummering} from "./Oppsummering";
-import {Skjema} from "./Skjema";
+import {Skjema, SkjemaFormDataType} from "./Skjema";
+import {useLagreSkjema} from "../../api/permittering-api";
 
 export const InnskrenkningIArbeidstid: FunctionComponent = () => {
     const [validertSkjema, setValidertSkjema] = useState<Permitteringsskjema>();
+    const [skjema, setSkjema] = useState<SkjemaFormDataType>(
+        {
+            type: 'INNSKRENKNING_I_ARBEIDSTID',
+            yrkeskategorier: [] as Yrkeskategori[]
+        } as SkjemaFormDataType
+    );
+    const {lagreSkjema, error} = useLagreSkjema();
 
-    // TODO: send inn til nytt endepunkt
-    // lag nytt mock endepunkt for sendinn v2
+    // TODO: vis error ved feil og naviger til kvittering ved success
 
     return <Side tittel="Permittering uten lønn">
         <Breadcrumbs breadcrumb={{
@@ -21,11 +28,12 @@ export const InnskrenkningIArbeidstid: FunctionComponent = () => {
                 ? <Oppsummering
                     skjema={validertSkjema}
                     onTilbake={() => setValidertSkjema(undefined)}
-                    onSendInn={(skjema) => console.log(skjema)}
+                    onSendInn={lagreSkjema}
                 />
 
                 : <Skjema
-                    skjemaType='INNSKRENKNING_I_ARBEIDSTID'
+                    skjema={skjema}
+                    setSkjema={setSkjema}
                     onSkjemaValidert={setValidertSkjema}
                 />
         }

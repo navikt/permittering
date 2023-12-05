@@ -4,6 +4,7 @@ import {Breadcrumbs} from "../Skjema/Breadcrumbs";
 import {Side} from "../Side";
 
 export const IkkeTilgang: FunctionComponent = () => {
+    // TODO: trenger skisse for denne siden
     return (
         <Side
             tittel="Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid"

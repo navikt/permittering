@@ -2,16 +2,22 @@ import React, {FunctionComponent, useState} from "react";
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import {Side} from "../Side";
 import {Breadcrumbs} from "./Breadcrumbs";
-import {Permitteringsskjema} from "../../types/Permitteringsskjema";
+import {Permitteringsskjema, Yrkeskategori} from "../../types/Permitteringsskjema";
 import {Oppsummering} from "./Oppsummering";
-import {Skjema} from "./Skjema";
+import {Skjema, SkjemaFormDataType} from "./Skjema";
+import {useLagreSkjema} from "../../api/permittering-api";
 
 export const PermitteringUtenLønn: FunctionComponent = () => {
     const [validertSkjema, setValidertSkjema] = useState<Permitteringsskjema>();
+    const [skjema, setSkjema] = useState<SkjemaFormDataType>(
+        {
+            type: 'PERMITTERING_UTEN_LØNN',
+            yrkeskategorier: [] as Yrkeskategori[]
+        } as SkjemaFormDataType
+    );
+    const {lagreSkjema, error} = useLagreSkjema();
 
-    // TODO: send inn til nytt endepunkt
-    // lag nytt mock endepunkt for sendinn v2
-
+    // TODO: vis error ved feil og naviger til kvittering ved success
     return <Side tittel="Permittering uten lønn">
         <Breadcrumbs breadcrumb={{
             url: '/skjema/PERMITTERING_UTEN_LØNN',
@@ -22,11 +28,12 @@ export const PermitteringUtenLønn: FunctionComponent = () => {
                 ? <Oppsummering
                     skjema={validertSkjema}
                     onTilbake={() => setValidertSkjema(undefined)}
-                    onSendInn={(skjema) => console.log(skjema)}
+                    onSendInn={lagreSkjema}
                 />
 
                 : <Skjema
-                    skjemaType='PERMITTERING_UTEN_LØNN'
+                    skjema={skjema}
+                    setSkjema={setSkjema}
                     onSkjemaValidert={setValidertSkjema}
                 />
         }

@@ -2,7 +2,6 @@ import express from 'express';
 import organisasjoner from './organisasjoner.json' assert {type: 'json'};
 
 let skjemaId = 0;
-const userId = "42";
 const mockStorage = {};
 
 export const mock = (app) => {
@@ -13,16 +12,6 @@ export const mock = (app) => {
 
     app.get('/permittering/api/skjema', (req, res) => {
         res.json(Object.values(mockStorage));
-    });
-    app.post('/permittering/api/skjema', (req, res) => {
-        const id = `${skjemaId += 1}`;
-        const org = organisasjoner.find((org) => req.body.bedriftNr === org.OrganizationNumber);
-        const data = { ...(req.body), id, bedriftNavn: org.Name, userId };
-        res.status(201).json(mockStorage[id] = {
-            ...(data),
-            id,
-            updated: new Date().toJSON(),
-        });
     });
     app.get('/permittering/api/skjema/:id', (req, res) => {
         const skjema = mockStorage[req.params.id];
@@ -35,36 +24,10 @@ export const mock = (app) => {
             });
         }
     });
-    app.put('/permittering/api/skjema/:id', (req, res) => {
-        let object = mockStorage[req.params.id] = {
-            ...(req.body),
-            id: req.params.id,
-            updated: new Date().toJSON(),
-        };
-        res.json(object);
-    });
-    app.post('/permittering/api/skjema/:id/avbryt', (req, res) => {
-        delete mockStorage[req.params.id];
-        res.send(Object.values(mockStorage));
-    });
-
-    app.post('/permittering/api/skjema/:id/send-inn', (req, res) => {
-        const data = mockStorage[req.params.id];
-        if (
-            !data.kontaktNavn ||
-            !data.kontaktEpost ||
-            !data.kontaktTlf ||
-            !data.startDato ||
-            !data.fritekst
-        ) {
-            res.status(400).send();
-        } else {
-            res.status(201).json(mockStorage[req.params.id] = {
-                ...data,
-                sendtInnTidspunkt: new Date().toJSON(),
-                updated: new Date().toJSON(),
-            });
-        }
+    app.post('/permittering/api/skjemaV2', (req, res) => {
+        const id = `${skjemaId += 1}`;
+        const lagretSkjema = mockStorage[id] = {...(req.body), id};
+        res.status(201).json(lagretSkjema);
     });
 
     app.get('/permittering/api/organisasjoner', (req, res) => {

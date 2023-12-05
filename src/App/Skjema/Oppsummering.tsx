@@ -1,21 +1,21 @@
 import React, {FunctionComponent, Ref} from "react";
 import {Permitteringsskjema} from "../../types/Permitteringsskjema";
-import {Alert, Box, Button, Heading, HStack, Label, VStack} from "@navikt/ds-react";
+import {Alert, Box, Button, Heading, HStack, VStack} from "@navikt/ds-react";
 import {Oppsummeringsfelter} from "../komponenter/Oppsummeringsfelter";
 
 type Props = {
     ref?: Ref<HTMLHeadingElement>,
     skjema: Permitteringsskjema,
-    onSendInn?: (skjema: Permitteringsskjema) => void,
-    onTilbake?: (skjema: Permitteringsskjema) => void,
+    onSendInn: (skjema: Permitteringsskjema) => void,
+    onTilbake: (skjema: Permitteringsskjema) => void,
 };
 
 export const Oppsummering: FunctionComponent<Props> = (
     {
         ref,
         skjema,
-        onTilbake = () => {},
-        onSendInn = () => {},
+        onTilbake,
+        onSendInn,
     }
 ) => {
     return (

@@ -1,28 +1,33 @@
 import React, {FunctionComponent} from "react";
 import {Permitteringsskjema} from "../../../types/Permitteringsskjema";
-import {Box, Heading, LinkPanel, Tag, VStack} from "@navikt/ds-react";
+import {Alert, Box, Heading, LinkPanel, Tag, VStack} from "@navikt/ds-react";
 import {formatDate} from "../../../utils/date-utils";
 import {loggTrykketPaTidligereSkjema} from "../../../utils/funksjonerForAmplitudeLogging";
 import './MineSkjema.css';
+import {useHentAlleSkjema} from "../../../api/permittering-api";
 
 
-export const InnsendteSkjemaer: FunctionComponent<{ skjemaer: Permitteringsskjema[] | undefined }> = ({skjemaer}) => {
-    return (skjemaer === undefined || skjemaer.length === 0)
-        ? null
-        : <Box
-            background="bg-default"
-            padding={{xs: '2', md: '4', lg: '8'}}
-            borderRadius="small"
-        >
-            <Heading level="2" size="large" spacing>
-                Innsendte skjemaer
-            </Heading>
-            <VStack gap="4">
-                {skjemaer
-                    .map((skjema: Permitteringsskjema) => <SkjemaPanel skjema={skjema}/>)
-                }
-            </VStack>
-        </Box>;
+export const InnsendteSkjemaer: FunctionComponent = () => {
+    const {data: skjemaer, error} = useHentAlleSkjema();
+
+    if (error === undefined && skjemaer.length === 0) {
+        return null;
+    }
+
+    return <Box
+        background="bg-default"
+        padding={{xs: '2', md: '4', lg: '8'}}
+        borderRadius="small"
+    >
+        <Heading level="2" size="large" spacing>
+            Innsendte skjemaer
+        </Heading>
+        <VStack gap="4">
+            {error === undefined ? null : <Alert variant="error">Det skjedde en feil ved henting av skjemaer</Alert>}
+
+            {skjemaer.map((skjema: Permitteringsskjema) => <SkjemaPanel skjema={skjema}/>)}
+        </VStack>
+    </Box>;
 }
 
 const skjemaTekster = {
@@ -35,8 +40,7 @@ const SkjemaPanel: FunctionComponent<{ skjema: Permitteringsskjema }> = ({skjema
     const skjemaType = skjemaTekster[skjema.type];
     const lenke = `/permittering/skjema/kvitteringsside/${skjema.id}`;
 
-    // TODO sendtInnTidspunkt not nullable, remove default new Date
-    const innsendt = formatDate(new Date(skjema.sendtInnTidspunkt ? skjema.sendtInnTidspunkt : new Date()));
+    const innsendt = formatDate(skjema.sendtInnTidspunkt);
 
     return <LinkPanel href={lenke} className="skjemapanel" key={skjema.id} border onClick={() =>
         loggTrykketPaTidligereSkjema('Sendt inn')

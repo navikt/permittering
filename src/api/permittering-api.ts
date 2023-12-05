@@ -1,39 +1,110 @@
 import {Permitteringsskjema} from '../types/Permitteringsskjema';
+import useSWRMutation from "swr/mutation";
+import useSWR from "swr";
+import {useState} from "react";
+import {z} from "zod";
 
 export async function sjekkInnlogget(): Promise<boolean> {
     let respons = await fetch('/permittering/api/innlogget');
     return respons.ok;
 }
 
-export const hent = async (id: string) => {
-    const response = await fetch(`/permittering/api/skjema/${id}`);
-    return response.json();
-};
+export const useLagreSkjema = () => {
+    const {trigger, data, error} = useSWRMutation('/permittering/api/skjemaV2', lagreSkjema);
 
-export const hentAlle = async () => {
-    const response = await fetch('/permittering/api/skjema');
-    return response.json();
-};
+    return {
+        lagreSkjema: trigger,
+        data,
+        error,
+    }
+}
 
-
-export const lagre = async (skjema: Permitteringsskjema) => {
-    const response = await fetch(`/permittering/api/skjema/${skjema.id}`, {
+const lagreSkjema = async (url : string, { arg: skjema } : { arg: Permitteringsskjema}) => {
+    const response = await fetch(url, {
         body: JSON.stringify(skjema),
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-    return response.json();
-};
-
-export const sendInn = async (id: Permitteringsskjema['id']) => {
-    const response = await fetch(`/permittering/api/skjema/${id}/send-inn`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
     });
-    return response.json();
+
+    if (!response.ok) {
+        throw response;
+    }
+
+    return Permitteringsskjema.parse(await response.json());
 };
 
+
+export const useHentSkjema = (id: string) => {
+    const [retries, setRetries] = useState(0);
+    const {data, error} = useSWR(
+        `/permittering/api/skjema/${id}`,
+        hent,
+        {
+            onSuccess: () => setRetries(0),
+            onError: (error) => {
+                if (retries === 5) {
+                    console.error( // todo sentry
+                        `hent skjema fra permitteringskjema-api feilet med ${
+                            error.status !== undefined ? `${error.status} ${error.statusText}` : error
+                        }`
+                    );
+                }
+                setRetries((x) => x + 1);
+            },
+            errorRetryInterval: 300,
+        }
+    );
+
+    return {
+        data,
+        error,
+    }
+}
+
+const hent = async (id: string) => {
+    const response = await fetch(`/permittering/api/skjema/${id}`);
+    if (!response.ok) {
+        throw response;
+    }
+    return Permitteringsskjema.parse(await response.json());
+};
+
+export const useHentAlleSkjema = () => {
+    const [retries, setRetries] = useState(0);
+    const {data, error} = useSWR(
+        '/permittering/api/skjema',
+        hentAlle,
+        {
+            onSuccess: () => setRetries(0),
+            onError: (error) => {
+                if (retries === 5) {
+                    console.error( // todo sentry
+                        `hent alle skjema fra permitteringskjema-api feilet med ${
+                            error.status !== undefined ? `${error.status} ${error.statusText}` : error
+                        }`
+                    );
+                }
+                setRetries((x) => x + 1);
+            },
+            errorRetryInterval: 300,
+            fallbackData: [],
+        }
+    );
+
+    return {
+        data,
+        error,
+    }
+}
+
+const PermitteringskjemaerRespons = z.array(Permitteringsskjema);
+type PermitteringskjemaerRespons = z.infer<typeof PermitteringskjemaerRespons>;
+const hentAlle = async () : Promise<PermitteringskjemaerRespons> => {
+    const response = await fetch('/permittering/api/skjema');
+    if (!response.ok) {
+        throw response;
+    }
+    return PermitteringskjemaerRespons.parse(await response.json());
+};

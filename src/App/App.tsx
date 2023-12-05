@@ -43,7 +43,7 @@ function App() {
                                             borderRadius="small"
                                             padding={{xs: '2', md: '4', lg: '8'}}
                                         >
-                                            <Oppsummering skjema={demoSkjema}/>
+                                            <Oppsummering skjema={demoSkjema} onTilbake={_ => _} onSendInn={_ => _}/>
                                         </Box>
                                     </Side>
                                 }
@@ -71,7 +71,7 @@ const demoSkjema : Permitteringsskjema = {
     ukjentSluttDato: false,
     fritekst: "Fritekst",
     antallBerørt: 123,
-    sendtInnTidspunkt: "22.01.2021",
+    sendtInnTidspunkt: new Date(),
     årsakskode: 'MANGEL_PÅ_ARBEID',
     årsakstekst: Årsakskoder.MANGEL_PÅ_ARBEID,
     yrkeskategorier: [{

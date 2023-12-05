@@ -6,7 +6,7 @@ import {
     ÅrsakskodeKeys,
     Årsakskoder
 } from "../../types/Permitteringsskjema";
-import React, {FunctionComponent, useEffect, useRef, useState} from "react";
+import React, {FunctionComponent, useEffect, useRef} from "react";
 import {
     Box,
     Button,
@@ -63,18 +63,16 @@ const headings : Record<SkjemaType, string> = {
 
 type SkjemaProps = {
     onSkjemaValidert: (value: Permitteringsskjema | undefined) => void
-    skjemaType: SkjemaType,
+    skjema: SkjemaFormDataType,
+    setSkjema: (skjema: SkjemaFormDataType) => void,
 }
 export const Skjema: FunctionComponent<SkjemaProps> = (
     {
         onSkjemaValidert,
-        skjemaType,
+        skjema,
+        setSkjema,
     },
 ) => {
-    const [skjema, setSkjema] = useState<SkjemaFormDataType>({
-        type: skjemaType,
-        yrkeskategorier: [] as Yrkeskategori[]} as SkjemaFormDataType
-    );
     const [feilmeldinger, setFeilmeldinger] = React.useState<{ id: string, msg: string }[]>([]);
     const errorRef = useRef<HTMLDivElement>(null);
 
@@ -98,9 +96,9 @@ export const Skjema: FunctionComponent<SkjemaProps> = (
         } else {
             onSkjemaValidert({
                 ...skjema,
-                type: skjemaType,
-                årsakstekst: Årsakskoder[skjema.årsakskode],
+                årsakstekst: Årsakskoder[skjema.årsakskode], // TODO: denne er allerede satt, noe rart med typen
                 fritekst: lagFritekst(skjema.yrkeskategorier, skjema.årsakskode),
+                sendtInnTidspunkt: new Date(),
             });
         }
     };
@@ -273,7 +271,10 @@ const SkjemaFormData = z.object({
     sluttDato: z.date().optional(),
     ukjentSluttDato: z.boolean().default(false),
 }).refine((skjema) => {
-    return skjema.ukjentSluttDato || skjema.sluttDato;
+    if (skjema.type === 'PERMITTERING_UTEN_LØNN') {
+        return skjema.ukjentSluttDato || skjema.sluttDato;
+    }
+    return true;
 }, {
     message: 'Du må oppgi en sluttdato eller huke av for at sluttdato er ukjent',
     path: ['sluttDato'],
@@ -289,7 +290,7 @@ const SkjemaFormData = z.object({
     message: 'Sluttdato må være etter startdato',
     path: ['sluttDato'],
 });
-type SkjemaFormDataType = z.infer<typeof SkjemaFormData>;
+export type SkjemaFormDataType = z.infer<typeof SkjemaFormData>;
 
 type DatoVelgerProps = {
     skjema: SkjemaFormDataType,
@@ -335,8 +336,9 @@ const DatoVelger: FunctionComponent<DatoVelgerProps> = (
         }
     }, [skjema.ukjentSluttDato]);
 
+    // TODO: mister dato ved tilbakeknapp, kan settes via selected, men får TS error
     return <>
-        <DatePicker {...startDatoDatepicker} >
+        <DatePicker {...startDatoDatepicker}>
             <DatePicker.Input
                 {...startDatoInput}
                 id="startDato"

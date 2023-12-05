@@ -2,6 +2,7 @@ import {LabeledField} from "./LabeledField";
 import {BodyShort, Label, VStack} from "@navikt/ds-react";
 import React, {FunctionComponent} from "react";
 import {Permitteringsskjema} from "../../types/Permitteringsskjema";
+import {formatDate} from "../../utils/date-utils";
 
 
 export const Oppsummeringsfelter: FunctionComponent<{ skjema: Permitteringsskjema }> = ({skjema}) => {
@@ -45,14 +46,14 @@ export const Oppsummeringsfelter: FunctionComponent<{ skjema: Permitteringsskjem
             id="oppsummeringYrkeskategoriId">{skjema.yrkeskategorier.map(i => i.label).join(", ")}</BodyShort>
         <div className="oppsummering_linje"/>
 
-        <LabeledField label={fraDatoLabel[skjema.type]} field={skjema.startDato.toISOString()}/>
+        <LabeledField label={fraDatoLabel[skjema.type]} field={formatDate(skjema.startDato)}/>
         {
             !skjema.ukjentSluttDato &&
             skjema.type !== "MASSEOPPSIGELSE" &&
-            <LabeledField label={tilDatoLabel[skjema.type]} field={skjema.sluttDato?.toISOString()}/>
+            <LabeledField label={tilDatoLabel[skjema.type]} field={formatDate(skjema.sluttDato)}/>
         }
         <div className="oppsummering_linje"/>
 
-        <LabeledField label="Sendt inn til NAV" field={skjema.sendtInnTidspunkt}/>
+        <LabeledField label="Sendt inn til NAV" field={skjema.sendtInnTidspunkt.toISOString()}/>
     </VStack>
 }
