@@ -332,7 +332,7 @@ const DatoVelger: FunctionComponent<DatoVelgerProps> = (
                 const {sluttDato, ...skjemaUtenStartDato} = skjema;
                 setSkjema({...skjemaUtenStartDato as SkjemaFormDataType});
             } else {
-                setSkjema({...skjema, sluttDato: dato});
+                setSkjema({...skjema, sluttDato: dato, ukjentSluttDato: false});
             }
         },
     });
@@ -366,7 +366,7 @@ const DatoVelger: FunctionComponent<DatoVelgerProps> = (
                     />
                 </DatePicker>
                 <Checkbox
-                    value={skjema.ukjentSluttDato}
+                    checked={skjema.ukjentSluttDato}
                     onChange={(e) => {
                         setSkjema({...skjema, ukjentSluttDato: e.target.checked});
                     }}
