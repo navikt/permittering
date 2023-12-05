@@ -16,7 +16,6 @@ export const PermitteringUtenLønn: FunctionComponent = () => {
         <Breadcrumbs breadcrumb={{
             url: '/skjema/PERMITTERING_UTEN_LØNN',
             title: 'Permittering uten lønn'
-
         }}/>
         {
             validertSkjema
