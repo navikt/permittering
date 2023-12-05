@@ -60,6 +60,11 @@ const headings : Record<SkjemaType, string> = {
     MASSEOPPSIGELSE: 'Opplysninger om masseoppsigelsen',
     INNSKRENKNING_I_ARBEIDSTID: 'Opplysninger om innskrenkning i arbeidstid',
 }
+export const sidetitler : Record<SkjemaType, string> = {
+    PERMITTERING_UTEN_LØNN: 'Permittering uten lønn',
+    MASSEOPPSIGELSE: 'Masseoppsigelse',
+    INNSKRENKNING_I_ARBEIDSTID: 'Innskrenkning i arbeidstid',
+}
 
 type SkjemaProps = {
     onSkjemaValidert: (value: Permitteringsskjema | undefined) => void
@@ -305,6 +310,7 @@ const DatoVelger: FunctionComponent<DatoVelgerProps> = (
     }
 ) => {
     const {datepickerProps: startDatoDatepicker, inputProps: startDatoInput} = useDatepicker({
+        defaultSelected: skjema.startDato,
         onDateChange: (dato) => {
             if (dato === undefined) {
                 const {startDato, ...skjemaUtenStartDato} = skjema;
@@ -320,6 +326,7 @@ const DatoVelger: FunctionComponent<DatoVelgerProps> = (
         inputProps: sluttDatoInput,
         setSelected: nullStillSluttdato
     } = useDatepicker({
+        defaultSelected: skjema.sluttDato,
         onDateChange: (dato) => {
             if (dato === undefined) {
                 const {sluttDato, ...skjemaUtenStartDato} = skjema;
