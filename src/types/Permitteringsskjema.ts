@@ -18,9 +18,10 @@ export const Yrkeskategori = z.object({
 });
 export type Yrkeskategori = z.infer<typeof Yrkeskategori>;
 
+export const SkjemaType = z.enum(['MASSEOPPSIGELSE', 'PERMITTERING_UTEN_LØNN', 'INNSKRENKNING_I_ARBEIDSTID']);
 export const Permitteringsskjema = z.object({
     id: z.string().optional(),
-    type: z.enum(['MASSEOPPSIGELSE', 'PERMITTERING_UTEN_LØNN', 'INNSKRENKNING_I_ARBEIDSTID']),
+    type: SkjemaType,
 
     bedriftNr: z.string(),
     bedriftNavn: z.string(),
@@ -43,3 +44,4 @@ export const Permitteringsskjema = z.object({
     sendtInnTidspunkt: z.string().optional().nullish(),
 });
 export type Permitteringsskjema = z.infer<typeof Permitteringsskjema>;
+export type SkjemaType = z.infer<typeof SkjemaType>;
