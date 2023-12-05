@@ -4,6 +4,9 @@ import {IkkeTilgang} from './IkkeTilgang/IkkeTilgang';
 import useSWR from "swr";
 import {z} from "zod";
 import * as Sentry from "@sentry/browser";
+import {Side} from "./Side";
+import {Breadcrumbs} from "./Skjema/Breadcrumbs";
+import {Alert, Box, Heading, Skeleton, VStack} from "@navikt/ds-react";
 
 export type OrganisajonsContext = {
     organisasjoner: Array<Organisasjon>;
@@ -26,13 +29,11 @@ export const OrganisasjonsListeProvider: FunctionComponent<PropsWithChildren> = 
     }, [organisasjoner, organisasjon, setOrganisasjon]);
 
     if (organisasjoner === undefined || organisasjon === undefined) {
-        // TODO: trenger skisse / design på denne staten
-        return null;
+        return <Laster />;
     }
 
     if (isError) {
-        // TODO: trenger skisse / design på denne staten
-        return null;
+        return <AltinnFeil />;
     }
 
     return (
@@ -48,6 +49,51 @@ export const OrganisasjonsListeProvider: FunctionComponent<PropsWithChildren> = 
                 </OrganisasjonsListeContext.Provider>
             }
         </>
+    );
+};
+
+const Laster: FunctionComponent = () => {
+    return (
+        <Side
+            tittel="Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid"
+        >
+            <Breadcrumbs/>
+            <Box
+                background="bg-default"
+                borderRadius="small"
+                padding={{xs: '2', md: '4', lg: '8'}}
+            >
+                <VStack gap="12">
+                    <Skeleton variant="rectangle" width="100%" height={30} />
+                    <Skeleton variant="rectangle" width="100%" height={30} />
+                    <Skeleton variant="rectangle" width="100%" height={30} />
+                </VStack>
+            </Box>
+        </Side>
+    );
+};
+
+const AltinnFeil: FunctionComponent = () => {
+    return (
+        <Side
+            tittel="Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid"
+        >
+            <Breadcrumbs/>
+            <Box
+                background="bg-default"
+                borderRadius="small"
+                padding={{xs: '2', md: '4', lg: '8'}}
+            >
+                <VStack gap="12">
+                    <Heading level="2" size="small">
+                        Henting av tilganger feilet
+                    </Heading>
+                    <Alert variant="error">
+                        Det oppstod en feil ved henting av tilganger. Prøv igjen om noen minutter.
+                    </Alert>
+                </VStack>
+            </Box>
+        </Side>
     );
 };
 
