@@ -1,11 +1,4 @@
-import {
-    Permitteringsskjema,
-    SkjemaType,
-    Yrkeskategori,
-    Årsakskode,
-    ÅrsakskodeKeys,
-    Årsakskoder
-} from "../../types/Permitteringsskjema";
+import {Permitteringsskjema, SkjemaType, Yrkeskategori, Årsakskode, Årsakskoder} from "../../types/Permitteringsskjema";
 import React, {FunctionComponent, useEffect, useRef, useState} from "react";
 import {
     Box,
@@ -22,7 +15,6 @@ import {
 } from "@navikt/ds-react";
 import {VirksomhetsvelgerWrapper} from "./VirksomhetsvelgerWrapper";
 import Yrkeskategorivelger from "../komponenter/Yrkeskategorivelger/Yrkeskategorivelger";
-import {z} from "zod";
 import {useLagreSkjema} from "../../api/permittering-api";
 import {Side} from "../Side";
 import {Breadcrumbs} from "./Breadcrumbs";
@@ -75,11 +67,11 @@ export const sidetitler: Record<SkjemaType, string> = {
 
 export const Skjema: FunctionComponent<{ type: SkjemaType }> = ({type}) => {
     const [validertSkjema, setValidertSkjema] = useState<Permitteringsskjema>();
-    const [skjema, setSkjema] = useState<SkjemaFormDataType>(
+    const [skjema, setSkjema] = useState<Permitteringsskjema>(
         {
             type,
             yrkeskategorier: [] as Yrkeskategori[]
-        } as SkjemaFormDataType
+        } as Permitteringsskjema
     );
     const {lagreSkjema, error} = useLagreSkjema();
 
@@ -106,72 +98,10 @@ export const Skjema: FunctionComponent<{ type: SkjemaType }> = ({type}) => {
     </Side>;
 }
 
-// TODO: litt duplisering med typen i Permitteringsskjema. bør vurdere å slå dem sammen
-const PermitteringsskjemaMedValidering = z.object({
-    type: SkjemaType,
-    bedriftNr: z.string(),
-    bedriftNavn: z.string(),
-
-    kontaktNavn: z.string({
-        required_error: "Navn på kontakperson må fylles ut",
-    }),
-    kontaktEpost: z.string({
-        required_error: "E-post til kontakperson må fylles ut",
-    }).email({
-        message: "E-post til kontaktperson er ikke gyldig",
-    }),
-    kontaktTlf: z.string({
-        required_error: "Telefonnummer til kontakperson må fylles ut",
-    }),
-
-    antallBerørt: z.coerce.number({
-        required_error: "Antall berørte må fylles ut",
-        invalid_type_error: "Antall berørte må være et tall",
-    }),
-
-    årsakskode: z.enum([ÅrsakskodeKeys[0], ...ÅrsakskodeKeys], { // magic-ref https://github.com/colinhacks/zod/discussions/839#discussioncomment-1885806
-        required_error: "Årsak må fylles ut",
-    }),
-    årsakstekst: z.string().optional(), // validated by årsakskode
-    yrkeskategorier: z.array(Yrkeskategori).refine((yrkeskategorier) => yrkeskategorier.length > 0, {
-        // nonEmpty på array resulterer i ts error på filtrering av array,
-        // derfor gjøres dette i refine i stedet for som z.array(Yrkeskategori).nonEmpty()
-        message: 'Du må velge minst én yrkeskategori',
-        path: ['yrkeskategorier'],
-    }),
-
-    startDato: z.date({
-        required_error: "Startdato må fylles ut",
-    }),
-    sluttDato: z.date().optional(),
-    ukjentSluttDato: z.boolean().default(false),
-}).refine((skjema) => {
-    if (skjema.type === 'PERMITTERING_UTEN_LØNN') {
-        return skjema.ukjentSluttDato || skjema.sluttDato;
-    }
-    return true;
-}, {
-    message: 'Du må oppgi en sluttdato eller huke av for at sluttdato er ukjent',
-    path: ['sluttDato'],
-}).refine((skjema) => {
-    if (skjema.type === 'MASSEOPPSIGELSE' || skjema.type === 'INNSKRENKNING_I_ARBEIDSTID') {
-        return true;
-    }
-    if (skjema.sluttDato && skjema.startDato) {
-        return skjema.sluttDato >= skjema.startDato;
-    }
-    return true;
-}, {
-    message: 'Sluttdato må være etter startdato',
-    path: ['sluttDato'],
-});
-export type SkjemaFormDataType = z.infer<typeof PermitteringsskjemaMedValidering>;
-
-
 const FormMedValidering: FunctionComponent<{
     onSkjemaValidert: (value: Permitteringsskjema | undefined) => void
-    skjema: SkjemaFormDataType,
-    setSkjema: (skjema: SkjemaFormDataType) => void,
+    skjema: Permitteringsskjema,
+    setSkjema: (skjema: Permitteringsskjema) => void,
 }> = (
     {
         onSkjemaValidert,
@@ -193,7 +123,7 @@ const FormMedValidering: FunctionComponent<{
     }, [JSON.stringify(feilmeldinger)]);
 
     const validate = () => {
-        const result = PermitteringsskjemaMedValidering.safeParse(skjema);
+        const result = Permitteringsskjema.safeParse(skjema);
         if (!result.success) {
             setFeilmeldinger(
                 result.error.issues.map(({path, message}) => (
@@ -202,7 +132,8 @@ const FormMedValidering: FunctionComponent<{
         } else {
             onSkjemaValidert({
                 ...skjema,
-                årsakstekst: Årsakskoder[skjema.årsakskode], // TODO: denne er allerede satt, noe rart med typen
+
+                // TODO: opprettelse av disse burde flyttes til backend
                 fritekst: lagFritekst(skjema.yrkeskategorier, skjema.årsakskode),
                 sendtInnTidspunkt: new Date(),
             });
@@ -338,8 +269,8 @@ const FormMedValidering: FunctionComponent<{
 }
 
 type DatoVelgerProps = {
-    skjema: SkjemaFormDataType,
-    setSkjema: (skjema: SkjemaFormDataType) => void,
+    skjema: Permitteringsskjema,
+    setSkjema: (skjema: Permitteringsskjema) => void,
     feilmeldinger: { id: string, msg: string }[],
 }
 const DatoVelger: FunctionComponent<DatoVelgerProps> = (
@@ -354,7 +285,7 @@ const DatoVelger: FunctionComponent<DatoVelgerProps> = (
         onDateChange: (dato) => {
             if (dato === undefined) {
                 const {startDato, ...skjemaUtenStartDato} = skjema;
-                setSkjema({...skjemaUtenStartDato as SkjemaFormDataType});
+                setSkjema({...skjemaUtenStartDato as Permitteringsskjema});
             } else {
                 setSkjema({...skjema, startDato: dato});
             }
@@ -370,7 +301,7 @@ const DatoVelger: FunctionComponent<DatoVelgerProps> = (
         onDateChange: (dato) => {
             if (dato === undefined) {
                 const {sluttDato, ...skjemaUtenStartDato} = skjema;
-                setSkjema({...skjemaUtenStartDato as SkjemaFormDataType});
+                setSkjema({...skjemaUtenStartDato as Permitteringsskjema});
             } else {
                 setSkjema({...skjema, sluttDato: dato, ukjentSluttDato: false});
             }

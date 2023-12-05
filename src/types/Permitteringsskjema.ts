@@ -11,16 +11,18 @@ export const Årsakskoder = {
 }
 export const ÅrsakskodeKeys = Object.keys(Årsakskoder) as Årsakskode[];
 
+export type Yrkeskategori = z.infer<typeof Yrkeskategori>;
 export const Yrkeskategori = z.object({
     konseptId: z.number(),
     styrk08: z.string(),
     label: z.string(),
 });
-export type Yrkeskategori = z.infer<typeof Yrkeskategori>;
 
+export type SkjemaType = z.infer<typeof SkjemaType>;
 export const SkjemaType = z.enum(['MASSEOPPSIGELSE', 'PERMITTERING_UTEN_LØNN', 'INNSKRENKNING_I_ARBEIDSTID']);
+
+export type Permitteringsskjema = z.infer<typeof Permitteringsskjema>;
 export const Permitteringsskjema = z.object({
-    id: z.string().optional(),
     type: SkjemaType,
     bedriftNr: z.string(),
     bedriftNavn: z.string(),
@@ -59,8 +61,32 @@ export const Permitteringsskjema = z.object({
     sluttDato: z.coerce.date().optional(),
     ukjentSluttDato: z.boolean().default(false),
 
-    fritekst: z.string(),
-    sendtInnTidspunkt: z.coerce.date(),
-});
-export type Permitteringsskjema = z.infer<typeof Permitteringsskjema>;
-export type SkjemaType = z.infer<typeof SkjemaType>;
+
+    // id er kun oppgitt når hentes fra backend
+    id: z.string().optional(),
+
+    // fritekst brukes kun i backend og har et dårlig navn. bør flyttes til bakcend og fjernes herfra
+    fritekst: z.string().optional(),
+
+    // sendtInnTidspunkt burde vært flyttet til backend, og kun vørt tilgjengelig på skjema som er sendt inn
+    sendtInnTidspunkt: z.coerce.date().optional(),
+}).refine((skjema) => {
+    if (skjema.type === 'PERMITTERING_UTEN_LØNN') {
+        return skjema.ukjentSluttDato || skjema.sluttDato;
+    }
+    return true;
+}, {
+    message: 'Du må oppgi en sluttdato eller huke av for at sluttdato er ukjent',
+    path: ['sluttDato'],
+}).refine((skjema) => {
+    if (skjema.type === 'MASSEOPPSIGELSE' || skjema.type === 'INNSKRENKNING_I_ARBEIDSTID') {
+        return true;
+    }
+    if (skjema.sluttDato && skjema.startDato) {
+        return skjema.sluttDato >= skjema.startDato;
+    }
+    return true;
+}, {
+    message: 'Sluttdato må være etter startdato',
+    path: ['sluttDato'],
+})
