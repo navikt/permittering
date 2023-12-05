@@ -1,8 +1,32 @@
 import express from 'express';
 import organisasjoner from './organisasjoner.json' assert {type: 'json'};
 
-let skjemaId = 0;
-const mockStorage = {};
+let skjemaId = 1;
+const mockStorage = {
+    '1': {
+        "type": "PERMITTERING_UTEN_LØNN",
+        "yrkeskategorier": [
+            {
+                "konseptId": 21844,
+                "label": "Kokk (skip)",
+                "styrk08": "5120.01"
+            }
+        ],
+        "bedriftNr": "910825569",
+        "bedriftNavn": "STORFOSNA OG FREDRIKSTAD REGNSKAP",
+        "kontaktNavn": "Onkel Donald",
+        "kontaktEpost": "donald@duck.co",
+        "kontaktTlf": "5555555",
+        "antallBerørt": "3",
+        "årsakskode": "MANGEL_PÅ_ARBEID",
+        "årsakstekst": "Mangel på arbeid eller oppdrag",
+        "startDato": "2023-12-04T23:00:00.000Z",
+        "ukjentSluttDato": true,
+        "fritekst": "### Yrker\nKokk (skip)\n### Årsak\nMangel på arbeid eller oppdrag",
+        "sendtInnTidspunkt": "2023-12-05T14:04:29.451Z",
+        "id": "1"
+    },
+};
 
 export const mock = (app) => {
     app.use(express.json());
