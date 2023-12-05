@@ -53,5 +53,7 @@ export const Oppsummeringsfelter: FunctionComponent<{ skjema: Permitteringsskjem
             <LabeledField label={tilDatoLabel[skjema.type]} field={formatDate(skjema.sluttDato)}/>
         }
         <div className="oppsummering_linje"/>
+
+        {skjema.sendtInnTidspunkt && <LabeledField label="Sendt inn til NAV" field={formatDate(skjema.sendtInnTidspunkt)}/>}
     </VStack>
 }

@@ -15,7 +15,6 @@ import {
 } from "@navikt/ds-react";
 import {VirksomhetsvelgerWrapper} from "./VirksomhetsvelgerWrapper";
 import Yrkeskategorivelger from "../komponenter/Yrkeskategorivelger/Yrkeskategorivelger";
-import {useLagreSkjema} from "../../api/permittering-api";
 import {Side} from "../Side";
 import {Breadcrumbs} from "./Breadcrumbs";
 import {Oppsummering} from "./Oppsummering";
@@ -73,9 +72,7 @@ export const Skjema: FunctionComponent<{ type: SkjemaType }> = ({type}) => {
             yrkeskategorier: [] as Yrkeskategori[]
         } as Permitteringsskjema
     );
-    const {lagreSkjema, error} = useLagreSkjema();
 
-    // TODO: vis error ved feil og naviger til kvittering ved success
     return <Side tittel={sidetitler[skjema.type]}>
         <Breadcrumbs breadcrumb={{
             url: `/skjema/${skjema.type}`,
@@ -86,7 +83,6 @@ export const Skjema: FunctionComponent<{ type: SkjemaType }> = ({type}) => {
                 ? <Oppsummering
                     skjema={validertSkjema}
                     onTilbake={() => setValidertSkjema(undefined)}
-                    onSendInn={lagreSkjema}
                 />
 
                 : <FormMedValidering
@@ -130,13 +126,7 @@ const FormMedValidering: FunctionComponent<{
                     {id: path[0] as string, msg: message}
                 )));
         } else {
-            onSkjemaValidert({
-                ...skjema,
-
-                // TODO: opprettelse av disse burde flyttes til backend
-                fritekst: lagFritekst(skjema.yrkeskategorier, skjema.årsakskode),
-                sendtInnTidspunkt: new Date(),
-            });
+            onSkjemaValidert(skjema);
         }
     };
 
@@ -346,7 +336,3 @@ const DatoVelger: FunctionComponent<DatoVelgerProps> = (
         }
     </>
 }
-
-const lagFritekst = (yrker: Yrkeskategori[], årsak: Årsakskode) => {
-    return '### Yrker\n' + yrker.map(({label}) => label).join(', ') + '\n### Årsak\n' + Årsakskoder[årsak];
-};

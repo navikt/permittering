@@ -9,8 +9,10 @@ export async function sjekkInnlogget(): Promise<boolean> {
     return respons.ok;
 }
 
-export const useLagreSkjema = () => {
-    const {trigger, data, error} = useSWRMutation('/permittering/api/skjemaV2', lagreSkjema);
+export const useLagreSkjema = ({onSkjemaLagret}: { onSkjemaLagret: (skjema: Permitteringsskjema) => void }) => {
+    const {trigger, data, error} = useSWRMutation('/permittering/api/skjemaV2', lagreSkjema, {
+        onSuccess: onSkjemaLagret
+    });
 
     return {
         lagreSkjema: trigger,
@@ -19,7 +21,7 @@ export const useLagreSkjema = () => {
     }
 }
 
-const lagreSkjema = async (url : string, { arg: skjema } : { arg: Permitteringsskjema}) => {
+const lagreSkjema = async (url: string, {arg: skjema}: { arg: Permitteringsskjema }) => {
     const response = await fetch(url, {
         body: JSON.stringify(skjema),
         method: 'POST',
@@ -106,7 +108,7 @@ export const useHentAlleSkjema = () => {
 
 const PermitteringskjemaerRespons = z.array(Permitteringsskjema);
 type PermitteringskjemaerRespons = z.infer<typeof PermitteringskjemaerRespons>;
-const hentAlle = async (url: string) : Promise<PermitteringskjemaerRespons> => {
+const hentAlle = async (url: string): Promise<PermitteringskjemaerRespons> => {
     const response = await fetch(url, {
         method: 'GET',
         headers: {
