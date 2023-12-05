@@ -1,6 +1,6 @@
 import React, {FunctionComponent} from "react";
 import {useParams} from "react-router-dom";
-import {Box, Heading, HStack, LinkPanel, VStack} from "@navikt/ds-react";
+import {Alert, Box, Heading, HStack, LinkPanel, VStack} from "@navikt/ds-react";
 import {Oppsummeringsfelter} from "../komponenter/Oppsummeringsfelter";
 import {FileCheckmarkFillIcon} from "@navikt/aksel-icons";
 import {useHentSkjema} from "../../api/permittering-api";
@@ -12,16 +12,24 @@ export const Kvittering: FunctionComponent = () => {
     const {skjemaId} = useParams();
     const {skjema, error} = useHentSkjema(skjemaId);
 
-    // TODO: vis feilmelding hvis error
     if (!skjema || error) {
-        return null;
+        return <Side tittel="Kvitteringsside">
+            <Breadcrumbs />
+            <Box
+                background="bg-default"
+                borderRadius="small"
+                padding={{xs: '2', md: '4', lg: '8'}}
+            >
+                <Alert variant="error">Klarte ikke hente skjema akkurat nå! Prøv igjen om noen minutter.</Alert>
+            </Box>
+        </Side>
     }
 
     return (
         <Side tittel={sidetitler[skjema.type]}>
             <Breadcrumbs breadcrumb={{
-                url: '/skjema/INNSKRENKNING_I_ARBEIDSTID',
-                title: 'Innskrenkning i arbeidstid'
+                url: `/skjema/${skjema.type}`,
+                title: sidetitler[skjema.type]
             }}/>
             <VStack gap="4">
                 <HStack align="center">

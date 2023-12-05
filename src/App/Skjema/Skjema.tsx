@@ -304,7 +304,6 @@ const DatoVelger: FunctionComponent<DatoVelgerProps> = (
         }
     }, [skjema.ukjentSluttDato]);
 
-    // TODO: mister dato ved tilbakeknapp, kan settes via selected, men får TS error
     return <>
         <DatePicker {...startDatoDatepicker}>
             <DatePicker.Input

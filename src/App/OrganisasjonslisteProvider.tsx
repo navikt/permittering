@@ -3,6 +3,7 @@ import {Organisasjon} from '../types/Organisasjon';
 import {IkkeTilgang} from './IkkeTilgang/IkkeTilgang';
 import useSWR from "swr";
 import {z} from "zod";
+import * as Sentry from "@sentry/browser";
 
 export type OrganisajonsContext = {
     organisasjoner: Array<Organisasjon>;
@@ -65,7 +66,7 @@ export const useOrganisasjonerFraAltinn = (): OrganisasjonerFraAltinnResult => {
             onSuccess: () => setRetries(0),
             onError: (error) => {
                 if (retries === 5) {
-                    console.error( // todo sentry
+                    Sentry.captureMessage(
                         `hent organisasjoner fra altinn feilet med ${
                             error.status !== undefined ? `${error.status} ${error.statusText}` : error
                         }`
