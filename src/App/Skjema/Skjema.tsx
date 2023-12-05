@@ -313,6 +313,7 @@ const DatoVelger: FunctionComponent<DatoVelgerProps> = (
                 setSkjema({...skjema, startDato: dato});
             }
         },
+        defaultSelected: skjema.startDato,
     });
 
     const {
@@ -328,6 +329,7 @@ const DatoVelger: FunctionComponent<DatoVelgerProps> = (
                 setSkjema({...skjema, sluttDato: dato});
             }
         },
+        defaultSelected: skjema.sluttDato,
     });
 
     useEffect(() => {
