@@ -3,7 +3,7 @@ import {Permitteringsskjema, Yrkeskategori} from "../../types/Permitteringsskjem
 import {Side} from "../Side";
 import {Breadcrumbs} from "./Breadcrumbs";
 import {Oppsummering} from "./Oppsummering";
-import {Skjema, SkjemaFormDataType} from "./Skjema";
+import {sidetitler, Skjema, SkjemaFormDataType} from "./Skjema";
 import {useLagreSkjema} from "../../api/permittering-api";
 
 export const InnskrenkningIArbeidstid: FunctionComponent = () => {
@@ -18,10 +18,10 @@ export const InnskrenkningIArbeidstid: FunctionComponent = () => {
 
     // TODO: vis error ved feil og naviger til kvittering ved success
 
-    return <Side tittel="Permittering uten lønn">
+    return <Side tittel={sidetitler[skjema.type]}>
         <Breadcrumbs breadcrumb={{
-            url: '/skjema/INNSKRENKNING_I_ARBEIDSTID',
-            title: 'Innskrenkning i arbeidstid'
+            url: `/skjema/${skjema.type}`,
+            title: sidetitler[skjema.type]
         }}/>
         {
             validertSkjema
