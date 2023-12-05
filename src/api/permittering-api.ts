@@ -36,10 +36,10 @@ const lagreSkjema = async (url : string, { arg: skjema } : { arg: Permitteringss
 };
 
 
-export const useHentSkjema = (id: string) => {
+export const useHentSkjema = (id: string | undefined) => {
     const [retries, setRetries] = useState(0);
-    const {data, error} = useSWR(
-        `/permittering/api/skjema/${id}`,
+    const {data: skjema, error} = useSWR(
+        id === undefined ? null : `/permittering/api/skjema/${id}`,
         hent,
         {
             onSuccess: () => setRetries(0),
@@ -58,13 +58,18 @@ export const useHentSkjema = (id: string) => {
     );
 
     return {
-        data,
+        skjema,
         error,
     }
 }
 
-const hent = async (id: string) => {
-    const response = await fetch(`/permittering/api/skjema/${id}`);
+const hent = async (url: string) => {
+    const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+        },
+    });
     if (!response.ok) {
         throw response;
     }
@@ -101,8 +106,13 @@ export const useHentAlleSkjema = () => {
 
 const PermitteringskjemaerRespons = z.array(Permitteringsskjema);
 type PermitteringskjemaerRespons = z.infer<typeof PermitteringskjemaerRespons>;
-const hentAlle = async () : Promise<PermitteringskjemaerRespons> => {
-    const response = await fetch('/permittering/api/skjema');
+const hentAlle = async (url: string) : Promise<PermitteringskjemaerRespons> => {
+    const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+        },
+    });
     if (!response.ok) {
         throw response;
     }
