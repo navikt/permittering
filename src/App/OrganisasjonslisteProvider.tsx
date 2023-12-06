@@ -28,12 +28,13 @@ export const OrganisasjonsListeProvider: FunctionComponent<PropsWithChildren> = 
         }
     }, [organisasjoner, organisasjon, setOrganisasjon]);
 
-    if (organisasjoner === undefined || organisasjon === undefined) {
-        return <Laster />;
-    }
 
     if (isError) {
         return <AltinnFeil />;
+    }
+
+    if (organisasjoner === undefined || organisasjon === undefined) {
+        return <Laster />;
     }
 
     return (
@@ -64,7 +65,6 @@ const Laster: FunctionComponent = () => {
                 padding={{xs: '2', md: '4', lg: '8'}}
             >
                 <VStack gap="12">
-                    <Skeleton variant="rectangle" width="100%" height={30} />
                     <Skeleton variant="rectangle" width="100%" height={30} />
                     <Skeleton variant="rectangle" width="100%" height={30} />
                 </VStack>
