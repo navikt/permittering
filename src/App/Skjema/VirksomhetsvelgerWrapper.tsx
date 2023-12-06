@@ -27,7 +27,6 @@ export const VirksomhetsvelgerWrapper: FunctionComponent<Props> = ({onOrganisasj
             Velg virksomhet (underenhet)
         </Heading>
 
-        {/* TODO: fix heading level in Virksomhetsvelger */}
         <Virksomhetsvelger
             organisasjoner={organisasjoner}
             onOrganisasjonChange={onOrganisasjonChange}
