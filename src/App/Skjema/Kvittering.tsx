@@ -88,10 +88,10 @@ export const Kvittering: FunctionComponent = () => {
                 >
                     <Oppsummeringsfelter skjema={skjema}/>
                 </Box>
-                <LinkPanel href={"/min-side-arbeidsgiver"} border>
+                <LinkPanel href="https://arbeidsgiver.nav.no/min-side-arbeidsgiver" border>
                     <LinkPanel.Title>Gå til Min Side – arbeidsgiver</LinkPanel.Title>
                 </LinkPanel>
-                <LinkPanel href={"/#"}>
+                <LinkPanel href="">
                     <LinkPanel.Title>Informasjon om permittering til arbeidsgiver</LinkPanel.Title>
                 </LinkPanel>
             </VStack>
