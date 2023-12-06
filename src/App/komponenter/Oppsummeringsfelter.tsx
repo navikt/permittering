@@ -34,16 +34,13 @@ export const Oppsummeringsfelter: FunctionComponent<{ skjema: Permitteringsskjem
         <LabeledField label="Telefonnummer" field={skjema.kontaktTlf}/>
         <div className="oppsummering_linje"/>
 
-        <Label htmlFor={fritekstId}>{årsakstekstLabel[skjema.type]}</Label>
-        <BodyShort id={fritekstId}>{skjema.årsakstekst}</BodyShort>
+        <LabeledField label={årsakstekstLabel[skjema.type]} field={skjema.årsakstekst}/>
         <div className="oppsummering_linje"/>
 
         <LabeledField label="Antall berørte" field={skjema.antallBerørt}/>
         <div className="oppsummering_linje"/>
 
-        <Label for="oppsummeringYrkeskategoriId">Berørte yrkeskategorier</Label>
-        <BodyShort
-            id="oppsummeringYrkeskategoriId">{skjema.yrkeskategorier.map(i => i.label).join(", ")}</BodyShort>
+        <LabeledField label={"Berørte yrkeskategorier"} field={skjema.yrkeskategorier.map(i => i.label).join(", ")}/>
         <div className="oppsummering_linje"/>
 
         <LabeledField label={fraDatoLabel[skjema.type]} field={formatDate(skjema.startDato)}/>
