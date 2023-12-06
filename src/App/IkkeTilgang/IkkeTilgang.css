@@ -1,0 +1,24 @@
+
+.ikke_tilgang {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    grid-template-areas: "ikon header" "null tekst" "null lenke";
+    column-gap: 4px;
+    row-gap: 16px;
+}
+
+.ikke_tilgang__ikon {
+    grid-area: ikon;
+}
+
+.ikke_tilgang__header {
+    grid-area: header;
+}
+
+.ikke_tilgang__tekst {
+    grid-area: tekst;
+}
+
+.ikke_tilgang__lenke {
+    grid-area: lenke;
+}

@@ -1,7 +1,9 @@
 import React, {FunctionComponent} from 'react';
-import {Alert, Box, Heading, VStack} from '@navikt/ds-react';
+import {BodyShort, Box, Heading, Link} from '@navikt/ds-react';
 import {Breadcrumbs} from "../Skjema/Breadcrumbs";
 import {Side} from "../Side";
+import {InformationSquareIcon} from "@navikt/aksel-icons";
+import "./IkkeTilgang.css";
 
 export const IkkeTilgang: FunctionComponent = () => {
     return (
@@ -12,17 +14,22 @@ export const IkkeTilgang: FunctionComponent = () => {
             <Box
                 background="bg-default"
                 borderRadius="small"
-                padding={{xs: '2', md: '4', lg: '8'}}
+                padding={{xs: '3', md: '6', lg: '12'}}
             >
-                <VStack gap="12">
-                    <Heading level="2" size="small">
-                        Du har dessverre ikke tilgang til å fylle ut skjema om permittering
-                    </Heading>
-                    <Alert variant="warning">
-                        For å fylle ut skjema kreves det at du har en rolle eller rettighet i virksomheten i
-                        Altinn
-                    </Alert>
-                </VStack>
+                <div className="ikke_tilgang">
+
+                    <InformationSquareIcon title="a11y-title" fontSize="2rem" className="ikke_tilgang__ikon"/>
+
+                        <Heading level="2" size="medium" className="ikke_tilgang__header">
+                            Du mangler rettigheter i Altinn
+                        </Heading>
+                        <BodyShort size="large" className="ikke_tilgang__tekst">
+                            For å kunne sende inn skjemaet trenger du rettigheter i Altinn på virksomheten.
+                        </BodyShort>
+                        <Link href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/" className="ikke_tilgang__lenke">
+                            Les mer om hvilke tilganger du trenger
+                        </Link>
+                </div>
             </Box>
         </Side>
     );
