@@ -4,14 +4,9 @@ import Forside from './Forside/Forside';
 import LoginBoundary from './LoginBoundary';
 import './App.css';
 import {OrganisasjonsListeProvider} from './OrganisasjonslisteProvider';
-import {PermitteringUtenLønn} from "./Skjema/PermitteringUtenLønn";
 import {Kvittering} from "./Skjema/Kvittering";
-import {InnskrenkningIArbeidstid} from "./Skjema/InnskrenkningIArbeidstid";
-import {Masseoppsigelse} from "./Skjema/Masseoppsigelse";
-import {Oppsummering} from "./Skjema/Oppsummering";
 import {Permitteringsskjema, Årsakskoder} from "../types/Permitteringsskjema";
-import {Side} from "./Side";
-import {Box} from "@navikt/ds-react";
+import {Skjema} from "./Skjema/Skjema";
 
 
 function App() {
@@ -32,22 +27,13 @@ function App() {
                         >
                             <Route path="/" element={<Forside/>}/>
                             <Route path="/skjema">
-                                <Route path="PERMITTERING_UTEN_LØNN" element={<PermitteringUtenLønn/>}/>
-                                <Route path="MASSEOPPSIGELSE" element={<Masseoppsigelse/>}/>
-                                <Route path="INNSKRENKNING_I_ARBEIDSTID" element={<InnskrenkningIArbeidstid/>}/>
-                                <Route path="kvitteringsside/:skjemaId" element={<Kvittering skjema={demoSkjema}/>}/>
-                                <Route path="oppsummering" element={
-                                    <Side tittel="Permittering uten lønn">
-                                        <Box
-                                            background="bg-default"
-                                            borderRadius="small"
-                                            padding={{xs: '2', md: '4', lg: '8'}}
-                                        >
-                                            <Oppsummering skjema={demoSkjema} onTilbake={_ => _} onSendInn={_ => _}/>
-                                        </Box>
-                                    </Side>
-                                }
-                                />
+                                <Route path="PERMITTERING_UTEN_LØNN"
+                                       element={<Skjema type="PERMITTERING_UTEN_LØNN"/>}/>
+                                <Route path="MASSEOPPSIGELSE"
+                                       element={<Skjema type="MASSEOPPSIGELSE"/>}/>
+                                <Route path="INNSKRENKNING_I_ARBEIDSTID"
+                                       element={<Skjema type="INNSKRENKNING_I_ARBEIDSTID"/>}/>
+                                <Route path="kvitteringsside/:skjemaId" element={<Kvittering />}/>
                             </Route>
                         </Route>
                     </Routes>

@@ -73,7 +73,6 @@ const Yrkeskategorivelger: FunctionComponent<YrkeskategorivelgerProps> = ({
                 }}
                 onToggleSelected={(option: string,
                                    isSelected: boolean) => {
-                    // TODO: simplify this
                     if (isSelected) {
                         const selected = suggestions.find((s) => s.value === option);
                         const finnesAllerede = yrkeskategorier.find(

@@ -1,12 +1,5 @@
-import {
-    Permitteringsskjema,
-    SkjemaType,
-    Yrkeskategori,
-    Årsakskode,
-    ÅrsakskodeKeys,
-    Årsakskoder
-} from "../../types/Permitteringsskjema";
-import React, {FunctionComponent, useEffect, useRef} from "react";
+import {Permitteringsskjema, SkjemaType, Yrkeskategori, Årsakskode, Årsakskoder} from "../../types/Permitteringsskjema";
+import React, {FunctionComponent, useEffect, useRef, useState} from "react";
 import {
     Box,
     Button,
@@ -22,14 +15,18 @@ import {
 } from "@navikt/ds-react";
 import {VirksomhetsvelgerWrapper} from "./VirksomhetsvelgerWrapper";
 import Yrkeskategorivelger from "../komponenter/Yrkeskategorivelger/Yrkeskategorivelger";
-import {z} from "zod";
+import {Side} from "../Side";
+import {Breadcrumbs} from "./Breadcrumbs";
+import {Oppsummering} from "./Oppsummering";
 import './Skjema.css';
+import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
+
 
 type LabledeFelter = Pick<
     Permitteringsskjema,
     'antallBerørt' | 'årsakskode' | 'yrkeskategorier' | 'startDato' | 'sluttDato' | 'ukjentSluttDato'
 >;
-const labels : Record<SkjemaType, Record<keyof LabledeFelter, string>> = {
+const labels: Record<SkjemaType, Record<keyof LabledeFelter, string>> = {
     PERMITTERING_UTEN_LØNN: {
         antallBerørt: 'Hvor mange ansatte blir permittert?',
         årsakskode: 'Hvorfor skal dere permittere?',
@@ -55,18 +52,53 @@ const labels : Record<SkjemaType, Record<keyof LabledeFelter, string>> = {
         ukjentSluttDato: '', // ikke relevant for denne typen
     },
 }
-const headings : Record<SkjemaType, string> = {
+const headings: Record<SkjemaType, string> = {
     PERMITTERING_UTEN_LØNN: 'Opplysninger om permitteringene',
     MASSEOPPSIGELSE: 'Opplysninger om masseoppsigelsen',
     INNSKRENKNING_I_ARBEIDSTID: 'Opplysninger om innskrenkning i arbeidstid',
 }
-
-type SkjemaProps = {
-    onSkjemaValidert: (value: Permitteringsskjema | undefined) => void
-    skjema: SkjemaFormDataType,
-    setSkjema: (skjema: SkjemaFormDataType) => void,
+export const sidetitler: Record<SkjemaType, string> = {
+    PERMITTERING_UTEN_LØNN: 'Permittering uten lønn',
+    MASSEOPPSIGELSE: 'Masseoppsigelse',
+    INNSKRENKNING_I_ARBEIDSTID: 'Innskrenkning i arbeidstid',
 }
-export const Skjema: FunctionComponent<SkjemaProps> = (
+
+
+export const Skjema: FunctionComponent<{ type: SkjemaType }> = ({type}) => {
+    const [validertSkjema, setValidertSkjema] = useState<Permitteringsskjema>();
+    const [skjema, setSkjema] = useState<Permitteringsskjema>(
+        {
+            type,
+            yrkeskategorier: [] as Yrkeskategori[]
+        } as Permitteringsskjema
+    );
+
+    return <Side tittel={sidetitler[skjema.type]}>
+        <Breadcrumbs breadcrumb={{
+            url: `/skjema/${skjema.type}`,
+            title: sidetitler[skjema.type]
+        }}/>
+        {
+            validertSkjema
+                ? <Oppsummering
+                    skjema={validertSkjema}
+                    onTilbake={() => setValidertSkjema(undefined)}
+                />
+
+                : <FormMedValidering
+                    skjema={skjema}
+                    setSkjema={setSkjema}
+                    onSkjemaValidert={setValidertSkjema}
+                />
+        }
+    </Side>;
+}
+
+const FormMedValidering: FunctionComponent<{
+    onSkjemaValidert: (value: Permitteringsskjema | undefined) => void
+    skjema: Permitteringsskjema,
+    setSkjema: (skjema: Permitteringsskjema) => void,
+}> = (
     {
         onSkjemaValidert,
         skjema,
@@ -87,19 +119,14 @@ export const Skjema: FunctionComponent<SkjemaProps> = (
     }, [JSON.stringify(feilmeldinger)]);
 
     const validate = () => {
-        const result = SkjemaFormData.safeParse(skjema);
+        const result = Permitteringsskjema.safeParse(skjema);
         if (!result.success) {
             setFeilmeldinger(
                 result.error.issues.map(({path, message}) => (
                     {id: path[0] as string, msg: message}
                 )));
         } else {
-            onSkjemaValidert({
-                ...skjema,
-                årsakstekst: Årsakskoder[skjema.årsakskode], // TODO: denne er allerede satt, noe rart med typen
-                fritekst: lagFritekst(skjema.yrkeskategorier, skjema.årsakskode),
-                sendtInnTidspunkt: new Date(),
-            });
+            onSkjemaValidert(skjema);
         }
     };
 
@@ -129,7 +156,7 @@ export const Skjema: FunctionComponent<SkjemaProps> = (
                 }}/>
 
                 <fieldset>
-                    <Heading as={'legend' as React.ElementType} size="medium" level="2">
+                    <Heading as={'legend' as React.ElementType} size="medium" level="2" spacing>
                         Kontaktperson i virksomheten
                     </Heading>
 
@@ -167,7 +194,7 @@ export const Skjema: FunctionComponent<SkjemaProps> = (
                 </fieldset>
 
                 <fieldset>
-                    <Heading as={'legend' as React.ElementType} size="medium" level="2">
+                    <Heading as={'legend' as React.ElementType} size="medium" level="2" spacing>
                         {headings[skjema.type]}
                     </Heading>
 
@@ -217,7 +244,7 @@ export const Skjema: FunctionComponent<SkjemaProps> = (
                     />
 
                     <HStack gap="4">
-                        <DatoVelger skjema={skjema} setSkjema={setSkjema} feilmeldinger={feilmeldinger} />
+                        <DatoVelger skjema={skjema} setSkjema={setSkjema} feilmeldinger={feilmeldinger}/>
                     </HStack>
                 </fieldset>
 
@@ -231,70 +258,9 @@ export const Skjema: FunctionComponent<SkjemaProps> = (
     </Box>
 }
 
-// TODO: litt duplisering med typen i Permitteringsskjema. bør vurdere å slå dem sammen
-const SkjemaFormData = z.object({
-    type: SkjemaType,
-    bedriftNr: z.string(),
-    bedriftNavn: z.string(),
-
-    kontaktNavn: z.string({
-        required_error: "Navn på kontakperson må fylles ut",
-    }),
-    kontaktEpost: z.string({
-        required_error: "E-post til kontakperson må fylles ut",
-    }).email({
-        message: "E-post til kontaktperson er ikke gyldig",
-    }),
-    kontaktTlf: z.string({
-        required_error: "Telefonnummer til kontakperson må fylles ut",
-    }),
-
-    antallBerørt: z.coerce.number({
-        required_error: "Antall berørte må fylles ut",
-        invalid_type_error: "Antall berørte må være et tall",
-    }),
-
-    årsakskode: z.enum([ÅrsakskodeKeys[0], ...ÅrsakskodeKeys], { // magic-ref https://github.com/colinhacks/zod/discussions/839#discussioncomment-1885806
-        required_error: "Årsak må fylles ut",
-    }),
-    årsakstekst: z.string().optional(), // validated by årsakskode
-    yrkeskategorier: z.array(Yrkeskategori).refine((yrkeskategorier) => yrkeskategorier.length > 0, {
-        // nonEmpty på array resulterer i ts error på filtrering av array,
-        // derfor gjøres dette i refine i stedet for som z.array(Yrkeskategori).nonEmpty()
-        message: 'Du må velge minst én yrkeskategori',
-        path: ['yrkeskategorier'],
-    }),
-
-    startDato: z.date({
-        required_error: "Startdato må fylles ut",
-    }),
-    sluttDato: z.date().optional(),
-    ukjentSluttDato: z.boolean().default(false),
-}).refine((skjema) => {
-    if (skjema.type === 'PERMITTERING_UTEN_LØNN') {
-        return skjema.ukjentSluttDato || skjema.sluttDato;
-    }
-    return true;
-}, {
-    message: 'Du må oppgi en sluttdato eller huke av for at sluttdato er ukjent',
-    path: ['sluttDato'],
-}).refine((skjema) => {
-    if (skjema.type === 'MASSEOPPSIGELSE' || skjema.type === 'INNSKRENKNING_I_ARBEIDSTID') {
-        return true;
-    }
-    if (skjema.sluttDato && skjema.startDato) {
-        return skjema.sluttDato >= skjema.startDato;
-    }
-    return true;
-}, {
-    message: 'Sluttdato må være etter startdato',
-    path: ['sluttDato'],
-});
-export type SkjemaFormDataType = z.infer<typeof SkjemaFormData>;
-
 type DatoVelgerProps = {
-    skjema: SkjemaFormDataType,
-    setSkjema: (skjema: SkjemaFormDataType) => void,
+    skjema: Permitteringsskjema,
+    setSkjema: (skjema: Permitteringsskjema) => void,
     feilmeldinger: { id: string, msg: string }[],
 }
 const DatoVelger: FunctionComponent<DatoVelgerProps> = (
@@ -305,15 +271,15 @@ const DatoVelger: FunctionComponent<DatoVelgerProps> = (
     }
 ) => {
     const {datepickerProps: startDatoDatepicker, inputProps: startDatoInput} = useDatepicker({
+        defaultSelected: skjema.startDato,
         onDateChange: (dato) => {
             if (dato === undefined) {
                 const {startDato, ...skjemaUtenStartDato} = skjema;
-                setSkjema({...skjemaUtenStartDato as SkjemaFormDataType});
+                setSkjema({...skjemaUtenStartDato as Permitteringsskjema});
             } else {
                 setSkjema({...skjema, startDato: dato});
             }
         },
-        defaultSelected: skjema.startDato,
     });
 
     const {
@@ -321,15 +287,15 @@ const DatoVelger: FunctionComponent<DatoVelgerProps> = (
         inputProps: sluttDatoInput,
         setSelected: nullStillSluttdato
     } = useDatepicker({
+        defaultSelected: skjema.sluttDato,
         onDateChange: (dato) => {
             if (dato === undefined) {
                 const {sluttDato, ...skjemaUtenStartDato} = skjema;
-                setSkjema({...skjemaUtenStartDato as SkjemaFormDataType});
+                setSkjema({...skjemaUtenStartDato as Permitteringsskjema});
             } else {
-                setSkjema({...skjema, sluttDato: dato});
+                setSkjema({...skjema, sluttDato: dato, ukjentSluttDato: false});
             }
         },
-        defaultSelected: skjema.sluttDato,
     });
 
     useEffect(() => {
@@ -338,7 +304,6 @@ const DatoVelger: FunctionComponent<DatoVelgerProps> = (
         }
     }, [skjema.ukjentSluttDato]);
 
-    // TODO: mister dato ved tilbakeknapp, kan settes via selected, men får TS error
     return <>
         <DatePicker {...startDatoDatepicker}>
             <DatePicker.Input
@@ -361,7 +326,7 @@ const DatoVelger: FunctionComponent<DatoVelgerProps> = (
                     />
                 </DatePicker>
                 <Checkbox
-                    value={skjema.ukjentSluttDato}
+                    checked={skjema.ukjentSluttDato}
                     onChange={(e) => {
                         setSkjema({...skjema, ukjentSluttDato: e.target.checked});
                     }}
@@ -370,7 +335,3 @@ const DatoVelger: FunctionComponent<DatoVelgerProps> = (
         }
     </>
 }
-
-const lagFritekst = (yrker: Yrkeskategori[], årsak: Årsakskode) => {
-    return '### Yrker\n' + yrker.map(({label}) => label).join(', ') + '\n### Årsak\n' + Årsakskoder[årsak];
-};
