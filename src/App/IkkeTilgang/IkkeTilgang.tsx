@@ -23,10 +23,10 @@ export const IkkeTilgang: FunctionComponent = () => {
                         <Heading level="2" size="medium" className="ikke_tilgang__header">
                             Du mangler rettigheter i Altinn
                         </Heading>
-                        <BodyShort size="large" className="ikke_tilgang__tekst">
+                        <BodyShort size="large" className="ikke_tilgang__tekst" spacing>
                             For å kunne sende inn skjemaet trenger du rettigheter i Altinn på virksomheten.
                         </BodyShort>
-                        <Link href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/" className="ikke_tilgang__lenke">
+                        <Link href="https://www.nav.no/arbeidsgiver/tilganger" className="ikke_tilgang__lenke">
                             Les mer om hvilke tilganger du trenger
                         </Link>
                 </div>
