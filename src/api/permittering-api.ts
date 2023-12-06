@@ -42,7 +42,7 @@ const lagreSkjema = async (url: string, {arg: skjema}: { arg: Permitteringsskjem
 export const useHentSkjema = (id: string | undefined) => {
     const [retries, setRetries] = useState(0);
     const {data: skjema, error} = useSWR(
-        id === undefined ? null : `/permittering/api/skjema/${id}`,
+        id === undefined ? null : `/permittering/api/skjemaV2/${id}`,
         hent,
         {
             onSuccess: () => setRetries(0),
@@ -82,7 +82,7 @@ const hent = async (url: string) => {
 export const useHentAlleSkjema = () => {
     const [retries, setRetries] = useState(0);
     const {data, error} = useSWR(
-        '/permittering/api/skjema',
+        '/permittering/api/skjemaV2',
         hentAlle,
         {
             onSuccess: () => setRetries(0),

@@ -78,10 +78,10 @@ export const mock = (app) => {
     app.get('/permittering/redirect-til-login', (req, res) => res.sendStatus(200));
     app.get('/permittering/api/innlogget', (req, res) => res.sendStatus(200));
 
-    app.get('/permittering/api/skjema', (req, res) => {
+    app.get('/permittering/api/skjemaV2', (req, res) => {
         res.json(Object.values(mockStorage).sort((a, b) => b.sendtInnTidspunkt.localeCompare(a.sendtInnTidspunkt)));
     });
-    app.get('/permittering/api/skjema/:id', (req, res) => {
+    app.get('/permittering/api/skjemaV2/:id', (req, res) => {
         const skjema = mockStorage[req.params.id];
         if (skjema) {
             res.json(skjema);
