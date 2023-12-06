@@ -1,5 +1,6 @@
 import React from 'react';
 import {BrowserRouter, Outlet, Route, Routes} from 'react-router-dom';
+import {SWRConfig} from 'swr';
 import Forside from './Forside/Forside';
 import LoginBoundary from './LoginBoundary';
 import './App.css';
@@ -15,36 +16,42 @@ function App() {
     return (
         <div className="app">
             <LoginBoundary>
-                <BrowserRouter basename={basePath}>
-                    <Routes>
-                        <Route
-                            path="/"
-                            element={
-                                <OrganisasjonsListeProvider>
-                                    <Outlet/>
-                                </OrganisasjonsListeProvider>
-                            }
-                        >
-                            <Route path="/" element={<Forside/>}/>
-                            <Route path="/skjema">
-                                <Route path="PERMITTERING_UTEN_LØNN"
-                                       element={<Skjema type="PERMITTERING_UTEN_LØNN"/>}/>
-                                <Route path="MASSEOPPSIGELSE"
-                                       element={<Skjema type="MASSEOPPSIGELSE"/>}/>
-                                <Route path="INNSKRENKNING_I_ARBEIDSTID"
-                                       element={<Skjema type="INNSKRENKNING_I_ARBEIDSTID"/>}/>
-                                <Route path="kvitteringsside/:skjemaId" element={<Kvittering />}/>
+                <SWRConfig
+                    value={{
+                        revalidateOnFocus: false,
+                    }}
+                >
+                    <BrowserRouter basename={basePath}>
+                        <Routes>
+                            <Route
+                                path="/"
+                                element={
+                                    <OrganisasjonsListeProvider>
+                                        <Outlet/>
+                                    </OrganisasjonsListeProvider>
+                                }
+                            >
+                                <Route path="/" element={<Forside/>}/>
+                                <Route path="/skjema">
+                                    <Route path="PERMITTERING_UTEN_LØNN"
+                                           element={<Skjema type="PERMITTERING_UTEN_LØNN"/>}/>
+                                    <Route path="MASSEOPPSIGELSE"
+                                           element={<Skjema type="MASSEOPPSIGELSE"/>}/>
+                                    <Route path="INNSKRENKNING_I_ARBEIDSTID"
+                                           element={<Skjema type="INNSKRENKNING_I_ARBEIDSTID"/>}/>
+                                    <Route path="kvitteringsside/:skjemaId" element={<Kvittering/>}/>
+                                </Route>
                             </Route>
-                        </Route>
-                    </Routes>
-                </BrowserRouter>
+                        </Routes>
+                    </BrowserRouter>
+                </SWRConfig>
             </LoginBoundary>
         </div>
     );
 }
 
 
-const demoSkjema : Permitteringsskjema = {
+const demoSkjema: Permitteringsskjema = {
     id: '123',
     bedriftNr: "123",
     bedriftNavn: "Testbedrift",
