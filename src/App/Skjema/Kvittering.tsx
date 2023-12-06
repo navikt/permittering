@@ -49,9 +49,6 @@ export const Kvittering: FunctionComponent = () => {
                 <LinkPanel href={"/#"}>
                     <LinkPanel.Title>Informasjon om permittering til arbeidsgiver</LinkPanel.Title>
                 </LinkPanel>
-                {
-                    //TODO: Sjekke at vi har rette lenker til LinkPanel!
-                }
             </VStack>
         </Side>
 
