@@ -105,30 +105,43 @@ const FormMedValidering: FunctionComponent<{
         setSkjema,
     },
 ) => {
-    const [feilmeldinger, setFeilmeldinger] = React.useState<{ id: string, msg: string }[]>([]);
+    const [valideringsFeil, setValideringsFeil] = useState<{
+        autoFocus: boolean,
+        issues: { id: string, msg: string }[]
+    }>({autoFocus: false, issues: []});
+
     const errorRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        // TODO: prevent focus when feilmelding is removed
-        if (feilmeldinger.length > 0) {
+        const {autoFocus, issues} = valideringsFeil;
+        if (autoFocus && issues.length > 0) {
             errorRef?.current && errorRef.current.scrollIntoView({behavior: 'smooth'});
             setTimeout(() => {
                 errorRef?.current && errorRef.current.focus();
             }, 500);
         }
-    }, [JSON.stringify(feilmeldinger)]);
+    }, [JSON.stringify(valideringsFeil)]);
 
     const validate = () => {
         const result = Permitteringsskjema.safeParse(skjema);
         if (!result.success) {
-            setFeilmeldinger(
-                result.error.issues.map(({path, message}) => (
+            setValideringsFeil({
+                autoFocus: true,
+                issues: result.error.issues.map(({path, message}) => (
                     {id: path[0] as string, msg: message}
-                )));
+                ))
+            });
         } else {
             onSkjemaValidert(skjema);
         }
     };
+
+    const tømValideringsfeil = (id: string) => setValideringsFeil({
+        autoFocus: false,
+        issues: valideringsFeil.issues.filter(value => value.id !== id)
+    });
+
+    const valideringsFeilForFelt = (id: string) => valideringsFeil.issues.find(value => value.id === id)?.msg
 
     return <Box
         background="bg-default"
@@ -141,9 +154,9 @@ const FormMedValidering: FunctionComponent<{
         }}>
             <VStack gap="8">
 
-                {feilmeldinger.length > 0 && (
+                {valideringsFeil.issues.length > 0 && (
                     <ErrorSummary ref={errorRef} heading="Feilmeldinger">
-                        {feilmeldinger.map(({id, msg}) => (
+                        {valideringsFeil.issues.map(({id, msg}) => (
                             <ErrorSummary.Item key={id} href={`#${id}`}>
                                 {msg}
                             </ErrorSummary.Item>
@@ -167,9 +180,9 @@ const FormMedValidering: FunctionComponent<{
                         value={skjema.kontaktNavn}
                         onChange={(e) => {
                             setSkjema({...skjema, kontaktNavn: e.target.value});
-                            setFeilmeldinger(feilmeldinger.filter(value => value.id !== 'kontaktNavn'));
+                            tømValideringsfeil('kontaktNavn');
                         }}
-                        error={feilmeldinger.find(value => value.id === 'kontaktNavn')?.msg}
+                        error={valideringsFeilForFelt('kontaktNavn')}
                     />
 
                     <TextField
@@ -178,8 +191,11 @@ const FormMedValidering: FunctionComponent<{
                         inputMode='email'
                         autoComplete="email"
                         value={skjema.kontaktEpost}
-                        onChange={(e) => setSkjema({...skjema, kontaktEpost: e.target.value})}
-                        error={feilmeldinger.find(value => value.id === 'kontaktEpost')?.msg}
+                        onChange={(e) => {
+                            setSkjema({...skjema, kontaktEpost: e.target.value});
+                            tømValideringsfeil('kontaktEpost');
+                        }}
+                        error={valideringsFeilForFelt('kontaktEpost')}
                     />
 
                     <TextField
@@ -188,8 +204,11 @@ const FormMedValidering: FunctionComponent<{
                         inputMode='tel'
                         autoComplete="tel"
                         value={skjema.kontaktTlf}
-                        onChange={(e) => setSkjema({...skjema, kontaktTlf: e.target.value})}
-                        error={feilmeldinger.find(value => value.id === 'kontaktTlf')?.msg}
+                        onChange={(e) => {
+                            setSkjema({...skjema, kontaktTlf: e.target.value});
+                            tømValideringsfeil('kontaktTlf');
+                        }}
+                        error={valideringsFeilForFelt('kontaktTlf')}
                     />
                 </fieldset>
 
@@ -204,22 +223,28 @@ const FormMedValidering: FunctionComponent<{
                         autoComplete="off"
                         inputMode="numeric"
                         value={skjema.antallBerørt}
-                        onChange={(e) => setSkjema({
-                            ...skjema,
-                            antallBerørt: e.target.value as unknown as number
-                        })}
-                        error={feilmeldinger.find(value => value.id === 'antallBerørt')?.msg}
+                        onChange={(e) => {
+                            setSkjema({
+                                ...skjema,
+                                antallBerørt: e.target.value as unknown as number
+                            });
+                            tømValideringsfeil('antallBerørt');
+                        }}
+                        error={valideringsFeilForFelt('antallBerørt')}
                     />
                     <Select
                         label={labels[skjema.type].årsakskode}
                         id="årsakskode"
                         value={skjema.årsakskode}
-                        onChange={(e) => setSkjema({
-                            ...skjema,
-                            årsakskode: e.target.value as Årsakskode,
-                            årsakstekst: Årsakskoder[e.target.value as Årsakskode]
-                        })}
-                        error={feilmeldinger.find(value => value.id === 'årsakskode')?.msg}
+                        onChange={(e) => {
+                            setSkjema({
+                                ...skjema,
+                                årsakskode: e.target.value as Årsakskode,
+                                årsakstekst: Årsakskoder[e.target.value as Årsakskode]
+                            });
+                            tømValideringsfeil('årsakskode');
+                        }}
+                        error={valideringsFeilForFelt('årsakskode')}
                     >
                         <option value="">Velg årsak</option>
                         {Object.entries(Årsakskoder).map(([key, label]) => (
@@ -230,21 +255,27 @@ const FormMedValidering: FunctionComponent<{
                     <Yrkeskategorivelger
                         id="yrkeskategorier"
                         label={labels[skjema.type].yrkeskategorier}
-                        error={feilmeldinger.find(value => value.id === 'yrkeskategorier')?.msg}
+                        error={valideringsFeilForFelt('yrkeskategorier')}
                         yrkeskategorier={skjema.yrkeskategorier}
                         leggTilYrkeskategori={(yrkeskategori) => {
-                            setSkjema({...skjema, yrkeskategorier: [...skjema.yrkeskategorier, yrkeskategori]})
+                            setSkjema({...skjema, yrkeskategorier: [...skjema.yrkeskategorier, yrkeskategori]});
+                            tømValideringsfeil('yrkeskategorier');
                         }}
                         fjernYrkeskategori={({konseptId}) => {
                             setSkjema({
                                 ...skjema,
                                 yrkeskategorier: skjema.yrkeskategorier.filter(y => y.konseptId !== konseptId)
-                            })
+                            });
+                            tømValideringsfeil('yrkeskategorier');
                         }}
                     />
 
                     <HStack gap="4">
-                        <DatoVelger skjema={skjema} setSkjema={setSkjema} feilmeldinger={feilmeldinger}/>
+                        <DatoVelger
+                            skjema={skjema}
+                            setSkjema={setSkjema}
+                            tømValideringsfeil={tømValideringsfeil}
+                            valideringsFeilForFelt={valideringsFeilForFelt} />
                     </HStack>
                 </fieldset>
 
@@ -261,13 +292,15 @@ const FormMedValidering: FunctionComponent<{
 type DatoVelgerProps = {
     skjema: Permitteringsskjema,
     setSkjema: (skjema: Permitteringsskjema) => void,
-    feilmeldinger: { id: string, msg: string }[],
+    valideringsFeilForFelt: (id: string) => string | undefined,
+    tømValideringsfeil: (id: string) => void,
 }
 const DatoVelger: FunctionComponent<DatoVelgerProps> = (
     {
         skjema,
         setSkjema,
-        feilmeldinger,
+        valideringsFeilForFelt,
+        tømValideringsfeil,
     }
 ) => {
     const {datepickerProps: startDatoDatepicker, inputProps: startDatoInput} = useDatepicker({
@@ -279,6 +312,7 @@ const DatoVelger: FunctionComponent<DatoVelgerProps> = (
             } else {
                 setSkjema({...skjema, startDato: dato});
             }
+            tømValideringsfeil('startDato');
         },
     });
 
@@ -295,6 +329,7 @@ const DatoVelger: FunctionComponent<DatoVelgerProps> = (
             } else {
                 setSkjema({...skjema, sluttDato: dato, ukjentSluttDato: false});
             }
+            tømValideringsfeil('sluttDato');
         },
     });
 
@@ -310,7 +345,7 @@ const DatoVelger: FunctionComponent<DatoVelgerProps> = (
                 {...startDatoInput}
                 id="startDato"
                 label={labels[skjema.type].startDato}
-                error={feilmeldinger.find(value => value.id === 'startDato')?.msg}
+                error={valideringsFeilForFelt('startDato')}
             />
         </DatePicker>
 
@@ -322,13 +357,14 @@ const DatoVelger: FunctionComponent<DatoVelgerProps> = (
                         {...sluttDatoInput}
                         id="sluttDato"
                         label={labels[skjema.type].sluttDato}
-                        error={feilmeldinger.find(value => value.id === 'sluttDato')?.msg}
+                        error={valideringsFeilForFelt('sluttDato')}
                     />
                 </DatePicker>
                 <Checkbox
                     checked={skjema.ukjentSluttDato}
                     onChange={(e) => {
                         setSkjema({...skjema, ukjentSluttDato: e.target.checked});
+                        tømValideringsfeil('sluttDato');
                     }}
                 >{labels[skjema.type].ukjentSluttDato}</Checkbox>
             </div>
