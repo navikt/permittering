@@ -91,7 +91,7 @@ export const Kvittering: FunctionComponent = () => {
                 <LinkPanel href="https://arbeidsgiver.nav.no/min-side-arbeidsgiver" border>
                     <LinkPanel.Title>Gå til Min Side – arbeidsgiver</LinkPanel.Title>
                 </LinkPanel>
-                <LinkPanel href="">
+                <LinkPanel href="https://www.nav.no/arbeidsgiver/permittere">
                     <LinkPanel.Title>Informasjon om permittering til arbeidsgiver</LinkPanel.Title>
                 </LinkPanel>
             </VStack>
