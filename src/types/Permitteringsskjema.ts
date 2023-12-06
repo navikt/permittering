@@ -55,9 +55,28 @@ export const Permitteringsskjema = z.object({
         path: ['yrkeskategorier'],
     }),
 
-    startDato: z.coerce.date({
-        required_error: "Startdato må fylles ut",
+    startDato: z.any().transform((arg, ctx) => {
+        if (arg === undefined) {
+            ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: 'Startdato må fylles ut',
+                path: ['startDato'],
+            });
+            return z.NEVER;
+        }
+
+        try {
+            return new Date(arg);
+        } catch (e) {
+            ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: 'Startdato må være en gyldig dato',
+                path: ['startDato'],
+            });
+            return z.NEVER;
+        }
     }),
+
     sluttDato: z.coerce.date().optional(),
     ukjentSluttDato: z.boolean().default(false),
 
@@ -89,4 +108,4 @@ export const Permitteringsskjema = z.object({
 }, {
     message: 'Sluttdato må være etter startdato',
     path: ['sluttDato'],
-})
+});

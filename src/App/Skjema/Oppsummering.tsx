@@ -34,7 +34,7 @@ export const Oppsummering: FunctionComponent<Props> = (
                 padding={{xs: '2', md: '4', lg: '8'}}
             >
                 <VStack gap="4">
-                    {error && <Alert variant="error">Klarte ikke lagre skjema akkurat nå! Prøv igjen om noen minutter.</Alert>}
+                    {error && <Alert variant="error">Klarte sende inn skjema akkurat nå! Prøv igjen om noen minutter.</Alert>}
                     <Oppsummeringsfelter skjema={skjema}/>
                     <Alert variant="info">
                         Alle med rettigheten "Innsyn i permittering- og nedbemanningsmeldinger sendt til NAV" vil kunne
