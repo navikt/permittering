@@ -1,9 +1,9 @@
 import React, {FunctionComponent} from "react";
 import {Permitteringsskjema} from "../../../types/Permitteringsskjema";
-import {Alert, Box, Heading, LinkPanel, Tag, VStack} from "@navikt/ds-react";
+import {Alert, Box, Heading, HelpText, LinkPanel, Tag, VStack} from "@navikt/ds-react";
 import {formatDate} from "../../../utils/date-utils";
 import {loggTrykketPaTidligereSkjema} from "../../../utils/funksjonerForAmplitudeLogging";
-import './MineSkjema.css';
+import './InnsendteSkjema.css';
 import {useHentAlleSkjema} from "../../../api/permittering-api";
 
 
@@ -19,8 +19,11 @@ export const InnsendteSkjemaer: FunctionComponent = () => {
         padding={{xs: '2', md: '4', lg: '8'}}
         borderRadius="small"
     >
-        <Heading level="2" size="large" spacing>
+        <Heading className="innsendte_skjemaer_heading" level="2" size="large" spacing>
             Innsendte skjemaer
+            <HelpText title="Hva vises her?">
+                Her vises skjemaer du har tilgang til som er sendt inn til NAV de siste 2 årene.
+            </HelpText>
         </Heading>
         <VStack gap="4">
             {error === undefined ? null : <Alert variant="error">Det skjedde en feil ved henting av skjemaer</Alert>}

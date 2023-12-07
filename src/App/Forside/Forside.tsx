@@ -2,7 +2,7 @@ import React, {FunctionComponent} from 'react';
 import {VStack} from '@navikt/ds-react';
 import InfoOmMeldepliktBoks from './InfoOmMeldepliktBoks/InfoOmMeldepliktBoks';
 import './Forside.css';
-import {InnsendteSkjemaer} from "./MineSkjema/InnsendteSkjemaer";
+import {InnsendteSkjemaer} from "./InnsendteSkjema/InnsendteSkjemaer";
 import {Side} from "../Side";
 import {Breadcrumbs} from "../Skjema/Breadcrumbs";
 
