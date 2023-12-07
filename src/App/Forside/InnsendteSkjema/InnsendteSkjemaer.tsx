@@ -16,7 +16,7 @@ export const InnsendteSkjemaer: FunctionComponent = () => {
 
     return <Box
         background="bg-default"
-        padding={{xs: '2', md: '4', lg: '8'}}
+        padding={{xs: '4', sm: '4', md: '4', lg: '8'}}
         borderRadius="small"
     >
         <Heading className="innsendte_skjemaer_heading" level="2" size="large" spacing>

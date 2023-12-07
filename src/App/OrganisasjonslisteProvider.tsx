@@ -61,7 +61,7 @@ const Laster: FunctionComponent = () => {
             <Box
                 background="bg-default"
                 borderRadius="small"
-                padding={{xs: '2', md: '4', lg: '8'}}
+                padding={{xs: '4', sm: '4', md: '4', lg: '8'}}
             >
                 <VStack gap="12">
                     <VStack gap="4">
@@ -99,7 +99,7 @@ const Feilside: FunctionComponent = () => {
             <Box
                 background="bg-default"
                 borderRadius="small"
-                padding={{xs: '2', md: '4', lg: '8'}}
+                padding={{xs: '4', sm: '4', md: '4', lg: '8'}}
             >
                 <Heading level="1" size="large" spacing>
                     Henting av tilganger feilet

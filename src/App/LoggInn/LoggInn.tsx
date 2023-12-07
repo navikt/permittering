@@ -1,8 +1,9 @@
 import React from 'react';
-import {BodyLong, BodyShort, Button, Heading, Link} from '@navikt/ds-react';
-import LoggInnBanner from './LoggInnBanner/LoggInnBanner';
-import skjema from './skjema.svg';
-import './Logginn.css';
+import {BodyShort, Box, Button, Heading, Link, VStack} from '@navikt/ds-react';
+import {Breadcrumbs} from "../Skjema/Breadcrumbs";
+import {Side} from "../Side";
+import './LoggInn.css';
+
 
 const lokalKjoring = () => {
     return window.location.hostname === 'localhost';
@@ -11,41 +12,46 @@ const lokalKjoring = () => {
 export const redirectTilLogin = () => {
     lokalKjoring()
         ? (window.location.href =
-              'http://localhost:8080/permitteringsskjema-api/auth/mock-token?redirect=http://localhost:3000/permittering')
+            'http://localhost:8080/permitteringsskjema-api/auth/mock-token?redirect=http://localhost:3000/permittering')
         : (window.location.href = '/permittering/redirect-til-login');
 };
 
 const LoggInn = () => {
     return (
-        <div className="innloggingsside">
-            <LoggInnBanner />
-            <div className="innloggingsside__innhold">
-                <img src={skjema} className="innloggingsside__circle" alt="" />
+        <Side
+            tittel="Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid"
+        >
+            <Breadcrumbs/>
+            <Box
+                background="bg-default"
+                borderRadius="small"
+                padding={{xs: '3', md: '6', lg: '12'}}
+            >
+                <VStack gap="8">
+                    <Heading level="2" size="medium" className="logg_inn__header">
+                        Meld fra til NAV
+                    </Heading>
 
-                <Heading level="2" size="large" className="innloggingsside__sidetittel">
-                    Meld fra til NAV
-                </Heading>
-                <BodyLong size="large" className="innloggingsside__ingress">
-                    Arbeidsgivers meldeplikt til NAV ved masseoppsigelser, permittering uten lønn og
-                    innskrenkning i arbeidstid.
-                </BodyLong>
-
-                <Button className="innloggingsside__loginKnapp" onClick={redirectTilLogin}>
-                    Logg inn
-                </Button>
-
-                <div className="innloggingsside__besok-ditt-nav">
-                    <BodyShort>
-                        Ønsker du å se dine tjenester som privatperson?
-                        <div className="logg-inn-lenke">
-                            <Link href="https://www.nav.no/person/dittnav/">
-                                Logg inn på Ditt NAV
-                            </Link>
-                        </div>
+                    <BodyShort size="large" className="logg_inn__tekst">
+                        Arbeidsgivers meldeplikt til NAV ved masseoppsigelser, permittering uten lønn og
+                        innskrenkning i arbeidstid.
                     </BodyShort>
-                </div>
-            </div>
-        </div>
+
+                    <Button onClick={redirectTilLogin} type="button">
+                        Logg inn
+                    </Button>
+
+                    <div>
+                        <BodyShort>
+                            Ønsker du å se dine tjenester som privatperson?
+                        </BodyShort>
+                        <Link href="https://www.nav.no/person/dittnav/">
+                            Logg inn på Ditt NAV
+                        </Link>
+                    </div>
+                </VStack>
+            </Box>
+        </Side>
     );
 };
 

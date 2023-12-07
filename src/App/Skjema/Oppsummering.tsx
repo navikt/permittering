@@ -31,7 +31,7 @@ export const Oppsummering: FunctionComponent<Props> = (
             <Box
                 background="bg-default"
                 borderRadius="small"
-                padding={{xs: '2', md: '4', lg: '8'}}
+                padding={{xs: '4', sm: '4', md: '4', lg: '8'}}
             >
                 <VStack gap="4">
                     {error && <Alert variant="error">Klarte sende inn skjema akkurat nå! Prøv igjen om noen minutter.</Alert>}

@@ -1,6 +1,6 @@
 .banner {
     border-bottom: 0.25rem solid var(--a-border-focus-on-inverted);
-    padding: 2rem;
+    padding: 1rem;
     background-color: var(--a-bg-default);
 }
 .banner__tittel {

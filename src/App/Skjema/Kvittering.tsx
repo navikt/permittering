@@ -18,7 +18,7 @@ export const Kvittering: FunctionComponent = () => {
             <Box
                 background="bg-default"
                 borderRadius="small"
-                padding={{xs: '2', md: '4', lg: '8'}}
+                padding={{xs: '4', sm: '4', md: '4', lg: '8'}}
             >
                 <Alert variant="error">Klarte ikke hente skjema akkurat nå! Prøv igjen om noen minutter.</Alert>
             </Box>
@@ -36,7 +36,7 @@ export const Kvittering: FunctionComponent = () => {
                 <Box
                     background="bg-default"
                     borderRadius="small"
-                    padding={{xs: '2', md: '4', lg: '8'}}
+                    padding={{xs: '4', sm: '4', md: '4', lg: '8'}}
                 >
                     <VStack gap="4">
                         <Skeleton variant="rectangle" width="100%" />
@@ -84,7 +84,7 @@ export const Kvittering: FunctionComponent = () => {
                 <Box
                     background="bg-default"
                     borderRadius="small"
-                    padding={{xs: '2', md: '4', lg: '8'}}
+                    padding={{xs: '4', sm: '4', md: '4', lg: '8'}}
                 >
                     <Oppsummeringsfelter skjema={skjema}/>
                 </Box>

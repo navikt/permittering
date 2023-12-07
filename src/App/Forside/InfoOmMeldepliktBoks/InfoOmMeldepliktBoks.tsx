@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from 'react';
-import {BodyLong, Box, Heading, Link, LinkPanel, List, ReadMore, VStack} from '@navikt/ds-react';
+import {BodyLong, Box, Heading, Link, LinkPanel, ReadMore, VStack} from '@navikt/ds-react';
 import './InfoOmMeldepliktBoks.css';
 
 const InfoOmMeldepliktBoks: FunctionComponent = () => {
@@ -7,7 +7,7 @@ const InfoOmMeldepliktBoks: FunctionComponent = () => {
         <Box
             background="bg-default"
             borderRadius="small"
-            padding={{xs: '2', md: '4', lg: '8'}}
+            padding={{xs: '4', sm: '4', md: '4', lg: '8'}}
         >
             <VStack gap="12">
                 <VStack gap="4">

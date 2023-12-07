@@ -12,7 +12,7 @@ const Forside: FunctionComponent = () => {
             tittel="Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid"
         >
             <Breadcrumbs />
-            <VStack gap="4" className="forside-container">
+            <VStack gap="8" className="forside-container">
                 <InfoOmMeldepliktBoks/>
                 <InnsendteSkjemaer />
             </VStack>

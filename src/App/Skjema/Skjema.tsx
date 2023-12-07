@@ -146,7 +146,7 @@ const FormMedValidering: FunctionComponent<{
     return <Box
         background="bg-default"
         borderRadius="small"
-        padding={{xs: '2', md: '4', lg: '8'}}
+        padding={{xs: '4', sm: '4', md: '4', lg: '8'}}
     >
         <form className="skjema" onSubmit={(e) => {
             e.preventDefault();
