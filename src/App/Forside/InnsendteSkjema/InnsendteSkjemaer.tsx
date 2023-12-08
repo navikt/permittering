@@ -4,7 +4,7 @@ import {Alert, Box, Heading, HelpText, LinkPanel, Tag, VStack} from "@navikt/ds-
 import {formatDate} from "../../../utils/date-utils";
 import './InnsendteSkjema.css';
 import {useHentAlleSkjema} from "../../../api/permittering-api";
-import {loggNavigasjon, useKomponentLastet} from "../../../utils/funksjonerForAmplitudeLogging";
+import {baseUrl, loggNavigasjon, useKomponentLastet} from "../../../utils/funksjonerForAmplitudeLogging";
 
 
 export const InnsendteSkjemaer: FunctionComponent = () => {
@@ -62,7 +62,7 @@ const SkjemaPanel: FunctionComponent<{
             border
             onClick={() => {
                 loggNavigasjon(
-                    "skjema/kvitteringsside",
+                    `${baseUrl}/skjema/kvitteringsside`,
                     skjema.type,
                     "Forside"
                 );

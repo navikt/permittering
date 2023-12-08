@@ -1,7 +1,7 @@
 import React, {FunctionComponent} from 'react';
 import {BodyLong, Box, Heading, Link, LinkPanel, ReadMore, VStack} from '@navikt/ds-react';
 import './InfoOmMeldepliktBoks.css';
-import {loggNavigasjon} from "../../../utils/funksjonerForAmplitudeLogging";
+import {baseUrl, loggNavigasjon} from "../../../utils/funksjonerForAmplitudeLogging";
 
 const InfoOmMeldepliktBoks: FunctionComponent = () => {
     return (
@@ -40,7 +40,7 @@ const InfoOmMeldepliktBoks: FunctionComponent = () => {
                         border
                         onClick={() => {
                             loggNavigasjon(
-                                "skjema/PERMITTERING_UTEN_LØNN",
+                                `${baseUrl}/skjema/PERMITTERING_UTEN_LØNN`,
                                 "Permittering uten lønn",
                                 "Forside"
                             );
@@ -57,7 +57,7 @@ const InfoOmMeldepliktBoks: FunctionComponent = () => {
                         border
                         onClick={() => {
                             loggNavigasjon(
-                                "skjema/MASSEOPPSIGELSE",
+                                `${baseUrl}/skjema/MASSEOPPSIGELSE`,
                                 "Masseoppsigelser",
                                 "Forside"
                             );
@@ -74,7 +74,7 @@ const InfoOmMeldepliktBoks: FunctionComponent = () => {
                         border
                         onClick={() => {
                             loggNavigasjon(
-                                "skjema/INNSKRENKNING_I_ARBEIDSTID",
+                                `${baseUrl}/skjema/INNSKRENKNING_I_ARBEIDSTID`,
                                 "Innskrenkning i arbeidstid",
                                 "Forside"
                             );

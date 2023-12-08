@@ -14,7 +14,7 @@ interface EventProps {
     sektor?: string;
 }
 
-const baseUrl = 'https://arbeidsgiver.nav.no/permittering';
+export const baseUrl = 'https://arbeidsgiver.nav.no/permittering';
 
 export const loggSidevisning = (pathname: string) => {
     amplitude.logEvent('sidevisning', {
