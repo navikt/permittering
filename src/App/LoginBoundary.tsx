@@ -2,30 +2,30 @@ import React, {FunctionComponent, PropsWithChildren, useEffect, useState} from '
 import LoggInn from './LoggInn/LoggInn';
 import {sjekkInnlogget} from '../api/permittering-api';
 
-export enum Tilgang {
+enum Innlogget {
     LASTER,
-    IKKE_TILGANG,
-    TILGANG,
+    IKKE_INNLOGGET,
+    INNLOGGET,
 }
 
 const LoginBoundary: FunctionComponent<PropsWithChildren> = (props) => {
-    const [innlogget, setInnlogget] = useState(Tilgang.LASTER);
+    const [innlogget, setInnlogget] = useState(Innlogget.LASTER);
 
     useEffect(() => {
-        setInnlogget(Tilgang.LASTER);
+        setInnlogget(Innlogget.LASTER);
         sjekkInnlogget().then((innlogget) => {
             if (innlogget) {
-                setInnlogget(Tilgang.TILGANG);
+                setInnlogget(Innlogget.INNLOGGET);
             } else {
-                setInnlogget(Tilgang.IKKE_TILGANG);
+                setInnlogget(Innlogget.IKKE_INNLOGGET);
             }
         });
     }, []);
 
-    if (innlogget === Tilgang.TILGANG) {
+    if (innlogget === Innlogget.INNLOGGET) {
         return <> {props.children} </>;
     }
-    if (innlogget === Tilgang.IKKE_TILGANG) {
+    if (innlogget === Innlogget.IKKE_INNLOGGET) {
         if (window.location.href) {
             return <LoggInn />;
         } else {

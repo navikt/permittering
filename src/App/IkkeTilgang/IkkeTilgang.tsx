@@ -1,18 +1,36 @@
 import React, {FunctionComponent} from 'react';
-import {Heading} from '@navikt/ds-react';
-import HvitSideBoks from '../komponenter/HvitSideBoks';
+import {BodyShort, Box, Heading, Link} from '@navikt/ds-react';
+import {Breadcrumbs} from "../Skjema/Breadcrumbs";
+import {Side} from "../Side";
+import {InformationSquareIcon} from "@navikt/aksel-icons";
+import "./IkkeTilgang.css";
 
-const IkkeTilgang: FunctionComponent = () => {
+export const IkkeTilgang: FunctionComponent = () => {
     return (
-        <HvitSideBoks>
-            <Heading level="3" size="small">
-                Du har dessverre ikke tilgang til å fylle ut skjema om permittering
-            </Heading>
-            <p>
-                For å fylle ut skjema kreves det at du har en rolle eller rettighet i virksomheten i
-                Altinn
-            </p>
-        </HvitSideBoks>
+        <Side
+            tittel="Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid"
+        >
+            <Breadcrumbs/>
+            <Box
+                background="bg-default"
+                borderRadius="small"
+                padding={{xs: '3', md: '6', lg: '12'}}
+            >
+                <div className="ikke_tilgang">
+
+                    <InformationSquareIcon title="a11y-title" fontSize="2rem" className="ikke_tilgang__ikon"/>
+
+                        <Heading level="2" size="medium" className="ikke_tilgang__header">
+                            Du mangler rettigheter i Altinn
+                        </Heading>
+                        <BodyShort size="large" className="ikke_tilgang__tekst" spacing>
+                            For å kunne sende inn skjemaet trenger du rettigheter i Altinn på virksomheten.
+                        </BodyShort>
+                        <Link href="https://www.nav.no/arbeidsgiver/tilganger" className="ikke_tilgang__lenke">
+                            Les mer om hvilke tilganger du trenger
+                        </Link>
+                </div>
+            </Box>
+        </Side>
     );
 };
-export default IkkeTilgang;

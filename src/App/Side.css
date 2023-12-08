@@ -1,0 +1,13 @@
+.side-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 1rem auto;
+    padding: 1rem 0;
+}
+
+@media (min-width: 1024px) {
+    .side-content {
+        width: 60rem;
+    }
+}

@@ -1,9 +1,0 @@
-.datofelt {
-    margin-right: 2rem;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-}
-.datofelt .skjemaelement__input {
-    width: 9.5rem;
-}

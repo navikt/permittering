@@ -1,0 +1,14 @@
+.skjemapanel > div {
+    width: 100%;
+}
+
+.skjemapanel-description {
+    display: flex;
+    justify-content: space-between;
+}
+
+.innsendte_skjemaer_heading {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}

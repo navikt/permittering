@@ -1,8 +1,0 @@
-.skjemapanel > div {
-    width: 100%;
-}
-
-.skjemapanel-description {
-    display: flex;
-    justify-content: space-between;
-}

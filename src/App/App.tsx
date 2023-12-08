@@ -1,81 +1,83 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {BrowserRouter, Outlet, Route, Routes} from 'react-router-dom';
-import {brukerLoggetPa} from '../utils/funksjonerForAmplitudeLogging';
+import {SWRConfig} from 'swr';
 import Forside from './Forside/Forside';
 import LoginBoundary from './LoginBoundary';
 import './App.css';
 import {OrganisasjonsListeProvider} from './OrganisasjonslisteProvider';
-import {SkjemaProvider} from './Skjema/SkjemaContext/SkjemaContext';
-import Side0 from './Skjema/Side0 -hvaSkalDuRapportere/HvaSkalDuRapportere';
-import Side1 from './Skjema/Side1/Side1';
-import Side2 from './Skjema/Side2/Side2';
-import Oppsummering from './Skjema/Side4-oppsummering/Oppsummering';
-import Kvitteirng from './Skjema/Kvitteringsside/Kvitteringsside';
-import {gittMiljo} from "../utils/environment";
-import {setBreadcrumbs} from "@navikt/nav-dekoratoren-moduler";
+import {Kvittering} from "./Skjema/Kvittering";
+import {Permitteringsskjema, Årsakskoder} from "../types/Permitteringsskjema";
+import {Skjema} from "./Skjema/Skjema";
+import {LoggSidevisning} from "../utils/LoggSidevisning";
 
-const urlTilMinSideArbeidsgiver = gittMiljo({
-    prod: 'https://arbeidsgiver.nav.no/min-side-arbeidsgiver/',
-    dev: 'https://arbeidsgiver.intern.dev.nav.no/min-side-arbeidsgiver/',
-    demo: 'https://arbeidsgiver.ekstern.dev.nav.no/min-side-arbeidsgiver/',
-    other: 'https://arbeidsgiver.nav.no/min-side-arbeidsgiver/',
-});
 
 function App() {
-    useEffect(() => {
-        brukerLoggetPa();
-        setBreadcrumbs([
-            { url: urlTilMinSideArbeidsgiver, title: 'Min side – arbeidsgiver', handleInApp: false },
-            { url: '/', title: 'Permittering og oppsigelse', handleInApp: true },
-        ]);
-    }, []);
-
     const basePath = '/permittering';
 
     return (
         <div className="app">
             <LoginBoundary>
-                <BrowserRouter basename={basePath}>
-
-                    <Routes>
-                        <Route
-                            path="/"
-                            element={<Forside/>}
-                        />
-                        <Route path="/skjema"
-                               element={
-                                   <OrganisasjonsListeProvider>
-                                       <SkjemaProvider>
-                                           <Outlet/>
-                                       </SkjemaProvider>
-                                   </OrganisasjonsListeProvider>
-                               }>
+                <SWRConfig
+                    value={{
+                        revalidateOnFocus: false,
+                    }}
+                >
+                    <BrowserRouter basename={basePath}>
+                        <Routes>
                             <Route
-                                path="start"
-                                element={<Side0/>}
-                            />
-                            <Route
-                                path="kontaktinformasjon/:id"
-                                element={<Side1/>}
-                            />
-                            <Route
-                                path="generelle-opplysninger/:id"
-                                element={<Side2/>}
-                            />
-                            <Route
-                                path="oppsummering/:id"
-                                element={<Oppsummering/>}
-                            />
-                            <Route
-                                path="kvitteringsside/:id"
-                                element={<Kvitteirng/>}
-                            />
-                        </Route>
-                    </Routes>
-                </BrowserRouter>
+                                path="/"
+                                element={
+                                    <OrganisasjonsListeProvider>
+                                        <LoggSidevisning />
+                                        <Outlet/>
+                                    </OrganisasjonsListeProvider>
+                                }
+                            >
+                                <Route path="/" element={<Forside/>}/>
+                                <Route path="/skjema">
+                                    <Route path="PERMITTERING_UTEN_LØNN"
+                                           element={<Skjema type="PERMITTERING_UTEN_LØNN"/>}/>
+                                    <Route path="MASSEOPPSIGELSE"
+                                           element={<Skjema type="MASSEOPPSIGELSE"/>}/>
+                                    <Route path="INNSKRENKNING_I_ARBEIDSTID"
+                                           element={<Skjema type="INNSKRENKNING_I_ARBEIDSTID"/>}/>
+                                    <Route path="kvitteringsside/:skjemaId" element={<Kvittering/>}/>
+                                </Route>
+                            </Route>
+                        </Routes>
+                    </BrowserRouter>
+                </SWRConfig>
             </LoginBoundary>
         </div>
     );
+}
+
+
+const demoSkjema: Permitteringsskjema = {
+    id: '123',
+    bedriftNr: "123",
+    bedriftNavn: "Testbedrift",
+    type: 'MASSEOPPSIGELSE',
+    kontaktNavn: "Kontakt Navn",
+    kontaktTlf: "12345678",
+    kontaktEpost: "kontakt.navn@testbedrift.no",
+    startDato: new Date(),
+    sluttDato: new Date(),
+    ukjentSluttDato: false,
+    fritekst: "Fritekst",
+    antallBerørt: 123,
+    sendtInnTidspunkt: new Date(),
+    årsakskode: 'MANGEL_PÅ_ARBEID',
+    årsakstekst: Årsakskoder.MANGEL_PÅ_ARBEID,
+    yrkeskategorier: [{
+        konseptId: 123,
+        styrk08: "123",
+        label: "Kokk",
+    }, {
+        konseptId: 23,
+        styrk08: "23",
+        label: "Statusminuster",
+    }]
 }
 
 export default App;

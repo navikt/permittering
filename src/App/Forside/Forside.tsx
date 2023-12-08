@@ -1,36 +1,22 @@
-import React, {FunctionComponent, useEffect, useState} from 'react';
+import React, {FunctionComponent} from 'react';
 import {VStack} from '@navikt/ds-react';
-import {Permitteringsskjema} from '../../types/permitteringsskjema';
-import {hentAlle} from '../../api/permittering-api';
-import Banner from '../komponenter/Banner/Banner';
-import {loggAntallPaBegynteSkjema, loggNavarendeSteg,} from '../../utils/funksjonerForAmplitudeLogging';
 import InfoOmMeldepliktBoks from './InfoOmMeldepliktBoks/InfoOmMeldepliktBoks';
 import './Forside.css';
-import {MineSkjema} from "./MineSkjema/MineSkjema";
+import {InnsendteSkjemaer} from "./InnsendteSkjema/InnsendteSkjemaer";
+import {Side} from "../Side";
+import {Breadcrumbs} from "../Skjema/Breadcrumbs";
 
 const Forside: FunctionComponent = () => {
-    const [skjema, setSkjema] = useState<Permitteringsskjema[] | undefined>(undefined);
-
-    useEffect(() => {
-        loggNavarendeSteg('oversikt-tidligere-skjema');
-        hentAlle().then(setSkjema);
-    }, []);
-
-    useEffect(() => {
-        if (skjema && skjema.length > 0) {
-            const antallPaBegynte = skjema.filter(({sendtInnTidspunkt: ts}) => ts === null || ts === '').length;
-            loggAntallPaBegynteSkjema(antallPaBegynte);
-        }
-    }, [skjema]);
-
     return (
-        <>
-            <Banner />
-            <VStack gap="4" className="forside-container">
+        <Side
+            tittel="Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid"
+        >
+            <Breadcrumbs />
+            <VStack gap="8" className="forside-container">
                 <InfoOmMeldepliktBoks/>
-                <MineSkjema skjema={skjema}/>
+                <InnsendteSkjemaer />
             </VStack>
-        </>
+        </Side>
     );
 };
 

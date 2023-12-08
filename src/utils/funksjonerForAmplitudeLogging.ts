@@ -1,250 +1,139 @@
 import amplitude from '../utils/amplitude';
-import { Organisasjon } from '../types/Organisasjon';
-import {
-    OrganisasjonFraEnhetsregisteret,
-    tomEnhetsregOrg,
-} from '../types/organisasjonFraEnhetsRegisteret';
-import { hentOverordnetEnhet, hentUnderenhet } from '../api/enhetsRegisteretApi';
+import {Hovedenhet, useUnderenhet} from '../api/enhetsRegisteretApi';
+import {useLocation} from 'react-router-dom';
+import {useEffect} from 'react';
 
-export const brukerLoggetPa = () => {
-    amplitude.logEvent('#permitteringsskjema-forside bruker logget på');
-};
+interface EventProps {
+    url: string;
+    innlogget?: boolean;
+    tilgangskombinasjon?: string;
+    kategori?: string;
+    destinasjon?: string;
+    lenketekst?: string;
+    antallAnsatte?: string;
+    sektor?: string;
+}
 
-export const loggSkjemaValg = (type: string) => {
-    let skalLogges = '#permitteringsskjema-hvaSkalDuRapportere ';
-    switch (true) {
-        case type === 'MASSEOPPSIGELSE':
-            skalLogges += 'masseoppsigelse';
-            break;
-        case type === 'PERMITTERING_UTEN_LØNN':
-            skalLogges += 'permittering';
-            break;
-        case type === 'INNSKRENKNING_I_ARBEIDSTID':
-            skalLogges += 'innskrenkning';
-            break;
-    }
-    amplitude.logEvent(skalLogges);
-};
+const baseUrl = 'https://arbeidsgiver.nav.no/permittering';
 
-export const loggAntallPaBegynteSkjema = (antall: number) => {
-    amplitude.logEvent('#permitteringsskjema-  bruker har ' + antall + ' påbegynte skjema');
-};
-
-export const loggNavarendeSteg = (steg: string) => {
-    amplitude.logEvent('#permitteringsskjema-' + steg);
-};
-
-export const loggSkjemaInnsendt = () => {
-    amplitude.logEvent('#permitteringsskjema-oppsumeringsside send-inn-trykket-på');
-};
-
-export const loggTrykketPaTidligereSkjema = (type: string) => {
-    amplitude.logEvent('#permitteringsskjema- trykket pa tidligere' + type + ' skjema');
-};
-
-export const loggBedriftsInfo = async (organisasjon: Organisasjon): Promise<string> => {
-    let infoFraEereg: OrganisasjonFraEnhetsregisteret = tomEnhetsregOrg;
-    await hentUnderenhet(organisasjon.OrganizationNumber).then((underenhet) => {
-        infoFraEereg = underenhet;
+export const loggSidevisning = (pathname: string) => {
+    amplitude.logEvent('sidevisning', {
+        url: `${baseUrl}${pathname}`,
     });
+};
 
-    const antallAnsatte = infoFraEereg.antallAnsatte;
+export const useLoggSidevisning = () => {
+    const { pathname } = useLocation();
+    loggSidevisning(pathname);
+}
 
-    if (infoFraEereg !== tomEnhetsregOrg) {
-        if (infoFraEereg.naeringskode1 && infoFraEereg.naeringskode1.beskrivelse) {
-            amplitude.logEvent('sidevisning', {
-                url: 'https://arbeidsgiver.nav.no/permittering/',
-                næring: infoFraEereg.naeringskode1.beskrivelse,
+export const useKomponentLastet = (
+    komponent: string,
+    skalLogges: boolean,
+    tags: Record<string, any> = {},
+    deps: any[],
+) => {
+    return useEffect(() => {
+        if (skalLogges) {
+            amplitude.logEvent('komponent-lastet', {
+                komponent,
+                ...tags
             });
         }
-        let infoFraEeregJuridisk: OrganisasjonFraEnhetsregisteret = tomEnhetsregOrg;
-        await hentOverordnetEnhet(organisasjon.ParentOrganizationNumber).then((enhet) => {
-            infoFraEeregJuridisk = enhet;
-        });
-        if (infoFraEereg.naeringskode1 && infoFraEereg.naeringskode1.kode.startsWith('84')) {
-            amplitude.logEvent('#permitteringsskjema-forside OFFENTLIG');
-            if (
-                infoFraEereg.institusjonellSektorkode.kode &&
-                infoFraEereg.institusjonellSektorkode.kode === '6500'
-            ) {
-                amplitude.logEvent('#permitteringsskjema-forside  Kommuneforvaltningen');
-            }
-            if (
-                infoFraEereg.institusjonellSektorkode.kode &&
-                infoFraEereg.institusjonellSektorkode.kode === '6100'
-            ) {
-                amplitude.logEvent('#permitteringsskjema-forside  Statsforvaltningen');
-            }
+    }, deps);
+}
+
+const finnAntallAnsattebøtte = (antall: number | undefined) => {
+    if (antall === undefined) {
+        return undefined;
+    }
+    switch (true) {
+        case antall === 0:
+            return '0';
+        case antall < 5:
+            return '1-4';
+        case antall < 20:
+            return '5-19';
+        case antall < 50:
+            return '20-49';
+        case antall < 100:
+            return '50-99';
+        case antall < 500:
+            return '100-499';
+        case antall > 500:
+            return '500>';
+        default:
+            return undefined;
+    }
+};
+
+const finnSektorNavn = (eregOrg: Hovedenhet) => {
+    if (eregOrg.naeringskode1) {
+        if (eregOrg.naeringskode1.kode.startsWith('84')) {
+            return 'offentlig';
         } else {
-            amplitude.logEvent('#permitteringsskjema-forside  PRIVAT');
-        }
-        const antallAnsatte = Number(infoFraEereg.antallAnsatte);
-        const antallAnsatteJuridiske = Number(infoFraEeregJuridisk.antallAnsatte);
-        switch (true) {
-            case antallAnsatte < 20:
-                amplitude.logEvent('#permitteringsskjema-forside under 20 ansatte');
-                break;
-            case antallAnsatte > 3000:
-                amplitude.logEvent('#permitteringsskjema-forside over 3000 ansatte');
-                break;
-            case antallAnsatte > 1000:
-                amplitude.logEvent('#permitteringsskjema-forside over 1000 ansatte');
-                break;
-            case antallAnsatte > 500:
-                amplitude.logEvent('#permitteringsskjema-forside over 500 ansatte');
-                break;
-            case antallAnsatte > 100:
-                amplitude.logEvent('#permitteringsskjema-forside over 100 ansatte');
-                break;
-            case antallAnsatte >= 20:
-                amplitude.logEvent('#permitteringsskjema-forside over 20 ansatte');
-                break;
-            default:
-                break;
-        }
-        switch (true) {
-            case antallAnsatteJuridiske < 20:
-                amplitude.logEvent(
-                    '#permitteringsskjema-forside under 20 ansatte i juridisk enhet'
-                );
-                break;
-            case antallAnsatteJuridiske > 10000:
-                amplitude.logEvent(
-                    '#permitteringsskjema-forside over 10000 ansatte i juridisk enhet'
-                );
-                break;
-            case antallAnsatteJuridiske > 8000:
-                amplitude.logEvent(
-                    '#permitteringsskjema-forside over 8000 ansatte i juridisk enhet'
-                );
-                break;
-            case antallAnsatteJuridiske > 5000:
-                amplitude.logEvent(
-                    '#permitteringsskjema-forside over 5000 ansatte i juridisk enhet'
-                );
-                break;
-            case antallAnsatteJuridiske > 3000:
-                amplitude.logEvent(
-                    '#permitteringsskjema-forside over 3000 ansatte i juridisk enhet'
-                );
-                break;
-            case antallAnsatteJuridiske > 1000:
-                amplitude.logEvent(
-                    '#permitteringsskjema-forside over 1000 ansatte i juridisk enhet'
-                );
-                break;
-            case antallAnsatteJuridiske > 500:
-                amplitude.logEvent(
-                    '#permitteringsskjema-forside over 500 ansatte i juridisk enhet'
-                );
-                break;
-            case antallAnsatteJuridiske > 100:
-                amplitude.logEvent(
-                    '#permitteringsskjema-forside over 100 ansatte i juridisk enhet'
-                );
-                break;
-            case antallAnsatteJuridiske >= 20:
-                amplitude.logEvent('#permitteringsskjema-forside over 20 ansatte i juridisk enhet');
-                break;
-            default:
-                break;
+            return 'privat';
         }
     }
-    return antallAnsatte;
 };
 
-export const loggAntallUnderenheter = (antall: number) => {
-    let skalLogges = '#permitteringsskjema antall underenheter: ';
-    switch (true) {
-        case antall === 1:
-            skalLogges += '1';
-            break;
-        case antall <= 5:
-            skalLogges += ' 2-5';
-            break;
-        case antall <= 10:
-            skalLogges += '6-10';
-            break;
-        case antall <= 15:
-            skalLogges += '11-15';
-            break;
-        case antall <= 25:
-            skalLogges += '16-25';
-            break;
-        case antall > 25:
-            skalLogges += 'over 25';
-            break;
-    }
-    amplitude.logEvent(skalLogges);
+export const useLoggBedriftValgt = (orgnr: string | undefined) => {
+    const { underenhet, isLoading } = useUnderenhet(orgnr);
+
+    useEffect(() => {
+        if (orgnr === undefined) return;
+        if (isLoading) return;
+
+
+        const virksomhetsinfo: any = {
+            url: baseUrl
+        };
+
+        if (underenhet !== undefined) {
+            virksomhetsinfo.sektor = finnSektorNavn(underenhet);
+            virksomhetsinfo.antallAnsatte = finnAntallAnsattebøtte(underenhet.antallAnsatte);
+        }
+
+        amplitude.logEvent('virksomhet-valgt', virksomhetsinfo);
+    }, [orgnr, underenhet, isLoading]);
 };
 
-export const loggAntallBerorte = (antall: number, skjematype: string) => {
-    let skalLogges = '#permitteringsskjema antall berørte: ' + skjematype;
-    switch (true) {
-        case antall <= 4:
-            skalLogges += ': 0-4';
-            break;
-        case antall <= 9:
-            skalLogges += ': 5-9';
-            break;
-        case antall <= 19:
-            skalLogges += ': 10-19';
-            break;
-        case antall <= 49:
-            skalLogges += ': 20-49';
-            break;
-        case antall <= 249:
-            skalLogges += ': 100-249';
-            break;
-        case antall > 250:
-            skalLogges += ': over 250';
-            break;
-    }
-    amplitude.logEvent(skalLogges);
-};
-
-export const loggProsentAndelPermittert = (
-    skjematype: string,
-    antallAnsatte: number,
-    antallBerorte: number
+export const loggNavigasjon = (
+    destinasjon: string | undefined,
+    /* hvilken knapp sum ble trykket. burde være unik for siden. */
+    lenketekst: string,
+    currentPagePath?: string
 ) => {
-    const prosentAndel = (antallBerorte / antallAnsatte) * 100;
-    let skalLogges = '#permitteringsskjema ' + skjematype;
-    switch (true) {
-        case prosentAndel <= 10:
-            skalLogges += ' 0-10%';
-            break;
-        case prosentAndel <= 20:
-            skalLogges += ' 10-20%';
-            break;
-        case prosentAndel <= 30:
-            skalLogges += '20-30%';
-            break;
-        case prosentAndel <= 40:
-            skalLogges += '30-40%';
-            break;
-        case prosentAndel <= 50:
-            skalLogges += '40-50%';
-            break;
-        case prosentAndel <= 60:
-            skalLogges += '50-60%';
-            break;
-        case prosentAndel <= 70:
-            skalLogges += '60-70%';
-            break;
-        case prosentAndel <= 80:
-            skalLogges += '70-80%';
-            break;
-        case prosentAndel <= 90:
-            skalLogges += '80-90%';
-            break;
-        case prosentAndel <= 100:
-            skalLogges += 'over 90%';
-            break;
-    }
-    amplitude.logEvent(skalLogges);
+    loggNavigasjonTags(destinasjon, lenketekst, currentPagePath ?? '', {});
 };
 
-export const loggArsak = (arsak: string, skjematype: string) => {
-    amplitude.logEvent('#permitteringsskjema ' + skjematype + ' ' + arsak);
+export const loggNavigasjonTags = (
+    destinasjon: string | undefined,
+    /* hvilken knapp sum ble trykket. burde være unik for siden. */
+    lenketekst: string,
+    currentPagePath: string,
+    tags: Record<string, string>
+) => {
+    if (destinasjon !== undefined && destinasjon !== '') {
+        const { origin, pathname } = new URL(destinasjon, baseUrl);
+        destinasjon = `${origin}${pathname}`;
+    }
+
+    const navigasjonsInfo: EventProps = {
+        destinasjon: destinasjon,
+        lenketekst,
+        url: `${baseUrl}${currentPagePath}`,
+        ...tags,
+    };
+    amplitude.logEvent('navigere', navigasjonsInfo);
+};
+
+export const useLoggKlikk = () => {
+    const { pathname } = useLocation();
+    return (knapp: string, annet: Record<string, any> = {}) =>
+        amplitude.logEvent('klikk', {
+            knapp,
+            pathname,
+            ...annet,
+        });
 };

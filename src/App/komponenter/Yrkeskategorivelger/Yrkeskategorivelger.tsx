@@ -1,7 +1,7 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import { Yrkeskategori } from '../../../types/permitteringsskjema';
+import React, {FunctionComponent, useEffect, useState} from 'react';
+import {Yrkeskategori} from '../../../types/Permitteringsskjema';
 import './Yrkeskategorivelger.css';
-import { Typeahead } from './typeahead/Typeahead';
+import {ErrorMessage, UNSAFE_Combobox} from "@navikt/ds-react";
 
 export interface Sokeforslag {
     key: string;
@@ -26,12 +26,18 @@ const getUpdatedSuggestions = async (path: string, q: string) => {
 };
 
 interface YrkeskategorivelgerProps {
+    label: string;
+    id: string;
+    error?: string;
     yrkeskategorier: Yrkeskategori[];
     leggTilYrkeskategori: (nykategori: Yrkeskategori) => void;
     fjernYrkeskategori: (kategori: Yrkeskategori) => void;
 }
 
 const Yrkeskategorivelger: FunctionComponent<YrkeskategorivelgerProps> = ({
+    label,
+    id,
+    error,
     yrkeskategorier,
     leggTilYrkeskategori,
     fjernYrkeskategori,
@@ -42,43 +48,56 @@ const Yrkeskategorivelger: FunctionComponent<YrkeskategorivelgerProps> = ({
 
     useEffect(() => {
         const fetchSuggestions = async () => {
-            return await getUpdatedSuggestions('/permittering/api/stillingstitler', value);
+            return getUpdatedSuggestions('/permittering/api/stillingstitler', value);
         };
         fetchSuggestions().then(setSuggestions);
     }, [value]);
 
     return (
-        <div className="yrkeskategorier">
-            <Typeahead
-                suggestions={suggestions.map((s) => s.value)}
+        <div className={`yrkeskategorier ${error ? "error" : ""}`}>
+            <UNSAFE_Combobox
+                isMultiSelect
+                options={suggestions.map((s) => s.value)}
                 value={value}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    setValue(event.target.value);
+                onChange={(event: React.ChangeEvent<HTMLInputElement> | null) => {
+                    setValue(event?.target.value ||'');
                 }}
-                label="Hvilke yrkeskategorier tilhører de berørte?"
+                id={id}
+                label={label}
                 description="For eksempel: kokk"
-                onSelect={(valgtYrke: string) => {
-                    const selected = suggestions.find((s) => s.value === valgtYrke);
-                    const finnesAllerede = yrkeskategorier.find(
-                        (kategori: Yrkeskategori) => kategori.konseptId.toString() === selected?.key
-                    );
-                    if (!finnesAllerede && selected) {
-                        leggTilYrkeskategori({
-                            konseptId: parseInt(selected.key),
-                            label: selected.value,
-                            styrk08: selected.styrk08 ? selected.styrk08 : '',
-                        });
-                        setValue('');
+                onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                    // needed to prevent form submission on enter
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
                     }
                 }}
-                onRemoveSuggestion={(suggestion: string) => () => {
-                    const existing = yrkeskategorier.find((s) => s.label === suggestion);
-                    if (existing) {
-                        fjernYrkeskategori(existing);
+                onToggleSelected={(option: string,
+                                   isSelected: boolean) => {
+                    if (isSelected) {
+                        const selected = suggestions.find((s) => s.value === option);
+                        const finnesAllerede = yrkeskategorier.find(
+                            (kategori: Yrkeskategori) => kategori.konseptId.toString() === selected?.key
+                        );
+                        if (!finnesAllerede && selected) {
+                            leggTilYrkeskategori({
+                                konseptId: parseInt(selected.key),
+                                label: selected.value,
+                                styrk08: selected.styrk08 ? selected.styrk08 : '',
+                            });
+                            setValue('');
+                        }
+                    } else {
+                        const existing = yrkeskategorier.find((s) => s.label === option);
+                        if (existing) {
+                            fjernYrkeskategori(existing);
+                        }
                     }
+
+
                 }}
-                selectedSuggestions={valgtSuggestions}
+                selectedOptions={valgtSuggestions}
             />
+            { error && <ErrorMessage>{error}</ErrorMessage> }
         </div>
     );
 };

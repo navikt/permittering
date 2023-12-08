@@ -1,9 +1,9 @@
 import express from 'express';
-import { createLogger, format, transports } from 'winston';
+import {createLogger, format, transports} from 'winston';
 import Prometheus from 'prom-client';
 import path from 'path';
-import { tokenXMiddleware } from './tokenx-middleware.js';
-import { createProxyMiddleware } from 'http-proxy-middleware';
+import {tokenXMiddleware} from './tokenx-middleware.js';
+import {createProxyMiddleware} from 'http-proxy-middleware';
 
 const app = express();
 
@@ -69,8 +69,12 @@ const main = async () => {
         })
     );
 
+    if (MILJO === 'dev') {
+        (await import('./mocks/enhetsRegisteretMock.js')).mock(app);
+    }
     if (MILJO === 'local' || MILJO === 'demo') {
         (await import('./mocks/apiMock.js')).mock(app);
+        (await import('./mocks/enhetsRegisteretMock.js')).mock(app);
     } else {
         app.use(
             '/permittering/api',
