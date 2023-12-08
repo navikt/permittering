@@ -2,13 +2,20 @@ import React, {FunctionComponent} from "react";
 import {Permitteringsskjema} from "../../../types/Permitteringsskjema";
 import {Alert, Box, Heading, HelpText, LinkPanel, Tag, VStack} from "@navikt/ds-react";
 import {formatDate} from "../../../utils/date-utils";
-import {loggTrykketPaTidligereSkjema} from "../../../utils/funksjonerForAmplitudeLogging";
 import './InnsendteSkjema.css';
 import {useHentAlleSkjema} from "../../../api/permittering-api";
+import {loggNavigasjon, useKomponentLastet} from "../../../utils/funksjonerForAmplitudeLogging";
 
 
 export const InnsendteSkjemaer: FunctionComponent = () => {
     const {data: skjemaer, error} = useHentAlleSkjema();
+
+    useKomponentLastet(
+        'innsendte-skjemaer',
+        skjemaer?.length > 0,
+        {antallSkjemaer: skjemaer?.length},
+        [skjemaer]
+    )
 
     if (error === undefined && skjemaer.length === 0) {
         return null;
@@ -39,20 +46,34 @@ const skjemaTekster = {
     INNSKRENKNING_I_ARBEIDSTID: 'Innskrenkning i arbeidstid',
 };
 
-const SkjemaPanel: FunctionComponent<{ skjema: Permitteringsskjema }> = ({skjema}) => {
+const SkjemaPanel: FunctionComponent<{
+    skjema: Permitteringsskjema
+}> = ({skjema}) => {
     const skjemaType = skjemaTekster[skjema.type];
     const lenke = `/permittering/skjema/kvitteringsside/${skjema.id}`;
 
     const innsendt = formatDate(skjema.sendtInnTidspunkt);
 
-    return <LinkPanel href={lenke} className="skjemapanel" key={skjema.id} border onClick={() =>
-        loggTrykketPaTidligereSkjema('Sendt inn')
-    }>
-        <LinkPanel.Title>{skjemaType}</LinkPanel.Title>
-        <LinkPanel.Description className="skjemapanel-description">
+    return (
+        <LinkPanel
+            href={lenke}
+            className="skjemapanel"
+            key={skjema.id}
+            border
+            onClick={() => {
+                loggNavigasjon(
+                    "skjema/kvitteringsside",
+                    skjema.type,
+                    "Forside"
+                );
+            }}
+        >
+            <LinkPanel.Title>{skjemaType}</LinkPanel.Title>
+            <LinkPanel.Description className="skjemapanel-description">
 
-            {skjema.bedriftNavn} (org.nr {skjema.bedriftNr})
-            <Tag variant="success">Sendt inn: {innsendt}</Tag>
-        </LinkPanel.Description>
-    </LinkPanel>
+                {skjema.bedriftNavn} (org.nr {skjema.bedriftNr})
+                <Tag variant="success">Sendt inn: {innsendt}</Tag>
+            </LinkPanel.Description>
+        </LinkPanel>
+    )
 }

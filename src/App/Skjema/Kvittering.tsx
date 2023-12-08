@@ -7,6 +7,7 @@ import {useHentSkjema} from "../../api/permittering-api";
 import {Breadcrumbs} from "./Breadcrumbs";
 import {Side} from "../Side";
 import {sidetitler} from "./Skjema";
+import {loggNavigasjon} from "../../utils/funksjonerForAmplitudeLogging";
 
 export const Kvittering: FunctionComponent = () => {
     const {skjemaId} = useParams();
@@ -73,7 +74,7 @@ export const Kvittering: FunctionComponent = () => {
     return (
         <Side tittel={sidetitler[skjema.type]}>
             <Breadcrumbs breadcrumb={{
-                url: `/skjema/${skjema.type}`,
+                url: `/skjema/kvitteringsside/${skjema.id}`,
                 title: sidetitler[skjema.type]
             }}/>
             <VStack gap="4">
@@ -88,10 +89,28 @@ export const Kvittering: FunctionComponent = () => {
                 >
                     <Oppsummeringsfelter skjema={skjema}/>
                 </Box>
-                <LinkPanel href="https://arbeidsgiver.nav.no/min-side-arbeidsgiver" border>
+                <LinkPanel
+                    href="https://arbeidsgiver.nav.no/min-side-arbeidsgiver"
+                    onClick={() => {
+                        loggNavigasjon(
+                            "https://arbeidsgiver.nav.no/min-side-arbeidsgiver",
+                            "Gå til Min Side – arbeidsgiver",
+                            "skjema/kvitteringsside",
+                        );
+                    }}
+                >
                     <LinkPanel.Title>Gå til Min Side – arbeidsgiver</LinkPanel.Title>
                 </LinkPanel>
-                <LinkPanel href="https://www.nav.no/arbeidsgiver/permittere">
+                <LinkPanel
+                    href="https://www.nav.no/arbeidsgiver/permittere"
+                    onClick={() => {
+                        loggNavigasjon(
+                            "https://www.nav.no/arbeidsgiver/permittere",
+                            "Informasjon om permittering til arbeidsgiver",
+                            "skjema/kvitteringsside",
+                        );
+                    }}
+                >
                     <LinkPanel.Title>Informasjon om permittering til arbeidsgiver</LinkPanel.Title>
                 </LinkPanel>
             </VStack>

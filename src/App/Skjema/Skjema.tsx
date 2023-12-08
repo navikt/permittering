@@ -20,6 +20,7 @@ import {Breadcrumbs} from "./Breadcrumbs";
 import {Oppsummering} from "./Oppsummering";
 import './Skjema.css';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
+import {useLoggBedriftValgt, useLoggKlikk} from "../../utils/funksjonerForAmplitudeLogging";
 
 
 type LabledeFelter = Pick<
@@ -122,6 +123,9 @@ const FormMedValidering: FunctionComponent<{
         }
     }, [JSON.stringify(valideringsFeil)]);
 
+    useLoggBedriftValgt(skjema.bedriftNr);
+    const logKlikk = useLoggKlikk();
+
     const validate = () => {
         const result = Permitteringsskjema.safeParse(skjema);
         if (!result.success) {
@@ -149,6 +153,7 @@ const FormMedValidering: FunctionComponent<{
         padding={{xs: '4', sm: '4', md: '4', lg: '8'}}
     >
         <form className="skjema" onSubmit={(e) => {
+            logKlikk("kontroller opplysningene", {type: skjema.type});
             e.preventDefault();
             validate();
         }}>
@@ -281,6 +286,7 @@ const FormMedValidering: FunctionComponent<{
 
                 <Button htmlType="submit">Kontroller opplysningene</Button>
                 <Button variant="tertiary" onClick={(e) => {
+                    logKlikk("avbryt", {type: skjema.type});
                     e.preventDefault();
                     window.location.href = "/permittering";
                 }}>Avbryt</Button>

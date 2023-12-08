@@ -8,6 +8,7 @@ import {OrganisasjonsListeProvider} from './OrganisasjonslisteProvider';
 import {Kvittering} from "./Skjema/Kvittering";
 import {Permitteringsskjema, Årsakskoder} from "../types/Permitteringsskjema";
 import {Skjema} from "./Skjema/Skjema";
+import {LoggSidevisning} from "../utils/LoggSidevisning";
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
                                 path="/"
                                 element={
                                     <OrganisasjonsListeProvider>
+                                        <LoggSidevisning />
                                         <Outlet/>
                                     </OrganisasjonsListeProvider>
                                 }

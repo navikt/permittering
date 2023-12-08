@@ -4,6 +4,7 @@ import {Alert, Box, Button, Heading, HStack, VStack} from "@navikt/ds-react";
 import {Oppsummeringsfelter} from "../komponenter/Oppsummeringsfelter";
 import {useLagreSkjema} from "../../api/permittering-api";
 import {useNavigate} from "react-router-dom";
+import {useLoggKlikk} from "../../utils/funksjonerForAmplitudeLogging";
 
 type Props = {
     skjema: Permitteringsskjema,
@@ -22,6 +23,7 @@ export const Oppsummering: FunctionComponent<Props> = (
             navigate(`/skjema/kvitteringsside/${skjema.id}`);
         }
     });
+    const logKlikk = useLoggKlikk();
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -43,13 +45,19 @@ export const Oppsummering: FunctionComponent<Props> = (
                     <HStack gap="18">
                         <Button
                             variant="secondary"
-                            onClick={() => onTilbake(skjema)}
+                            onClick={() => {
+                                logKlikk("Tilbake", {type: skjema.type});
+                                onTilbake(skjema);
+                            }}
                         >
                             Tilbake
                         </Button>
                         <Button
                             variant="primary"
-                            onClick={() => lagreSkjema({...skjema, sendtInnTidspunkt: new Date()})}
+                            onClick={() => {
+                                logKlikk("Send inn", {type: skjema.type});
+                                return lagreSkjema({...skjema, sendtInnTidspunkt: new Date()});
+                            }}
                         >
                             Send inn
                         </Button>
