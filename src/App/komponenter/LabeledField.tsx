@@ -1,5 +1,5 @@
 import React from "react";
-import {BodyShort, HStack, Label, VStack} from "@navikt/ds-react";
+import {BodyShort, HStack, Label} from "@navikt/ds-react";
 import "../Skjema/Oppsummering.css"
 
 type Props = {
@@ -7,7 +7,7 @@ type Props = {
     field: React.ReactNode;
 }
 
-const idconcat = (felt: string) => `LabeledField${felt.replace(" ","_")}Id`;
+const idconcat = (felt: string) => `LabeledField${felt.replaceAll(" ","_")}Id`;
 
 export const LabeledField = ({ label, field }: Props) => {
     const id = idconcat(label);
