@@ -1,13 +1,11 @@
 import {LabeledField} from "./LabeledField";
-import {BodyShort, Label, VStack} from "@navikt/ds-react";
+import {VStack} from "@navikt/ds-react";
 import React, {FunctionComponent} from "react";
 import {Permitteringsskjema} from "../../types/Permitteringsskjema";
 import {formatDate} from "../../utils/date-utils";
 
 
 export const Oppsummeringsfelter: FunctionComponent<{ skjema: Permitteringsskjema }> = ({skjema}) => {
-    const fritekstId = "oppsummeringFritekstfeltId"
-
     const årsakstekstLabel = {
         "PERMITTERING_UTEN_LØNN": "Årsak til permittering",
         "MASSEOPPSIGELSE": "Årsak til masseoppsigelse",
