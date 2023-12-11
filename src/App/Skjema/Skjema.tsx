@@ -301,6 +301,13 @@ type DatoVelgerProps = {
     valideringsFeilForFelt: (id: string) => string | undefined,
     tømValideringsfeil: (id: string) => void,
 }
+// workaround for date shift due to toIsoString() returning date in UTC and DatePicker date being 00:00+1
+const dateMidDay = (date: Date) : Date => {
+    const midDay = new Date(date);
+    midDay.setHours(12, 0, 0, 0);
+    return midDay;
+
+}
 const DatoVelger: FunctionComponent<DatoVelgerProps> = (
     {
         skjema,
@@ -316,7 +323,7 @@ const DatoVelger: FunctionComponent<DatoVelgerProps> = (
                 const {startDato, ...skjemaUtenStartDato} = skjema;
                 setSkjema({...skjemaUtenStartDato as Permitteringsskjema});
             } else {
-                setSkjema({...skjema, startDato: dato});
+                setSkjema({...skjema, startDato: dateMidDay(dato)});
             }
             tømValideringsfeil('startDato');
         },
@@ -333,7 +340,7 @@ const DatoVelger: FunctionComponent<DatoVelgerProps> = (
                 const {sluttDato, ...skjemaUtenStartDato} = skjema;
                 setSkjema({...skjemaUtenStartDato as Permitteringsskjema});
             } else {
-                setSkjema({...skjema, sluttDato: dato, ukjentSluttDato: false});
+                setSkjema({...skjema, sluttDato: dateMidDay(dato), ukjentSluttDato: false});
             }
             tømValideringsfeil('sluttDato');
         },
