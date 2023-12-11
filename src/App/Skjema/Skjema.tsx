@@ -27,7 +27,7 @@ type LabledeFelter = Pick<
     Permitteringsskjema,
     'antallBerørt' | 'årsakskode' | 'yrkeskategorier' | 'startDato' | 'sluttDato' | 'ukjentSluttDato'
 >;
-const labels: Record<SkjemaType, Record<keyof LabledeFelter, string>> = {
+export const labels: Record<SkjemaType, Record<keyof LabledeFelter, string>> = {
     PERMITTERING_UTEN_LØNN: {
         antallBerørt: 'Hvor mange ansatte blir permittert?',
         årsakskode: 'Hvorfor skal dere permittere?',

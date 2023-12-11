@@ -3,28 +3,21 @@ import {VStack} from "@navikt/ds-react";
 import React, {FunctionComponent} from "react";
 import {Permitteringsskjema} from "../../types/Permitteringsskjema";
 import {formatDate} from "../../utils/date-utils";
+import {labels} from "../Skjema/Skjema";
 
 
-export const Oppsummeringsfelter: FunctionComponent<{ skjema: Permitteringsskjema }> = ({skjema}) => {
+export const Oppsummeringsfelter: FunctionComponent<{
+    skjema: Permitteringsskjema
+}> = ({skjema}) => {
     const årsakstekstLabel = {
         "PERMITTERING_UTEN_LØNN": "Årsak til permittering",
         "MASSEOPPSIGELSE": "Årsak til masseoppsigelse",
         "INNSKRENKNING_I_ARBEIDSTID": "Årsak til innskrenkning i arbeidstid"
     }
-    const fraDatoLabel = {
-        "PERMITTERING_UTEN_LØNN": "Permitteringene starter",
-        "MASSEOPPSIGELSE": "Masseoppsigelsene starter",
-        "INNSKRENKNING_I_ARBEIDSTID": "Innskrenkning i arbeidstid starter"
-    }
-
-    const tilDatoLabel = {
-        "PERMITTERING_UTEN_LØNN": "Permitteringene ender",
-        "INNSKRENKNING_I_ARBEIDSTID": "Innskrenkning i arbeidstid ender"
-    }
 
     return <VStack gap="4">
         <LabeledField label="Virksomhet" field={skjema.bedriftNavn}/>
-        <LabeledField label="Bedriftnr." field={skjema.bedriftNavn}/>
+        <LabeledField label="Virksomhetsnummer" field={skjema.bedriftNr}/>
         <div className="oppsummering_linje"/>
 
         <LabeledField label="Kontaktperson" field={skjema.kontaktNavn}/>
@@ -41,14 +34,17 @@ export const Oppsummeringsfelter: FunctionComponent<{ skjema: Permitteringsskjem
         <LabeledField label={"Berørte yrkeskategorier"} field={skjema.yrkeskategorier.map(i => i.label).join(", ")}/>
         <div className="oppsummering_linje"/>
 
-        <LabeledField label={fraDatoLabel[skjema.type]} field={formatDate(skjema.startDato)}/>
-        {
-            !skjema.ukjentSluttDato &&
-            skjema.type !== "MASSEOPPSIGELSE" &&
-            <LabeledField label={tilDatoLabel[skjema.type]} field={formatDate(skjema.sluttDato)}/>
-        }
+        <LabeledField label={labels[skjema.type].startDato} field={formatDate(skjema.startDato)}/>
+        {skjema.type === "PERMITTERING_UTEN_LØNN" && (
+            <LabeledField label={
+                labels[skjema.type].sluttDato} field={skjema.ukjentSluttDato
+                ? labels[skjema.type].ukjentSluttDato
+                : formatDate(skjema.sluttDato)
+            }/>
+        )}
         <div className="oppsummering_linje"/>
 
-        {skjema.sendtInnTidspunkt && <LabeledField label="Sendt inn til NAV" field={formatDate(skjema.sendtInnTidspunkt)}/>}
+        {skjema.sendtInnTidspunkt &&
+            <LabeledField label="Sendt inn til NAV" field={formatDate(skjema.sendtInnTidspunkt)}/>}
     </VStack>
 }
