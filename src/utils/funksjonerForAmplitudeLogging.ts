@@ -134,6 +134,7 @@ export const useLoggKlikk = () => {
         amplitude.logEvent('klikk', {
             knapp,
             pathname,
+            url: baseUrl,
             ...annet,
         });
 };

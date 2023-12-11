@@ -84,9 +84,6 @@ export const Permitteringsskjema = z.object({
     // id er kun oppgitt når hentes fra backend
     id: z.string().optional(),
 
-    // fritekst brukes kun i backend og har et dårlig navn. bør flyttes til bakcend og fjernes herfra
-    fritekst: z.string().optional(),
-
     // sendtInnTidspunkt burde vært flyttet til backend, og kun vørt tilgjengelig på skjema som er sendt inn
     sendtInnTidspunkt: z.coerce.date().optional(),
 }).refine((skjema) => {

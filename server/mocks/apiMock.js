@@ -22,7 +22,6 @@ const mockStorage = {
         "årsakstekst": "Mangel på arbeid eller oppdrag",
         "startDato": "2023-12-04T23:00:00.000Z",
         "ukjentSluttDato": true,
-        "fritekst": "### Yrker\nKokk (skip)\n### Årsak\nMangel på arbeid eller oppdrag",
         "sendtInnTidspunkt": "2023-12-01T14:04:29.451Z",
         "id": "1"
     },
@@ -44,7 +43,6 @@ const mockStorage = {
         "årsakskode": "MANGEL_PÅ_ARBEID",
         "årsakstekst": "Mangel på arbeid eller oppdrag",
         "startDato": "2023-12-04T23:00:00.000Z",
-        "fritekst": "### Yrker\nKokk (skip)\n### Årsak\nMangel på arbeid eller oppdrag",
         "sendtInnTidspunkt": "2023-12-03T14:04:29.451Z",
         "id": "1"
     },
@@ -66,7 +64,6 @@ const mockStorage = {
         "årsakskode": "MANGEL_PÅ_ARBEID",
         "årsakstekst": "Mangel på arbeid eller oppdrag",
         "startDato": "2023-12-04T23:00:00.000Z",
-        "fritekst": "### Yrker\nKokk (skip)\n### Årsak\nMangel på arbeid eller oppdrag",
         "sendtInnTidspunkt": "2023-12-04T14:04:29.451Z",
         "id": "3"
     },
