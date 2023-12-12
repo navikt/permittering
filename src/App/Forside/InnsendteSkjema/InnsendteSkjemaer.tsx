@@ -4,8 +4,7 @@ import {Alert, Box, Heading, HelpText, LinkPanel, Tag, VStack} from "@navikt/ds-
 import {formatDate} from "../../../utils/date-utils";
 import './InnsendteSkjema.css';
 import {useHentAlleSkjema} from "../../../api/permittering-api";
-import {loggNavigasjon, useKomponentLastet} from "../../../utils/funksjonerForAmplitudeLogging";
-
+import {antallSomBøtte, loggNavigasjon, useKomponentLastet} from "../../../utils/funksjonerForAmplitudeLogging";
 
 export const InnsendteSkjemaer: FunctionComponent = () => {
     const {data: skjemaer, error} = useHentAlleSkjema();
@@ -13,7 +12,7 @@ export const InnsendteSkjemaer: FunctionComponent = () => {
     useKomponentLastet(
         'innsendte-skjemaer',
         skjemaer?.length > 0,
-        {antallSkjemaer: skjemaer?.length},
+        {antallSkjemaer: antallSomBøtte(skjemaer?.length)},
         [skjemaer]
     )
 

@@ -43,7 +43,7 @@ export const useKomponentLastet = (
     }, deps);
 }
 
-const finnAntallAnsattebøtte = (antall: number | undefined) => {
+export const antallSomBøtte = (antall: number | undefined) => {
     if (antall === undefined) {
         return undefined;
     }
@@ -91,7 +91,7 @@ export const useLoggBedriftValgt = (orgnr: string | undefined) => {
 
         if (underenhet !== undefined) {
             virksomhetsinfo.sektor = finnSektorNavn(underenhet);
-            virksomhetsinfo.antallAnsatte = finnAntallAnsattebøtte(underenhet.antallAnsatte);
+            virksomhetsinfo.antallAnsatte = antallSomBøtte(underenhet.antallAnsatte);
         }
 
         amplitude.logEvent('virksomhet-valgt', virksomhetsinfo);
