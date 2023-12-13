@@ -4,7 +4,7 @@ import {
     Box,
     Button,
     Checkbox,
-    DatePicker,
+    DatePicker, Detail,
     ErrorSummary,
     Heading,
     HStack,
@@ -177,6 +177,9 @@ const FormMedValidering: FunctionComponent<{
                     <Heading as={'legend' as React.ElementType} size="medium" level="2" spacing>
                         Kontaktperson i virksomheten
                     </Heading>
+                    <Detail>
+                        Alle felt må fylles ut
+                    </Detail>
 
                     <TextField
                         label="Navn"
@@ -221,6 +224,9 @@ const FormMedValidering: FunctionComponent<{
                     <Heading as={'legend' as React.ElementType} size="medium" level="2" spacing>
                         {headings[skjema.type]}
                     </Heading>
+                    <Detail>
+                        Alle felt må fylles ut
+                    </Detail>
 
                     <TextField
                         label={labels[skjema.type].antallBerørt}
