@@ -31,7 +31,7 @@ export const Kvittering: FunctionComponent = () => {
             <Breadcrumbs />
             <VStack gap="4">
                 <HStack align="center">
-                    <FileCheckmarkFillIcon title="a11y-title" fontSize="4rem" color="var(--a-green-500)"/>
+                    <FileCheckmarkFillIcon title="Filikon med hake" aria-hidden="true" fontSize="4rem" color="var(--a-green-500)"/>
                     <Heading as={Skeleton} size="large" level="2">Kvittering på mottatt melding</Heading>
                 </HStack>
                 <Box
