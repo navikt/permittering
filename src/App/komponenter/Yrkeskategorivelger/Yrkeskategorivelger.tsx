@@ -45,26 +45,33 @@ const Yrkeskategorivelger: FunctionComponent<YrkeskategorivelgerProps> = ({
     const [suggestions, setSuggestions] = useState<Sokeforslag[]>([]);
     const [value, setValue] = useState('');
     const valgtSuggestions = yrkeskategorier.map((k) => k.label);
-
+    const [isLoading, setIsLoading] = useState(false);
     useEffect(() => {
         const fetchSuggestions = async () => {
+            setIsLoading(true);
             return getUpdatedSuggestions('/permittering/api/stillingstitler', value);
         };
-        fetchSuggestions().then(setSuggestions);
+        fetchSuggestions().then((s) => {
+            setSuggestions(s);
+            setIsLoading(false);
+        });
     }, [value]);
 
     return (
         <div className={`yrkeskategorier ${error ? "error" : ""}`}>
             <UNSAFE_Combobox
+                className={`yrkeskategorier__combobox ${value === ''  ? "no-value" : ""}`}
                 isMultiSelect
+                toggleListButton={false}
                 options={suggestions.map((s) => s.value)}
                 value={value}
                 onChange={(event: React.ChangeEvent<HTMLInputElement> | null) => {
                     setValue(event?.target.value ||'');
                 }}
+                isLoading={isLoading}
                 id={id}
                 label={label}
-                description="For eksempel: kokk"
+                description="Søk etter yrke. For eksempel: kokk. Du kan legge til flere yrker."
                 onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => {
                     // needed to prevent form submission on enter
                     if (e.key === 'Enter') {
