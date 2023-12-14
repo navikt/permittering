@@ -4,7 +4,8 @@ import {
     Box,
     Button,
     Checkbox,
-    DatePicker, Detail,
+    DatePicker,
+    Detail,
     ErrorSummary,
     Heading,
     HStack,
@@ -169,9 +170,15 @@ const FormMedValidering: FunctionComponent<{
                     </ErrorSummary>
                 )}
 
-                <VirksomhetsvelgerWrapper onOrganisasjonChange={(org) => {
-                    setSkjema({...skjema, bedriftNr: org.OrganizationNumber, bedriftNavn: org.Name})
-                }}/>
+                <fieldset>
+                    <Heading as={'legend' as React.ElementType} size="medium" level="2" spacing>
+                        Velg virksomhet (underenhet)
+                    </Heading>
+
+                    <VirksomhetsvelgerWrapper onOrganisasjonChange={(org) => {
+                        setSkjema({...skjema, bedriftNr: org.OrganizationNumber, bedriftNavn: org.Name})
+                    }}/>
+                </fieldset>
 
                 <fieldset>
                     <Heading as={'legend' as React.ElementType} size="medium" level="2" spacing>

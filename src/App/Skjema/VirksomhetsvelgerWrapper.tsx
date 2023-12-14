@@ -1,6 +1,5 @@
 import React, {FunctionComponent, useCallback, useContext} from "react";
 import {OrganisasjonsListeContext} from "../OrganisasjonslisteProvider";
-import {Heading} from "@navikt/ds-react";
 import {Virksomhetsvelger} from "@navikt/bedriftsmeny";
 import {Organisasjon} from "@navikt/bedriftsmeny/src/bedriftsmeny/organisasjon";
 
@@ -22,15 +21,9 @@ export const VirksomhetsvelgerWrapper: FunctionComponent<Props> = ({onOrganisasj
         ];
     }, [organisasjon, setOrganisasjon]);
 
-    return <>
-        <Heading size="medium" level="2">
-            Velg virksomhet (underenhet)
-        </Heading>
-
-        <Virksomhetsvelger
-            organisasjoner={organisasjoner}
-            onOrganisasjonChange={onOrganisasjonChange}
-            orgnrSearchParam={useOrgnrHook}
-        />
-    </>
+    return <Virksomhetsvelger
+        organisasjoner={organisasjoner}
+        onOrganisasjonChange={onOrganisasjonChange}
+        orgnrSearchParam={useOrgnrHook}
+    />
 }
