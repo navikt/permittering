@@ -10,6 +10,6 @@ form.skjema fieldset {
     gap: 1rem;
 }
 
-form.skjema button {
+form.skjema > button {
     width: fit-content;
 }
