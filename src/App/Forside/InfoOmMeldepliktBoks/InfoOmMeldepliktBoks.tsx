@@ -12,7 +12,7 @@ const InfoOmMeldepliktBoks: FunctionComponent = () => {
         >
             <VStack gap="12">
                 <VStack gap="4">
-                    <BodyLong size="medium">
+                    <BodyLong size="medium" data-testid="InformasjonOmMeldeplikt">
                         Skal du permittere, si opp eller innskrenke arbeidstiden til 10 eller flere ansatte?
                         Da har du meldeplikt til NAV. Du kan også melde fra til NAV hvis det gjelder under 10 ansatte, om ønskelig.
                     </BodyLong>
