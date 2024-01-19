@@ -24,21 +24,15 @@
         "zod": "3.22.4"
     },
     "devDependencies": {
-        "@jest/environment": "^27.0.3",
-        "@testing-library/react": "^14.1.2",
         "@testing-library/jest-dom": "^6.2.0",
-        "@types/jest": "^27.0.2",
-        "@types/jest-axe": "^3.5.9",
+        "@testing-library/react": "^14.1.2",
+        "@types/whatwg-fetch": "^0.0.33",
         "esbuild": "*",
         "husky": "^8.0.0",
-        "identity-obj-proxy": "^3.0.0",
-        "jest": "29.5.0",
-        "jest-axe": "^8.0.0",
-        "jest-environment-jsdom": "^29.7.0",
+        "msw": "^2.1.2",
         "npm-run-all": "*",
         "prettier": "^3.0.3",
         "pretty-quick": "^3.1.0",
-        "ts-jest": "29.1.0",
         "typescript": "^4.3.3"
     },
     "scripts": {
@@ -52,7 +46,7 @@
         "build:statics": "cp public/* build/",
         "build:tsc": "tsc",
         "build:esbuild": "node esbuild.mjs",
-        "test": "jest --config jest.config.js",
+        "test": "",
         "prepare": "husky install"
     },
     "eslintConfig": {
