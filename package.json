@@ -15,19 +15,21 @@
         "@types/react": "^18.2.39",
         "@types/react-dom": "^18.2.17",
         "@types/react-router-dom": "^5.3.3",
+        "@vitejs/plugin-react": "^4.2.1",
         "amplitude-js": "^8.3.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-modal": "^3.11.2",
         "react-router-dom": "^6.20.0",
         "swr": "2.2.4",
+        "vite-tsconfig-paths": "^4.3.1",
+        "vite": "^5.0.12",
         "zod": "3.22.4"
     },
     "devDependencies": {
         "@testing-library/jest-dom": "^6.2.0",
         "@testing-library/react": "^14.1.2",
         "@types/whatwg-fetch": "^0.0.33",
-        "esbuild": "*",
         "husky": "^8.0.0",
         "msw": "^2.1.2",
         "npm-run-all": "*",
@@ -36,6 +38,14 @@
         "typescript": "^4.3.3"
     },
     "scripts": {
+        "start": "vite --parallel start:*",
+        "start:server": "cd server && MOCK=true npm-run-all start",
+        "build": "tsc && vite build",
+        "preview": "vite preview --base=/permittering/",
+        "test": ""
+
+    },
+    "oldScripts": {
         "clean": "rm -rf ./build/* && mkdir -p ./build",
         "watch": "npm-run-all clean --parallel watch:*",
         "watch:tsc": "tsc --watch",
