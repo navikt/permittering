@@ -7,7 +7,6 @@ metadata:
     team: permittering-og-nedbemanning
 spec:
   image: {{image}}
-  team: arbeidsgiver
   port: 3000
   ingresses:
     - https://arbeidsgiver.ekstern.dev.nav.no/permittering
