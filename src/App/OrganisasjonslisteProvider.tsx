@@ -34,25 +34,23 @@ export const OrganisasjonsListeProvider: FunctionComponent<PropsWithChildren> = 
 
     if (organisasjoner === undefined) {
         return <Laster />;
+    } else if (organisasjoner.length === 0) {
+        return <IkkeTilgang />;
+    } else if (organisasjon === undefined) {
+        return <Laster />;
+    } else {
+        return (
+            <OrganisasjonsListeContext.Provider
+                value={{
+                    organisasjoner,
+                    organisasjon,
+                    setOrganisasjon,
+                }}
+            >
+                {props.children}
+            </OrganisasjonsListeContext.Provider>
+        );
     }
-
-    return (
-        <>
-            {organisasjoner.length === 0 ? (
-                <IkkeTilgang />
-            ) : (
-                <OrganisasjonsListeContext.Provider
-                    value={{
-                        organisasjoner,
-                        organisasjon,
-                        setOrganisasjon,
-                    }}
-                >
-                    {props.children}
-                </OrganisasjonsListeContext.Provider>
-            )}
-        </>
-    );
 };
 
 const Laster: FunctionComponent = () => {
