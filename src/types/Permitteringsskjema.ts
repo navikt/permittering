@@ -46,10 +46,13 @@ export const Permitteringsskjema = z
             required_error: 'Telefonnummer til kontakperson må fylles ut',
         }),
 
-        antallBerørt: z.coerce.number({
-            required_error: 'Antall berørte må fylles ut',
-            invalid_type_error: 'Antall berørte må være et heltall',
-        }),
+        antallBerørt: z.coerce
+            .number({
+                required_error: 'Antall berørte må fylles ut',
+                invalid_type_error: 'Antall berørte må være et heltall',
+            })
+            .int('Antall berørte må være et heltall')
+            .min(1, { message: 'Antall berørte må være minst 1' }),
 
         årsakskode: z.enum([ÅrsakskodeKeys[0], ...ÅrsakskodeKeys], {
             // magic-ref https://github.com/colinhacks/zod/discussions/839#discussioncomment-1885806

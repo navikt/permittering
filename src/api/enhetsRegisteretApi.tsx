@@ -44,7 +44,7 @@ const Underenhet = z
         forretningsadresse: Adresse,
         hjemmeside: z.string(),
         overordnetEnhet: z.string(),
-        antallAnsatte: z.number().int().positive(),
+        antallAnsatte: z.number(),
         beliggenhetsadresse: Adresse,
         institusjonellSektorkode: Kode,
     })
