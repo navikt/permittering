@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/browser';
-import {z} from 'zod';
-import {gittMiljo} from '../utils/environment';
+import { z } from 'zod';
+import { gittMiljo } from '../utils/environment';
 import useSWR from 'swr';
 
 export const hentUnderenhetApiURL = (orgnr: string) =>
@@ -44,7 +44,7 @@ const Underenhet = z
         forretningsadresse: Adresse,
         hjemmeside: z.string(),
         overordnetEnhet: z.string(),
-        antallAnsatte: z.number(),
+        antallAnsatte: z.number().int().positive(),
         beliggenhetsadresse: Adresse,
         institusjonellSektorkode: Kode,
     })
