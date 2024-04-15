@@ -1,12 +1,12 @@
-import React, {FunctionComponent, PropsWithChildren, useEffect, useState} from 'react';
-import {Organisasjon} from '../types/Organisasjon';
-import {IkkeTilgang} from './IkkeTilgang/IkkeTilgang';
-import useSWR from "swr";
-import {z} from "zod";
-import * as Sentry from "@sentry/browser";
-import {Side} from "./Side";
-import {Breadcrumbs} from "./Skjema/Breadcrumbs";
-import {BodyLong, BodyShort, Box, Heading, Link, List, Skeleton, VStack} from "@navikt/ds-react";
+import React, { FunctionComponent, PropsWithChildren, useEffect, useState } from 'react';
+import { Organisasjon } from '../types/Organisasjon';
+import { IkkeTilgang } from './IkkeTilgang/IkkeTilgang';
+import useSWR from 'swr';
+import { z } from 'zod';
+import * as Sentry from '@sentry/browser';
+import { Side } from './Side';
+import { Breadcrumbs } from './Skjema/Breadcrumbs';
+import { BodyLong, BodyShort, Box, Heading, Link, List, Skeleton, VStack } from '@navikt/ds-react';
 
 export type OrganisajonsContext = {
     organisasjoner: Array<Organisasjon>;
@@ -19,7 +19,7 @@ export const OrganisasjonsListeContext = React.createContext<OrganisajonsContext
 );
 
 export const OrganisasjonsListeProvider: FunctionComponent<PropsWithChildren> = (props) => {
-    const {organisasjoner, isError} = useOrganisasjonerFraAltinn();
+    const { organisasjoner, isError } = useOrganisasjonerFraAltinn();
     const [organisasjon, setOrganisasjon] = useState<Organisasjon | undefined>();
 
     useEffect(() => {
@@ -32,47 +32,48 @@ export const OrganisasjonsListeProvider: FunctionComponent<PropsWithChildren> = 
         return <Feilside />;
     }
 
-    if (organisasjoner === undefined || organisasjon === undefined) {
+    if (organisasjoner === undefined) {
         return <Laster />;
     }
 
     return (
         <>
-            {organisasjoner.length === 0
-                ? <IkkeTilgang/>
-                : <OrganisasjonsListeContext.Provider value={{
-                    organisasjoner,
-                    organisasjon,
-                    setOrganisasjon,
-                }}>
+            {organisasjoner.length === 0 ? (
+                <IkkeTilgang />
+            ) : (
+                <OrganisasjonsListeContext.Provider
+                    value={{
+                        organisasjoner,
+                        organisasjon,
+                        setOrganisasjon,
+                    }}
+                >
                     {props.children}
                 </OrganisasjonsListeContext.Provider>
-            }
+            )}
         </>
     );
 };
 
 const Laster: FunctionComponent = () => {
     return (
-        <Side
-            tittel="Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid"
-        >
-            <Breadcrumbs/>
+        <Side tittel="Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid">
+            <Breadcrumbs />
             <Box
                 background="bg-default"
                 borderRadius="small"
-                padding={{xs: '4', sm: '4', md: '4', lg: '8'}}
+                padding={{ xs: '4', sm: '4', md: '4', lg: '8' }}
             >
                 <VStack gap="12">
                     <VStack gap="4">
                         <BodyLong as={Skeleton} size="medium">
-                            Skal du permittere, si opp eller innskrenke arbeidstiden til 10 eller flere ansatte?
-                            Da har du meldeplikt til NAV. Du kan også melde fra til NAV hvis det gjelder under 10 ansatte, om ønskelig.
+                            Skal du permittere, si opp eller innskrenke arbeidstiden til 10 eller
+                            flere ansatte? Da har du meldeplikt til NAV. Du kan også melde fra til
+                            NAV hvis det gjelder under 10 ansatte, om ønskelig.
                         </BodyLong>
 
                         <Skeleton width="20vw" height="3rem" />
                     </VStack>
-
 
                     <VStack gap="4">
                         <Heading as={Skeleton} level="2" size="large">
@@ -84,7 +85,6 @@ const Laster: FunctionComponent = () => {
                         <Skeleton variant="rectangle" width="100%" height="8vh" />
                     </VStack>
                 </VStack>
-
             </Box>
         </Side>
     );
@@ -92,21 +92,19 @@ const Laster: FunctionComponent = () => {
 
 const Feilside: FunctionComponent = () => {
     return (
-        <Side
-            tittel="Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid"
-        >
-            <Breadcrumbs/>
+        <Side tittel="Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid">
+            <Breadcrumbs />
             <Box
                 background="bg-default"
                 borderRadius="small"
-                padding={{xs: '4', sm: '4', md: '4', lg: '8'}}
+                padding={{ xs: '4', sm: '4', md: '4', lg: '8' }}
             >
                 <Heading level="1" size="large" spacing>
                     Henting av tilganger feilet
                 </Heading>
                 <BodyShort spacing>
-                    En teknisk feil på våre servere gjør at siden er utilgjengelig.
-                    Dette skyldes ikke noe du gjorde.
+                    En teknisk feil på våre servere gjør at siden er utilgjengelig. Dette skyldes
+                    ikke noe du gjorde.
                 </BodyShort>
                 <BodyShort>Du kan prøve å</BodyShort>
                 <List>
@@ -114,7 +112,7 @@ const Feilside: FunctionComponent = () => {
                     <List.Item>gå tilbake til forrige side</List.Item>
                 </List>
                 <BodyShort>
-                    Hvis problemet vedvarer, kan du{" "}
+                    Hvis problemet vedvarer, kan du{' '}
                     <Link href="https://nav.no/kontaktoss" target="_blank">
                         kontakte oss (åpnes i ny fane)
                     </Link>
@@ -125,7 +123,6 @@ const Feilside: FunctionComponent = () => {
     );
 };
 
-
 type OrganisasjonerFraAltinnResult = {
     organisasjoner: OrganisasjonerReponse | undefined;
     isError: boolean;
@@ -133,24 +130,20 @@ type OrganisasjonerFraAltinnResult = {
 };
 export const useOrganisasjonerFraAltinn = (): OrganisasjonerFraAltinnResult => {
     const [retries, setRetries] = useState(0);
-    const {data, error} = useSWR(
-        '/permittering/api/organisasjoner',
-        fetcher,
-        {
-            onSuccess: () => setRetries(0),
-            onError: (error) => {
-                if (retries === 5) {
-                    Sentry.captureMessage(
-                        `hent organisasjoner fra altinn feilet med ${
-                            error.status !== undefined ? `${error.status} ${error.statusText}` : error
-                        }`
-                    );
-                }
-                setRetries((x) => x + 1);
-            },
-            errorRetryInterval: 100,
-        }
-    );
+    const { data, error } = useSWR('/permittering/api/organisasjoner', fetcher, {
+        onSuccess: () => setRetries(0),
+        onError: (error) => {
+            if (retries === 5) {
+                Sentry.captureMessage(
+                    `hent organisasjoner fra altinn feilet med ${
+                        error.status !== undefined ? `${error.status} ${error.statusText}` : error
+                    }`
+                );
+            }
+            setRetries((x) => x + 1);
+        },
+        errorRetryInterval: 100,
+    });
     return {
         organisasjoner: data,
         isError: data === undefined && retries >= 5,
