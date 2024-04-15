@@ -10,10 +10,10 @@ jobs:
     name: Build and run tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: '20'
           registry-url: https://npm.pkg.github.com/
@@ -42,7 +42,7 @@ jobs:
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: nais/login@v0
         id: login
         with:
@@ -68,7 +68,7 @@ jobs:
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: nais/login@v0
         id: login
         with:
@@ -94,7 +94,7 @@ jobs:
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: nais/login@v0
         id: login
         with:
