@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/browser';
-import {z} from 'zod';
-import {gittMiljo} from '../utils/environment';
+import { z } from 'zod';
+import { gittMiljo } from '../utils/environment';
 import useSWR from 'swr';
 
 export const hentUnderenhetApiURL = (orgnr: string) =>
