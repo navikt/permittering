@@ -109,15 +109,7 @@ injectDecoratorClientSide({
 
 ReactDOM.render(
     gittMiljo({
-	prod: <>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-            <div>
-                <h1>Vi vedlikeholder Min side – arbeidsgiver</h1>
-                <p>Vi utfører vedlikehold på Min side – arbeidsgiver. Vi beklager ulempene dette medfører.</p>
-                <p>Vi er tilbake i løpet av kort tid.</p>
-            </div>
-        </div>
-	</>,
+        prod: <App />,
         other: (
             <React.StrictMode>
                 {' '}
