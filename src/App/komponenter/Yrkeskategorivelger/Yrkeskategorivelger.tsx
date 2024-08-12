@@ -1,7 +1,7 @@
-import React, {FunctionComponent, useEffect, useState} from 'react';
-import {Yrkeskategori} from '../../../types/Permitteringsskjema';
+import React, { FunctionComponent, useEffect, useState } from 'react';
+import { Yrkeskategori } from '../../../types/Permitteringsskjema';
 import './Yrkeskategorivelger.css';
-import {ErrorMessage, UNSAFE_Combobox} from "@navikt/ds-react";
+import { ErrorMessage, UNSAFE_Combobox } from '@navikt/ds-react';
 
 export interface Sokeforslag {
     key: string;
@@ -58,16 +58,14 @@ const Yrkeskategorivelger: FunctionComponent<YrkeskategorivelgerProps> = ({
     }, [value]);
 
     return (
-        <div className={`yrkeskategorier ${error ? "error" : ""}`}>
+        <div className={`yrkeskategorier ${error ? 'error' : ''}`}>
             <UNSAFE_Combobox
-                className={`yrkeskategorier__combobox ${value === ''  ? "no-value" : ""}`}
+                className={`yrkeskategorier__combobox ${value === '' ? 'no-value' : ''}`}
                 isMultiSelect
                 toggleListButton={false}
                 options={suggestions.map((s) => s.value)}
                 value={value}
-                onChange={(event: React.ChangeEvent<HTMLInputElement> | null) => {
-                    setValue(event?.target.value ||'');
-                }}
+                onChange={setValue}
                 isLoading={isLoading}
                 id={id}
                 label={label}
@@ -78,12 +76,12 @@ const Yrkeskategorivelger: FunctionComponent<YrkeskategorivelgerProps> = ({
                         e.preventDefault();
                     }
                 }}
-                onToggleSelected={(option: string,
-                                   isSelected: boolean) => {
+                onToggleSelected={(option: string, isSelected: boolean) => {
                     if (isSelected) {
                         const selected = suggestions.find((s) => s.value === option);
                         const finnesAllerede = yrkeskategorier.find(
-                            (kategori: Yrkeskategori) => kategori.konseptId.toString() === selected?.key
+                            (kategori: Yrkeskategori) =>
+                                kategori.konseptId.toString() === selected?.key
                         );
                         if (!finnesAllerede && selected) {
                             leggTilYrkeskategori({
@@ -99,12 +97,10 @@ const Yrkeskategorivelger: FunctionComponent<YrkeskategorivelgerProps> = ({
                             fjernYrkeskategori(existing);
                         }
                     }
-
-
                 }}
                 selectedOptions={valgtSuggestions}
             />
-            { error && <ErrorMessage>{error}</ErrorMessage> }
+            {error && <ErrorMessage>{error}</ErrorMessage>}
         </div>
     );
 };
