@@ -64,7 +64,7 @@ export const labels: Record<SkjemaType, Record<keyof LabledeFelter, string>> = {
         ukjentSluttDato: '', // ikke relevant for denne typen
     },
 };
-const headings: Record<SkjemaType, string> = {
+export const headings: Record<SkjemaType, string> = {
     PERMITTERING_UTEN_LØNN: 'Opplysninger om permitteringene',
     MASSEOPPSIGELSE: 'Opplysninger om masseoppsigelsen',
     INNSKRENKNING_I_ARBEIDSTID: 'Opplysninger om innskrenkning i arbeidstid',
