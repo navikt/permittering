@@ -1,50 +1,107 @@
-import {LabeledField} from "./LabeledField";
-import {VStack} from "@navikt/ds-react";
-import React, {FunctionComponent} from "react";
-import {Permitteringsskjema} from "../../types/Permitteringsskjema";
-import {formatDate} from "../../utils/date-utils";
-import {labels} from "../Skjema/Skjema";
-
+import { FormSummary } from '@navikt/ds-react';
+import React, { FunctionComponent } from 'react';
+import { Permitteringsskjema } from '../../types/Permitteringsskjema';
+import { formatDate } from '../../utils/date-utils';
+import { headings, labels, sidetitler } from '../Skjema/Skjema';
 
 export const Oppsummeringsfelter: FunctionComponent<{
-    skjema: Permitteringsskjema
-}> = ({skjema}) => {
+    skjema: Permitteringsskjema;
+}> = ({ skjema }) => {
     const årsakstekstLabel = {
-        "PERMITTERING_UTEN_LØNN": "Årsak til permittering",
-        "MASSEOPPSIGELSE": "Årsak til masseoppsigelse",
-        "INNSKRENKNING_I_ARBEIDSTID": "Årsak til innskrenkning i arbeidstid"
-    }
+        PERMITTERING_UTEN_LØNN: 'Årsak til permittering',
+        MASSEOPPSIGELSE: 'Årsak til masseoppsigelse',
+        INNSKRENKNING_I_ARBEIDSTID: 'Årsak til innskrenkning i arbeidstid',
+    };
+    //
 
-    return <VStack gap="4">
-        <LabeledField label="Virksomhet" field={skjema.bedriftNavn}/>
-        <LabeledField label="Virksomhetsnummer" field={skjema.bedriftNr}/>
-        <div className="oppsummering_linje"/>
+    return (
+        <FormSummary>
+            <FormSummary.Header>
+                <FormSummary.Heading level="2">{sidetitler[skjema.type]}</FormSummary.Heading>
+            </FormSummary.Header>
+            <FormSummary.Answers>
+                <FormSummary.Answer>
+                    <FormSummary.Label>Underenhet</FormSummary.Label>
+                    <FormSummary.Value>
+                        {skjema.bedriftNavn}
+                        <br />
+                        {skjema.bedriftNr}
+                    </FormSummary.Value>
+                </FormSummary.Answer>
 
-        <LabeledField label="Kontaktperson" field={skjema.kontaktNavn}/>
-        <LabeledField label="E-post" field={skjema.kontaktEpost}/>
-        <LabeledField label="Telefonnummer" field={skjema.kontaktTlf}/>
-        <div className="oppsummering_linje"/>
+                <FormSummary.Answer>
+                    <FormSummary.Label>Kontaktperson i virksomheten</FormSummary.Label>
+                    <FormSummary.Value>
+                        <FormSummary.Answers>
+                            <FormSummary.Answer>
+                                <FormSummary.Label>Navn</FormSummary.Label>
+                                <FormSummary.Value>{skjema.kontaktNavn}</FormSummary.Value>
+                            </FormSummary.Answer>
+                            <FormSummary.Answer>
+                                <FormSummary.Label>E-post</FormSummary.Label>
+                                <FormSummary.Value>{skjema.kontaktEpost}</FormSummary.Value>
+                            </FormSummary.Answer>
+                            <FormSummary.Answer>
+                                <FormSummary.Label>Telefon</FormSummary.Label>
+                                <FormSummary.Value>{skjema.kontaktTlf}</FormSummary.Value>
+                            </FormSummary.Answer>
+                        </FormSummary.Answers>
+                    </FormSummary.Value>
+                </FormSummary.Answer>
 
-        <LabeledField label={årsakstekstLabel[skjema.type]} field={skjema.årsakstekst}/>
-        <div className="oppsummering_linje"/>
+                <FormSummary.Answer>
+                    <FormSummary.Label>{headings[skjema.type]}</FormSummary.Label>
+                    <FormSummary.Value>
+                        <FormSummary.Answers>
+                            <FormSummary.Answer>
+                                <FormSummary.Label>Antall berørte</FormSummary.Label>
+                                <FormSummary.Value>{skjema.antallBerørt}</FormSummary.Value>
+                            </FormSummary.Answer>
+                            <FormSummary.Answer>
+                                <FormSummary.Label>
+                                    {årsakstekstLabel[skjema.type]}{' '}
+                                </FormSummary.Label>
+                                <FormSummary.Value>{skjema.årsakstekst}</FormSummary.Value>
+                            </FormSummary.Answer>
+                            <FormSummary.Answer>
+                                <FormSummary.Label>Berørte yrkeskategorier</FormSummary.Label>
+                                <FormSummary.Value>
+                                    {skjema.yrkeskategorier.map((i) => i.label).join(', ')}
+                                </FormSummary.Value>
+                            </FormSummary.Answer>
+                            <FormSummary.Answer>
+                                <FormSummary.Label>
+                                    {labels[skjema.type].startDato}
+                                </FormSummary.Label>
+                                <FormSummary.Value>
+                                    {formatDate(skjema.startDato)}
+                                </FormSummary.Value>
+                            </FormSummary.Answer>
+                            {skjema.type === 'PERMITTERING_UTEN_LØNN' && (
+                                <FormSummary.Answer>
+                                    <FormSummary.Label>
+                                        {labels[skjema.type].sluttDato}
+                                    </FormSummary.Label>
+                                    <FormSummary.Value>
+                                        {skjema.ukjentSluttDato
+                                            ? labels[skjema.type].ukjentSluttDato
+                                            : formatDate(skjema.sluttDato)}
+                                    </FormSummary.Value>
+                                </FormSummary.Answer>
+                            )}
+                        </FormSummary.Answers>
+                    </FormSummary.Value>
+                </FormSummary.Answer>
 
-        <LabeledField label="Antall berørte" field={skjema.antallBerørt}/>
-        <div className="oppsummering_linje"/>
-
-        <LabeledField label={"Berørte yrkeskategorier"} field={skjema.yrkeskategorier.map(i => i.label).join(", ")}/>
-        <div className="oppsummering_linje"/>
-
-        <LabeledField label={labels[skjema.type].startDato} field={formatDate(skjema.startDato)}/>
-        {skjema.type === "PERMITTERING_UTEN_LØNN" && (
-            <LabeledField label={
-                labels[skjema.type].sluttDato} field={skjema.ukjentSluttDato
-                ? labels[skjema.type].ukjentSluttDato
-                : formatDate(skjema.sluttDato)
-            }/>
-        )}
-        <div className="oppsummering_linje"/>
-
-        {skjema.sendtInnTidspunkt &&
-            <LabeledField label="Sendt inn til NAV" field={formatDate(skjema.sendtInnTidspunkt)}/>}
-    </VStack>
-}
+                {skjema.sendtInnTidspunkt && (
+                    <FormSummary.Answer>
+                        <FormSummary.Label>Sendt inn til NAV</FormSummary.Label>
+                        <FormSummary.Value>
+                            {formatDate(skjema.sendtInnTidspunkt)}
+                        </FormSummary.Value>
+                    </FormSummary.Answer>
+                )}
+            </FormSummary.Answers>
+        </FormSummary>
+    );
+};
