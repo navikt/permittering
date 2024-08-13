@@ -15,7 +15,7 @@ export const Oppsummeringsfelter: FunctionComponent<{
     //
 
     return (
-        <FormSummary style={{ background: 'var(--a-bg-default)' }}>
+        <FormSummary>
             <FormSummary.Header>
                 <FormSummary.Heading level="2">{sidetitler[skjema.type]}</FormSummary.Heading>
             </FormSummary.Header>
