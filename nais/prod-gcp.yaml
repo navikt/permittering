@@ -29,7 +29,7 @@ spec:
     outbound:
       rules:
         - application: permitteringsskjema-api
-        - application: pam-janzz
+        - application: pam-ontologi
           namespace: teampam
   envFrom:
     - secret: permittering-secrets

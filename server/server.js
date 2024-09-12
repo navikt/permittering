@@ -62,6 +62,9 @@ const main = async () => {
                 '^/permittering/api/stillingstitler':
                     '/rest/typeahead/stilling',
             },
+            headers: {
+                'Nav-CallId': 'permittering-demo',
+            },
             target:
                 MILJO === 'local' || MILJO === 'demo'
                     ? 'https://pam-ontologi.intern.dev.nav.no/'
