@@ -5,6 +5,11 @@ import {ErrorMessage, UNSAFE_Combobox} from '@navikt/ds-react';
 
 const getUpdatedSuggestions = async (path: string, q: string) => {
     const result = await fetch(path + '?' + new URLSearchParams({ stillingstittel: q }).toString());
+
+    if (!result.ok)  {
+        return [];
+    }
+
     return await result.json();
 };
 
