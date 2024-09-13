@@ -22,7 +22,7 @@ spec:
   accessPolicy:
     outbound:
       external:
-        - host: arbeidsplassen.nav.no
+        - host: pam-ontologi.intern.dev.nav.no
   env:
     - name: GIT_COMMIT
       value: {{commit}}

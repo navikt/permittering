@@ -1,28 +1,11 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import { Yrkeskategori } from '../../../types/Permitteringsskjema';
+import React, {FunctionComponent, useEffect, useState} from 'react';
+import {Yrkeskategori} from '../../../types/Permitteringsskjema';
 import './Yrkeskategorivelger.css';
-import { ErrorMessage, UNSAFE_Combobox } from '@navikt/ds-react';
-
-export interface Sokeforslag {
-    key: string;
-    value: string;
-    styrk08?: string;
-}
+import {ErrorMessage, UNSAFE_Combobox} from '@navikt/ds-react';
 
 const getUpdatedSuggestions = async (path: string, q: string) => {
-    const result = await fetch(path + '?' + new URLSearchParams({ q }).toString());
-    const rawData = await result.json();
-    const data: Yrkeskategori[] = rawData.typeaheadYrkeList;
-    let suggestions: Sokeforslag[] = [];
-
-    data.forEach((kategori: Yrkeskategori) => {
-        suggestions.push({
-            key: `${kategori.konseptId}-${kategori.label}`,
-            value: kategori.label,
-            styrk08: kategori.styrk08[0],
-        });
-    });
-    return suggestions;
+    const result = await fetch(path + '?' + new URLSearchParams({ stillingstittel: q }).toString());
+    return await result.json();
 };
 
 interface YrkeskategorivelgerProps {
@@ -42,7 +25,7 @@ const Yrkeskategorivelger: FunctionComponent<YrkeskategorivelgerProps> = ({
     leggTilYrkeskategori,
     fjernYrkeskategori,
 }) => {
-    const [suggestions, setSuggestions] = useState<Sokeforslag[]>([]);
+    const [suggestions, setSuggestions] = useState<Yrkeskategori[]>([]);
     const [value, setValue] = useState('');
     const valgtSuggestions = yrkeskategorier.map((k) => k.label);
     const [isLoading, setIsLoading] = useState(false);
@@ -63,7 +46,7 @@ const Yrkeskategorivelger: FunctionComponent<YrkeskategorivelgerProps> = ({
                 className={`yrkeskategorier__combobox ${value === '' ? 'no-value' : ''}`}
                 isMultiSelect
                 toggleListButton={false}
-                options={suggestions.map((s) => s.value)}
+                options={suggestions.map((s) => s.label)}
                 value={value}
                 onChange={setValue}
                 isLoading={isLoading}
@@ -78,16 +61,16 @@ const Yrkeskategorivelger: FunctionComponent<YrkeskategorivelgerProps> = ({
                 }}
                 onToggleSelected={(option: string, isSelected: boolean) => {
                     if (isSelected) {
-                        const selected = suggestions.find((s) => s.value === option);
+                        const selected = suggestions.find((s) => s.label === option);
                         const finnesAllerede = yrkeskategorier.find(
                             (kategori: Yrkeskategori) =>
-                                kategori.konseptId.toString() === selected?.key
+                                kategori.konseptId === selected?.konseptId
                         );
                         if (!finnesAllerede && selected) {
                             leggTilYrkeskategori({
-                                konseptId: parseInt(selected.key),
-                                label: selected.value,
-                                styrk08: selected.styrk08 ? selected.styrk08 : '',
+                                konseptId: selected.konseptId,
+                                label: selected.label,
+                                styrk08: selected.styrk08,
                             });
                             setValue('');
                         }

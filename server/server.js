@@ -60,12 +60,15 @@ const main = async () => {
             xfwd: true,
             pathRewrite: {
                 '^/permittering/api/stillingstitler':
-                    '/pam-janzz/rest/typeahead/yrke-med-styrk08-nav',
+                    '/rest/typeahead/stilling',
+            },
+            headers: {
+                'Nav-CallId': 'permittering-demo',
             },
             target:
                 MILJO === 'local' || MILJO === 'demo'
-                    ? 'https://arbeidsplassen.nav.no'
-                    : 'http://pam-janzz.teampam',
+                    ? 'https://pam-ontologi.intern.dev.nav.no/'
+                    : 'http://pam-ontologi.teampam',
         })
     );
 
