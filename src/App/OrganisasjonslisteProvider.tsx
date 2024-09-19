@@ -7,6 +7,7 @@ import * as Sentry from '@sentry/browser';
 import { Side } from './Side';
 import { Breadcrumbs } from './Skjema/Breadcrumbs';
 import { BodyLong, BodyShort, Box, Heading, Link, List, Skeleton, VStack } from '@navikt/ds-react';
+import { flatUtOrganisasjonstre } from '@navikt/bedriftsmeny';
 
 export type OrganisajonsContext = {
     organisasjoner: Array<Organisasjon>;
@@ -19,7 +20,8 @@ export const OrganisasjonsListeContext = React.createContext<OrganisajonsContext
 );
 
 export const OrganisasjonsListeProvider: FunctionComponent<PropsWithChildren> = (props) => {
-    const { organisasjoner, isError } = useOrganisasjonerFraAltinn();
+    // TODO: fallback til v1 hvis v2 feiler eller ikke returnerer data
+    const { organisasjoner, isError } = useOrganisasjonerV2FraAltinn();
     const [organisasjon, setOrganisasjon] = useState<Organisasjon | undefined>();
 
     useEffect(() => {
@@ -158,4 +160,53 @@ export async function fetcher(url: string): Promise<Organisasjon[]> {
         throw respons;
     }
     return OrganisasjonerReponse.parse(await respons.json());
+}
+
+type OrganisasjonerV2FraAltinnResult = {
+    organisasjoner: Organisasjon[] | undefined;
+    isError: boolean;
+    errorStatus: number | undefined;
+};
+export const useOrganisasjonerV2FraAltinn = (): OrganisasjonerV2FraAltinnResult => {
+    const [retries, setRetries] = useState(0);
+    const { data, error } = useSWR('/permittering/api/organisasjoner-v2', fetcherV2, {
+        onSuccess: () => setRetries(0),
+        onError: (error) => {
+            if (retries === 5) {
+                Sentry.captureMessage(
+                    `hent organisasjoner-v2 fra altinn feilet med ${
+                        error.status !== undefined ? `${error.status} ${error.statusText}` : error
+                    }`
+                );
+            }
+            setRetries((x) => x + 1);
+        },
+        errorRetryInterval: 100,
+    });
+    return {
+        organisasjoner: data === undefined ? undefined : flatUtOrganisasjonstre(data),
+        isError: data === undefined && retries >= 5,
+        errorStatus: error?.status,
+    };
+};
+
+// recursive type using zod https://zodjs.netlify.app/guide/recursive-types#recursive-types
+const BaseAltinnTilgang = z.object({
+    orgNr: z.string(),
+    name: z.string(),
+    organizationForm: z.string(),
+});
+type AltinnTilgang = z.infer<typeof BaseAltinnTilgang> & {
+    underenheter: AltinnTilgang[];
+};
+const AltinnTilgang: z.ZodType<AltinnTilgang> = BaseAltinnTilgang.extend({
+    underenheter: z.lazy(() => AltinnTilgang.array()),
+});
+const AltinnTilgangerResponse = z.array(AltinnTilgang);
+export async function fetcherV2(url: string): Promise<AltinnTilgang[]> {
+    let respons = await fetch(url);
+    if (!respons.ok) {
+        throw respons;
+    }
+    return AltinnTilgangerResponse.parse(await respons.json());
 }
