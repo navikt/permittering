@@ -23,6 +23,8 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
       - working-directory: ./server
         run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
       - run: npm test
       - run: npm run build
       - uses: nais/docker-build-push@v0
