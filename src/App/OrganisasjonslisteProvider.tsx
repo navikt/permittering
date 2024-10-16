@@ -123,45 +123,6 @@ const Feilside: FunctionComponent = () => {
     );
 };
 
-type OrganisasjonerFraAltinnResult = {
-    organisasjoner: OrganisasjonerReponse | undefined;
-    isError: boolean;
-    errorStatus: number | undefined;
-};
-export const useOrganisasjonerFraAltinn = (): OrganisasjonerFraAltinnResult => {
-    const [retries, setRetries] = useState(0);
-    const { data, error } = useSWR('/permittering/api/organisasjoner', fetcher, {
-        onSuccess: () => setRetries(0),
-        onError: (error) => {
-            if (retries === 5) {
-                Sentry.captureMessage(
-                    `hent organisasjoner fra altinn feilet med ${
-                        error.status !== undefined ? `${error.status} ${error.statusText}` : error
-                    }`
-                );
-            }
-            setRetries((x) => x + 1);
-        },
-        errorRetryInterval: 100,
-    });
-    return {
-        organisasjoner: data,
-        isError: data === undefined && retries >= 5,
-        errorStatus: error?.status,
-    };
-};
-
-const OrganisasjonerReponse = z.array(Organisasjon);
-type OrganisasjonerReponse = z.infer<typeof OrganisasjonerReponse>;
-
-export async function fetcher(url: string): Promise<Organisasjon[]> {
-    let respons = await fetch(url);
-    if (!respons.ok) {
-        throw respons;
-    }
-    return OrganisasjonerReponse.parse(await respons.json());
-}
-
 type OrganisasjonerV2FraAltinnResult = {
     organisasjoner: Organisasjon[] | undefined;
     isError: boolean;
