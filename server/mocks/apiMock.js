@@ -1,5 +1,4 @@
 import express from 'express';
-import { z } from 'zod';
 
 let skjemaId = 3;
 const mockStorage = {
