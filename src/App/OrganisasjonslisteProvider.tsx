@@ -6,6 +6,7 @@ import { z } from 'zod';
 import { Side } from './Side';
 import { Breadcrumbs } from './Skjema/Breadcrumbs';
 import { BodyLong, BodyShort, Box, Heading, Link, List, Skeleton, VStack } from '@navikt/ds-react';
+import { flatUtOrganisasjonstre } from '@navikt/bedriftsmeny';
 
 export type OrganisajonsContext = {
     organisasjoner: Array<Organisasjon>;
@@ -18,7 +19,7 @@ export const OrganisasjonsListeContext = React.createContext<OrganisajonsContext
 );
 
 export const OrganisasjonsListeProvider: FunctionComponent<PropsWithChildren> = (props) => {
-    const { organisasjoner, isError } = useOrganisasjonerFraAltinn();
+    const { organisasjoner, isError } = useOrganisasjonerV2FraAltinn();
     const [organisasjon, setOrganisasjon] = useState<Organisasjon | undefined>();
 
     useEffect(() => {
@@ -120,19 +121,19 @@ const Feilside: FunctionComponent = () => {
     );
 };
 
-type OrganisasjonerFraAltinnResult = {
-    organisasjoner: OrganisasjonerReponse | undefined;
+type OrganisasjonerV2FraAltinnResult = {
+    organisasjoner: Organisasjon[] | undefined;
     isError: boolean;
     errorStatus: number | undefined;
 };
-export const useOrganisasjonerFraAltinn = (): OrganisasjonerFraAltinnResult => {
+export const useOrganisasjonerV2FraAltinn = (): OrganisasjonerV2FraAltinnResult => {
     const [retries, setRetries] = useState(0);
-    const { data, error } = useSWR('/permittering/api/organisasjoner', fetcher, {
+    const { data, error } = useSWR('/permittering/api/organisasjoner-v2', fetcherV2, {
         onSuccess: () => setRetries(0),
         onError: (error) => {
             if (retries === 5) {
                 console.error(
-                    `hent organisasjoner fra altinn feilet med ${
+                    `hent organisasjoner-v2 fra altinn feilet med ${
                         error.status !== undefined ? `${error.status} ${error.statusText}` : error
                     }`
                 );
@@ -142,19 +143,29 @@ export const useOrganisasjonerFraAltinn = (): OrganisasjonerFraAltinnResult => {
         errorRetryInterval: 100,
     });
     return {
-        organisasjoner: data,
+        organisasjoner: data === undefined ? undefined : flatUtOrganisasjonstre(data),
         isError: data === undefined && retries >= 5,
         errorStatus: error?.status,
     };
 };
 
-const OrganisasjonerReponse = z.array(Organisasjon);
-type OrganisasjonerReponse = z.infer<typeof OrganisasjonerReponse>;
-
-export async function fetcher(url: string): Promise<Organisasjon[]> {
+// recursive type using zod https://zodjs.netlify.app/guide/recursive-types#recursive-types
+const BaseAltinnTilgang = z.object({
+    orgNr: z.string(),
+    name: z.string(),
+    organizationForm: z.string(),
+});
+type AltinnTilgang = z.infer<typeof BaseAltinnTilgang> & {
+    underenheter: AltinnTilgang[];
+};
+const AltinnTilgang: z.ZodType<AltinnTilgang> = BaseAltinnTilgang.extend({
+    underenheter: z.lazy(() => AltinnTilgang.array()),
+});
+const AltinnTilgangerResponse = z.array(AltinnTilgang);
+export async function fetcherV2(url: string): Promise<AltinnTilgang[]> {
     let respons = await fetch(url);
     if (!respons.ok) {
         throw respons;
     }
-    return OrganisasjonerReponse.parse(await respons.json());
+    return AltinnTilgangerResponse.parse(await respons.json());
 }

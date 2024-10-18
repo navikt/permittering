@@ -12,10 +12,8 @@ spec:
     - https://arbeidsgiver.ansatt.dev.nav.no/permittering
   liveness:
     path: /permittering/internal/isAlive
-    initialDelay: 20
   readiness:
     path: /permittering/internal/isAlive
-    initialDelay: 20
   replicas:
     min: 1
     max: 1

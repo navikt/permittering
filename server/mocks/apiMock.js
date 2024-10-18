@@ -94,113 +94,84 @@ export const mock = (app) => {
         res.status(201).json(lagretSkjema);
     });
 
-    app.get('/permittering/api/organisasjoner', (req, res) => {
-        res.json(organisasjoner);
+    app.get('/permittering/api/organisasjoner-v2', (req, res) => {
+        res.json(organisasjonstre);
     });
 };
 
-const organisasjoner = [
-    {
-        Name: 'En Juridisk Ehhet AS',
-        Type: 'Enterprise',
-        ParentOrganizationNumber: null,
-        OrganizationNumber: '812345674',
-        OrganizationForm: 'AS',
-        Status: 'Active',
-    },
-    {
-        Name: 'BALLSTAD OG HAMARØY',
-        Type: 'Business',
-        OrganizationNumber: '182345674',
-        ParentOrganizationNumber: '118345674',
-        OrganizationForm: 'AAFY',
-        Status: 'Active',
-    },
-    {
-        Name: 'BALLSTAD OG HORTEN',
-        Type: 'Enterprise',
-        ParentOrganizationNumber: null,
-        OrganizationNumber: '118345674',
-        OrganizationForm: 'FLI',
-        Status: 'Active',
-    },
-    {
-        Name: 'TEST AV AAFY ',
-        Type: 'Business',
-        OrganizationNumber: '119845674',
-        ParentOrganizationNumber: '118985674',
-        OrganizationForm: 'AAFY',
-        Status: 'Active',
-    },
-    {
-        Name: 'NAV ENGERDAL',
-        Type: 'Business',
-        ParentOrganizationNumber: '812345674',
-        OrganizationNumber: '119985432',
-        OrganizationForm: 'BEDR',
-        Status: 'Active',
-    },
-    {
-        Name: 'NAV HAMAR',
-        Type: 'Business',
-        ParentOrganizationNumber: '812345674',
-        OrganizationNumber: '119988432',
-        OrganizationForm: 'BEDR',
-        Status: 'Active',
-    },
-    {
-        Name: 'BJØRNØYA OG ROVDE REVISJON',
-        Type: 'Enterprise',
-        ParentOrganizationNumber: null,
-        OrganizationNumber: '123988321',
-        OrganizationForm: 'AS',
-        Status: 'Active',
-    },
-    {
-        Name: 'ARENDAL OG BØNES REVISJON',
-        Type: 'Business',
-        ParentOrganizationNumber: '123988321',
-        OrganizationNumber: '321988123',
-        OrganizationForm: 'BEDR',
-        Status: 'Active',
-    },
-    {
-        Name: 'GRAVDAL OG SOLLIA REVISJON',
-        Type: 'Business',
-        ParentOrganizationNumber: '123988321',
-        OrganizationNumber: '311288223',
-        OrganizationForm: 'BEDR',
-        Status: 'Active',
-    },
-    {
-        Name: 'STORFOSNA OG FREDRIKSTAD REGNSKAP',
-        Type: 'Business',
-        ParentOrganizationNumber: '311388333',
-        OrganizationNumber: '411488444',
-        OrganizationForm: 'AAFY',
-        Status: 'Active',
-    },
-    {
-        Name: 'TRANØY OG SANDE I VESTFOLD REGNSKAP',
-        Type: 'Enterprise',
-        ParentOrganizationNumber: null,
-        OrganizationNumber: '311388333',
-        OrganizationForm: 'FLI',
-        Status: 'Active',
-    },
-    {
-        Name: 'BIRTAVARRE OG VÆRLANDET FORELDER',
-        Type: 'Enterprise',
-        OrganizationNumber: '121488424',
-        OrganizationForm: 'AS',
-        Status: 'Active',
-    },
-    {
-        Name: 'SALTRØD OG HØNEBY',
-        Type: 'Business',
-        OrganizationNumber: '999999999',
-        ParentOrganizationNumber: '121488424',
-        OrganizationForm: 'BEDR',
-        Status: 'Active',
-    },
-];
+// convert organisasjoner array to AltinnTilgangerResponse
+const organisasjonstre = [{
+    orgNr: '812345674',
+    name: 'En Juridisk Ehhet AS',
+    organizationForm: 'AS',
+    underenheter: [
+        {
+            orgNr: '119985432',
+            name: 'NAV ENGERDAL',
+            organizationForm: 'BEDR',
+            underenheter: []
+        },
+        {
+            orgNr: '119988432',
+            name: 'NAV HAMAR',
+            organizationForm: 'BEDR',
+            underenheter: []
+        }
+    ],
+}, {
+    orgNr: '118345674',
+    name: 'BALLSTAD OG HORTEN',
+    organizationForm: 'FLI',
+    underenheter: [
+        {
+            orgNr: '182345674',
+            name: 'BALLSTAD OG HAMARØY',
+            organizationForm: 'AAFY',
+            underenheter: []
+        }
+    ],
+}, {
+    orgNr: '123988321',
+    name: 'BJØRNØYA OG ROVDE REVISJON',
+    organizationForm: 'AS',
+    underenheter: [
+        {
+            orgNr: '321988123',
+            name: 'ARENDAL OG BØNES REVISJON',
+            organizationForm: 'BEDR',
+            underenheter: []
+        },
+        {
+            orgNr: '311288223',
+            name: 'GRAVDAL OG SOLLIA REVISJON',
+            organizationForm: 'BEDR',
+            underenheter: []
+        }
+    ],
+}, {
+    orgNr: '311388333',
+    name: 'TRANØY OG SANDE I VESTFOLD REGNSKAP',
+    organizationForm: 'FLI',
+    underenheter: [
+        {
+            orgNr: '411488444',
+            name: 'STORFOSNA OG FREDRIKSTAD REGNSKAP',
+            organizationForm: 'AAFY',
+            underenheter: []
+        }
+    ],
+}, {
+    orgNr: '121488424',
+    name: 'BIRTAVARRE OG VÆRLANDET FORELDER',
+    organizationForm: 'AS',
+    underenheter: [
+        {
+            orgNr: '999999999',
+            name: 'SALTRØD OG HØNEBY',
+            organizationForm: 'BEDR',
+            underenheter: []
+        }
+    ],
+
+}]
+
