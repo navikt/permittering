@@ -3,7 +3,6 @@ import { Organisasjon } from '../types/Organisasjon';
 import { IkkeTilgang } from './IkkeTilgang/IkkeTilgang';
 import useSWR from 'swr';
 import { z } from 'zod';
-import * as Sentry from '@sentry/browser';
 import { Side } from './Side';
 import { Breadcrumbs } from './Skjema/Breadcrumbs';
 import { BodyLong, BodyShort, Box, Heading, Link, List, Skeleton, VStack } from '@navikt/ds-react';
@@ -20,7 +19,6 @@ export const OrganisasjonsListeContext = React.createContext<OrganisajonsContext
 );
 
 export const OrganisasjonsListeProvider: FunctionComponent<PropsWithChildren> = (props) => {
-    // TODO: fallback til v1 hvis v2 feiler eller ikke returnerer data
     const { organisasjoner, isError } = useOrganisasjonerV2FraAltinn();
     const [organisasjon, setOrganisasjon] = useState<Organisasjon | undefined>();
 
@@ -134,7 +132,7 @@ export const useOrganisasjonerV2FraAltinn = (): OrganisasjonerV2FraAltinnResult 
         onSuccess: () => setRetries(0),
         onError: (error) => {
             if (retries === 5) {
-                Sentry.captureMessage(
+                console.error(
                     `hent organisasjoner-v2 fra altinn feilet med ${
                         error.status !== undefined ? `${error.status} ${error.statusText}` : error
                     }`
