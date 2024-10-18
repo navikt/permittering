@@ -3,7 +3,6 @@ import useSWRMutation from "swr/mutation";
 import useSWR from "swr";
 import {useState} from "react";
 import {z} from "zod";
-import * as Sentry from '@sentry/browser';
 
 export async function sjekkInnlogget(): Promise<boolean> {
     let respons = await fetch('/permittering/api/innlogget');
@@ -48,7 +47,7 @@ export const useHentSkjema = (id: string | undefined) => {
             onSuccess: () => setRetries(0),
             onError: (error) => {
                 if (retries === 5) {
-                    Sentry.captureMessage(
+                    console.error(
                         `hent skjema fra permitteringskjema-api feilet med ${
                             error.status !== undefined ? `${error.status} ${error.statusText}` : error
                         }`
@@ -88,7 +87,7 @@ export const useHentAlleSkjema = () => {
             onSuccess: () => setRetries(0),
             onError: (error) => {
                 if (retries === 5) {
-                    Sentry.captureMessage(
+                    console.error(
                         `hent alle skjema fra permitteringskjema-api feilet med ${
                             error.status !== undefined ? `${error.status} ${error.statusText}` : error
                         }`

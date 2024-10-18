@@ -1,4 +1,3 @@
-import * as Sentry from '@sentry/browser';
 import { z } from 'zod';
 import { gittMiljo } from '../utils/environment';
 import useSWR from 'swr';
@@ -103,7 +102,7 @@ export const useUnderenhet = (
         fetchUnderenhet,
         {
             onError: (error) => {
-                Sentry.captureMessage(
+                console.error(
                     `hent Underenhet fra brreg feilet med ${
                         error.status !== undefined ? `${error.status} ${error.statusText}` : error
                     }`
@@ -126,7 +125,7 @@ export const useOverordnetEnhet = (orgnr: string | undefined): Hovedenhet | unde
         fetchHovedenhet,
         {
             onError: (error) => {
-                Sentry.captureMessage(
+                console.error(
                     `hent OverordnetEnhet fra brreg feilet med ${
                         error.status !== undefined ? `${error.status} ${error.statusText}` : error
                     }`
