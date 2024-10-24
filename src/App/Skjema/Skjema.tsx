@@ -182,7 +182,7 @@ const FormMedValidering: FunctionComponent<{
 
                     <fieldset>
                         <Heading as={'legend' as React.ElementType} size="medium" level="2" spacing>
-                            Velg virksomhet (underenhet)
+                            Velg underenhet
                         </Heading>
 
                         <VirksomhetsvelgerWrapper
