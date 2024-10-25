@@ -25,5 +25,6 @@ export const VirksomhetsvelgerWrapper: FunctionComponent<Props> = ({onOrganisasj
         organisasjoner={organisasjoner}
         onOrganisasjonChange={onOrganisasjonChange}
         orgnrSearchParam={useOrgnrHook}
+        maxWidth="30rem"
     />
 }
