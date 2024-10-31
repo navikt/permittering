@@ -101,74 +101,74 @@ export const mock = (app) => {
 
 // convert organisasjoner array to AltinnTilgangerResponse
 const organisasjonstre = [{
-    orgNr: '812345674',
-    name: 'En Juridisk Ehhet AS',
-    organizationForm: 'AS',
+    orgnr: '812345674',
+    navn: 'En Juridisk Ehhet AS',
+    organisasjonsform: 'AS',
     underenheter: [
         {
-            orgNr: '119985432',
-            name: 'NAV ENGERDAL',
-            organizationForm: 'BEDR',
+            orgnr: '119985432',
+            navn: 'NAV ENGERDAL',
+            organisasjonsform: 'BEDR',
             underenheter: []
         },
         {
-            orgNr: '119988432',
-            name: 'NAV HAMAR',
-            organizationForm: 'BEDR',
+            orgnr: '119988432',
+            navn: 'NAV HAMAR',
+            organisasjonsform: 'BEDR',
             underenheter: []
         }
     ],
 }, {
-    orgNr: '118345674',
-    name: 'BALLSTAD OG HORTEN',
-    organizationForm: 'FLI',
+    orgnr: '118345674',
+    navn: 'BALLSTAD OG HORTEN',
+    organisasjonsform: 'FLI',
     underenheter: [
         {
-            orgNr: '182345674',
-            name: 'BALLSTAD OG HAMARØY',
-            organizationForm: 'AAFY',
+            orgnr: '182345674',
+            navn: 'BALLSTAD OG HAMARØY',
+            organisasjonsform: 'AAFY',
             underenheter: []
         }
     ],
 }, {
-    orgNr: '123988321',
-    name: 'BJØRNØYA OG ROVDE REVISJON',
-    organizationForm: 'AS',
+    orgnr: '123988321',
+    navn: 'BJØRNØYA OG ROVDE REVISJON',
+    organisasjonsform: 'AS',
     underenheter: [
         {
-            orgNr: '321988123',
-            name: 'ARENDAL OG BØNES REVISJON',
-            organizationForm: 'BEDR',
+            orgnr: '321988123',
+            navn: 'ARENDAL OG BØNES REVISJON',
+            organisasjonsform: 'BEDR',
             underenheter: []
         },
         {
-            orgNr: '311288223',
-            name: 'GRAVDAL OG SOLLIA REVISJON',
-            organizationForm: 'BEDR',
+            orgnr: '311288223',
+            navn: 'GRAVDAL OG SOLLIA REVISJON',
+            organisasjonsform: 'BEDR',
             underenheter: []
         }
     ],
 }, {
-    orgNr: '311388333',
-    name: 'TRANØY OG SANDE I VESTFOLD REGNSKAP',
-    organizationForm: 'FLI',
+    orgnr: '311388333',
+    navn: 'TRANØY OG SANDE I VESTFOLD REGNSKAP',
+    organisasjonsform: 'FLI',
     underenheter: [
         {
-            orgNr: '411488444',
-            name: 'STORFOSNA OG FREDRIKSTAD REGNSKAP',
-            organizationForm: 'AAFY',
+            orgnr: '411488444',
+            navn: 'STORFOSNA OG FREDRIKSTAD REGNSKAP',
+            organisasjonsform: 'AAFY',
             underenheter: []
         }
     ],
 }, {
-    orgNr: '121488424',
-    name: 'BIRTAVARRE OG VÆRLANDET FORELDER',
-    organizationForm: 'AS',
+    orgnr: '121488424',
+    navn: 'BIRTAVARRE OG VÆRLANDET FORELDER',
+    organisasjonsform: 'AS',
     underenheter: [
         {
-            orgNr: '999999999',
-            name: 'SALTRØD OG HØNEBY',
-            organizationForm: 'BEDR',
+            orgnr: '999999999',
+            navn: 'SALTRØD OG HØNEBY',
+            organisasjonsform: 'BEDR',
             underenheter: []
         }
     ],

@@ -6,7 +6,7 @@ import { z } from 'zod';
 import { Side } from './Side';
 import { Breadcrumbs } from './Skjema/Breadcrumbs';
 import { BodyLong, BodyShort, Box, Heading, Link, List, Skeleton, VStack } from '@navikt/ds-react';
-import { flatUtOrganisasjonstre } from '@navikt/bedriftsmeny';
+import { flatUtOrganisasjonstreV2 } from '@navikt/bedriftsmeny';
 
 export type OrganisajonsContext = {
     organisasjoner: Array<Organisasjon>;
@@ -143,7 +143,7 @@ export const useOrganisasjonerV2FraAltinn = (): OrganisasjonerV2FraAltinnResult 
         errorRetryInterval: 100,
     });
     return {
-        organisasjoner: data === undefined ? undefined : flatUtOrganisasjonstre(data),
+        organisasjoner: data === undefined ? undefined : flatUtOrganisasjonstreV2(data),
         isError: data === undefined && retries >= 5,
         errorStatus: error?.status,
     };
@@ -151,9 +151,9 @@ export const useOrganisasjonerV2FraAltinn = (): OrganisasjonerV2FraAltinnResult 
 
 // recursive type using zod https://zodjs.netlify.app/guide/recursive-types#recursive-types
 const BaseAltinnTilgang = z.object({
-    orgNr: z.string(),
-    name: z.string(),
-    organizationForm: z.string(),
+    orgnr: z.string(),
+    navn: z.string(),
+    organisasjonsform: z.string(),
 });
 type AltinnTilgang = z.infer<typeof BaseAltinnTilgang> & {
     underenheter: AltinnTilgang[];
