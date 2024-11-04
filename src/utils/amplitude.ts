@@ -1,4 +1,5 @@
-import amplitude from 'amplitude-js';
+import * as amplitude from '@amplitude/analytics-browser';
+import { Types } from '@amplitude/analytics-browser';
 import {gittMiljo} from './environment';
 
 const getApiKey = () => {
@@ -7,30 +8,47 @@ const getApiKey = () => {
         : '6ed1f00aabc6ced4fd6fcb7fcdc01b30';
 };
 
-const createAmpltiudeInstance = () => {
-    const instance = amplitude.getInstance();
-
-    instance.init(getApiKey(), '', {
-        apiEndpoint: 'amplitude.nav.no/collect',
-        saveEvents: false,
-        includeUtm: true,
-        batchEvents: false,
-        includeReferrer: true
+type AmplitudeInstance = Pick<Types.BrowserClient, 'logEvent'>;
+const createAmpltiudeInstance = (): AmplitudeInstance => {
+    amplitude
+        .init(getApiKey(), undefined, {
+            serverUrl: 'https://amplitude.nav.no/collect',
+            useBatch: false,
+            autocapture: {
+                attribution: true,
+                fileDownloads: false,
+                formInteractions: false,
+                pageViews: true,
+                sessions: true,
+                elementInteractions: false,
+            },
+        })
+        .promise.catch((error: any) => {
+        console.error('error initializing amplitude', error);
     });
+    return amplitude;
+};
 
-    return instance;
-}
+const mockedAmplitude = (): AmplitudeInstance => ({
+    logEvent: (eventInput: Types.BaseEvent | string, eventProperties?: Record<string, any>) => {
+        console.group('Mocked amplitude-event');
+        console.table({ eventInput, ...eventProperties });
+        console.groupEnd();
+        return {
+            promise: new Promise<Types.Result>((resolve) =>
+                resolve({
+                    event: { event_type: 'MockEvent' },
+                    code: 200,
+                    message: 'Success: mocked amplitude-tracking',
+                })
+            ),
+        };
+    },
+});
 
 
 export default gittMiljo({
     prod: () => createAmpltiudeInstance(),
     dev: () => createAmpltiudeInstance(),
-    other: () => ({
-        logEvent: (event: string, data?: any) => {
-            console.log(`${event}: ${JSON.stringify(data)}`, {event, data})
-        },
-        setUserProperties:(userProps:object) => {
-            console.log(`set userprops: ${JSON.stringify(userProps)}`)
-        }
-    } as amplitude.AmplitudeClient )
+    other: () => mockedAmplitude(),
 })();
