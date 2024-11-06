@@ -16,10 +16,6 @@ export const InnsendteSkjemaer: FunctionComponent = () => {
         [skjemaer]
     )
 
-    if (error === undefined && skjemaer.length === 0) {
-        return null;
-    }
-
     return <Box
         background="bg-default"
         padding={{xs: '4', sm: '4', md: '4', lg: '8'}}
@@ -32,6 +28,14 @@ export const InnsendteSkjemaer: FunctionComponent = () => {
             </HelpText>
         </Heading>
         <VStack gap="4">
+            <Alert variant='info' style={{marginBottom: '12px'}}>
+                <Heading spacing size="small" level="3">
+                    Endring for regnskapsfører
+                </Heading>
+                Regnskapsføreren kan fortsatt sende inn skjemaene, men for å få tilgang til alle innsendte permitterings- og nedbemanningsskjemaer,
+                må de få delegeret tilgangen "Innsyn i permitterings- og nedbemanningsmeldinger".
+            </Alert>
+
             {error === undefined ? null : <Alert variant="error">Det skjedde en feil ved henting av skjemaer</Alert>}
 
             {skjemaer.map((skjema: Permitteringsskjema) => <SkjemaPanel skjema={skjema}/>)}
