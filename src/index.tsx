@@ -11,7 +11,6 @@ injectDecoratorClientSide({
         other: 'dev',
     }),
     params: {
-        urlLookupTable: false,
         context: 'arbeidsgiver',
         language: 'nb',
         redirectToApp: true,
