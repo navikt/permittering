@@ -1,17 +1,16 @@
 import React, { FunctionComponent, PropsWithChildren, useEffect, useState } from 'react';
-import { Organisasjon } from '../types/Organisasjon';
 import { IkkeTilgang } from './IkkeTilgang/IkkeTilgang';
 import useSWR from 'swr';
 import { z } from 'zod';
 import { Side } from './Side';
 import { Breadcrumbs } from './Skjema/Breadcrumbs';
 import { BodyLong, BodyShort, Box, Heading, Link, List, Skeleton, VStack } from '@navikt/ds-react';
-import { flatUtOrganisasjonstreV2 } from '@navikt/bedriftsmeny';
+import { flatUtHierarki } from '@navikt/virksomhetsvelger';
 
 export type OrganisajonsContext = {
-    organisasjoner: Array<Organisasjon>;
-    organisasjon: Organisasjon;
-    setOrganisasjon: (organisasjon: Organisasjon) => void;
+    organisasjoner: Array<AltinnTilgang>;
+    organisasjon: AltinnTilgang;
+    setOrganisasjon: (organisasjon: AltinnTilgang) => void;
 };
 
 export const OrganisasjonsListeContext = React.createContext<OrganisajonsContext>(
@@ -20,11 +19,12 @@ export const OrganisasjonsListeContext = React.createContext<OrganisajonsContext
 
 export const OrganisasjonsListeProvider: FunctionComponent<PropsWithChildren> = (props) => {
     const { organisasjoner, isError } = useOrganisasjonerV2FraAltinn();
-    const [organisasjon, setOrganisasjon] = useState<Organisasjon | undefined>();
+    const [organisasjon, setOrganisasjon] = useState<AltinnTilgang | undefined>();
 
     useEffect(() => {
         if (organisasjoner !== undefined && organisasjon === undefined) {
-            setOrganisasjon(organisasjoner[0]);
+            const underenheter = flatUtHierarki(organisasjoner).flatMap((o) => o.underenheter);
+            setOrganisasjon(underenheter[0]);
         }
     }, [organisasjoner, organisasjon, setOrganisasjon]);
 
@@ -122,7 +122,7 @@ const Feilside: FunctionComponent = () => {
 };
 
 type OrganisasjonerV2FraAltinnResult = {
-    organisasjoner: Organisasjon[] | undefined;
+    organisasjoner: AltinnTilgang[] | undefined;
     isError: boolean;
     errorStatus: number | undefined;
 };
@@ -143,7 +143,7 @@ export const useOrganisasjonerV2FraAltinn = (): OrganisasjonerV2FraAltinnResult 
         errorRetryInterval: 100,
     });
     return {
-        organisasjoner: data === undefined ? undefined : flatUtOrganisasjonstreV2(data),
+        organisasjoner: data,
         isError: data === undefined && retries >= 5,
         errorStatus: error?.status,
     };
@@ -153,7 +153,7 @@ export const useOrganisasjonerV2FraAltinn = (): OrganisasjonerV2FraAltinnResult 
 const BaseAltinnTilgang = z.object({
     orgnr: z.string(),
     navn: z.string(),
-    organisasjonsform: z.string(),
+    organisasjonsform: z.string().optional(),
 });
 type AltinnTilgang = z.infer<typeof BaseAltinnTilgang> & {
     underenheter: AltinnTilgang[];
