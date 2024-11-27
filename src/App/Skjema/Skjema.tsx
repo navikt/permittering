@@ -5,7 +5,7 @@ import {
     Årsakskode,
     Årsakskoder,
 } from '../../types/Permitteringsskjema';
-import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
+import React, { FunctionComponent, useContext, useEffect, useRef, useState } from 'react';
 import {
     Box,
     Button,
@@ -20,7 +20,6 @@ import {
     useDatepicker,
     VStack,
 } from '@navikt/ds-react';
-import { VirksomhetsvelgerWrapper } from './VirksomhetsvelgerWrapper';
 import Yrkeskategorivelger from '../komponenter/Yrkeskategorivelger/Yrkeskategorivelger';
 import { Side } from '../Side';
 import { Breadcrumbs } from './Breadcrumbs';
@@ -28,6 +27,8 @@ import { Oppsummering } from './Oppsummering';
 import './Skjema.css';
 import '@navikt/virksomhetsvelger/dist/assets/style.css';
 import { useLoggBedriftValgt, useLoggKlikk } from '../../utils/funksjonerForAmplitudeLogging';
+import { Virksomhetsvelger } from '@navikt/virksomhetsvelger';
+import { OrganisasjonsListeContext } from '../OrganisasjonslisteProvider';
 
 type LabledeFelter = Pick<
     Permitteringsskjema,
@@ -111,6 +112,7 @@ const FormMedValidering: FunctionComponent<{
     skjema: Permitteringsskjema;
     setSkjema: (skjema: Permitteringsskjema) => void;
 }> = ({ onSkjemaValidert, skjema, setSkjema }) => {
+    const {organisasjoner, organisasjon, setOrganisasjon} = useContext(OrganisasjonsListeContext);
     const [valideringsFeil, setValideringsFeil] = useState<{
         autoFocus: boolean;
         issues: { id: string; msg: string }[];
@@ -185,13 +187,20 @@ const FormMedValidering: FunctionComponent<{
                             Velg underenhet
                         </Heading>
 
-                        <VirksomhetsvelgerWrapper
-                            onOrganisasjonChange={(org) => {
-                                setSkjema({
-                                    ...skjema,
-                                    bedriftNr: org.orgnr,
-                                    bedriftNavn: org.navn,
-                                });
+                        <Virksomhetsvelger
+                            friKomponent
+                            organisasjoner={organisasjoner}
+                            onChange={(org) => {
+                                if (org.orgnr !== skjema.bedriftNr) {
+                                    setSkjema({
+                                        ...skjema,
+                                        bedriftNr: org.orgnr,
+                                        bedriftNavn: org.navn,
+                                    });
+                                }
+                                if (organisasjon?.orgnr !== org.orgnr) {
+                                    setOrganisasjon(org);
+                                }
                             }}
                         />
                     </fieldset>
