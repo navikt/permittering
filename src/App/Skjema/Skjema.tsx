@@ -26,7 +26,7 @@ import { Side } from '../Side';
 import { Breadcrumbs } from './Breadcrumbs';
 import { Oppsummering } from './Oppsummering';
 import './Skjema.css';
-import '@navikt/virksomhetsvelger/dist/assets/style.css';
+import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { useLoggBedriftValgt, useLoggKlikk } from '../../utils/funksjonerForAmplitudeLogging';
 
 type LabledeFelter = Pick<
@@ -189,8 +189,8 @@ const FormMedValidering: FunctionComponent<{
                             onOrganisasjonChange={(org) => {
                                 setSkjema({
                                     ...skjema,
-                                    bedriftNr: org.orgnr,
-                                    bedriftNavn: org.navn,
+                                    bedriftNr: org.OrganizationNumber,
+                                    bedriftNavn: org.Name,
                                 });
                             }}
                         />
