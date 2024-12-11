@@ -25,9 +25,6 @@ export const Oppsummering: FunctionComponent<Props> = ({ skjema, onTilbake }) =>
     }, []);
     return (
         <>
-            <Heading size="large" level="2">
-                Er opplysningene riktige?
-            </Heading>
             <VStack gap="8">
                 <GuidePanel poster>
                     <BodyLong spacing>
@@ -36,7 +33,7 @@ export const Oppsummering: FunctionComponent<Props> = ({ skjema, onTilbake }) =>
                     </BodyLong>
                     <BodyLong>
                         Alle i virksomheten med rettigheten "Innsyn i permittering- og
-                        nedbemanningsmeldinger sendt til NAV" vil kunne se meldingen etter
+                        nedbemanningsmeldinger" vil kunne se meldingen etter
                         innsending.
                     </BodyLong>
                 </GuidePanel>
@@ -45,7 +42,7 @@ export const Oppsummering: FunctionComponent<Props> = ({ skjema, onTilbake }) =>
                         Klarte ikke sende inn skjema akkurat nå! Prøv igjen om noen minutter.
                     </Alert>
                 )}
-                <Oppsummeringsfelter skjema={skjema} />
+                <Oppsummeringsfelter skjema={skjema} tittel="Er opplysningene riktig?" />
                 <HStack gap="18">
                     <Button
                         variant="secondary"

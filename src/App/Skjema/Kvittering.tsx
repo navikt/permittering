@@ -1,13 +1,14 @@
 import React, { FunctionComponent, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Alert, Box, Heading, HStack, LinkPanel, Skeleton, VStack } from '@navikt/ds-react';
+import { Alert, Box, FormSummary, Heading, HStack, LinkPanel, Skeleton, VStack } from '@navikt/ds-react';
 import { Oppsummeringsfelter } from '../komponenter/Oppsummeringsfelter';
 import { FileCheckmarkFillIcon } from '@navikt/aksel-icons';
 import { useHentSkjema } from '../../api/permittering-api';
 import { Breadcrumbs } from './Breadcrumbs';
 import { Side } from '../Side';
-import { sidetitler } from './Skjema';
+import { headings, labels, sidetitler } from './Skjema';
 import { loggNavigasjon } from '../../utils/funksjonerForAmplitudeLogging';
+import { formatDate } from '../../utils/date-utils';
 
 export const Kvittering: FunctionComponent = () => {
     const { skjemaId } = useParams();
@@ -38,42 +39,92 @@ export const Kvittering: FunctionComponent = () => {
         return (
             <Side tittel="Laster kvittering">
                 <Breadcrumbs />
-                <VStack gap="4">
-                    <HStack align="center">
-                        <FileCheckmarkFillIcon
-                            title="Filikon med hake"
-                            aria-hidden="true"
-                            fontSize="4rem"
-                            color="var(--a-green-500)"
-                        />
-                        <Heading as={Skeleton} size="large" level="2">
-                            Kvittering på mottatt melding
-                        </Heading>
-                    </HStack>
-                    <VStack gap="4">
-                        <Skeleton variant="rectangle" width="100%" />
-                        <Skeleton variant="rectangle" width="100%" />
-                        <div className="oppsummering_linje" />
+                <VStack gap="8">
+                    <FormSummary>
+                        <FormSummary.Header>
+                            <FormSummary.Heading level="2">
+                                Innsendte opplysninger
+                            </FormSummary.Heading>
+                        </FormSummary.Header>
+                        <FormSummary.Answers>
+                            <FormSummary.Answer>
+                                <FormSummary.Label>Underenhet</FormSummary.Label>
+                                <FormSummary.Value>
+                                    <FormSummary.Answers>
+                                        <FormSummary.Answer>
+                                            <FormSummary.Label>Navn</FormSummary.Label>
+                                            <FormSummary.Value>
+                                                <Skeleton variant="rectangle" width="100%" />
+                                            </FormSummary.Value>
+                                        </FormSummary.Answer>
+                                        <FormSummary.Answer>
+                                            <FormSummary.Label>Org.nr.</FormSummary.Label>
+                                            <FormSummary.Value>
+                                                <Skeleton variant="rectangle" width="100%" />
+                                            </FormSummary.Value>
+                                        </FormSummary.Answer>
+                                    </FormSummary.Answers>
+                                </FormSummary.Value>
+                            </FormSummary.Answer>
 
-                        <Skeleton variant="rectangle" width="100%" />
-                        <Skeleton variant="rectangle" width="100%" />
-                        <Skeleton variant="rectangle" width="100%" />
-                        <div className="oppsummering_linje" />
+                            <FormSummary.Answer>
+                                <FormSummary.Label>Kontaktperson i virksomheten</FormSummary.Label>
+                                <FormSummary.Value>
+                                    <FormSummary.Answers>
+                                        <FormSummary.Answer>
+                                            <FormSummary.Label>Navn</FormSummary.Label>
+                                            <FormSummary.Value><Skeleton variant="rectangle" width="100%" /></FormSummary.Value>
+                                        </FormSummary.Answer>
+                                        <FormSummary.Answer>
+                                            <FormSummary.Label>E-post</FormSummary.Label>
+                                            <FormSummary.Value><Skeleton variant="rectangle" width="100%" /></FormSummary.Value>
+                                        </FormSummary.Answer>
+                                        <FormSummary.Answer>
+                                            <FormSummary.Label>Telefon</FormSummary.Label>
+                                            <FormSummary.Value><Skeleton variant="rectangle" width="100%" /></FormSummary.Value>
+                                        </FormSummary.Answer>
+                                    </FormSummary.Answers>
+                                </FormSummary.Value>
+                            </FormSummary.Answer>
 
-                        <Skeleton variant="rectangle" width="100%" />
-                        <div className="oppsummering_linje" />
+                            <FormSummary.Answer>
+                                <FormSummary.Label> </FormSummary.Label>
+                                <FormSummary.Value>
+                                    <FormSummary.Answers>
+                                        <FormSummary.Answer>
+                                            <FormSummary.Label>Antall berørte</FormSummary.Label>
+                                            <FormSummary.Value><Skeleton variant="rectangle" width="100%" /></FormSummary.Value>
+                                        </FormSummary.Answer>
+                                        <FormSummary.Answer>
+                                            <FormSummary.Label>
+                                            </FormSummary.Label>
+                                            <FormSummary.Value><Skeleton variant="rectangle" width="100%" /></FormSummary.Value>
+                                        </FormSummary.Answer>
+                                        <FormSummary.Answer>
+                                            <FormSummary.Label>Berørte yrkeskategorier</FormSummary.Label>
+                                            <FormSummary.Value>
+                                                <Skeleton variant="rectangle" width="100%" />
+                                            </FormSummary.Value>
+                                        </FormSummary.Answer>
+                                        <FormSummary.Answer>
+                                            <FormSummary.Label>
 
-                        <Skeleton variant="rectangle" width="100%" />
-                        <div className="oppsummering_linje" />
-
-                        <Skeleton variant="rectangle" width="100%" />
-                        <div className="oppsummering_linje" />
-
-                        <Skeleton variant="rectangle" width="100%" />
-                        <div className="oppsummering_linje" />
-
-                        <Skeleton variant="rectangle" width="100%" height="8vh" />
-                    </VStack>
+                                            </FormSummary.Label>
+                                            <FormSummary.Value>
+                                                <Skeleton variant="rectangle" width="100%" />
+                                            </FormSummary.Value>
+                                        </FormSummary.Answer>
+                                    </FormSummary.Answers>
+                                </FormSummary.Value>
+                            </FormSummary.Answer>
+                            <FormSummary.Answer>
+                                <FormSummary.Label>Sendt inn til NAV</FormSummary.Label>
+                                <FormSummary.Value>
+                                    <Skeleton variant="rectangle" width="100%" />
+                                </FormSummary.Value>
+                            </FormSummary.Answer>
+                        </FormSummary.Answers>
+                    </FormSummary>
 
                     <Skeleton variant="rectangle" width="100%" height="8vh" />
                     <Skeleton variant="rectangle" width="100%" height="8vh" />
@@ -91,24 +142,14 @@ export const Kvittering: FunctionComponent = () => {
                 }}
             />
             <VStack gap="8">
-                <HStack align="center">
-                    <FileCheckmarkFillIcon
-                        title="a11y-title"
-                        fontSize="4rem"
-                        color="var(--a-green-500)"
-                    />
-                    <Heading size="large" level="2">
-                        Kvittering på mottatt melding
-                    </Heading>
-                </HStack>
-                <Oppsummeringsfelter skjema={skjema} />
+                <Oppsummeringsfelter skjema={skjema} tittel="Innsendte opplysninger" />
                 <LinkPanel
                     href="https://arbeidsgiver.nav.no/min-side-arbeidsgiver"
                     onClick={() => {
                         loggNavigasjon(
                             'https://arbeidsgiver.nav.no/min-side-arbeidsgiver',
                             'Gå til Min Side – arbeidsgiver',
-                            'skjema/kvitteringsside'
+                            'skjema/kvitteringsside',
                         );
                     }}
                 >
@@ -120,7 +161,7 @@ export const Kvittering: FunctionComponent = () => {
                         loggNavigasjon(
                             'https://www.nav.no/arbeidsgiver/permittere',
                             'Informasjon om permittering til arbeidsgiver',
-                            'skjema/kvitteringsside'
+                            'skjema/kvitteringsside',
                         );
                     }}
                 >

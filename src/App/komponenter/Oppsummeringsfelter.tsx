@@ -1,12 +1,15 @@
-import { FormSummary } from '@navikt/ds-react';
+import { BodyShort, FormSummary, VStack } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import { Permitteringsskjema } from '../../types/Permitteringsskjema';
 import { formatDate } from '../../utils/date-utils';
 import { headings, labels, sidetitler } from '../Skjema/Skjema';
 
+const formatOrgNr = (orgNr: string) => orgNr.match(/.{1,3}/g)?.join(" ");
+
 export const Oppsummeringsfelter: FunctionComponent<{
+    tittel: string;
     skjema: Permitteringsskjema;
-}> = ({ skjema }) => {
+}> = ({ skjema, tittel }) => {
     const årsakstekstLabel = {
         PERMITTERING_UTEN_LØNN: 'Årsak til permittering',
         MASSEOPPSIGELSE: 'Årsak til masseoppsigelse',
@@ -17,15 +20,24 @@ export const Oppsummeringsfelter: FunctionComponent<{
     return (
         <FormSummary>
             <FormSummary.Header>
-                <FormSummary.Heading level="2">{sidetitler[skjema.type]}</FormSummary.Heading>
+                <FormSummary.Heading level="2">
+                    {tittel}
+                </FormSummary.Heading>
             </FormSummary.Header>
             <FormSummary.Answers>
                 <FormSummary.Answer>
                     <FormSummary.Label>Underenhet</FormSummary.Label>
                     <FormSummary.Value>
-                        {skjema.bedriftNavn}
-                        <br />
-                        {skjema.bedriftNr}
+                        <FormSummary.Answers>
+                            <FormSummary.Answer>
+                                <FormSummary.Label>Navn</FormSummary.Label>
+                                <FormSummary.Value>{skjema.bedriftNavn}</FormSummary.Value>
+                            </FormSummary.Answer>
+                            <FormSummary.Answer>
+                                <FormSummary.Label>Org.nr.</FormSummary.Label>
+                                <FormSummary.Value>{formatOrgNr(skjema.bedriftNr)}</FormSummary.Value>
+                            </FormSummary.Answer>
+                        </FormSummary.Answers>
                     </FormSummary.Value>
                 </FormSummary.Answer>
 
