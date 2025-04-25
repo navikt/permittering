@@ -14,6 +14,13 @@ spec:
     path: /permittering/internal/isAlive
   readiness:
     path: /permittering/internal/isAlive
+  observability:
+    autoInstrumentation:
+      enabled: true
+      runtime: nodejs
+    logging:
+      destinations:
+        - id: loki
   replicas:
     min: 2
     max: 2
