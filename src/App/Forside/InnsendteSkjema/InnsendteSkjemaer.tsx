@@ -28,14 +28,6 @@ export const InnsendteSkjemaer: FunctionComponent = () => {
             </HelpText>
         </Heading>
         <VStack gap="4">
-            <Alert variant='info' style={{marginBottom: '12px'}}>
-                <Heading spacing size="small" level="3">
-                    Endring for regnskapsfører
-                </Heading>
-                Regnskapsføreren kan fortsatt sende inn skjemaene, men for å få tilgang til alle innsendte permitterings- og nedbemanningsskjemaer,
-                må de få delegeret tilgangen "Innsyn i permitterings- og nedbemanningsmeldinger".
-            </Alert>
-
             {error === undefined ? null : <Alert variant="error">Det skjedde en feil ved henting av skjemaer</Alert>}
 
             {skjemaer.map((skjema: Permitteringsskjema) => <SkjemaPanel skjema={skjema}/>)}
