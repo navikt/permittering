@@ -14,6 +14,9 @@ spec:
     path: /permittering/internal/isAlive
   readiness:
     path: /permittering/internal/isAlive
+  prometheus:
+    enabled: true
+    path: /permittering/internal/metrics
   observability:
     autoInstrumentation:
       enabled: true
