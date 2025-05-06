@@ -191,10 +191,6 @@ const main = async () => {
         '/permittering/api/stillingstitler',
         createProxyMiddleware({
             ...proxyOptions,
-            pathRewrite: {
-                '^/permittering/api/stillingstitler':
-                    '/rest/typeahead/stilling',
-            },
             headers: {
                 'Nav-CallId': 'permittering-demo',
             },
@@ -223,10 +219,7 @@ const main = async () => {
             }),
             createProxyMiddleware({
                 ...proxyOptions,
-                pathRewrite: {
-                    '^/permittering/api': '/permitteringsskjema-api',
-                },
-                target: BACKEND_BASEURL,
+                target: `${BACKEND_BASEURL}/permitteringsskjema-api`,
             })
         );
 
