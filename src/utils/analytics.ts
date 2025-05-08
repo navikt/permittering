@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { Hovedenhet, useUnderenhet } from '../api/enhetsRegisteretApi';
 import { useEffect } from 'react';
 import { gittMiljo } from './environment';
+import { CustomEvents } from '../types/AnalyticCustomEvents';
 
 const mockGetAnalyticsInstance = (origin: string) => {
     return (eventName: string, eventData?: any) => {
@@ -46,26 +47,3 @@ export const useLoggBedriftValgt = (orgnr: string | undefined) => {
         logger('virksomhet valgt', virksomhetsinfo);
     }, [orgnr, underenhet, isLoading]);
 };
-
-type SkjemaInnsendingAvbrutt = AnalyticsEvent<
-    'skjema innsending avbrutt',
-    {
-        skjemanavn: string;
-    }
->;
-
-type InnsendteSkjemaer = AnalyticsEvent<
-    'innsendte skjemaer',
-    {
-        antallSkjemaer: number;
-    }
->;
-
-type VirksomhetValgt = AnalyticsEvent<
-    'virksomhet valgt',
-    {
-        virksomhetinfo: any;
-    }
->;
-
-type CustomEvents = SkjemaInnsendingAvbrutt | InnsendteSkjemaer | VirksomhetValgt;
