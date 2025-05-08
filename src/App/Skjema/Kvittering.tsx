@@ -1,14 +1,12 @@
 import React, { FunctionComponent, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Alert, Box, FormSummary, Heading, HStack, LinkPanel, Skeleton, VStack } from '@navikt/ds-react';
+import { Alert, Box, FormSummary, LinkPanel, Skeleton, VStack } from '@navikt/ds-react';
 import { Oppsummeringsfelter } from '../komponenter/Oppsummeringsfelter';
-import { FileCheckmarkFillIcon } from '@navikt/aksel-icons';
 import { useHentSkjema } from '../../api/permittering-api';
 import { Breadcrumbs } from './Breadcrumbs';
 import { Side } from '../Side';
-import { headings, labels, sidetitler } from './Skjema';
-import { loggNavigasjon } from '../../utils/funksjonerForAmplitudeLogging';
-import { formatDate } from '../../utils/date-utils';
+import { sidetitler } from './Skjema';
+import { logger } from '../../utils/analytics';
 
 export const Kvittering: FunctionComponent = () => {
     const { skjemaId } = useParams();
@@ -146,11 +144,10 @@ export const Kvittering: FunctionComponent = () => {
                 <LinkPanel
                     href="https://arbeidsgiver.nav.no/min-side-arbeidsgiver"
                     onClick={() => {
-                        loggNavigasjon(
-                            'https://arbeidsgiver.nav.no/min-side-arbeidsgiver',
-                            'Gå til Min Side – arbeidsgiver',
-                            'skjema/kvitteringsside',
-                        );
+                        logger('navigere', {
+                            destinasjon: 'https://arbeidsgiver.nav.no/min-side-arbeidsgiver',
+                            lenketekst: 'Gå til Min Side – arbeidsgiver',
+                        });
                     }}
                 >
                     <LinkPanel.Title>Gå til Min Side – arbeidsgiver</LinkPanel.Title>
@@ -158,11 +155,10 @@ export const Kvittering: FunctionComponent = () => {
                 <LinkPanel
                     href="https://www.nav.no/arbeidsgiver/permittere"
                     onClick={() => {
-                        loggNavigasjon(
-                            'https://www.nav.no/arbeidsgiver/permittere',
-                            'Informasjon om permittering til arbeidsgiver',
-                            'skjema/kvitteringsside',
-                        );
+                        logger('navigere', {
+                            destinasjon: 'https://www.nav.no/arbeidsgiver/permittere',
+                            lenketekst: 'Informasjon om permittering til arbeidsgiver',
+                        });
                     }}
                 >
                     <LinkPanel.Title>Informasjon om permittering til arbeidsgiver</LinkPanel.Title>
