@@ -4,8 +4,8 @@ import { Alert, BodyLong, Button, GuidePanel, Heading, HStack, VStack } from '@n
 import { Oppsummeringsfelter } from '../komponenter/Oppsummeringsfelter';
 import { useLagreSkjema } from '../../api/permittering-api';
 import { useNavigate } from 'react-router-dom';
-import { useLoggKlikk } from '../../utils/funksjonerForAmplitudeLogging';
 import { ArrowLeftIcon, PaperplaneIcon } from '@navikt/aksel-icons';
+import { logger } from '../../utils/analytics';
 
 type Props = {
     skjema: Permitteringsskjema;
@@ -16,13 +16,14 @@ export const Oppsummering: FunctionComponent<Props> = ({ skjema, onTilbake }) =>
     const navigate = useNavigate();
     const { lagreSkjema, error } = useLagreSkjema({
         onSkjemaLagret: (skjema) => {
+            logger('skjema fullført', { skjemanavn: skjema.type });
             navigate(`/skjema/kvitteringsside/${skjema.id}`);
         },
     });
-    const logKlikk = useLoggKlikk();
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+
     return (
         <>
             <VStack gap="8">
@@ -33,8 +34,7 @@ export const Oppsummering: FunctionComponent<Props> = ({ skjema, onTilbake }) =>
                     </BodyLong>
                     <BodyLong>
                         Alle i virksomheten med rettigheten "Innsyn i permittering- og
-                        nedbemanningsmeldinger" vil kunne se meldingen etter
-                        innsending.
+                        nedbemanningsmeldinger" vil kunne se meldingen etter innsending.
                     </BodyLong>
                 </GuidePanel>
                 {error && (
@@ -48,10 +48,7 @@ export const Oppsummering: FunctionComponent<Props> = ({ skjema, onTilbake }) =>
                         variant="secondary"
                         icon={<ArrowLeftIcon aria-hidden />}
                         iconPosition="left"
-                        onClick={() => {
-                            logKlikk('Tilbake', { type: skjema.type });
-                            onTilbake(skjema);
-                        }}
+                        onClick={() => onTilbake(skjema)}
                     >
                         Tilbake
                     </Button>
@@ -59,10 +56,7 @@ export const Oppsummering: FunctionComponent<Props> = ({ skjema, onTilbake }) =>
                         variant="primary"
                         icon={<PaperplaneIcon aria-hidden />}
                         iconPosition="right"
-                        onClick={() => {
-                            logKlikk('Send inn', { type: skjema.type });
-                            return lagreSkjema({ ...skjema, sendtInnTidspunkt: new Date() });
-                        }}
+                        onClick={() => lagreSkjema({ ...skjema, sendtInnTidspunkt: new Date() })}
                     >
                         Send inn
                     </Button>
