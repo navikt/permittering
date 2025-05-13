@@ -26,9 +26,9 @@ import { Breadcrumbs } from './Breadcrumbs';
 import { Oppsummering } from './Oppsummering';
 import './Skjema.css';
 import '@navikt/virksomhetsvelger/dist/assets/style.css';
-import { useLoggBedriftValgt, useLoggKlikk } from '../../utils/funksjonerForAmplitudeLogging';
 import { Virksomhetsvelger } from '@navikt/virksomhetsvelger';
 import { OrganisasjonsListeContext } from '../OrganisasjonslisteProvider';
+import { logger, useLoggBedriftValgt } from '../../utils/analytics';
 
 type LabledeFelter = Pick<
     Permitteringsskjema,
@@ -131,11 +131,11 @@ const FormMedValidering: FunctionComponent<{
     }, [JSON.stringify(valideringsFeil)]);
 
     useLoggBedriftValgt(skjema.bedriftNr);
-    const logKlikk = useLoggKlikk();
 
     const validate = () => {
         const result = Permitteringsskjema.safeParse(skjema);
         if (!result.success) {
+            logger('skjema validering feilet', { skjemanavn: skjema.type });
             setValideringsFeil({
                 autoFocus: true,
                 issues: result.error.issues.map(({ path, message }) => ({
@@ -144,6 +144,7 @@ const FormMedValidering: FunctionComponent<{
                 })),
             });
         } else {
+            logger('skjema fullført', { skjemanavn: skjema.type });
             onSkjemaValidert(skjema);
         }
     };
@@ -166,7 +167,6 @@ const FormMedValidering: FunctionComponent<{
             <form
                 className="skjema"
                 onSubmit={(e) => {
-                    logKlikk('kontroller opplysningene', { type: skjema.type });
                     e.preventDefault();
                     validate();
                 }}
@@ -330,7 +330,7 @@ const FormMedValidering: FunctionComponent<{
                     <Button
                         variant="tertiary"
                         onClick={(e) => {
-                            logKlikk('avbryt', { type: skjema.type });
+                            logger('skjema innsending avbrutt', { skjemanavn: skjema.type });
                             e.preventDefault();
                             window.location.href = '/permittering';
                         }}

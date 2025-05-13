@@ -1,7 +1,7 @@
 import React, {FunctionComponent} from 'react';
 import {BodyLong, Box, Heading, Link, LinkPanel, ReadMore, VStack} from '@navikt/ds-react';
 import './InfoOmMeldepliktBoks.css';
-import {loggNavigasjon} from "../../../utils/funksjonerForAmplitudeLogging";
+import { logger } from '../../../utils/analytics';
 
 const InfoOmMeldepliktBoks: FunctionComponent = () => {
     return (
@@ -39,11 +39,10 @@ const InfoOmMeldepliktBoks: FunctionComponent = () => {
                         href="skjema/PERMITTERING_UTEN_LØNN"
                         border
                         onClick={() => {
-                            loggNavigasjon(
-                                "skjema/PERMITTERING_UTEN_LØNN",
-                                "Permittering uten lønn",
-                                "Forside"
-                            );
+                            logger('navigere', {
+                                destinasjon: 'skjema/PERMITTERING_UTEN_LØNN',
+                                lenketekst: 'Permittering uten lønn',
+                            });
                         }}
                     >
                         <LinkPanel.Title>Permittering uten lønn</LinkPanel.Title>
@@ -56,11 +55,10 @@ const InfoOmMeldepliktBoks: FunctionComponent = () => {
                         href="skjema/MASSEOPPSIGELSE"
                         border
                         onClick={() => {
-                            loggNavigasjon(
-                                "skjema/MASSEOPPSIGELSE",
-                                "Masseoppsigelser",
-                                "Forside"
-                            );
+                            logger('navigere', {
+                                destinasjon: 'skjema/MASSEOPPSIGELSE',
+                                lenketekst: 'Masseoppsigelser',
+                            });
                         }}
                     >
                         <LinkPanel.Title>Masseoppsigelser</LinkPanel.Title>
@@ -73,11 +71,10 @@ const InfoOmMeldepliktBoks: FunctionComponent = () => {
                         href="skjema/INNSKRENKNING_I_ARBEIDSTID"
                         border
                         onClick={() => {
-                            loggNavigasjon(
-                                "skjema/INNSKRENKNING_I_ARBEIDSTID",
-                                "Innskrenkning i arbeidstid",
-                                "Forside"
-                            );
+                            logger('navigere', {
+                                destinasjon: 'skjema/INNSKRENKNING_I_ARBEIDSTID',
+                                lenketekst: 'Innskrenkning i arbeidstid',
+                            });
                         }}
                     >
                         <LinkPanel.Title>Innskrenkning i arbeidstid</LinkPanel.Title>
