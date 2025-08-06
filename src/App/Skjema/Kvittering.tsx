@@ -8,6 +8,7 @@ import { Side } from '../Side';
 import { sidetitler } from './Skjema';
 import { logger } from '../../utils/analytics';
 
+
 export const Kvittering: FunctionComponent = () => {
     const { skjemaId } = useParams();
     const { skjema, error } = useHentSkjema(skjemaId);
@@ -34,101 +35,7 @@ export const Kvittering: FunctionComponent = () => {
     }
 
     if (!skjema) {
-        return (
-            <Side tittel="Laster kvittering">
-                <Breadcrumbs />
-                <VStack gap="8">
-                    <FormSummary>
-                        <FormSummary.Header>
-                            <FormSummary.Heading level="2">
-                                Innsendte opplysninger
-                            </FormSummary.Heading>
-                        </FormSummary.Header>
-                        <FormSummary.Answers>
-                            <FormSummary.Answer>
-                                <FormSummary.Label>Underenhet</FormSummary.Label>
-                                <FormSummary.Value>
-                                    <FormSummary.Answers>
-                                        <FormSummary.Answer>
-                                            <FormSummary.Label>Navn</FormSummary.Label>
-                                            <FormSummary.Value>
-                                                <Skeleton variant="rectangle" width="100%" />
-                                            </FormSummary.Value>
-                                        </FormSummary.Answer>
-                                        <FormSummary.Answer>
-                                            <FormSummary.Label>Org.nr.</FormSummary.Label>
-                                            <FormSummary.Value>
-                                                <Skeleton variant="rectangle" width="100%" />
-                                            </FormSummary.Value>
-                                        </FormSummary.Answer>
-                                    </FormSummary.Answers>
-                                </FormSummary.Value>
-                            </FormSummary.Answer>
-
-                            <FormSummary.Answer>
-                                <FormSummary.Label>Kontaktperson i virksomheten</FormSummary.Label>
-                                <FormSummary.Value>
-                                    <FormSummary.Answers>
-                                        <FormSummary.Answer>
-                                            <FormSummary.Label>Navn</FormSummary.Label>
-                                            <FormSummary.Value><Skeleton variant="rectangle" width="100%" /></FormSummary.Value>
-                                        </FormSummary.Answer>
-                                        <FormSummary.Answer>
-                                            <FormSummary.Label>E-post</FormSummary.Label>
-                                            <FormSummary.Value><Skeleton variant="rectangle" width="100%" /></FormSummary.Value>
-                                        </FormSummary.Answer>
-                                        <FormSummary.Answer>
-                                            <FormSummary.Label>Telefon</FormSummary.Label>
-                                            <FormSummary.Value><Skeleton variant="rectangle" width="100%" /></FormSummary.Value>
-                                        </FormSummary.Answer>
-                                    </FormSummary.Answers>
-                                </FormSummary.Value>
-                            </FormSummary.Answer>
-
-                            <FormSummary.Answer>
-                                <FormSummary.Label> </FormSummary.Label>
-                                <FormSummary.Value>
-                                    <FormSummary.Answers>
-                                        <FormSummary.Answer>
-                                            <FormSummary.Label>Antall berørte</FormSummary.Label>
-                                            <FormSummary.Value><Skeleton variant="rectangle" width="100%" /></FormSummary.Value>
-                                        </FormSummary.Answer>
-                                        <FormSummary.Answer>
-                                            <FormSummary.Label>
-                                            </FormSummary.Label>
-                                            <FormSummary.Value><Skeleton variant="rectangle" width="100%" /></FormSummary.Value>
-                                        </FormSummary.Answer>
-                                        <FormSummary.Answer>
-                                            <FormSummary.Label>Berørte yrkeskategorier</FormSummary.Label>
-                                            <FormSummary.Value>
-                                                <Skeleton variant="rectangle" width="100%" />
-                                            </FormSummary.Value>
-                                        </FormSummary.Answer>
-                                        <FormSummary.Answer>
-                                            <FormSummary.Label>
-
-                                            </FormSummary.Label>
-                                            <FormSummary.Value>
-                                                <Skeleton variant="rectangle" width="100%" />
-                                            </FormSummary.Value>
-                                        </FormSummary.Answer>
-                                    </FormSummary.Answers>
-                                </FormSummary.Value>
-                            </FormSummary.Answer>
-                            <FormSummary.Answer>
-                                <FormSummary.Label>Sendt inn til NAV</FormSummary.Label>
-                                <FormSummary.Value>
-                                    <Skeleton variant="rectangle" width="100%" />
-                                </FormSummary.Value>
-                            </FormSummary.Answer>
-                        </FormSummary.Answers>
-                    </FormSummary>
-
-                    <Skeleton variant="rectangle" width="100%" height="8vh" />
-                    <Skeleton variant="rectangle" width="100%" height="8vh" />
-                </VStack>
-            </Side>
-        );
+        return <KvitteringLaster />;
     }
 
     return (
@@ -167,3 +74,106 @@ export const Kvittering: FunctionComponent = () => {
         </Side>
     );
 };
+
+const KvitteringLaster = () => (
+    <Side tittel="Laster kvittering">
+        <Breadcrumbs />
+        <VStack gap="8">
+            <FormSummary>
+                <FormSummary.Header>
+                    <FormSummary.Heading level="2">Innsendte opplysninger</FormSummary.Heading>
+                </FormSummary.Header>
+                <FormSummary.Answers>
+                    <FormSummary.Answer>
+                        <FormSummary.Label>Underenhet</FormSummary.Label>
+                        <FormSummary.Value>
+                            <FormSummary.Answers>
+                                <FormSummary.Answer>
+                                    <FormSummary.Label>Navn</FormSummary.Label>
+                                    <FormSummary.Value>
+                                        <Skeleton variant="rectangle" width="100%" />
+                                    </FormSummary.Value>
+                                </FormSummary.Answer>
+                                <FormSummary.Answer>
+                                    <FormSummary.Label>Org.nr.</FormSummary.Label>
+                                    <FormSummary.Value>
+                                        <Skeleton variant="rectangle" width="100%" />
+                                    </FormSummary.Value>
+                                </FormSummary.Answer>
+                            </FormSummary.Answers>
+                        </FormSummary.Value>
+                    </FormSummary.Answer>
+
+                    <FormSummary.Answer>
+                        <FormSummary.Label>Kontaktperson i virksomheten</FormSummary.Label>
+                        <FormSummary.Value>
+                            <FormSummary.Answers>
+                                <FormSummary.Answer>
+                                    <FormSummary.Label>Navn</FormSummary.Label>
+                                    <FormSummary.Value>
+                                        <Skeleton variant="rectangle" width="100%" />
+                                    </FormSummary.Value>
+                                </FormSummary.Answer>
+                                <FormSummary.Answer>
+                                    <FormSummary.Label>E-post</FormSummary.Label>
+                                    <FormSummary.Value>
+                                        <Skeleton variant="rectangle" width="100%" />
+                                    </FormSummary.Value>
+                                </FormSummary.Answer>
+                                <FormSummary.Answer>
+                                    <FormSummary.Label>Telefon</FormSummary.Label>
+                                    <FormSummary.Value>
+                                        <Skeleton variant="rectangle" width="100%" />
+                                    </FormSummary.Value>
+                                </FormSummary.Answer>
+                            </FormSummary.Answers>
+                        </FormSummary.Value>
+                    </FormSummary.Answer>
+
+                    <FormSummary.Answer>
+                        <FormSummary.Label> </FormSummary.Label>
+                        <FormSummary.Value>
+                            <FormSummary.Answers>
+                                <FormSummary.Answer>
+                                    <FormSummary.Label>Antall berørte</FormSummary.Label>
+                                    <FormSummary.Value>
+                                        <Skeleton variant="rectangle" width="100%" />
+                                    </FormSummary.Value>
+                                </FormSummary.Answer>
+                                <FormSummary.Answer>
+                                    <FormSummary.Label>
+                                    </FormSummary.Label>
+                                    <FormSummary.Value>
+                                        <Skeleton variant="rectangle" width="100%" />
+                                    </FormSummary.Value>
+                                </FormSummary.Answer>
+                                <FormSummary.Answer>
+                                    <FormSummary.Label>Berørte yrkeskategorier</FormSummary.Label>
+                                    <FormSummary.Value>
+                                        <Skeleton variant="rectangle" width="100%" />
+                                    </FormSummary.Value>
+                                </FormSummary.Answer>
+                                <FormSummary.Answer>
+                                    <FormSummary.Label>
+                                    </FormSummary.Label>
+                                    <FormSummary.Value>
+                                        <Skeleton variant="rectangle" width="100%" />
+                                    </FormSummary.Value>
+                                </FormSummary.Answer>
+                            </FormSummary.Answers>
+                        </FormSummary.Value>
+                    </FormSummary.Answer>
+                    <FormSummary.Answer>
+                        <FormSummary.Label>Sendt inn til NAV</FormSummary.Label>
+                        <FormSummary.Value>
+                            <Skeleton variant="rectangle" width="100%" />
+                        </FormSummary.Value>
+                    </FormSummary.Answer>
+                </FormSummary.Answers>
+            </FormSummary>
+
+            <Skeleton variant="rectangle" width="100%" height="8vh" />
+            <Skeleton variant="rectangle" width="100%" height="8vh" />
+        </VStack>
+    </Side>
+);
