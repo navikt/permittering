@@ -11,7 +11,6 @@ import {
     Link,
     LinkPanel,
     Skeleton,
-    Textarea,
     VStack,
 } from '@navikt/ds-react';
 import { Oppsummeringsfelter } from '../komponenter/Oppsummeringsfelter';
@@ -231,7 +230,7 @@ const KvitteringLaster = () => (
                                     </FormSummary.Value>
                                 </FormSummary.Answer>
                                 <FormSummary.Answer>
-                                    <FormSummary.Label></FormSummary.Label>
+                                    <FormSummary.Label>{""}</FormSummary.Label>
                                     <FormSummary.Value>
                                         <Skeleton variant="rectangle" width="100%" />
                                     </FormSummary.Value>
@@ -243,7 +242,7 @@ const KvitteringLaster = () => (
                                     </FormSummary.Value>
                                 </FormSummary.Answer>
                                 <FormSummary.Answer>
-                                    <FormSummary.Label></FormSummary.Label>
+                                    <FormSummary.Label>{""}</FormSummary.Label>
                                     <FormSummary.Value>
                                         <Skeleton variant="rectangle" width="100%" />
                                     </FormSummary.Value>
