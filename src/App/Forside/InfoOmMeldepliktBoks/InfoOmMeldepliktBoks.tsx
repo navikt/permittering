@@ -2,6 +2,7 @@ import React, {FunctionComponent} from 'react';
 import {BodyLong, Box, Heading, Link, LinkPanel, ReadMore, VStack} from '@navikt/ds-react';
 import './InfoOmMeldepliktBoks.css';
 import { logger } from '../../../utils/analytics';
+import { InfoBokser } from '../../komponenter/InfoBokser';
 
 const InfoOmMeldepliktBoks: FunctionComponent = () => {
     return (
@@ -29,6 +30,7 @@ const InfoOmMeldepliktBoks: FunctionComponent = () => {
                     </ReadMore>
                 </VStack>
 
+                <InfoBokser/>
 
                 <VStack gap="4">
                     <Heading level="2" size="large">
