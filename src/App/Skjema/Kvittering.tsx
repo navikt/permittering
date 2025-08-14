@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
     Alert,
@@ -20,10 +20,14 @@ import { Side } from '../Side';
 import { sidetitler } from './Skjema';
 import { logger } from '../../utils/analytics';
 import { SkjemaType } from '../../types/Permitteringsskjema';
+import { TrekkTilbakeMelding } from '../komponenter/TrekkTilbakeMelding';
+
+export type TrekkeMeldingSteg = 'idle' | 'confirm' | 'submitted';
 
 export const Kvittering: FunctionComponent = () => {
     const { skjemaId } = useParams();
     const { skjema, error } = useHentSkjema(skjemaId);
+    const [trekkeMeldingSteg, setTrekkeMeldingSteg] = useState<TrekkeMeldingSteg>('idle');
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -50,6 +54,8 @@ export const Kvittering: FunctionComponent = () => {
         return <KvitteringLaster />;
     }
 
+    const erTrukket = Boolean(skjema.trukketTidspunkt) || trekkeMeldingSteg === 'submitted';
+
     return (
         <Side tittel={sidetitler[skjema.type]}>
             <Breadcrumbs
@@ -59,10 +65,23 @@ export const Kvittering: FunctionComponent = () => {
                 }}
             />
             <VStack gap="8">
-                <Oppsummeringsfelter skjema={skjema} tittel="Innsendte opplysninger" />
+                {!erTrukket && skjema.id && (
+                    <TrekkTilbakeMelding
+                        skjemaType={skjema.type}
+                        startDato={skjema.startDato}
+                        trekkeMeldingSteg={trekkeMeldingSteg}
+                        setTrekkeMeldingSteg={setTrekkeMeldingSteg}
+                        skjemaId={skjema.id}
+                    />
+                )}
+                <Oppsummeringsfelter
+                    skjema={skjema}
+                    tittel={`Innsendte opplysninger${erTrukket ? ' (trukket tilbake)' : ''}`}
+                    erTrukket={erTrukket}
+                />
                 {skjema.type === SkjemaType.enum.PERMITTERING_UTEN_LØNN && (
                     <>
-                        <ExpansionCard aria-label={'Husk å rapportere permittering i A-meldingen'}>
+                        <ExpansionCard aria-label="Husk å rapportere permittering i A-meldingen">
                             <ExpansionCard.Header>
                                 <ExpansionCard.Title>
                                     Husk å rapportere permittering i A-meldingen
@@ -230,7 +249,7 @@ const KvitteringLaster = () => (
                                     </FormSummary.Value>
                                 </FormSummary.Answer>
                                 <FormSummary.Answer>
-                                    <FormSummary.Label>{""}</FormSummary.Label>
+                                    <FormSummary.Label>{''}</FormSummary.Label>
                                     <FormSummary.Value>
                                         <Skeleton variant="rectangle" width="100%" />
                                     </FormSummary.Value>
@@ -242,7 +261,7 @@ const KvitteringLaster = () => (
                                     </FormSummary.Value>
                                 </FormSummary.Answer>
                                 <FormSummary.Answer>
-                                    <FormSummary.Label>{""}</FormSummary.Label>
+                                    <FormSummary.Label>{''}</FormSummary.Label>
                                     <FormSummary.Value>
                                         <Skeleton variant="rectangle" width="100%" />
                                     </FormSummary.Value>
