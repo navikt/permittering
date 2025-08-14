@@ -98,6 +98,8 @@ export const Permitteringsskjema = z
 
         // sendtInnTidspunkt burde vært flyttet til backend, og kun vørt tilgjengelig på skjema som er sendt inn
         sendtInnTidspunkt: z.coerce.date().optional(),
+
+        trukketTidspunkt: z.coerce.date().optional(),
     })
     .refine(
         (skjema) => {

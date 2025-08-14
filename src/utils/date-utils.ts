@@ -6,3 +6,9 @@ export const formatDate = (dato?: Date) => {
     });
     return dato ? dateFormat.format(dato) : '';
 };
+
+export const todayMidnight = () => {
+    const d = new Date();
+    d.setHours(0, 0, 0, 0);
+    return d;
+};

@@ -1,28 +1,26 @@
-import { BodyShort, FormSummary, VStack } from '@navikt/ds-react';
+import { FormSummary } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import { Permitteringsskjema } from '../../types/Permitteringsskjema';
 import { formatDate } from '../../utils/date-utils';
-import { headings, labels, sidetitler } from '../Skjema/Skjema';
+import { headings, labels } from '../Skjema/Skjema';
 
-const formatOrgNr = (orgNr: string) => orgNr.match(/.{1,3}/g)?.join(" ");
+const formatOrgNr = (orgNr: string) => orgNr.match(/.{1,3}/g)?.join(' ');
 
 export const Oppsummeringsfelter: FunctionComponent<{
     tittel: string;
     skjema: Permitteringsskjema;
-}> = ({ skjema, tittel }) => {
+    erTrukket?: boolean;
+}> = ({ skjema, tittel, erTrukket = false }) => {
     const årsakstekstLabel = {
         PERMITTERING_UTEN_LØNN: 'Årsak til permittering',
         MASSEOPPSIGELSE: 'Årsak til masseoppsigelse',
         INNSKRENKNING_I_ARBEIDSTID: 'Årsak til innskrenkning i arbeidstid',
     };
-    //
 
     return (
         <FormSummary>
             <FormSummary.Header>
-                <FormSummary.Heading level="2">
-                    {tittel}
-                </FormSummary.Heading>
+                <FormSummary.Heading level="2">{tittel}</FormSummary.Heading>
             </FormSummary.Header>
             <FormSummary.Answers>
                 <FormSummary.Answer>
@@ -35,7 +33,9 @@ export const Oppsummeringsfelter: FunctionComponent<{
                             </FormSummary.Answer>
                             <FormSummary.Answer>
                                 <FormSummary.Label>Org.nr.</FormSummary.Label>
-                                <FormSummary.Value>{formatOrgNr(skjema.bedriftNr)}</FormSummary.Value>
+                                <FormSummary.Value>
+                                    {formatOrgNr(skjema.bedriftNr)}
+                                </FormSummary.Value>
                             </FormSummary.Answer>
                         </FormSummary.Answers>
                     </FormSummary.Value>
@@ -111,6 +111,13 @@ export const Oppsummeringsfelter: FunctionComponent<{
                         <FormSummary.Value>
                             {formatDate(skjema.sendtInnTidspunkt)}
                         </FormSummary.Value>
+                    </FormSummary.Answer>
+                )}
+
+                {erTrukket && (
+                    <FormSummary.Answer>
+                        <FormSummary.Label>Trukket tilbake</FormSummary.Label>
+                        <FormSummary.Value>{formatDate(skjema.trukketTidspunkt)}</FormSummary.Value>
                     </FormSummary.Answer>
                 )}
             </FormSummary.Answers>

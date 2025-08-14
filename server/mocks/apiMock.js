@@ -22,7 +22,8 @@ const mockStorage = {
         "startDato": "2023-12-04T23:00:00.000Z",
         "ukjentSluttDato": true,
         "sendtInnTidspunkt": "2023-12-01T14:04:29.451Z",
-        "id": "1"
+        "id": "1",
+        "trukketTidspunkt": "2023-12-01T14:04:29.451Z"
     },
     '2': {
         "type": "MASSEOPPSIGELSE",
@@ -87,6 +88,32 @@ export const mock = (app) => {
                 message: 'Skjemaet finnes ikke.',
             });
         }
+    });
+    app.post('/permittering/api/skjemaV2/:id/trekk', (req, res) => {
+        const { id } = req.params;
+        const eksisterende = mockStorage[id];
+
+        if (!eksisterende) {
+            return res.status(404).json({
+                error: true,
+                message: 'Skjemaet finnes ikke.',
+            });
+        }
+
+        if (eksisterende.trukketTidspunkt) {
+            return res.status(409).json({
+                error: true,
+                message: 'Skjemaet er allerede trukket.',
+            });
+        }
+
+        const oppdatert = {
+            ...eksisterende,
+            trukketTidspunkt: new Date(),
+        };
+
+        mockStorage[id] = oppdatert;
+        return res.status(200).json(oppdatert);
     });
     app.post('/permittering/api/skjemaV2', (req, res) => {
         const id = `${skjemaId += 1}`;
