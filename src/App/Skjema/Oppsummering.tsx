@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect } from 'react';
 import { Permitteringsskjema } from '../../types/Permitteringsskjema';
-import { Alert, BodyLong, Button, GuidePanel, Heading, HStack, VStack } from '@navikt/ds-react';
+import { Alert, BodyLong, Button, GuidePanel, HStack, VStack } from '@navikt/ds-react';
 import { Oppsummeringsfelter } from '../komponenter/Oppsummeringsfelter';
 import { useLagreSkjema } from '../../api/permittering-api';
 import { useNavigate } from 'react-router-dom';
@@ -16,7 +16,7 @@ export const Oppsummering: FunctionComponent<Props> = ({ skjema, onTilbake }) =>
     const navigate = useNavigate();
     const { lagreSkjema, error } = useLagreSkjema({
         onSkjemaLagret: (skjema) => {
-            logger('skjema fullført', { skjemanavn: skjema.type });
+            logger('skjema sendt inn', { skjemanavn: skjema.type });
             navigate(`/skjema/kvitteringsside/${skjema.id}`);
         },
     });
