@@ -14,7 +14,7 @@ export const useLagreSkjema = ({
 }: {
     onSkjemaLagret: (skjema: Permitteringsskjema) => void;
 }) => {
-    const { trigger, data, error } = useSWRMutation('/permittering/api/skjemaV2', lagreSkjema, {
+    const { trigger, data, error, isMutating } = useSWRMutation('/permittering/api/skjemaV2', lagreSkjema, {
         onSuccess: onSkjemaLagret,
     });
 
@@ -22,6 +22,7 @@ export const useLagreSkjema = ({
         lagreSkjema: trigger,
         data,
         error,
+        isMutating,
     };
 };
 

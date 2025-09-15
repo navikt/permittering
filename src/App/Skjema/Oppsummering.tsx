@@ -14,7 +14,7 @@ type Props = {
 
 export const Oppsummering: FunctionComponent<Props> = ({ skjema, onTilbake }) => {
     const navigate = useNavigate();
-    const { lagreSkjema, error } = useLagreSkjema({
+    const { lagreSkjema, error, isMutating } = useLagreSkjema({
         onSkjemaLagret: (skjema) => {
             logger('skjema fullført', { skjemanavn: skjema.type });
             navigate(`/skjema/kvitteringsside/${skjema.id}`);
@@ -26,7 +26,7 @@ export const Oppsummering: FunctionComponent<Props> = ({ skjema, onTilbake }) =>
 
     return (
         <>
-            <VStack gap="8">
+            <VStack gap="8" aria-busy={isMutating}>
                 <GuidePanel poster>
                     <BodyLong spacing>
                         Sjekk at alt er riktig før du sender inn meldingen til NAV. Du kan endre
@@ -48,6 +48,7 @@ export const Oppsummering: FunctionComponent<Props> = ({ skjema, onTilbake }) =>
                         variant="secondary"
                         icon={<ArrowLeftIcon aria-hidden />}
                         iconPosition="left"
+                        disabled={isMutating}
                         onClick={() => onTilbake(skjema)}
                     >
                         Tilbake
@@ -56,6 +57,8 @@ export const Oppsummering: FunctionComponent<Props> = ({ skjema, onTilbake }) =>
                         variant="primary"
                         icon={<PaperplaneIcon aria-hidden />}
                         iconPosition="right"
+                        loading={isMutating}
+                        disabled={isMutating}
                         onClick={() => lagreSkjema({ ...skjema, sendtInnTidspunkt: new Date() })}
                     >
                         Send inn
