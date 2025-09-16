@@ -102,8 +102,10 @@ export const TrekkTilbakeMelding = ({
     }
 
     return (
-        <Button variant="secondary" onClick={() => setTrekkeMeldingSteg('confirm')}>
-            {skjemaTekst.idle}
-        </Button>
+        <Box padding={{ xs: '3', md: '3', lg: '0' }}>
+            <Button variant="secondary" onClick={() => setTrekkeMeldingSteg('confirm')}>
+                {skjemaTekst.idle}
+            </Button>
+      </Box>
     );
 };
