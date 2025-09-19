@@ -1,5 +1,5 @@
 import { SkjemaType } from '../../types/Permitteringsskjema';
-import { todayMidnight } from '../../utils/date-utils';
+import { dateKey } from '../../utils/date-utils';
 import { Button, Box, Heading, BodyShort, HStack, Alert, VStack, Loader } from '@navikt/ds-react';
 import React, { Dispatch, SetStateAction } from 'react';
 import { TrekkeMeldingSteg } from '../Skjema/Kvittering';
@@ -40,7 +40,8 @@ export const TrekkTilbakeMelding = ({
     setTrekkeMeldingSteg: Dispatch<SetStateAction<TrekkeMeldingSteg>>;
     skjemaId: string;
 }) => {
-    if (startDato <= todayMidnight()) return null;
+    // Vis kun trekk-funksjonalitet frem til 23:59:59 Oslo-tid dagen før startdato
+    if (dateKey(new Date()) >= dateKey(startDato)) return null;
 
     const skjemaTekst = tekster[skjemaType];
 
