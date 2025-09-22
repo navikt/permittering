@@ -52,7 +52,9 @@ const SkjemaPanel: FunctionComponent<{
     const skjemaType = skjemaTekster[skjema.type];
     const lenke = `/permittering/skjema/kvitteringsside/${skjema.id}`;
 
-    const innsendt = formatDate(skjema.sendtInnTidspunkt);
+    const erTrukket = Boolean(skjema.trukketTidspunkt);
+    const trukketDato = erTrukket ? formatDate(skjema.trukketTidspunkt) : null;
+    const innsendtDato = formatDate(skjema.sendtInnTidspunkt);
 
     return (
         <LinkPanel
@@ -70,7 +72,11 @@ const SkjemaPanel: FunctionComponent<{
             <LinkPanel.Title>{skjemaType}</LinkPanel.Title>
             <LinkPanel.Description className="skjemapanel-description">
                 {skjema.bedriftNavn} (org.nr {skjema.bedriftNr})
-                <Tag variant="success">Sendt inn: {innsendt}</Tag>
+                {erTrukket ? (
+                    <Tag variant="neutral">Trukket: {trukketDato}</Tag>
+                ) : (
+                    <Tag variant="success">Sendt inn: {innsendtDato}</Tag>
+                )}
             </LinkPanel.Description>
         </LinkPanel>
     );

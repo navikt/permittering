@@ -7,16 +7,35 @@
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="Skjema for innsending av melding om permittering og oppsigelse"/>
     <title>Permittering og oppsigelse</title>
-    <link rel="stylesheet" href="/permittering/index.css">
 
   </head>
   <body>
   <script type="application/javascript">
-    window.environment = {};
+    (function () {
+      function loadScript(src, onload) {
+        var s = document.createElement('script');
+        s.src = src;
+        s.onload = onload;
+        document.head.appendChild(s);
+      }
+
+      loadScript('/permittering/static/js/settings.js', function () {
+        var commit = (window.environment && window.environment.GIT_COMMIT) || '';
+        var v = commit ? ('?v=' + commit) : '';
+
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = '/permittering/index.css' + v;
+        document.head.appendChild(link);
+
+        var main = document.createElement('script');
+        main.type = 'text/javascript';
+        main.src = '/permittering/index.js' + v;
+        document.body.appendChild(main);
+      });
+    })();
   </script>
-  <script type="text/javascript" src="/permittering/static/js/settings.js"></script>
     <noscript>You need to enable JavaScript to run this app.</noscript>
   <main id="root"></main>
   </body>
-  <script type="text/javascript" src="/permittering/index.js"></script>
 </html>

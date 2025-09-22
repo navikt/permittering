@@ -6,3 +6,11 @@ export const formatDate = (dato?: Date) => {
     });
     return dato ? dateFormat.format(dato) : '';
 };
+
+export const dateKey = (date: Date, timeZone: string = 'Europe/Oslo'): string =>
+    new Intl.DateTimeFormat('en-CA', {
+        timeZone,
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+    }).format(date);
