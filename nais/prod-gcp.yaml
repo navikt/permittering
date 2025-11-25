@@ -32,6 +32,7 @@ spec:
   idporten:
     sidecar:
       enabled: true
+      autoLogin: true
     enabled: true
   accessPolicy:
     outbound:
@@ -49,12 +50,10 @@ spec:
     - name: MILJO
       value: prod
     - name: LOGIN_URL
-      value: https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/permittering
+      value: https://arbeidsgiver.nav.no/permittering/oauth2/login
     - name: API_AUDIENCE
       value: prod-gcp:permittering-og-nedbemanning:permitteringsskjema-api
     - name: BACKEND_BASEURL
       value: http://permitteringsskjema-api
     - name: BACKEND_API_PATH
       value: /permitteringsskjema-api
-    - name: LOGINSERVICE_LOGOUT_URL
-      value: https://loginservice.nav.no/slo
