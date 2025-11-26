@@ -133,7 +133,7 @@ export const useOrganisasjonerV2FraAltinn = (): OrganisasjonerV2FraAltinnResult 
         onError: (error) => {
             if (retries === 5) {
                 console.error(
-                    `hent organisasjoner-v2 fra altinn feilet med ${
+                    `#PERMITTERING hent organisasjoner-v2 fra altinn feilet med ${
                         error.status !== undefined ? `${error.status} ${error.statusText}` : error
                     }`
                 );

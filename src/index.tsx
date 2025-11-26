@@ -3,7 +3,20 @@ import ReactDOM from 'react-dom';
 import {injectDecoratorClientSide} from '@navikt/nav-dekoratoren-moduler';
 import '@navikt/ds-css';
 import App from './App/App';
-import {gittMiljo} from './utils/environment';
+import environment, {gittMiljo} from './utils/environment';
+import { initializeFaro } from '@grafana/faro-web-sdk';
+
+initializeFaro({
+    url: gittMiljo({
+        prod: 'https://telemetry.nav.no/collect',
+        dev: 'https://telemetry.ekstern.dev.nav.no/collect',
+        other: '/collect',
+    }),
+    app: {
+        name: 'permittering',
+        version: environment.GIT_COMMIT,
+    },
+});
 
 injectDecoratorClientSide({
     env: gittMiljo({

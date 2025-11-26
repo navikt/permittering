@@ -72,6 +72,7 @@ const mockStorage = {
 export const mock = (app) => {
     app.use(express.json());
 
+    app.post('/collect', (req, res) => res.sendStatus(200));
     app.get('/permittering/redirect-til-login', (req, res) => res.sendStatus(200));
     app.get('/permittering/api/innlogget', (req, res) => res.sendStatus(200));
 
