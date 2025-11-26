@@ -81,7 +81,7 @@ export const useHentSkjema = (id: string | undefined) => {
             onError: (error) => {
                 if (retries === 5) {
                     console.error(
-                        `hent skjema fra permitteringskjema-api feilet med ${
+                        `#PERMITTERING hent skjema fra permitteringskjema-api feilet med ${
                             error.status !== undefined
                                 ? `${error.status} ${error.statusText}`
                                 : error
@@ -120,7 +120,7 @@ export const useHentAlleSkjema = () => {
         onError: (error) => {
             if (retries === 5) {
                 console.error(
-                    `hent alle skjema fra permitteringskjema-api feilet med ${
+                    `#PERMITTERING hent alle skjema fra permitteringskjema-api feilet med ${
                         error.status !== undefined ? `${error.status} ${error.statusText}` : error
                     }`
                 );
