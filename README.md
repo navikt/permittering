@@ -8,20 +8,20 @@ innskrenking i arbeidstiden.
 - Installere avhengigheter i hovedmappen og i `./server/`:
 
 ```bash
-npm install
-(cd ./server/ && npm install)
+pnpm install
+(cd ./server/ && pnpm install)
 ```
 
 - Bygg frontend
 
 ```bash
-npm run build
+pnpm run build
 ```
 
 - Start server
 
 ```bash
-npm run watch
+pnpm run watch
 ```
 
 - Åpne nettleser
