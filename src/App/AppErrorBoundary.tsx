@@ -2,18 +2,22 @@
 
 import { Alert } from '@navikt/ds-react';
 import React, { ReactNode } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
+import { FaroErrorBoundary } from "@grafana/faro-react";
+import { SimpleErrorBoundary } from "./komponenter/SimpleErrorBoundary";
 import { Side } from './Side';
+import { TELEMETRY_COLLECTOR_URL } from '../index';
+
+function onError(error: Error) {
+    console.error(
+        `#FARO: Generisk feil ${error.name}:\nmessage: ${error.message}\nstack: ${error.stack}\n`
+    );
+}
 
 export const AppErrorBoundary = ({ children }: { children: ReactNode }) => {
-    function onError(error: Error, info: React.ErrorInfo) {
-        console.error(
-            `#PERMITTERING: Generisk feil ${error.name}:\nmessage: ${error.message}\ncomponentStack: ${info.componentStack}\n`,
-        );
-    }
+    const ErrorBoundaryComponent = TELEMETRY_COLLECTOR_URL ? FaroErrorBoundary : SimpleErrorBoundary;
 
     return (
-        <ErrorBoundary
+        <ErrorBoundaryComponent
             fallback={
                 <Side tittel='Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid'>
                     <Alert className={'app-error-alert'} variant={'error'}>
@@ -30,6 +34,6 @@ export const AppErrorBoundary = ({ children }: { children: ReactNode }) => {
             onError={onError}
         >
             {children}
-        </ErrorBoundary>
+        </ErrorBoundaryComponent>
     );
 };
