@@ -6,12 +6,14 @@ import App from './App/App';
 import environment, {gittMiljo} from './utils/environment';
 import { initializeFaro } from '@grafana/faro-web-sdk';
 
+export const TELEMETRY_COLLECTOR_URL = gittMiljo({
+    prod: "https://telemetry.nav.no/collect",
+    dev: "https://telemetry.ekstern.dev.nav.no/collect",
+    other: undefined,
+});
+
 initializeFaro({
-    url: gittMiljo({
-        prod: 'https://telemetry.nav.no/collect',
-        dev: 'https://telemetry.ekstern.dev.nav.no/collect',
-        other: '/collect',
-    }),
+    url: TELEMETRY_COLLECTOR_URL,
     app: {
         name: 'permittering',
         version: environment.GIT_COMMIT,
