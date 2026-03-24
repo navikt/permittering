@@ -1,10 +1,9 @@
 import { SkjemaType } from '../../types/Permitteringsskjema';
 import { dateKey } from '../../utils/date-utils';
-import { Button, Box, Heading, BodyShort, HStack, Alert, VStack, Loader } from '@navikt/ds-react';
+import { Button, Box, Heading, BodyShort, HStack, Alert, VStack } from '@navikt/ds-react';
 import React, { Dispatch, SetStateAction } from 'react';
 import { TrekkeMeldingSteg } from '../Skjema/Kvittering';
 import { useLagreTrukket } from '../../api/permittering-api';
-import { logger } from '../../utils/analytics';
 
 const tekster: Record<
     SkjemaType,
@@ -45,10 +44,9 @@ export const TrekkTilbakeMelding = ({
 
     const skjemaTekst = tekster[skjemaType];
 
-    const { lagreTrukket, error, isMutating } = useLagreTrukket(() => {
-        logger('skjema trukket', { skjemanavn: skjemaType });
-        setTrekkeMeldingSteg('submitted');
-    });
+    const { lagreTrukket, error, isMutating } = useLagreTrukket(() =>
+        setTrekkeMeldingSteg('submitted')
+    );
 
     if (trekkeMeldingSteg === 'submitted') {
         return (

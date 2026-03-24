@@ -1,7 +1,6 @@
 import React, {FunctionComponent} from 'react';
 import {BodyLong, Box, Heading, Link, LinkPanel, ReadMore, VStack} from '@navikt/ds-react';
 import './InfoOmMeldepliktBoks.css';
-import { logger } from '../../../utils/analytics';
 import { InfoBokser } from '../../komponenter/InfoBokser';
 
 const InfoOmMeldepliktBoks: FunctionComponent = () => {
@@ -37,48 +36,21 @@ const InfoOmMeldepliktBoks: FunctionComponent = () => {
                         Velg aktuelt skjema:
                     </Heading>
 
-                    <LinkPanel
-                        href="skjema/PERMITTERING_UTEN_LØNN"
-                        border
-                        onClick={() => {
-                            logger('navigere', {
-                                destinasjon: 'skjema/PERMITTERING_UTEN_LØNN',
-                                lenketekst: 'Permittering uten lønn',
-                            });
-                        }}
-                    >
+                    <LinkPanel href="skjema/PERMITTERING_UTEN_LØNN" border>
                         <LinkPanel.Title>Permittering uten lønn</LinkPanel.Title>
                         <LinkPanel.Description>
                             Arbeidsgiver pålegger arbeidstaker et midlertidig fritak uten lønn.
                         </LinkPanel.Description>
                     </LinkPanel>
 
-                    <LinkPanel
-                        href="skjema/MASSEOPPSIGELSE"
-                        border
-                        onClick={() => {
-                            logger('navigere', {
-                                destinasjon: 'skjema/MASSEOPPSIGELSE',
-                                lenketekst: 'Masseoppsigelser',
-                            });
-                        }}
-                    >
+                    <LinkPanel href="skjema/MASSEOPPSIGELSE" border>
                         <LinkPanel.Title>Masseoppsigelser</LinkPanel.Title>
                         <LinkPanel.Description>
                             Arbeidsforholdet mellom arbeidsgiver og arbeidstaker avsluttes.
                         </LinkPanel.Description>
                     </LinkPanel>
 
-                    <LinkPanel
-                        href="skjema/INNSKRENKNING_I_ARBEIDSTID"
-                        border
-                        onClick={() => {
-                            logger('navigere', {
-                                destinasjon: 'skjema/INNSKRENKNING_I_ARBEIDSTID',
-                                lenketekst: 'Innskrenkning i arbeidstid',
-                            });
-                        }}
-                    >
+                    <LinkPanel href="skjema/INNSKRENKNING_I_ARBEIDSTID" border>
                         <LinkPanel.Title>Innskrenkning i arbeidstid</LinkPanel.Title>
                         <LinkPanel.Description>
                             Arbeidstakerens stillingsprosent blir redusert.

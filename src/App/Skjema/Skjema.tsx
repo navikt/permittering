@@ -28,7 +28,6 @@ import './Skjema.css';
 import '@navikt/virksomhetsvelger/dist/assets/style.css';
 import { Virksomhetsvelger } from '@navikt/virksomhetsvelger';
 import { OrganisasjonsListeContext } from '../OrganisasjonslisteProvider';
-import { logger, useLoggBedriftValgt } from '../../utils/analytics';
 
 type LabledeFelter = Pick<
     Permitteringsskjema,
@@ -130,12 +129,9 @@ const FormMedValidering: FunctionComponent<{
         }
     }, [JSON.stringify(valideringsFeil)]);
 
-    useLoggBedriftValgt(skjema.bedriftNr);
-
     const validate = () => {
         const result = Permitteringsskjema.safeParse(skjema);
         if (!result.success) {
-            logger('skjema validering feilet', { skjemanavn: skjema.type });
             setValideringsFeil({
                 autoFocus: true,
                 issues: result.error.issues.map(({ path, message }) => ({
@@ -144,7 +140,6 @@ const FormMedValidering: FunctionComponent<{
                 })),
             });
         } else {
-            logger('skjema fullført', { skjemanavn: skjema.type });
             onSkjemaValidert(skjema);
         }
     };
@@ -330,7 +325,6 @@ const FormMedValidering: FunctionComponent<{
                     <Button
                         variant="tertiary"
                         onClick={(e) => {
-                            logger('skjema innsending avbrutt', { skjemanavn: skjema.type });
                             e.preventDefault();
                             window.location.href = '/permittering';
                         }}

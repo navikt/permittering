@@ -18,7 +18,6 @@ import { useHentSkjema } from '../../api/permittering-api';
 import { Breadcrumbs } from './Breadcrumbs';
 import { Side } from '../Side';
 import { sidetitler } from './Skjema';
-import { logger } from '../../utils/analytics';
 import { SkjemaType } from '../../types/Permitteringsskjema';
 import { TrekkTilbakeMelding } from '../komponenter/TrekkTilbakeMelding';
 
@@ -156,26 +155,10 @@ export const Kvittering: FunctionComponent = () => {
                         </ExpansionCard>
                     </>
                 )}
-                <LinkPanel
-                    href="https://arbeidsgiver.nav.no/min-side-arbeidsgiver"
-                    onClick={() => {
-                        logger('navigere', {
-                            destinasjon: 'https://arbeidsgiver.nav.no/min-side-arbeidsgiver',
-                            lenketekst: 'Gå til Min Side – arbeidsgiver',
-                        });
-                    }}
-                >
+                <LinkPanel href="https://arbeidsgiver.nav.no/min-side-arbeidsgiver">
                     <LinkPanel.Title>Gå til Min Side – arbeidsgiver</LinkPanel.Title>
                 </LinkPanel>
-                <LinkPanel
-                    href="https://www.nav.no/arbeidsgiver/permittere"
-                    onClick={() => {
-                        logger('navigere', {
-                            destinasjon: 'https://www.nav.no/arbeidsgiver/permittere',
-                            lenketekst: 'Informasjon om permittering til arbeidsgiver',
-                        });
-                    }}
-                >
+                <LinkPanel href="https://www.nav.no/arbeidsgiver/permittere">
                     <LinkPanel.Title>Informasjon om permittering til arbeidsgiver</LinkPanel.Title>
                 </LinkPanel>
             </VStack>
