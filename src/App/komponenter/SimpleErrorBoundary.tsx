@@ -3,6 +3,7 @@ import { Component, type ErrorInfo, type ReactNode } from 'react';
 type SimpleErrorBoundaryProps = {
   fallback: ReactNode;
   children: ReactNode;
+  onError?: (error: Error, errorInfo: ErrorInfo) => void;
 };
 
 type SimpleErrorBoundaryState = {
@@ -20,6 +21,7 @@ export class SimpleErrorBoundary extends Component<
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    this.props.onError?.(error, errorInfo);
     console.error("Unhandled error caught by SimpleErrorBoundary", error, errorInfo);
   }
 

@@ -5,7 +5,6 @@ import { Oppsummeringsfelter } from '../komponenter/Oppsummeringsfelter';
 import { useLagreSkjema } from '../../api/permittering-api';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeftIcon, PaperplaneIcon } from '@navikt/aksel-icons';
-import { logger } from '../../utils/analytics';
 
 type Props = {
     skjema: Permitteringsskjema;
@@ -15,10 +14,7 @@ type Props = {
 export const Oppsummering: FunctionComponent<Props> = ({ skjema, onTilbake }) => {
     const navigate = useNavigate();
     const { lagreSkjema, error, isMutating } = useLagreSkjema({
-        onSkjemaLagret: (skjema) => {
-            logger('skjema sendt inn', { skjemanavn: skjema.type });
-            navigate(`/skjema/kvitteringsside/${skjema.id}`);
-        },
+        onSkjemaLagret: (skjema) => navigate(`/skjema/kvitteringsside/${skjema.id}`),
     });
     useEffect(() => {
         window.scrollTo(0, 0);

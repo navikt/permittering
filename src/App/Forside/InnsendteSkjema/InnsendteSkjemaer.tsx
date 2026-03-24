@@ -4,16 +4,9 @@ import { Alert, Box, Heading, HelpText, LinkPanel, Tag, VStack } from '@navikt/d
 import { formatDate } from '../../../utils/date-utils';
 import './InnsendteSkjema.css';
 import { useHentAlleSkjema } from '../../../api/permittering-api';
-import { logger } from '../../../utils/analytics';
 
 export const InnsendteSkjemaer: FunctionComponent = () => {
     const { data: skjemaer, error } = useHentAlleSkjema();
-
-    if (skjemaer?.length > 0) {
-        logger('innsendte-skjemaer', {
-            antallSkjemaer: skjemaer?.length,
-        });
-    }
 
     return (
         <Box
@@ -57,18 +50,7 @@ const SkjemaPanel: FunctionComponent<{
     const innsendtDato = formatDate(skjema.sendtInnTidspunkt);
 
     return (
-        <LinkPanel
-            href={lenke}
-            className="skjemapanel"
-            key={skjema.id}
-            border
-            onClick={() =>
-                logger('navigere', {
-                    destinasjon: 'skjema/kvitteringsside',
-                    lenketekst: skjema.type,
-                })
-            }
-        >
+        <LinkPanel href={lenke} className="skjemapanel" key={skjema.id} border>
             <LinkPanel.Title>{skjemaType}</LinkPanel.Title>
             <LinkPanel.Description className="skjemapanel-description">
                 {skjema.bedriftNavn} (org.nr {skjema.bedriftNr})

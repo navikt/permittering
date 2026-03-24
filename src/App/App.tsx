@@ -7,7 +7,6 @@ import './App.css';
 import { OrganisasjonsListeProvider } from './OrganisasjonslisteProvider';
 import { Kvittering } from './Skjema/Kvittering';
 import { Skjema } from './Skjema/Skjema';
-import { LoggSidevisning } from '../utils/LoggSidevisning';
 import { AppErrorBoundary } from './AppErrorBoundary';
 
 
@@ -29,7 +28,6 @@ function App() {
                                     path="/"
                                     element={
                                         <OrganisasjonsListeProvider>
-                                            <LoggSidevisning />
                                             <Outlet />
                                         </OrganisasjonsListeProvider>
                                     }

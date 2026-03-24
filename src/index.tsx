@@ -12,6 +12,8 @@ export const TELEMETRY_COLLECTOR_URL = gittMiljo({
     other: undefined,
 });
 
+export const FARO_ENABLED = Boolean(TELEMETRY_COLLECTOR_URL);
+
 initializeFaro({
     url: TELEMETRY_COLLECTOR_URL,
     app: {
