@@ -1,3 +1,5 @@
+import { faro } from '@grafana/faro-web-sdk';
+
 const DEFAULT_TIMEOUT_MS = 10000;
 
 export class FetchTimeoutError extends Error {
@@ -12,6 +14,7 @@ export async function fetchMedTimeout(
     init?: RequestInit,
     timeoutMs = DEFAULT_TIMEOUT_MS
 ): Promise<Response> {
+    const url = String(input);
     const controller = new AbortController();
     const timeoutId = window.setTimeout(() => controller.abort(), timeoutMs);
 
@@ -22,7 +25,13 @@ export async function fetchMedTimeout(
         });
     } catch (error) {
         if (error instanceof DOMException && error.name === 'AbortError') {
-            throw new FetchTimeoutError(String(input), timeoutMs);
+            const timeoutError = new FetchTimeoutError(url, timeoutMs);
+            faro.api.pushError(timeoutError);
+            throw timeoutError;
+        }
+
+        if (error instanceof Error) {
+            faro.api.pushError(new Error(`Fetch failed for ${url}: ${error.message}`));
         }
 
         throw error;
