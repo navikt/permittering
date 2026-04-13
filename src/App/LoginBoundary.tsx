@@ -1,7 +1,7 @@
 import React, {FunctionComponent, PropsWithChildren, useEffect, useState} from 'react';
 import LoggInn from './LoggInn/LoggInn';
 import {sjekkInnlogget} from '../api/permittering-api';
-import { Alert, Box, Button } from '@navikt/ds-react';
+import { Alert, Box, Link } from '@navikt/ds-react';
 import { Side } from './Side';
 import { Breadcrumbs } from './Skjema/Breadcrumbs';
 
@@ -47,11 +47,8 @@ const LoginBoundary: FunctionComponent<PropsWithChildren> = (props) => {
                     <Box background="bg-default" borderRadius="small" padding={{ xs: '4', sm: '4', md: '4', lg: '8' }}>
                         <Alert variant="error">
                             Klarte ikke kontakte baksystemene akkurat nå. Prøv å laste siden på nytt om litt.
-                            <div>
-                                <Button variant="secondary" type="button" onClick={() => window.location.reload()}>
-                                    Last inn siden på nytt
-                                </Button>
-                            </div>
+                            {' '}
+                            <Link href={window.location.href}>Last inn siden på nytt</Link>
                         </Alert>
                     </Box>
                 </Side>
