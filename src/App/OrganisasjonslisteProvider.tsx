@@ -6,6 +6,7 @@ import { Side } from './Side';
 import { Breadcrumbs } from './Skjema/Breadcrumbs';
 import { BodyLong, BodyShort, Box, Heading, Link, List, Skeleton, VStack } from '@navikt/ds-react';
 import { flatUtHierarki } from '@navikt/virksomhetsvelger';
+import { fetchMedTimeout } from '../api/fetch-utils';
 
 export type OrganisajonsContext = {
     organisasjoner: Array<AltinnTilgang>;
@@ -163,7 +164,7 @@ const AltinnTilgang: z.ZodType<AltinnTilgang> = BaseAltinnTilgang.extend({
 });
 const AltinnTilgangerResponse = z.array(AltinnTilgang);
 export async function fetcherV2(url: string): Promise<AltinnTilgang[]> {
-    let respons = await fetch(url);
+    const respons = await fetchMedTimeout(url);
     if (!respons.ok) {
         throw respons;
     }

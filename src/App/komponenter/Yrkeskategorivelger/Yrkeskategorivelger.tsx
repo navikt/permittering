@@ -2,9 +2,12 @@ import React, {FunctionComponent, useEffect, useState} from 'react';
 import {Yrkeskategori} from '../../../types/Permitteringsskjema';
 import './Yrkeskategorivelger.css';
 import {ErrorMessage, UNSAFE_Combobox} from '@navikt/ds-react';
+import { fetchMedTimeout } from '../../../api/fetch-utils';
 
 const getUpdatedSuggestions = async (path: string, q: string) => {
-    const result = await fetch(path + '?' + new URLSearchParams({ stillingstittel: q }).toString());
+    const result = await fetchMedTimeout(
+        path + '?' + new URLSearchParams({ stillingstittel: q }).toString()
+    );
 
     if (!result.ok)  {
         return [];
@@ -35,14 +38,33 @@ const Yrkeskategorivelger: FunctionComponent<YrkeskategorivelgerProps> = ({
     const valgtSuggestions = yrkeskategorier.map((k) => k.label);
     const [isLoading, setIsLoading] = useState(false);
     useEffect(() => {
+        let cancelled = false;
+
         const fetchSuggestions = async () => {
             setIsLoading(true);
             return getUpdatedSuggestions('/permittering/api/stillingstitler', value);
         };
-        fetchSuggestions().then((s) => {
-            setSuggestions(s);
-            setIsLoading(false);
-        });
+
+        fetchSuggestions()
+            .then((s) => {
+                if (!cancelled) {
+                    setSuggestions(s);
+                }
+            })
+            .catch(() => {
+                if (!cancelled) {
+                    setSuggestions([]);
+                }
+            })
+            .finally(() => {
+                if (!cancelled) {
+                    setIsLoading(false);
+                }
+            });
+
+        return () => {
+            cancelled = true;
+        };
     }, [value]);
 
     return (

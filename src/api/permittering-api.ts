@@ -3,10 +3,17 @@ import useSWRMutation from 'swr/mutation';
 import useSWR, { useSWRConfig } from 'swr';
 import { useState } from 'react';
 import { z } from 'zod';
+import { fetchMedTimeout } from './fetch-utils';
 
 export async function sjekkInnlogget(): Promise<boolean> {
-    let respons = await fetch('/permittering/api/innlogget');
-    return respons.ok;
+    const respons = await fetchMedTimeout('/permittering/api/innlogget');
+    if (respons.status === 401) {
+        return false;
+    }
+    if (!respons.ok) {
+        throw respons;
+    }
+    return true;
 }
 
 export const useLagreSkjema = ({
@@ -27,7 +34,7 @@ export const useLagreSkjema = ({
 };
 
 const lagreTrukket = async (baseUrl: string, { arg: id }: { arg: string }) => {
-    const res = await fetch(`${baseUrl}/${id}/trekk`, { method: 'POST' });
+    const res = await fetchMedTimeout(`${baseUrl}/${id}/trekk`, { method: 'POST' });
     if (!res.ok) throw new Error((await res.text()) || 'Kunne ikke trekke skjema');
     return Permitteringsskjema.parse(await res.json());
 };
@@ -56,7 +63,7 @@ export const useLagreTrukket = (onSkjemaLagret: (id: string) => void) => {
 };
 
 const lagreSkjema = async (url: string, { arg: skjema }: { arg: Permitteringsskjema }) => {
-    const response = await fetch(url, {
+    const response = await fetchMedTimeout(url, {
         body: JSON.stringify(skjema),
         method: 'POST',
         headers: {
@@ -101,7 +108,7 @@ export const useHentSkjema = (id: string | undefined) => {
 };
 
 const hent = async (url: string) => {
-    const response = await fetch(url, {
+    const response = await fetchMedTimeout(url, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -140,7 +147,7 @@ export const useHentAlleSkjema = () => {
 const PermitteringskjemaerRespons = z.array(Permitteringsskjema);
 type PermitteringskjemaerRespons = z.infer<typeof PermitteringskjemaerRespons>;
 const hentAlle = async (url: string): Promise<PermitteringskjemaerRespons> => {
-    const response = await fetch(url, {
+    const response = await fetchMedTimeout(url, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
