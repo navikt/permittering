@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { gittMiljo } from '../utils/environment';
 import useSWR from 'swr';
+import { fetchMedTimeout } from './fetch-utils';
 
 export const hentUnderenhetApiURL = (orgnr: string) =>
     gittMiljo({
@@ -114,7 +115,7 @@ export const useUnderenhet = (
 };
 
 const fetchUnderenhet = async (url: string) => {
-    const respons = await fetch(url);
+    const respons = await fetchMedTimeout(url);
     if (!respons.ok) throw respons;
     return Underenhet.parse(await respons.json());
 };
@@ -137,7 +138,7 @@ export const useOverordnetEnhet = (orgnr: string | undefined): Hovedenhet | unde
 };
 
 const fetchHovedenhet = async (url: string) => {
-    const respons = await fetch(url);
+    const respons = await fetchMedTimeout(url);
     if (!respons.ok) throw respons;
     return Hovedenhet.parse(await respons.json());
 };

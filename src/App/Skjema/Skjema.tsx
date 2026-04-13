@@ -75,6 +75,13 @@ export const sidetitler: Record<SkjemaType, string> = {
     INNSKRENKNING_I_ARBEIDSTID: 'Innskrenkning i arbeidstid',
 };
 
+const domIdByFeltId: Record<string, string> = {
+    antallBerørt: 'antallBerort',
+    årsakskode: 'arsakskode',
+};
+
+const domIdForFelt = (id: string) => domIdByFeltId[id] ?? id;
+
 export const Skjema: FunctionComponent<{ type: SkjemaType }> = ({ type }) => {
     const [validertSkjema, setValidertSkjema] = useState<Permitteringsskjema>();
     const [skjema, setSkjema] = useState<Permitteringsskjema>({
@@ -170,7 +177,7 @@ const FormMedValidering: FunctionComponent<{
                     {valideringsFeil.issues.length > 0 && (
                         <ErrorSummary ref={errorRef} heading="Feilmeldinger">
                             {valideringsFeil.issues.map(({ id, msg }) => (
-                                <ErrorSummary.Item key={id} href={`#${id}`}>
+                                <ErrorSummary.Item key={id} href={`#${domIdForFelt(id)}`}>
                                     {msg}
                                 </ErrorSummary.Item>
                             ))}
@@ -253,7 +260,7 @@ const FormMedValidering: FunctionComponent<{
 
                         <TextField
                             label={labels[skjema.type].antallBerørt}
-                            id="antallBerørt"
+                            id={domIdForFelt('antallBerørt')}
                             autoComplete="off"
                             inputMode="numeric"
                             value={skjema.antallBerørt}
@@ -268,7 +275,7 @@ const FormMedValidering: FunctionComponent<{
                         />
                         <Select
                             label={labels[skjema.type].årsakskode}
-                            id="årsakskode"
+                            id={domIdForFelt('årsakskode')}
                             value={skjema.årsakskode}
                             onChange={(e) => {
                                 setSkjema({

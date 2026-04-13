@@ -1,11 +1,15 @@
 import React, {FunctionComponent, PropsWithChildren, useEffect, useState} from 'react';
 import LoggInn from './LoggInn/LoggInn';
 import {sjekkInnlogget} from '../api/permittering-api';
+import { Alert, Box, Link } from '@navikt/ds-react';
+import { Side } from './Side';
+import { Breadcrumbs } from './Skjema/Breadcrumbs';
 
 enum Innlogget {
     LASTER,
     IKKE_INNLOGGET,
     INNLOGGET,
+    FEIL,
 }
 
 const LoginBoundary: FunctionComponent<PropsWithChildren> = (props) => {
@@ -13,13 +17,17 @@ const LoginBoundary: FunctionComponent<PropsWithChildren> = (props) => {
 
     useEffect(() => {
         setInnlogget(Innlogget.LASTER);
-        sjekkInnlogget().then((innlogget) => {
-            if (innlogget) {
-                setInnlogget(Innlogget.INNLOGGET);
-            } else {
-                setInnlogget(Innlogget.IKKE_INNLOGGET);
-            }
-        });
+        sjekkInnlogget()
+            .then((innlogget) => {
+                if (innlogget) {
+                    setInnlogget(Innlogget.INNLOGGET);
+                } else {
+                    setInnlogget(Innlogget.IKKE_INNLOGGET);
+                }
+            })
+            .catch(() => {
+                setInnlogget(Innlogget.FEIL);
+            });
     }, []);
 
     if (innlogget === Innlogget.INNLOGGET) {
@@ -32,6 +40,20 @@ const LoginBoundary: FunctionComponent<PropsWithChildren> = (props) => {
             return null;
         }
     } else {
+        if (innlogget === Innlogget.FEIL) {
+            return (
+                <Side tittel="Skjema til NAV om permitteringer, oppsigelser, eller innskrenkning i arbeidstid">
+                    <Breadcrumbs />
+                    <Box background="bg-default" borderRadius="small" padding={{ xs: '4', sm: '4', md: '4', lg: '8' }}>
+                        <Alert variant="error">
+                            Klarte ikke kontakte baksystemene akkurat nå. Prøv å laste siden på nytt om litt.
+                            {' '}
+                            <Link href={window.location.href}>Last inn siden på nytt</Link>
+                        </Alert>
+                    </Box>
+                </Side>
+            );
+        }
         return null;
     }
 };
