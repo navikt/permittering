@@ -3,7 +3,7 @@ import { Permitteringsskjema } from '../../types/Permitteringsskjema';
 import { Alert, BodyLong, Button, GuidePanel, HStack, VStack } from '@navikt/ds-react';
 import { Oppsummeringsfelter } from '../komponenter/Oppsummeringsfelter';
 import { useLagreSkjema } from '../../api/permittering-api';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { ArrowLeftIcon, PaperplaneIcon } from '@navikt/aksel-icons';
 
 type Props = {

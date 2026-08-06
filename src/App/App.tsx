@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Outlet, Route, Routes } from 'react-router';
 import { SWRConfig } from 'swr';
 import Forside from './Forside/Forside';
 import LoginBoundary from './LoginBoundary';
