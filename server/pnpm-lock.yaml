@@ -21,8 +21,8 @@ importers:
         specifier: ^7.5.1
         version: 7.5.1(express@5.2.1)
       http-proxy-middleware:
-        specifier: ^3.0.7
-        version: 3.0.7
+        specifier: ^4.2.0
+        version: 4.2.0
       http-terminator:
         specifier: ^3.2.0
         version: 3.2.0
@@ -81,9 +81,6 @@ packages:
 
   '@types/http-errors@2.0.5':
     resolution: {integrity: sha512-r8Tayk8HJnX0FztbZN7oVqGccWgw98T/0neJphO91KkmOzug1KkofZURD4UaD5uH8AqcFLfdPErnBod0u71/qg==}
-
-  '@types/http-proxy@1.17.17':
-    resolution: {integrity: sha512-ED6LB+Z1AVylNTu7hdzuBqOgMnvG/ld6wGCG8wFnAzKX5uyW2K3WD52v0gnLCTK/VLpXtKckgWuyScYK6cSPaw==}
 
   '@types/keygrip@1.0.6':
     resolution: {integrity: sha512-lZuNAY9xeJt7Bx4t4dx0rYCDqGPW8RXhQZK1td7d4H6E9zYbLoOtjBvfwdTKpsyxQI/2jv+armjX/RW+ZNpXOQ==}
@@ -245,9 +242,6 @@ packages:
     resolution: {integrity: sha512-aIL5Fx7mawVa300al2BnEE4iNvo1qETxLrPI/o05L7z6go7fCw1J6EQmbK4FmJ2AS7kgVF/KEZWufBfdClMcPg==}
     engines: {node: '>= 0.6'}
 
-  eventemitter3@4.0.7:
-    resolution: {integrity: sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==}
-
   express-http-proxy@2.1.2:
     resolution: {integrity: sha512-FXcAcs7Nf/hF73Mzh0WDWPwaOlsEUL/fCHW3L4wU6DH79dypsaxmbnAildCLniFs7HQuuvoiR6bjNVUvGuTb5g==}
     engines: {node: '>=6.0.0'}
@@ -279,15 +273,6 @@ packages:
 
   fn.name@1.1.0:
     resolution: {integrity: sha512-GRnmB5gPyJpAhTQdSZTSp9uaPSvl09KoYcMQtsB9rQoOmzs9dH6ffeccH+Z+cv6P68Hu5bC6JjRh4Ah/mHSNRw==}
-
-  follow-redirects@1.16.0:
-    resolution: {integrity: sha512-y5rN/uOsadFT/JfYwhxRS5R7Qce+g3zG97+JrtFZlC9klX/W5hD7iiLzScI4nZqUS7DNUdhPgw4xI8W2LuXlUw==}
-    engines: {node: '>=4.0'}
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
 
   forwarded@0.2.0:
     resolution: {integrity: sha512-buRG0fpBtRHSTCOASe6hD258tEubFoRLb4ZNA6NxMVHNw2gOcwHo9wyablzMzOA5z9xA9L1KNjk/Nt6MT9aYow==}
@@ -324,17 +309,16 @@ packages:
     resolution: {integrity: sha512-4FbRdAX+bSdmo4AUFuS0WNiPz8NgFt+r8ThgNWmlrjQjt1Q7ZR9+zTlce2859x4KSXrwIsaeTqDoKQmtP8pLmQ==}
     engines: {node: '>= 0.8'}
 
-  http-proxy-middleware@3.0.7:
-    resolution: {integrity: sha512-iwbQltVlx8bCrqePUM8C+hllHvdawVhQJaLrj1X7qllkvFQdXFsr16pW/mo9+JDVjN+QO2XUx9jd8SmoFkE5qw==}
-    engines: {node: ^14.18.0 || ^16.10.0 || >=18.0.0}
-
-  http-proxy@1.18.1:
-    resolution: {integrity: sha512-7mz/721AbnJwIVbnaSv1Cz3Am0ZLT/UBwkC92VlxhXv/k/BBQfM2fXElQNC27BVGr0uwUpplYPQM9LnaBMR5NQ==}
-    engines: {node: '>=8.0.0'}
+  http-proxy-middleware@4.2.0:
+    resolution: {integrity: sha512-ZA+oNOoM+GLoFTIzhkJptVQov73Srep2LBqhF8hG8CIPKO3nam1jonXVQ/QUH8RbwsmaaVz2SOJdzBNBHNtKbw==}
+    engines: {node: ^22.15.0 || ^24.0.0 || >=26.0.0}
 
   http-terminator@3.2.0:
     resolution: {integrity: sha512-JLjck1EzPaWjsmIf8bziM3p9fgR1Y3JoUKAkyYEbZmFrIvJM6I8vVJfBGWlEtV9IWOvzNnaTtjuwZeBY2kwB4g==}
     engines: {node: '>=14'}
+
+  httpxy@0.5.5:
+    resolution: {integrity: sha512-uDjmnPyp1q4Sgzf3w+J/Fc6UqcCEj0x4Wjp7OqK5dGhNeDgpyrAmnS6ey8QWrX3SWDon2DMKf9sBa5X9+CVyMA==}
 
   iconv-lite@0.4.24:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==}
@@ -363,9 +347,9 @@ packages:
     resolution: {integrity: sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==}
     engines: {node: '>=0.12.0'}
 
-  is-plain-object@5.0.0:
-    resolution: {integrity: sha512-VRSzKkbMm5jMDoKLbltAkFQ5Qr7VDiTFGXxYFXXowVj387GeGNOCsOH6Msy00SGZ3Fp84b1Naa1psqgcCIEP5Q==}
-    engines: {node: '>=0.10.0'}
+  is-plain-obj@4.1.0:
+    resolution: {integrity: sha512-+Pgi+vMuUNkJyExiMBt5IlFoMyKnr5zhJ4Uspz58WOhBF5QoIZkFyNHIbBAtHwzVAgk5RtndVNsDRN61/mmDqg==}
+    engines: {node: '>=12'}
 
   is-promise@4.0.0:
     resolution: {integrity: sha512-hvpoI6korhJMnej285dSg6nu1+e6uxs7zG3BYAm5byqDsgJNWwxzM6z6iZiAgQR4TJ30JmBTOwqZUw3WlyH3AQ==}
@@ -514,9 +498,6 @@ packages:
   readable-stream@3.6.2:
     resolution: {integrity: sha512-9u/sniCrY3D5WdsERHzHE4G2YCXqoG5FTHUiCC4SIbr6XcLZBY05ya9EKjYek9O5xOAwjGq+1JdGBAS7Q9ScoA==}
     engines: {node: '>= 6'}
-
-  requires-port@1.0.0:
-    resolution: {integrity: sha512-KigOCHcocU3XODJxsu8i/j8T9tzT4adHiecwORRQ0ZZFcp7ahwXuRU1m+yuO90C5ZUyGeGfocHDI14M3L3yDAQ==}
 
   roarr@7.21.7:
     resolution: {integrity: sha512-6X9ID9jb83kPkDxm5xLb9rZdGm6ksdDjpeL0iW5weKelJFi+NVBSowRpEuH8CdpX2x+7RW0TZaezibE7yQB7pg==}
@@ -693,10 +674,6 @@ snapshots:
 
   '@types/http-errors@2.0.5': {}
 
-  '@types/http-proxy@1.17.17':
-    dependencies:
-      '@types/node': 26.1.2
-
   '@types/keygrip@1.0.6': {}
 
   '@types/koa-compose@3.2.9':
@@ -843,8 +820,6 @@ snapshots:
 
   etag@1.8.1: {}
 
-  eventemitter3@4.0.7: {}
-
   express-http-proxy@2.1.2:
     dependencies:
       debug: 3.2.7
@@ -911,10 +886,6 @@ snapshots:
 
   fn.name@1.1.0: {}
 
-  follow-redirects@1.16.0(debug@4.4.3):
-    optionalDependencies:
-      debug: 4.4.3
-
   forwarded@0.2.0: {}
 
   fresh@2.0.0: {}
@@ -955,24 +926,15 @@ snapshots:
       statuses: 2.0.2
       toidentifier: 1.0.1
 
-  http-proxy-middleware@3.0.7:
+  http-proxy-middleware@4.2.0:
     dependencies:
-      '@types/http-proxy': 1.17.17
       debug: 4.4.3
-      http-proxy: 1.18.1(debug@4.4.3)
+      httpxy: 0.5.5
       is-glob: 4.0.3
-      is-plain-object: 5.0.0
+      is-plain-obj: 4.1.0
       micromatch: 4.0.8
     transitivePeerDependencies:
       - supports-color
-
-  http-proxy@1.18.1(debug@4.4.3):
-    dependencies:
-      eventemitter3: 4.0.7
-      follow-redirects: 1.16.0(debug@4.4.3)
-      requires-port: 1.0.0
-    transitivePeerDependencies:
-      - debug
 
   http-terminator@3.2.0:
     dependencies:
@@ -980,6 +942,8 @@ snapshots:
       p-wait-for: 3.2.0
       roarr: 7.21.7
       type-fest: 2.19.0
+
+  httpxy@0.5.5: {}
 
   iconv-lite@0.4.24:
     dependencies:
@@ -1001,7 +965,7 @@ snapshots:
 
   is-number@7.0.0: {}
 
-  is-plain-object@5.0.0: {}
+  is-plain-obj@4.1.0: {}
 
   is-promise@4.0.0: {}
 
@@ -1144,8 +1108,6 @@ snapshots:
       inherits: 2.0.4
       string_decoder: 1.3.0
       util-deprecate: 1.0.2
-
-  requires-port@1.0.0: {}
 
   roarr@7.21.7:
     dependencies:
