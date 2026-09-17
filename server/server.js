@@ -191,6 +191,7 @@ const main = async () => {
         '/permittering/api/stillingstitler',
         createProxyMiddleware({
             ...proxyOptions,
+            ignorePath: true,
             headers: {
                 'Nav-CallId': 'permittering-demo',
             },
