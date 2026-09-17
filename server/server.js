@@ -1,5 +1,6 @@
 import express from 'express';
-import httpProxyMiddleware, {
+import {
+    createProxyMiddleware,
     debugProxyErrorsPlugin,
     errorResponsePlugin,
     proxyEventsPlugin,
@@ -14,7 +15,6 @@ import { rateLimit } from 'express-rate-limit';
 import crypto from 'crypto';
 
 const apiMetricsMiddleware = require('prometheus-api-metrics');
-const { createProxyMiddleware } = httpProxyMiddleware;
 
 const {
     PORT = 3000,
@@ -191,7 +191,6 @@ const main = async () => {
         '/permittering/api/stillingstitler',
         createProxyMiddleware({
             ...proxyOptions,
-            ignorePath: true,
             headers: {
                 'Nav-CallId': 'permittering-demo',
             },
@@ -199,6 +198,16 @@ const main = async () => {
                 MILJO === 'local' || MILJO === 'demo'
                     ? 'https://pam-ontologi.intern.dev.nav.no/rest/typeahead/stilling'
                     : 'http://pam-ontologi.teampam/rest/typeahead/stilling',
+            on: {
+                proxyReq: (proxyReq, req, res) => {
+                    // hack pga bug i http-proxy som setter trailing slash mellom path og query
+                    // https://github.com/unjs/httpxy/issues/175:
+                    proxyReq.path = proxyReq.path.replace('/rest/typeahead/stilling/?', '/rest/typeahead/stilling?');
+                },
+            },
+            pathRewrite: (path, req) => {
+
+            },
         })
     );
 
