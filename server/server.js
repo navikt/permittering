@@ -205,9 +205,6 @@ const main = async () => {
                     proxyReq.path = proxyReq.path.replace('/rest/typeahead/stilling/?', '/rest/typeahead/stilling?');
                 },
             },
-            pathRewrite: (path, req) => {
-
-            },
         })
     );
 
