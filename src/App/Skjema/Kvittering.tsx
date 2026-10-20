@@ -106,7 +106,7 @@ export const Kvittering: FunctionComponent = () => {
                                         variant="secondary"
                                         onClick={() =>
                                             (window.location.href =
-                                                'https://arbeidsgiver.nav.no/arbeidsforhold/')
+                                                'https://www.nav.no/arbeidsgiver/aa-registeret/innsyn')
                                         }
                                     >
                                         Kontrollere info i Aa-reg
