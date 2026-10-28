@@ -14,13 +14,13 @@ jobs:
     name: Build and run tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           fetch-depth: 0
-      - uses: pnpm/action-setup@v6
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
         with:
           version: 10
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
         with:
           node-version: '22'
           registry-url: https://npm.pkg.github.com/
@@ -34,7 +34,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
       - run: pnpm test
       - run: pnpm run build
-      - uses: nais/docker-build-push@v0
+      - uses: nais/docker-build-push@dd7421d5068057a020ca46ead966c26190c516b1 # v0
         id: gar-push
         with:
           team: fager
@@ -49,12 +49,12 @@ jobs:
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
-      - uses: nais/login@v0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: nais/login@40b72a35a18ddf2ad74b632461139ab838cc2a2f # v0
         id: login
         with:
           team: fager
-      - uses: nais/deploy/actions/deploy@v3
+      - uses: nais/deploy/actions/deploy@6a9dcd6df697ec2d38edc78cadb0b9acd1232f50 # v3
         env:
           CLUSTER: dev-gcp
           RESOURCE: nais/dev-gcp.yaml
@@ -71,12 +71,12 @@ jobs:
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
-      - uses: nais/login@v0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: nais/login@40b72a35a18ddf2ad74b632461139ab838cc2a2f # v0
         id: login
         with:
           team: fager
-      - uses: nais/deploy/actions/deploy@v3
+      - uses: nais/deploy/actions/deploy@6a9dcd6df697ec2d38edc78cadb0b9acd1232f50 # v3
         env:
           CLUSTER: dev-gcp
           RESOURCE: nais/demo.yaml
@@ -93,14 +93,14 @@ jobs:
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
-      - uses: nais/login@v0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: nais/login@40b72a35a18ddf2ad74b632461139ab838cc2a2f # v0
         id: login
         with:
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           team: fager
-      - uses: nais/deploy/actions/deploy@v3
+      - uses: nais/deploy/actions/deploy@6a9dcd6df697ec2d38edc78cadb0b9acd1232f50 # v3
         env:
           CLUSTER: prod-gcp
           RESOURCE: nais/prod-gcp.yaml
