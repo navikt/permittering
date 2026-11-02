@@ -28,7 +28,7 @@ importers:
         version: 4.5.3(html-react-parser@6.1.9(@types/react@18.3.31)(react@18.3.1))(react@18.3.1)
       '@navikt/virksomhetsvelger':
         specifier: ^2.1.1
-        version: 2.1.1(@navikt/ds-css@6.17.0)(@navikt/ds-react@6.17.0(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 2.1.2(@navikt/ds-css@6.17.0)(@navikt/ds-react@6.17.0(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/react':
         specifier: ^18.3.31
         version: 18.3.31
@@ -597,8 +597,8 @@ packages:
       html-react-parser: '>=5.x'
       react: '>=17.x'
 
-  '@navikt/virksomhetsvelger@2.1.1':
-    resolution: {integrity: sha512-UIH7ajD/3xU5Hq1Quh8gFnhxViQRhxbtGgVxJbQRpoi/wZGkVCGeG6RD+2MycDw3XF3tHR6+otmmi5wPM0lnPQ==, tarball: https://npm.pkg.github.com/download/@navikt/virksomhetsvelger/2.1.1/fd80d19beb42dd16df3a8cd77d919ad16e7ffed2}
+  '@navikt/virksomhetsvelger@2.1.2':
+    resolution: {integrity: sha512-CVOY2smG9zVgOTQBqreicdczsmC9s8n/bNQ3pDQbCEnK0sz0JaJODCcBeI+FRrxlyaMVTmRsHNy2YSejKeXpSQ==, tarball: https://npm.pkg.github.com/download/@navikt/virksomhetsvelger/2.1.2/7eed757d6ea97da96046044f7d8eef96ebb3979f}
     peerDependencies:
       '@navikt/ds-css': '>=7'
       '@navikt/ds-react': '>=7'
@@ -1333,8 +1333,8 @@ packages:
     resolution: {integrity: sha512-PpOwAdQ/YlXQ2vj8a3h8IipDuYRi3wceVQQGYWxNINccq40Anw7BlsEXCMbt1Zt+OLA6Fq9suIpIWD0OsnISlw==}
     engines: {node: '>=8'}
 
-  focus-trap-react@11.0.4:
-    resolution: {integrity: sha512-tC7jC/yqeAqhe4irNIzdyDf9XCtGSeECHiBSYJBO/vIN0asizbKZCt8TarB6/XqIceu42ajQ/U4lQJ9pZlWjrg==}
+  focus-trap-react@11.0.6:
+    resolution: {integrity: sha512-8YbWR8kDf2pQ8G9LT11p39VY4T7eWVrj00Fhp1HUSdv5uW9q6+WK8OMAdy9Ui7vGb1zNouFDzwBIqJwt82rIYQ==}
     peerDependencies:
       '@types/react': ^18.0.0 || ^19.0.0
       '@types/react-dom': ^18.0.0 || ^19.0.0
@@ -3111,11 +3111,11 @@ snapshots:
       js-cookie: 3.0.8
       react: 18.3.1
 
-  '@navikt/virksomhetsvelger@2.1.1(@navikt/ds-css@6.17.0)(@navikt/ds-react@6.17.0(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@navikt/virksomhetsvelger@2.1.2(@navikt/ds-css@6.17.0)(@navikt/ds-react@6.17.0(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@navikt/ds-css': 6.17.0
       '@navikt/ds-react': 6.17.0(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      focus-trap-react: 11.0.4(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      focus-trap-react: 11.0.6(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
     transitivePeerDependencies:
@@ -3883,7 +3883,7 @@ snapshots:
       locate-path: 5.0.0
       path-exists: 4.0.0
 
-  focus-trap-react@11.0.4(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  focus-trap-react@11.0.6(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@types/react': 18.3.31
       '@types/react-dom': 18.3.7(@types/react@18.3.31)
