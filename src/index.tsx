@@ -28,6 +28,7 @@ injectDecoratorClientSide({
         other: 'dev',
     }),
     params: {
+        teamName: 'permittering.permittering-og-nedbemanning',
         context: 'arbeidsgiver',
         language: 'nb',
         redirectToApp: true,
