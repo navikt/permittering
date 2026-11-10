@@ -25,10 +25,10 @@ importers:
         version: 1.3.13
       '@navikt/nav-dekoratoren-moduler':
         specifier: ^4.5.3
-        version: 4.5.3(html-react-parser@6.1.9(@types/react@18.3.31)(react@18.3.1))(react@18.3.1)
+        version: 4.6.0(html-react-parser@6.1.9(@types/react@18.3.31)(react@18.3.1))(react@18.3.1)
       '@navikt/virksomhetsvelger':
         specifier: ^2.1.1
-        version: 2.1.2(@navikt/ds-css@6.17.0)(@navikt/ds-react@6.17.0(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 2.2.0(@navikt/ds-css@6.17.0)(@navikt/ds-react@6.17.0(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/react':
         specifier: ^18.3.31
         version: 18.3.31
@@ -590,15 +590,15 @@ packages:
   '@navikt/fnrvalidator@1.3.13':
     resolution: {integrity: sha512-IJs4Xe/AIef/6+PZ/eCCIPTnXJ7Goijvv7bimHC7vHo4NjnMxhcbKhCvukSAS+XDDtPWc+x/X2G44RckAU1g1A==, tarball: https://npm.pkg.github.com/download/@navikt/fnrvalidator/1.3.13/f8059781b66665c3da667d7dc28f1442780e4279}
 
-  '@navikt/nav-dekoratoren-moduler@4.5.3':
-    resolution: {integrity: sha512-mXrR0tq6EuOuG7guYw7BVxTpJmfRDxSlNb+vCEOfcf7FXZmOhIQpKiVbXlbUE9Ke2X2EEKDyirWasxJdNH5r2Q==, tarball: https://npm.pkg.github.com/download/@navikt/nav-dekoratoren-moduler/4.5.3/afe4e953f4de64d0c611ac0f5b4ce25eac3969d5}
-    engines: {node: 24.x}
+  '@navikt/nav-dekoratoren-moduler@4.6.0':
+    resolution: {integrity: sha512-1Yrbbmap/zuC5zGic6/+pOp6hbveoApTyMPQEBHB3a4Ac9mMdKqnLJyDtcYJCVhpMByD4KaRm5NgBaLpy17JmA==, tarball: https://npm.pkg.github.com/download/@navikt/nav-dekoratoren-moduler/4.6.0/6c8cbd3d81091b0eb1e35818598aa81b0fc16295}
+    engines: {node: 24.x || 26.x}
     peerDependencies:
       html-react-parser: '>=5.x'
       react: '>=17.x'
 
-  '@navikt/virksomhetsvelger@2.1.2':
-    resolution: {integrity: sha512-CVOY2smG9zVgOTQBqreicdczsmC9s8n/bNQ3pDQbCEnK0sz0JaJODCcBeI+FRrxlyaMVTmRsHNy2YSejKeXpSQ==, tarball: https://npm.pkg.github.com/download/@navikt/virksomhetsvelger/2.1.2/7eed757d6ea97da96046044f7d8eef96ebb3979f}
+  '@navikt/virksomhetsvelger@2.2.0':
+    resolution: {integrity: sha512-NNvMX1tr/AMs9FUXKkrjJ7HnfaicXt2YnUNwepx0nrzwbC/78sjffMWomEZq9jiBMxraS0RA39cHZcWYw0Hb5g==, tarball: https://npm.pkg.github.com/download/@navikt/virksomhetsvelger/2.2.0/d0b558ea7a64c3ac4b33e0ebaad415de488ce4db}
     peerDependencies:
       '@navikt/ds-css': '>=7'
       '@navikt/ds-react': '>=7'
@@ -3103,7 +3103,7 @@ snapshots:
 
   '@navikt/fnrvalidator@1.3.13': {}
 
-  '@navikt/nav-dekoratoren-moduler@4.5.3(html-react-parser@6.1.9(@types/react@18.3.31)(react@18.3.1))(react@18.3.1)':
+  '@navikt/nav-dekoratoren-moduler@4.6.0(html-react-parser@6.1.9(@types/react@18.3.31)(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@navikt/analytics-types': 0.0.9
       csp-header: 6.4.0
@@ -3111,7 +3111,7 @@ snapshots:
       js-cookie: 3.0.8
       react: 18.3.1
 
-  '@navikt/virksomhetsvelger@2.1.2(@navikt/ds-css@6.17.0)(@navikt/ds-react@6.17.0(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@navikt/virksomhetsvelger@2.2.0(@navikt/ds-css@6.17.0)(@navikt/ds-react@6.17.0(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@navikt/ds-css': 6.17.0
       '@navikt/ds-react': 6.17.0(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
