@@ -35,7 +35,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
       - run: pnpm test
       - run: pnpm run build
-      - uses: nais/docker-build-push@588f76a6f45aeb1e75d5e8417ec6ef6d79b2b39f # v0
+      - uses: nais/docker-build-push@6394144a53cad0332745f24a8302f5efaf81719a # v1.0.0
         id: gar-push
         with:
           team: fager
@@ -55,7 +55,7 @@ jobs:
         id: login
         with:
           team: fager
-      - uses: nais/deploy/actions/deploy@6a9dcd6df697ec2d38edc78cadb0b9acd1232f50 # v3
+      - uses: nais/deploy/actions/deploy@427e29c94d911626a023a76f402f6dcae1f840b7 # v3
         env:
           CLUSTER: dev-gcp
           RESOURCE: nais/dev-gcp.yaml
@@ -77,7 +77,7 @@ jobs:
         id: login
         with:
           team: fager
-      - uses: nais/deploy/actions/deploy@6a9dcd6df697ec2d38edc78cadb0b9acd1232f50 # v3
+      - uses: nais/deploy/actions/deploy@427e29c94d911626a023a76f402f6dcae1f840b7 # v3
         env:
           CLUSTER: dev-gcp
           RESOURCE: nais/demo.yaml
@@ -101,7 +101,7 @@ jobs:
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           team: fager
-      - uses: nais/deploy/actions/deploy@6a9dcd6df697ec2d38edc78cadb0b9acd1232f50 # v3
+      - uses: nais/deploy/actions/deploy@427e29c94d911626a023a76f402f6dcae1f840b7 # v3
         env:
           CLUSTER: prod-gcp
           RESOURCE: nais/prod-gcp.yaml
